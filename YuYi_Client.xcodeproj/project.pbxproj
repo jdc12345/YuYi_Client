@@ -15,6 +15,8 @@
 		3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */; };
 		3EAB2B911E2F065900D6795F /* YuYi_ClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B901E2F065900D6795F /* YuYi_ClientTests.m */; };
 		3EAB2B9C1E2F065900D6795F /* YuYi_ClientUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */; };
+		3EAB2BAA1E2F67D700D6795F /* podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2BA91E2F67D700D6795F /* podfile */; };
+		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		3EAB2B971E2F065900D6795F /* YuYi_ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuYi_ClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuYi_ClientUITests.m; sourceTree = "<group>"; };
 		3EAB2B9D1E2F065900D6795F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EAB2BA91E2F67D700D6795F /* podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = podfile; sourceTree = "<group>"; };
+		79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.release.xcconfig"; sourceTree = "<group>"; };
+		987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YuYi_Client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +85,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		376989C8F18E57266BCAFC54 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */,
+				79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		3EAB2B6A1E2F065800D6795F = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +101,8 @@
 				3EAB2B8F1E2F065900D6795F /* YuYi_ClientTests */,
 				3EAB2B9A1E2F065900D6795F /* YuYi_ClientUITests */,
 				3EAB2B741E2F065800D6795F /* Products */,
+				376989C8F18E57266BCAFC54 /* Pods */,
+				4BCFE1CDF028F8743BA4C987 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +119,7 @@
 		3EAB2B751E2F065800D6795F /* YuYi_Client */ = {
 			isa = PBXGroup;
 			children = (
+				3EAB2BA91E2F67D700D6795F /* podfile */,
 				3EAB2B791E2F065800D6795F /* AppDelegate.h */,
 				3EAB2B7A1E2F065800D6795F /* AppDelegate.m */,
 				3EAB2B7C1E2F065800D6795F /* ViewController.h */,
@@ -140,6 +159,14 @@
 			path = YuYi_ClientUITests;
 			sourceTree = "<group>";
 		};
+		4BCFE1CDF028F8743BA4C987 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +174,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3EAB2BA01E2F065900D6795F /* Build configuration list for PBXNativeTarget "YuYi_Client" */;
 			buildPhases = (
+				F49F190EFD42F6424F04674A /* [CP] Check Pods Manifest.lock */,
 				3EAB2B6F1E2F065800D6795F /* Sources */,
 				3EAB2B701E2F065800D6795F /* Frameworks */,
 				3EAB2B711E2F065800D6795F /* Resources */,
+				63D06C0D008242DB2C829EB5 /* [CP] Embed Pods Frameworks */,
+				CAAA3A5F5C222C8ACAA9C528 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -248,6 +278,7 @@
 			files = (
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
+				3EAB2BAA1E2F67D700D6795F /* podfile in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +298,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		63D06C0D008242DB2C829EB5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CAAA3A5F5C222C8ACAA9C528 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F49F190EFD42F6424F04674A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3EAB2B6F1E2F065800D6795F /* Sources */ = {
@@ -422,6 +501,7 @@
 		};
 		3EAB2BA11E2F065900D6795F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
@@ -433,6 +513,7 @@
 		};
 		3EAB2BA21E2F065900D6795F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
@@ -507,6 +588,7 @@
 				3EAB2BA21E2F065900D6795F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EAB2BA31E2F065900D6795F /* Build configuration list for PBXNativeTarget "YuYi_ClientTests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +597,7 @@
 				3EAB2BA51E2F065900D6795F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EAB2BA61E2F065900D6795F /* Build configuration list for PBXNativeTarget "YuYi_ClientUITests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +606,7 @@
 				3EAB2BA81E2F065900D6795F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
