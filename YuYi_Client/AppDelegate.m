@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "YYTabBarController.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,15 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //创建Window
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    //初始化一个tabBar控制器
+    YYTabBarController *tabbarVC = [[YYTabBarController alloc]init];
+    self.window.rootViewController = tabbarVC;
+    [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }

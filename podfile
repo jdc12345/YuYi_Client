@@ -1,6 +1,7 @@
 platform :ios, '8.0'
 
-target ‘YuYi_Client’ do
-pod 'AFNetworking', '~> 3.0'
+target 'YuYi_Client' do
+pod 'AFNetworking', '~> 2.6.0'
+pod 'Masonry'
 end
 

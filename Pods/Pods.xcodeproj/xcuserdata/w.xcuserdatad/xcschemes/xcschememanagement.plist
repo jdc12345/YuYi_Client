@@ -4,10 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>AFNetworking.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>Pods-YuYi_Client 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-YuYi_Client.xcscheme</key>
 		<dict>
@@ -17,12 +32,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>27B70FA2E9B8488E05D9E8743936DE49</key>
+		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>928353533005A4198EBDA5B700D37B64</key>
+		<key>AFAFB55453D161D2BB5CFB30C68A54D5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDAC0B4A9FF5BCCC0CE9EA4E933C6011</key>
 		<dict>
 			<key>primary</key>
 			<true/>
