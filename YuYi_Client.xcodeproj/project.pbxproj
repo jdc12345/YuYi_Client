@@ -16,6 +16,7 @@
 		3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */; };
 		3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */; };
 		3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FE1E56D01100069568 /* YYConsultViewController.m */; };
+		3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841431E56E6D000069568 /* YYHomeHeadView.m */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -64,6 +65,8 @@
 		3E1840FC1E56C8EF00069568 /* YYDefine.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYDefine.pch; sourceTree = "<group>"; };
 		3E1840FD1E56D01100069568 /* YYConsultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConsultViewController.h; sourceTree = "<group>"; };
 		3E1840FE1E56D01100069568 /* YYConsultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultViewController.m; sourceTree = "<group>"; };
+		3E1841421E56E6D000069568 /* YYHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeHeadView.h; sourceTree = "<group>"; };
+		3E1841431E56E6D000069568 /* YYHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeHeadView.m; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -174,6 +177,8 @@
 			children = (
 				3E1840D21E569D6200069568 /* YYHomePageViewController.h */,
 				3E1840D31E569D6200069568 /* YYHomePageViewController.m */,
+				3E1841421E56E6D000069568 /* YYHomeHeadView.h */,
+				3E1841431E56E6D000069568 /* YYHomeHeadView.m */,
 				3E1841001E56D57500069568 /* ShoppingMall */,
 			);
 			name = HomePage;
@@ -477,6 +482,7 @@
 			files = (
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
+				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,

@@ -3,5 +3,8 @@ platform :ios, '8.0'
 target 'YuYi_Client' do
 pod 'AFNetworking', '~> 2.6.0'
 pod 'Masonry'
+pod 'MJRefresh'
+pod 'SDWebImage'
+pod 'SDCycleScrollView'
 end
 

@@ -96,7 +96,9 @@ static NSUInteger kTag = 1000;
     YYTabBarItem *tabBarItem = self.subviews[index];
     
     [tabBarItem setTitle:title forState:UIControlStateNormal];
-    
+    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
+    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"25f368"] forState:UIControlStateSelected];
+
     [tabBarItem setImage:[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
     [tabBarItem setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateSelected];
 }

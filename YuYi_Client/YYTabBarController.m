@@ -51,19 +51,19 @@
 - (void)setupMainContents {
     // 首页
     YYHomePageViewController *homeVC = [[YYHomePageViewController alloc] init];
-    [self addChildViewControllerAtIndex:0 childViewController:homeVC title:@"" normalImage:@"icon_tabbarsalonr" selectedImage:@"icon_tabbarsalonh"];
+    [self addChildViewControllerAtIndex:0 childViewController:homeVC title:@"首页" normalImage:@"home_normal" selectedImage:@"home_select"];
     
     // 测量
     YYMeasureViewController *measureVC = [[YYMeasureViewController alloc] init];
-    [self addChildViewControllerAtIndex:1 childViewController:measureVC title:@"" normalImage:@"icon_tabbarcommonr" selectedImage:@"icon_tabbarcommonr"];
+    [self addChildViewControllerAtIndex:1 childViewController:measureVC title:@"测量" normalImage:@"measure_normal" selectedImage:@"measure_select"];
     
     // 咨询
     YYConsultViewController *consultVC = [[YYConsultViewController alloc] init];
-    [self addChildViewControllerAtIndex:2 childViewController:consultVC title:@"" normalImage:@"icon_tabbarinviter" selectedImage:@"icon_tabbarinviteh"];
+    [self addChildViewControllerAtIndex:2 childViewController:consultVC title:@"咨询" normalImage:@"consult_normal" selectedImage:@"consult_select"];
     
     // 我的
     YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
-    [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"" normalImage:@"icon_tabbaryidamr" selectedImage:@"icon_tabbaryidamh"];
+    [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
 }
 
 /**
