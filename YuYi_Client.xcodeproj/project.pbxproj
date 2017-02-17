@@ -15,7 +15,6 @@
 		3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */; };
 		3EAB2B911E2F065900D6795F /* YuYi_ClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B901E2F065900D6795F /* YuYi_ClientTests.m */; };
 		3EAB2B9C1E2F065900D6795F /* YuYi_ClientUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */; };
-		3EAB2BAA1E2F67D700D6795F /* podfile in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2BA91E2F67D700D6795F /* podfile */; };
 		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +52,6 @@
 		3EAB2B971E2F065900D6795F /* YuYi_ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuYi_ClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuYi_ClientUITests.m; sourceTree = "<group>"; };
 		3EAB2B9D1E2F065900D6795F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3EAB2BA91E2F67D700D6795F /* podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = podfile; sourceTree = "<group>"; };
 		79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.release.xcconfig"; sourceTree = "<group>"; };
 		987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YuYi_Client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +92,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		3E1220661E56910600BD5F21 /* Root_Tools */ = {
+			isa = PBXGroup;
+			children = (
+				3EAB2B791E2F065800D6795F /* AppDelegate.h */,
+				3EAB2B7A1E2F065800D6795F /* AppDelegate.m */,
+			);
+			name = Root_Tools;
+			sourceTree = "<group>";
+		};
 		3EAB2B6A1E2F065800D6795F = {
 			isa = PBXGroup;
 			children = (
@@ -119,15 +126,13 @@
 		3EAB2B751E2F065800D6795F /* YuYi_Client */ = {
 			isa = PBXGroup;
 			children = (
-				3EAB2BA91E2F67D700D6795F /* podfile */,
-				3EAB2B791E2F065800D6795F /* AppDelegate.h */,
-				3EAB2B7A1E2F065800D6795F /* AppDelegate.m */,
 				3EAB2B7C1E2F065800D6795F /* ViewController.h */,
 				3EAB2B7D1E2F065800D6795F /* ViewController.m */,
 				3EAB2B7F1E2F065800D6795F /* Main.storyboard */,
 				3EAB2B821E2F065800D6795F /* Assets.xcassets */,
 				3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */,
 				3EAB2B871E2F065800D6795F /* Info.plist */,
+				3E1220661E56910600BD5F21 /* Root_Tools */,
 				3EAB2B761E2F065800D6795F /* Supporting Files */,
 			);
 			path = YuYi_Client;
@@ -278,7 +283,6 @@
 			files = (
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
-				3EAB2BAA1E2F67D700D6795F /* podfile in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
