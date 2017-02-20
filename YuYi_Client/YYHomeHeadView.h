@@ -10,4 +10,6 @@
 
 @interface YYHomeHeadView : UIView
 
+- (instancetype)init;
+
 @end

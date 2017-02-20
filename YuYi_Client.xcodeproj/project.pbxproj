@@ -17,6 +17,18 @@
 		3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */; };
 		3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FE1E56D01100069568 /* YYConsultViewController.m */; };
 		3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841431E56E6D000069568 /* YYHomeHeadView.m */; };
+		3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841451E5A7BED00069568 /* carinalau1.jpg */; };
+		3E18414A1E5A7BED00069568 /* carinalau2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841461E5A7BED00069568 /* carinalau2.jpg */; };
+		3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841471E5A7BED00069568 /* carinalau3.jpg */; };
+		3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841481E5A7BED00069568 /* carinalau4.jpg */; };
+		3E18414E1E5A937E00069568 /* LIM_.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E18414D1E5A937E00069568 /* LIM_.png */; };
+		3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841501E5AA9FF00069568 /* YYTrendView.m */; };
+		3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */; };
+		3E1841571E5AD0A900069568 /* cell1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841561E5AD0A900069568 /* cell1.png */; };
+		3E1841591E5AD13200069568 /* cell2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841581E5AD13200069568 /* cell2.png */; };
+		3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */; };
+		3E18415E1E5ADD8F00069568 /* medicine.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E18415D1E5ADD8F00069568 /* medicine.png */; };
+		3E1E47281E5AF2130042934D /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E47271E5AF2130042934D /* search_icon.png */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -67,6 +79,21 @@
 		3E1840FE1E56D01100069568 /* YYConsultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultViewController.m; sourceTree = "<group>"; };
 		3E1841421E56E6D000069568 /* YYHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeHeadView.h; sourceTree = "<group>"; };
 		3E1841431E56E6D000069568 /* YYHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeHeadView.m; sourceTree = "<group>"; };
+		3E1841451E5A7BED00069568 /* carinalau1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau1.jpg; sourceTree = "<group>"; };
+		3E1841461E5A7BED00069568 /* carinalau2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau2.jpg; sourceTree = "<group>"; };
+		3E1841471E5A7BED00069568 /* carinalau3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau3.jpg; sourceTree = "<group>"; };
+		3E1841481E5A7BED00069568 /* carinalau4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau4.jpg; sourceTree = "<group>"; };
+		3E18414D1E5A937E00069568 /* LIM_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LIM_.png; sourceTree = "<group>"; };
+		3E18414F1E5AA9FF00069568 /* YYTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTrendView.h; sourceTree = "<group>"; };
+		3E1841501E5AA9FF00069568 /* YYTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTrendView.m; sourceTree = "<group>"; };
+		3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeNewTableViewCell.h; sourceTree = "<group>"; };
+		3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeNewTableViewCell.m; sourceTree = "<group>"; };
+		3E1841561E5AD0A900069568 /* cell1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell1.png; sourceTree = "<group>"; };
+		3E1841581E5AD13200069568 /* cell2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell2.png; sourceTree = "<group>"; };
+		3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeMedicineTableViewCell.h; sourceTree = "<group>"; };
+		3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeMedicineTableViewCell.m; sourceTree = "<group>"; };
+		3E18415D1E5ADD8F00069568 /* medicine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medicine.png; sourceTree = "<group>"; };
+		3E1E47271E5AF2130042934D /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -179,6 +206,12 @@
 				3E1840D31E569D6200069568 /* YYHomePageViewController.m */,
 				3E1841421E56E6D000069568 /* YYHomeHeadView.h */,
 				3E1841431E56E6D000069568 /* YYHomeHeadView.m */,
+				3E18414F1E5AA9FF00069568 /* YYTrendView.h */,
+				3E1841501E5AA9FF00069568 /* YYTrendView.m */,
+				3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */,
+				3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */,
+				3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */,
+				3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */,
 				3E1841001E56D57500069568 /* ShoppingMall */,
 			);
 			name = HomePage;
@@ -192,6 +225,15 @@
 				3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */,
 				3EAB2B871E2F065800D6795F /* Info.plist */,
 				3E1840FC1E56C8EF00069568 /* YYDefine.pch */,
+				3E1841451E5A7BED00069568 /* carinalau1.jpg */,
+				3E1841461E5A7BED00069568 /* carinalau2.jpg */,
+				3E1841471E5A7BED00069568 /* carinalau3.jpg */,
+				3E1841481E5A7BED00069568 /* carinalau4.jpg */,
+				3E18414D1E5A937E00069568 /* LIM_.png */,
+				3E1841561E5AD0A900069568 /* cell1.png */,
+				3E1841581E5AD13200069568 /* cell2.png */,
+				3E18415D1E5ADD8F00069568 /* medicine.png */,
+				3E1E47271E5AF2130042934D /* search_icon.png */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -405,9 +447,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E1E47281E5AF2130042934D /* search_icon.png in Resources */,
+				3E1841591E5AD13200069568 /* cell2.png in Resources */,
+				3E18415E1E5ADD8F00069568 /* medicine.png in Resources */,
+				3E1841571E5AD0A900069568 /* cell1.png in Resources */,
+				3E18414A1E5A7BED00069568 /* carinalau2.jpg in Resources */,
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
+				3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
+				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
+				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
+				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,8 +534,11 @@
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
+				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
+				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
+				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
 				3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
