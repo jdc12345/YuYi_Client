@@ -24,7 +24,7 @@
 
 - (void)setViewInHead{
     SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
-    cycleScrollView2.
+//    cycleScrollView2.
 //                                           cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenW, 169/375.0*kScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"place2"]];
 //    
 //    cycleScrollView2.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter; // SDCycleScrollViewPageContolAlimentRight;
