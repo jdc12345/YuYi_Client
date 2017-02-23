@@ -33,6 +33,13 @@
 #define WS(weakSelf) __weak typeof(self) weakSelf = self;
 
 
+#pragma mark -
+#pragma mark ------------Font----------------------
+#define kPingFang_M       @"PingFang-SC-Semibold"
+#define kPingFang_S       @"PingFang-SC-Semibold"
+
+
+
 
 
 // Include any system framework and library headers here that should be included in all compilation units.

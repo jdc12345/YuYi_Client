@@ -274,6 +274,12 @@ NSString * const ID = @"cycleCell";
             TAPageControl *pageControl = [[TAPageControl alloc] init];
             pageControl.numberOfPages = self.imagesGroup.count;
             pageControl.dotColor = self.dotColor;
+            
+            // ...........
+            pageControl.dotImage = [UIImage imageNamed:@"pageControl-normal"];
+            pageControl.currentDotImage = [UIImage imageNamed:@"pageControl-select"];
+            pageControl.dotSize = CGSizeMake(15, 5);
+            
             [self addSubview:pageControl];
             _pageControl = pageControl;
         }

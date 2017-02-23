@@ -7,33 +7,81 @@
 //
 
 #import "YYConsultViewController.h"
+#import "UIColor+Extension.h"
+#import "YYHomeNewTableViewCell.h"
+#import <Masonry.h>
+#import "YYHospitalInfoViewController.h"
 
-@interface YYConsultViewController ()
+@interface YYConsultViewController ()<UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *dataSource;
+
 
 @end
 
 @implementation YYConsultViewController
 
+- (UITableView *)tableView{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.indicatorStyle =
+        _tableView.rowHeight = kScreenW *77/320.0 +10;
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.showsVerticalScrollIndicator = NO;
+        //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        [_tableView registerClass:[YYHomeNewTableViewCell class] forCellReuseIdentifier:@"YYHomeNewTableViewCell"];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+        [self.view addSubview:_tableView];
+        [self.view sendSubviewToBack:_tableView];
+        
+    }
+    return _tableView;
+}
+- (NSMutableArray *)dataSource{
+    if (_dataSource == nil) {
+        _dataSource = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _dataSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"咨询";
+    self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [self tableView];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark -
+#pragma mark ------------Tableview Delegate----------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [self.navigationController pushViewController:[[YYHospitalInfoViewController alloc]init] animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+#pragma mark -
+#pragma mark ------------TableView DataSource----------------------
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 110 *kiphone6;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
+    [homeTableViewCell createDetailView:2];
+    [homeTableViewCell addStarView];
+    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
+    
+    return homeTableViewCell;
+    
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

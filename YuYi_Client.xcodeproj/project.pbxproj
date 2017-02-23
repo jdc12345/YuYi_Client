@@ -29,6 +29,15 @@
 		3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */; };
 		3E18415E1E5ADD8F00069568 /* medicine.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E18415D1E5ADD8F00069568 /* medicine.png */; };
 		3E1E47281E5AF2130042934D /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E47271E5AF2130042934D /* search_icon.png */; };
+		3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */; };
+		3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47301E5BDC3F0042934D /* ZYAbstractDotView.m */; };
+		3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47321E5BDC3F0042934D /* ZYAnimatedDotView.m */; };
+		3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47341E5BDC3F0042934D /* ZYDotView.m */; };
+		3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E473D1E5BE1CE0042934D /* InfomationViewController.m */; };
+		3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47421E5BF5350042934D /* YYAppointmentViewController.m */; };
+		3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47451E5C11250042934D /* YYSectionViewController.m */; };
+		3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47481E5C26B90042934D /* YYSectorViewController.m */; };
+		3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E474B1E5C291A0042934D /* SectorCalendar.m */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -36,6 +45,17 @@
 		3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */; };
 		3EAB2B911E2F065900D6795F /* YuYi_ClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B901E2F065900D6795F /* YuYi_ClientTests.m */; };
 		3EAB2B9C1E2F065900D6795F /* YuYi_ClientUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */; };
+		3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */; };
+		3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */; };
+		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
+		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
+		3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */; };
+		3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */; };
+		3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */; };
+		3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */; };
+		3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */; };
+		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
+		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
 		3EF565601E5693C50045918B /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5655F1E5693C50045918B /* HttpClient.m */; };
 		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
@@ -94,6 +114,24 @@
 		3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeMedicineTableViewCell.m; sourceTree = "<group>"; };
 		3E18415D1E5ADD8F00069568 /* medicine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medicine.png; sourceTree = "<group>"; };
 		3E1E47271E5AF2130042934D /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
+		3E1E472C1E5BD6FE0042934D /* ZYPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPageControl.h; sourceTree = "<group>"; };
+		3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPageControl.m; sourceTree = "<group>"; };
+		3E1E472F1E5BDC3F0042934D /* ZYAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYAbstractDotView.h; path = "＃颜色转换/ZYAbstractDotView.h"; sourceTree = "<group>"; };
+		3E1E47301E5BDC3F0042934D /* ZYAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYAbstractDotView.m; path = "＃颜色转换/ZYAbstractDotView.m"; sourceTree = "<group>"; };
+		3E1E47311E5BDC3F0042934D /* ZYAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYAnimatedDotView.h; path = "＃颜色转换/ZYAnimatedDotView.h"; sourceTree = "<group>"; };
+		3E1E47321E5BDC3F0042934D /* ZYAnimatedDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYAnimatedDotView.m; path = "＃颜色转换/ZYAnimatedDotView.m"; sourceTree = "<group>"; };
+		3E1E47331E5BDC3F0042934D /* ZYDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYDotView.h; path = "＃颜色转换/ZYDotView.h"; sourceTree = "<group>"; };
+		3E1E47341E5BDC3F0042934D /* ZYDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYDotView.m; path = "＃颜色转换/ZYDotView.m"; sourceTree = "<group>"; };
+		3E1E473C1E5BE1CE0042934D /* InfomationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewController.h; sourceTree = "<group>"; };
+		3E1E473D1E5BE1CE0042934D /* InfomationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewController.m; sourceTree = "<group>"; };
+		3E1E47411E5BF5350042934D /* YYAppointmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAppointmentViewController.h; sourceTree = "<group>"; };
+		3E1E47421E5BF5350042934D /* YYAppointmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAppointmentViewController.m; sourceTree = "<group>"; };
+		3E1E47441E5C11250042934D /* YYSectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSectionViewController.h; sourceTree = "<group>"; };
+		3E1E47451E5C11250042934D /* YYSectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectionViewController.m; sourceTree = "<group>"; };
+		3E1E47471E5C26B90042934D /* YYSectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSectorViewController.h; sourceTree = "<group>"; };
+		3E1E47481E5C26B90042934D /* YYSectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectorViewController.m; sourceTree = "<group>"; };
+		3E1E474A1E5C291A0042934D /* SectorCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectorCalendar.h; sourceTree = "<group>"; };
+		3E1E474B1E5C291A0042934D /* SectorCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectorCalendar.m; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -108,6 +146,28 @@
 		3EAB2B971E2F065900D6795F /* YuYi_ClientUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YuYi_ClientUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B9B1E2F065900D6795F /* YuYi_ClientUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YuYi_ClientUITests.m; sourceTree = "<group>"; };
 		3EAB2B9D1E2F065900D6795F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHandleMeasureViewController.h; sourceTree = "<group>"; };
+		3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHandleMeasureViewController.m; sourceTree = "<group>"; };
+		3EBA2D691E5E80C8005C3448 /* UIBarButtonItem+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Helper.h"; sourceTree = "<group>"; };
+		3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Helper.m"; sourceTree = "<group>"; };
+		3EBA2D6C1E5E8647005C3448 /* YYCardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCardInputView.h; sourceTree = "<group>"; };
+		3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCardInputView.m; sourceTree = "<group>"; };
+		3EBA2D6F1E5E9ECC005C3448 /* YYHospitalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHospitalInfoViewController.h; sourceTree = "<group>"; };
+		3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHospitalInfoViewController.m; sourceTree = "<group>"; };
+		3ECBB45C1E5C600F00BD5BE5 /* YYSectorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSectorTableViewCell.h; sourceTree = "<group>"; };
+		3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectorTableViewCell.m; sourceTree = "<group>"; };
+		3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMeasureTableViewCell.h; sourceTree = "<group>"; };
+		3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMeasureTableViewCell.m; sourceTree = "<group>"; };
+		3ECBB4671E5D739F00BD5BE5 /* FMActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMActionSheet.h; sourceTree = "<group>"; };
+		3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMActionSheet.m; sourceTree = "<group>"; };
+		3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAutoMeasureViewController.h; sourceTree = "<group>"; };
+		3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAutoMeasureViewController.m; sourceTree = "<group>"; };
+		3ECBB46D1E5D7CD600BD5BE5 /* YYCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCardView.h; sourceTree = "<group>"; };
+		3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCardView.m; sourceTree = "<group>"; };
+		3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConnectViewController.h; sourceTree = "<group>"; };
+		3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConnectViewController.m; sourceTree = "<group>"; };
+		3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemberTableViewCell.h; sourceTree = "<group>"; };
+		3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemberTableViewCell.m; sourceTree = "<group>"; };
 		3EF5655E1E5693C50045918B /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		3EF5655F1E5693C50045918B /* HttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpClient.m; sourceTree = "<group>"; };
 		79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.release.xcconfig"; sourceTree = "<group>"; };
@@ -153,10 +213,22 @@
 		3E1220661E56910600BD5F21 /* Root_Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3ECBB4671E5D739F00BD5BE5 /* FMActionSheet.h */,
+				3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */,
 				3E1840D61E56AC4E00069568 /* UIColor+Extension.h */,
 				3E1840D71E56AC4E00069568 /* UIColor+Extension.m */,
 				3EF5655E1E5693C50045918B /* HttpClient.h */,
 				3EF5655F1E5693C50045918B /* HttpClient.m */,
+				3E1E472C1E5BD6FE0042934D /* ZYPageControl.h */,
+				3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */,
+				3E1E472F1E5BDC3F0042934D /* ZYAbstractDotView.h */,
+				3E1E47301E5BDC3F0042934D /* ZYAbstractDotView.m */,
+				3E1E47311E5BDC3F0042934D /* ZYAnimatedDotView.h */,
+				3E1E47321E5BDC3F0042934D /* ZYAnimatedDotView.m */,
+				3E1E47331E5BDC3F0042934D /* ZYDotView.h */,
+				3E1E47341E5BDC3F0042934D /* ZYDotView.m */,
+				3EBA2D691E5E80C8005C3448 /* UIBarButtonItem+Helper.h */,
+				3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */,
 			);
 			name = Root_Tools;
 			sourceTree = "<group>";
@@ -202,17 +274,12 @@
 		3E1840DC1E56C5AE00069568 /* HomePage */ = {
 			isa = PBXGroup;
 			children = (
-				3E1840D21E569D6200069568 /* YYHomePageViewController.h */,
-				3E1840D31E569D6200069568 /* YYHomePageViewController.m */,
-				3E1841421E56E6D000069568 /* YYHomeHeadView.h */,
-				3E1841431E56E6D000069568 /* YYHomeHeadView.m */,
-				3E18414F1E5AA9FF00069568 /* YYTrendView.h */,
-				3E1841501E5AA9FF00069568 /* YYTrendView.m */,
-				3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */,
-				3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */,
-				3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */,
-				3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */,
+				3E1E47381E5BE10D0042934D /* M */,
+				3E1E47391E5BE1150042934D /* V */,
+				3E1E473A1E5BE11B0042934D /* C */,
+				3E1E473B1E5BE14C0042934D /* InformationPage */,
 				3E1841001E56D57500069568 /* ShoppingMall */,
+				3E1E47401E5BF50D0042934D /* AppointmentPage */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -241,8 +308,9 @@
 		3E1840DE1E56C70B00069568 /* MeasurePage */ = {
 			isa = PBXGroup;
 			children = (
-				3E1840F91E56C8CF00069568 /* YYMeasureViewController.h */,
-				3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */,
+				3ECBB4611E5D56B100BD5BE5 /* C */,
+				3ECBB4601E5D56AD00BD5BE5 /* V */,
+				3ECBB45F1E5D4F1800BD5BE5 /* M */,
 			);
 			name = MeasurePage;
 			sourceTree = "<group>";
@@ -252,6 +320,8 @@
 			children = (
 				3E1840FD1E56D01100069568 /* YYConsultViewController.h */,
 				3E1840FE1E56D01100069568 /* YYConsultViewController.m */,
+				3EBA2D6F1E5E9ECC005C3448 /* YYHospitalInfoViewController.h */,
+				3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */,
 			);
 			name = ConsultPage;
 			sourceTree = "<group>";
@@ -270,6 +340,63 @@
 			children = (
 			);
 			name = ShoppingMall;
+			sourceTree = "<group>";
+		};
+		3E1E47381E5BE10D0042934D /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		3E1E47391E5BE1150042934D /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3E1841421E56E6D000069568 /* YYHomeHeadView.h */,
+				3E1841431E56E6D000069568 /* YYHomeHeadView.m */,
+				3E18414F1E5AA9FF00069568 /* YYTrendView.h */,
+				3E1841501E5AA9FF00069568 /* YYTrendView.m */,
+				3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */,
+				3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */,
+				3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */,
+				3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */,
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		3E1E473A1E5BE11B0042934D /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3E1840D21E569D6200069568 /* YYHomePageViewController.h */,
+				3E1840D31E569D6200069568 /* YYHomePageViewController.m */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		3E1E473B1E5BE14C0042934D /* InformationPage */ = {
+			isa = PBXGroup;
+			children = (
+				3E1E473C1E5BE1CE0042934D /* InfomationViewController.h */,
+				3E1E473D1E5BE1CE0042934D /* InfomationViewController.m */,
+			);
+			name = InformationPage;
+			sourceTree = "<group>";
+		};
+		3E1E47401E5BF50D0042934D /* AppointmentPage */ = {
+			isa = PBXGroup;
+			children = (
+				3E1E47411E5BF5350042934D /* YYAppointmentViewController.h */,
+				3E1E47421E5BF5350042934D /* YYAppointmentViewController.m */,
+				3E1E47441E5C11250042934D /* YYSectionViewController.h */,
+				3E1E47451E5C11250042934D /* YYSectionViewController.m */,
+				3E1E47471E5C26B90042934D /* YYSectorViewController.h */,
+				3E1E47481E5C26B90042934D /* YYSectorViewController.m */,
+				3E1E474A1E5C291A0042934D /* SectorCalendar.h */,
+				3E1E474B1E5C291A0042934D /* SectorCalendar.m */,
+				3ECBB45C1E5C600F00BD5BE5 /* YYSectorTableViewCell.h */,
+				3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */,
+			);
+			name = AppointmentPage;
 			sourceTree = "<group>";
 		};
 		3EAB2B6A1E2F065800D6795F = {
@@ -328,6 +455,43 @@
 				3EAB2B9D1E2F065900D6795F /* Info.plist */,
 			);
 			path = YuYi_ClientUITests;
+			sourceTree = "<group>";
+		};
+		3ECBB45F1E5D4F1800BD5BE5 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		3ECBB4601E5D56AD00BD5BE5 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		3ECBB4611E5D56B100BD5BE5 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3E1840F91E56C8CF00069568 /* YYMeasureViewController.h */,
+				3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */,
+				3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */,
+				3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */,
+				3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */,
+				3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */,
+				3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */,
+				3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */,
+				3ECBB46D1E5D7CD600BD5BE5 /* YYCardView.h */,
+				3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */,
+				3EBA2D6C1E5E8647005C3448 /* YYCardInputView.h */,
+				3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */,
+				3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */,
+				3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */,
+				3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */,
+				3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */,
+			);
+			name = C;
 			sourceTree = "<group>";
 		};
 		4BCFE1CDF028F8743BA4C987 /* Frameworks */ = {
@@ -531,22 +695,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
+				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
+				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
+				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
+				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
+				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
+				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
+				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
+				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
+				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
+				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
+				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
+				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
+				3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */,
 				3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */,
+				3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
+				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
+				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
+				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				3E1840E71E56C78300069568 /* YYTabBarController.m in Sources */,
 				3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */,
+				3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */,
+				3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

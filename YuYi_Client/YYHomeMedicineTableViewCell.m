@@ -15,7 +15,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.contentView.backgroundColor = [UIColor whiteColor];//[UIColor colorWithHexString:@"#f6f6f6"];
+        self.contentView.backgroundColor = [UIColor whiteColor];
         [self createDetailView];
     }
     return self;

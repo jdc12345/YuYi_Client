@@ -14,6 +14,8 @@
 #import <Masonry.h>
 #import "YYHomeNewTableViewCell.h"
 #import "YYHomeMedicineTableViewCell.h"
+#import "InfomationViewController.h"
+#import "YYAppointmentViewController.h"
 
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation>
 
@@ -34,7 +36,6 @@
         _tableView.rowHeight = kScreenW *77/320.0 +10;
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.tableHeaderView = [[YYHomeHeadView alloc]init];
         _tableView.showsVerticalScrollIndicator = NO;
         //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         [_tableView registerClass:[YYHomeNewTableViewCell class] forCellReuseIdentifier:@"YYHomeNewTableViewCell"];
@@ -46,6 +47,12 @@
     }
     return _tableView;
 }
+- (NSMutableArray *)dataSource{
+    if (_dataSource == nil) {
+        _dataSource = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _dataSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,7 +60,18 @@
     self.title = @"首页";
     
     
-    [self tableView];
+    YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
+    homeHeadView.bannerClick = ^(BOOL isShopping){
+        if (isShopping) {
+            NSLog(@"跳转到医药商城");
+        }else{
+            YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
+            [self.navigationController pushViewController:appiontmentVC animated:YES];
+        }
+    };
+    self.tableView.tableHeaderView = homeHeadView;
+    
+  
     
     
     // 左侧地址按钮
@@ -137,6 +155,12 @@
     UIView *whiteView = [[UIView alloc]init];
     whiteView.backgroundColor = [UIColor whiteColor];
     
+    
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Actiondo:)];
+    tapGesture.numberOfTapsRequired = 1;
+    [whiteView addGestureRecognizer:tapGesture];
+    
     UILabel *sectionName = [[UILabel alloc]init];
     sectionName.text = title;
     sectionName.textColor = [UIColor colorWithHexString:@"6a6a6a"];
@@ -144,6 +168,7 @@
     
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clickButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    [clickButton addTarget:self action:@selector(Actiondo:) forControlEvents:UIControlEventTouchUpInside];
     
     [whiteView addSubview:sectionName];
     [whiteView addSubview:clickButton];
@@ -182,6 +207,7 @@
     
     if (indexPath.section == 0) {
         YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
+        [homeTableViewCell createDetailView:2];
         homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
         homeTableViewCell.backgroundColor = [UIColor cyanColor];
         return homeTableViewCell;
@@ -197,6 +223,13 @@
 #pragma mark ------------Cancel-----------------------
 - (void)cancel{
     
+}
+#pragma mark -
+#pragma mark ------------section click----------------------
+
+- (void)Actiondo:(NSInteger)sectionNum{
+    InfomationViewController *infoVC = [[InfomationViewController alloc]init];
+    [self.navigationController pushViewController:infoVC animated:YES];
 }
 
 

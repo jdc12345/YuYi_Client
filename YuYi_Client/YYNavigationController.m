@@ -34,7 +34,7 @@
         UIButton *nagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         nagBtn.frame = CGRectMake(0, 0, 40, 40);
         nagBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 15);
-        [nagBtn setImage:[UIImage imageNamed:@"navback"] forState:UIControlStateNormal];
+        [nagBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         
         [nagBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:nagBtn];

@@ -11,8 +11,12 @@
 #import <Masonry.h>
 #import "UIColor+Extension.h"
 #import "YYTrendView.h"
-@interface YYHomeHeadView()
+#import "ZYPageControl.h"
+
+@interface YYHomeHeadView()<UIScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
+
+@property (nonatomic, strong)ZYPageControl *pageCtrl;
 @end
 
 @implementation YYHomeHeadView
@@ -25,6 +29,7 @@
         
         self.backgroundColor = kColor_DefaultGray;
         [self setViewInHead];
+        self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
     }
     return self;
@@ -49,6 +54,8 @@
         // icon
         UIButton *button_banner = [UIButton buttonWithType:UIButtonTypeCustom];
         [button_banner setBackgroundImage:[UIImage imageNamed:butArray[i]] forState:UIControlStateNormal];
+        button_banner.tag = i +130;
+        [button_banner addTarget:self action:@selector(bannerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         
         // title
         UILabel *label_banner = [[UILabel alloc]init];
@@ -95,6 +102,7 @@
         [button_banner setBackgroundImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
         button_banner.layer.cornerRadius = 37/2.0*kiphone6;
         button_banner.clipsToBounds = YES;
+        
         
         // title
         UILabel *label_banner = [[UILabel alloc]init];
@@ -226,6 +234,7 @@
     scrollTrendView.backgroundColor = [UIColor whiteColor];
     scrollTrendView.pagingEnabled = YES;
     scrollTrendView.showsHorizontalScrollIndicator = NO;
+    scrollTrendView.delegate = self;
     
     
     YYTrendView *trendView = [[YYTrendView alloc]init];
@@ -251,8 +260,14 @@
         make.left.equalTo(scrollTrendView).with.offset(10 *kiphone6 +kScreenW);
         make.size.mas_equalTo(CGSizeMake(kScreenW -20, 270 *kiphone6));
     }];
-    
-    
+    //创建UIPageControl
+    _pageCtrl = [[ZYPageControl alloc] init];  //创建UIPageControl，位置在下方。
+    _pageCtrl.numberOfPages = 2;//总的图片页数
+    _pageCtrl.currentPage = 0; //当前页
+    _pageCtrl.dotImage = [UIImage imageNamed:@"pageControl-normal"];
+    _pageCtrl.currentDotImage = [UIImage imageNamed:@"pageControl-select"];
+    _pageCtrl.dotSize = CGSizeMake(15, 5);
+    [_pageCtrl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];  //用户点击UIPageControl的响应函数
     
     
     
@@ -263,6 +278,7 @@
     [self addSubview:iconBanner];
     [self addSubview:infoView];
     [self addSubview:scrollTrendView];
+    [self addSubview:_pageCtrl];
     
     
     // 页面自动布局
@@ -291,8 +307,43 @@
         make.left.equalTo(ws).with.offset(0);
         make.size.mas_equalTo(CGSizeMake(kScreenW, 300 *kiphone6));
     }];
+    [_pageCtrl mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(scrollTrendView).with.offset(0);
+        make.centerX.equalTo(ws.mas_centerX).with.offset(20 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(40 *kiphone6, 10 *kiphone6));
+    }];
+    
+    [self bringSubviewToFront:_pageCtrl];
     
 
+}
+- (void)pageTurn:(UIPageControl*)sender
+{
+    //令UIScrollView做出相应的滑动显示
+//    CGSize viewSize = helpScrView.frame.size;
+//    CGRect rect = CGRectMake(sender.currentPage * viewSize.width, 0, viewSize.width, viewSize.height);
+//    [helpScrView scrollRectToVisible:rect animated:YES];
+}
+#pragma mark -
+#pragma mark ------------scroll delegate----------------------
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    //更新UIPageControl的当前页
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.frame;
+    [_pageCtrl setCurrentPage:offset.x / bounds.size.width];
+}
+
+#pragma mark -
+#pragma mark ------------banner button----------------------
+- (void)bannerButtonClick:(UIButton *)sender{
+    if (sender.tag == 130) {
+        NSLog(@"医药商场");
+        self.bannerClick(YES);
+    }else{
+        NSLog(@"预约挂号");
+        self.bannerClick(NO);
+    }
 }
 
 /*
