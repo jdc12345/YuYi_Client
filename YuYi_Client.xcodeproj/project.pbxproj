@@ -201,6 +201,68 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1654BF351E5ED20B002F1D00 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		1654BF371E5ED224002F1D00 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		1654BF381E5ED22E002F1D00 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		1654BF391E5ED286002F1D00 /* medicinalShop */ = {
+			isa = PBXGroup;
+			children = (
+				1654BF351E5ED20B002F1D00 /* C */,
+				1654BF381E5ED22E002F1D00 /* V */,
+				1654BF371E5ED224002F1D00 /* M */,
+			);
+			name = medicinalShop;
+			sourceTree = "<group>";
+		};
+		1654BF3A1E5ED313002F1D00 /* allMedicinal */ = {
+			isa = PBXGroup;
+			children = (
+				1654BF3D1E5ED377002F1D00 /* C */,
+				1654BF3C1E5ED369002F1D00 /* V */,
+				1654BF3B1E5ED35A002F1D00 /* M */,
+			);
+			name = allMedicinal;
+			sourceTree = "<group>";
+		};
+		1654BF3B1E5ED35A002F1D00 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		1654BF3C1E5ED369002F1D00 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		1654BF3D1E5ED377002F1D00 /* C */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
 		376989C8F18E57266BCAFC54 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,6 +400,8 @@
 		3E1841001E56D57500069568 /* ShoppingMall */ = {
 			isa = PBXGroup;
 			children = (
+				1654BF391E5ED286002F1D00 /* medicinalShop */,
+				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
 			);
 			name = ShoppingMall;
 			sourceTree = "<group>";
