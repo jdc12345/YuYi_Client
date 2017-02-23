@@ -72,7 +72,8 @@
     FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
                                                    buttonTitles:[NSArray arrayWithObjects:@"自动输入",@"手动输入", nil]
                                               cancelButtonTitle:@"取消"
-                                                       delegate:(id<FMActionSheetDelegate>)self];
+                                                       delegate:(id<FMActionSheetDelegate>)self
+                                                        buttonW:kScreenW];
     sheet.titleFont = [UIFont systemFontOfSize:20];
     sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
     sheet.titleColor = [UIColor colorWithHexString:@"666666"];

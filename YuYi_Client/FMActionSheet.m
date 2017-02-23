@@ -8,7 +8,7 @@
 
 #import "FMActionSheet.h"
 #import "UIColor+Extension.h"
-#define DefaultButtonHeight 49
+#define DefaultButtonHeight 45
 #define SCREEN_SIZE [UIScreen mainScreen].bounds.size
 #define DefaultButtonTextFont [UIFont systemFontOfSize:17]
 #define DefaultButtonTextColor [UIColor blackColor]
@@ -41,7 +41,8 @@
 - (instancetype)initWithTitle:(NSString *)title
                  buttonTitles:(NSArray *)buttonTitles
             cancelButtonTitle:(NSString *)cancelButtonTitle
-                     delegate:(id<FMActionSheetDelegate>)delegate {
+                     delegate:(id<FMActionSheetDelegate>)delegate
+                      buttonW:(CGFloat)buttonW{
     if (self = [super init]) {
         _delegate = delegate;
         _titleColor = [UIColor blackColor];
@@ -105,7 +106,6 @@
                 [btn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchDown];
                 [btn addTarget:self action:@selector(button1BackGroundHighlighted:) forControlEvents:UIControlEventTouchDown];
                 [btn addTarget:self action:@selector(button1BackGroundNormal:) forControlEvents:UIControlEventTouchUpInside];
-                
                 CGFloat btnY = topY + i * (_buttonHeight + 1) + 1;
                 [btn setFrame:CGRectMake(0, btnY, SCREEN_SIZE.width, _buttonHeight)];
                 [bottomView addSubview:btn];
@@ -147,7 +147,7 @@
     return self;
 }
 
-- (void)show {
+- (void)show{
     if (self.isShow) {
         return;
     }
@@ -155,6 +155,45 @@
     _actionWindow.hidden = NO;
     [self prepareUI];
     [self setFrame:(CGRect){0, 0, SCREEN_SIZE}];
+    [self setNeedsLayout];
+    
+    [UIView animateWithDuration:0.3f
+                          delay:0
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         
+                         [_maskView setAlpha:_maskAlpha];
+                         [_maskView setUserInteractionEnabled:YES];
+                         
+                         CGRect frame = _bottomView.frame;
+                         frame.origin.y -= frame.size.height;
+                         [_bottomView setFrame:frame];
+                         
+                     }
+                     completion:nil];
+    
+    self.isShow = YES;
+}
+- (void)showWithFrame:(CGRect)frame{
+    if (self.isShow) {
+        return;
+    }
+    
+    _actionWindow.hidden = NO;
+    [self prepareUI];
+    [self setFrame:(CGRect){0, frame.origin.y +135 *kiphone6 -kScreenH, kScreenW,kScreenH -(frame.origin.y +135 *kiphone6-kScreenH)}];
+    [_maskView setFrame:(CGRect){0, 0, kScreenW,kScreenH -(frame.origin.y +135 *kiphone6-kScreenH)}];
+    
+    for ( int i = 0; i < self.buttons.count;  i++) {
+        UIButton *btn = self.buttons[i];
+        CGRect btnFrame = btn.frame;
+        btnFrame.origin.x = frame.origin.x;
+        btnFrame.size.width = frame.size.width;
+        [btn setFrame:btnFrame];
+        // btn.backgroundColor = [UIColor redColor];
+        
+        NSLog(@"%g,",btn.frame.size.width);
+    }
     [self setNeedsLayout];
     
     [UIView animateWithDuration:0.3f

@@ -8,9 +8,9 @@
 
 #import "YYConsultViewController.h"
 #import "UIColor+Extension.h"
-#import "YYHomeNewTableViewCell.h"
 #import <Masonry.h>
 #import "YYHospitalInfoViewController.h"
+#import "YYConsultTableViewCell.h"
 
 @interface YYConsultViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -33,8 +33,9 @@
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.bounces = NO;
         //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        [_tableView registerClass:[YYHomeNewTableViewCell class] forCellReuseIdentifier:@"YYHomeNewTableViewCell"];
+        [_tableView registerClass:[YYConsultTableViewCell class] forCellReuseIdentifier:@"YYConsultTableViewCell"];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview:_tableView];
         [self.view sendSubviewToBack:_tableView];
@@ -54,6 +55,9 @@
     self.title = @"咨询";
     self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     [self tableView];
+    UIView *headV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10 *kiphone6)];
+    headV.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    self.tableView.tableHeaderView = headV;
     // Do any additional setup after loading the view.
 }
 
@@ -71,10 +75,10 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110 *kiphone6;
+    return 80 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
+    YYConsultTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYConsultTableViewCell" forIndexPath:indexPath];
     [homeTableViewCell createDetailView:2];
     [homeTableViewCell addStarView];
     homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];

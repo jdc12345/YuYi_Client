@@ -63,6 +63,8 @@
 		3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */; };
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
 		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
+		3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */; };
+		3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */; };
 		3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */; };
 		3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */; };
 		3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */; };
@@ -196,6 +198,10 @@
 		3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCardInputView.m; sourceTree = "<group>"; };
 		3EBA2D6F1E5E9ECC005C3448 /* YYHospitalInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHospitalInfoViewController.h; sourceTree = "<group>"; };
 		3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHospitalInfoViewController.m; sourceTree = "<group>"; };
+		3EBA2D721E5EB7C3005C3448 /* YYConsultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConsultTableViewCell.h; sourceTree = "<group>"; };
+		3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultTableViewCell.m; sourceTree = "<group>"; };
+		3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalTableViewCell.h; sourceTree = "<group>"; };
+		3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
 		3ECBB45C1E5C600F00BD5BE5 /* YYSectorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSectorTableViewCell.h; sourceTree = "<group>"; };
 		3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectorTableViewCell.m; sourceTree = "<group>"; };
 		3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMeasureTableViewCell.h; sourceTree = "<group>"; };
@@ -459,6 +465,8 @@
 			children = (
 				3E1840FD1E56D01100069568 /* YYConsultViewController.h */,
 				3E1840FE1E56D01100069568 /* YYConsultViewController.m */,
+				3EBA2D721E5EB7C3005C3448 /* YYConsultTableViewCell.h */,
+				3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */,
 				3EBA2D6F1E5E9ECC005C3448 /* YYHospitalInfoViewController.h */,
 				3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */,
 			);
@@ -470,6 +478,8 @@
 			children = (
 				3E1840F61E56C8BF00069568 /* YYPersonalViewController.h */,
 				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
+				3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */,
+				3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */,
 			);
 			name = PersonalPage;
 			sourceTree = "<group>";
@@ -855,13 +865,18 @@
 				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
+				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
+<<<<<<< Updated upstream
 				1654BF591E5EE16B002F1D00 /* YYAllMedicinalViewController.m in Sources */,
+=======
+				3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */,
+>>>>>>> Stashed changes
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,

@@ -58,7 +58,14 @@
             cancelButtonTitle:(NSString *)cancelButtonTitle
                      delegate:(id<FMActionSheetDelegate>)delegate;
 
+- (instancetype)initWithTitle:(NSString *)title
+                 buttonTitles:(NSArray *)buttonTitles
+            cancelButtonTitle:(NSString *)cancelButtonTitle
+                     delegate:(id<FMActionSheetDelegate>)delegate
+                      buttonW:(CGFloat)buttonW;
+
 - (void)show;
+- (void)showWithFrame:(CGRect)frame;
 
 @end
 
