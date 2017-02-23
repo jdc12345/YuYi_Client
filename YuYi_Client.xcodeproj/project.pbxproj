@@ -15,7 +15,6 @@
 		1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF4F1E5ED8D3002F1D00 /* YYCollectionViewCell.m */; };
 		1654BF531E5EDFE8002F1D00 /* YYMedicinalDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF521E5EDFE8002F1D00 /* YYMedicinalDetailVC.m */; };
 		1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF551E5EDFFB002F1D00 /* YYConfirmVC.m */; };
-		1654BF591E5EE16B002F1D00 /* YYAllMedicinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF581E5EE16B002F1D00 /* YYAllMedicinalViewController.m */; };
 		1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF5B1E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m */; };
 		1654BF631E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF5D1E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m */; };
 		1654BF641E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF5F1E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m */; };
@@ -52,6 +51,7 @@
 		3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47451E5C11250042934D /* YYSectionViewController.m */; };
 		3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47481E5C26B90042934D /* YYSectorViewController.m */; };
 		3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E474B1E5C291A0042934D /* SectorCalendar.m */; };
+		3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -176,6 +176,7 @@
 		3E1E47481E5C26B90042934D /* YYSectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectorViewController.m; sourceTree = "<group>"; };
 		3E1E474A1E5C291A0042934D /* SectorCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectorCalendar.h; sourceTree = "<group>"; };
 		3E1E474B1E5C291A0042934D /* SectorCalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectorCalendar.m; sourceTree = "<group>"; };
+		3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YYAllMedicinalViewController.m; path = YuYi_Client/YYAllMedicinalViewController.m; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -554,6 +555,7 @@
 		3EAB2B6A1E2F065800D6795F = {
 			isa = PBXGroup;
 			children = (
+				3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */,
 				3EAB2B751E2F065800D6795F /* YuYi_Client */,
 				3EAB2B8F1E2F065900D6795F /* YuYi_ClientTests */,
 				3EAB2B9A1E2F065900D6795F /* YuYi_ClientUITests */,
@@ -847,6 +849,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */,
 				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
 				1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
@@ -872,11 +875,7 @@
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
-<<<<<<< Updated upstream
-				1654BF591E5EE16B002F1D00 /* YYAllMedicinalViewController.m in Sources */,
-=======
 				3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */,
->>>>>>> Stashed changes
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,

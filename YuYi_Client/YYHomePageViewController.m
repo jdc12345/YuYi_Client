@@ -65,11 +65,9 @@
     homeHeadView.bannerClick = ^(BOOL isShopping){
         if (isShopping) {
             NSLog(@"跳转到医药商城");
-<<<<<<< Updated upstream
+
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
-=======
-            
->>>>>>> Stashed changes
+
         }else{
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];
