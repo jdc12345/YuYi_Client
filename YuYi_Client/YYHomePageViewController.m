@@ -16,6 +16,7 @@
 #import "YYHomeMedicineTableViewCell.h"
 #import "InfomationViewController.h"
 #import "YYAppointmentViewController.h"
+#import "ViewController.h"
 
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation>
 
@@ -64,6 +65,7 @@
     homeHeadView.bannerClick = ^(BOOL isShopping){
         if (isShopping) {
             NSLog(@"跳转到医药商城");
+            [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
         }else{
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
+		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
+		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
+		1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF491E5ED85E002F1D00 /* headerTitleBtn.m */; };
+		1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF4C1E5ED892002F1D00 /* YYflowLay.m */; };
+		1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF4F1E5ED8D3002F1D00 /* YYCollectionViewCell.m */; };
 		3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840CD1E569CAB00069568 /* YYNavigationController.m */; };
 		3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840D31E569D6200069568 /* YYHomePageViewController.m */; };
 		3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840D71E56AC4E00069568 /* UIColor+Extension.m */; };
@@ -78,6 +84,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
+		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
+		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1654BF431E5ED790002F1D00 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1654BF451E5ED7E9002F1D00 /* searchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = searchBar.h; sourceTree = "<group>"; };
+		1654BF461E5ED7E9002F1D00 /* searchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = searchBar.m; sourceTree = "<group>"; };
+		1654BF481E5ED85E002F1D00 /* headerTitleBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = headerTitleBtn.h; sourceTree = "<group>"; };
+		1654BF491E5ED85E002F1D00 /* headerTitleBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = headerTitleBtn.m; sourceTree = "<group>"; };
+		1654BF4B1E5ED892002F1D00 /* YYflowLay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYflowLay.h; sourceTree = "<group>"; };
+		1654BF4C1E5ED892002F1D00 /* YYflowLay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYflowLay.m; sourceTree = "<group>"; };
+		1654BF4E1E5ED8D3002F1D00 /* YYCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCollectionViewCell.h; sourceTree = "<group>"; };
+		1654BF4F1E5ED8D3002F1D00 /* YYCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCollectionViewCell.m; sourceTree = "<group>"; };
 		3E1840CC1E569CAB00069568 /* YYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYNavigationController.h; sourceTree = "<group>"; };
 		3E1840CD1E569CAB00069568 /* YYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYNavigationController.m; sourceTree = "<group>"; };
 		3E1840D21E569D6200069568 /* YYHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomePageViewController.h; sourceTree = "<group>"; };
@@ -204,6 +222,8 @@
 		1654BF351E5ED20B002F1D00 /* C */ = {
 			isa = PBXGroup;
 			children = (
+				1654BF421E5ED790002F1D00 /* ViewController.h */,
+				1654BF431E5ED790002F1D00 /* ViewController.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -218,6 +238,14 @@
 		1654BF381E5ED22E002F1D00 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				1654BF481E5ED85E002F1D00 /* headerTitleBtn.h */,
+				1654BF491E5ED85E002F1D00 /* headerTitleBtn.m */,
+				1654BF451E5ED7E9002F1D00 /* searchBar.h */,
+				1654BF461E5ED7E9002F1D00 /* searchBar.m */,
+				1654BF4E1E5ED8D3002F1D00 /* YYCollectionViewCell.h */,
+				1654BF4F1E5ED8D3002F1D00 /* YYCollectionViewCell.m */,
+				1654BF4B1E5ED892002F1D00 /* YYflowLay.h */,
+				1654BF4C1E5ED892002F1D00 /* YYflowLay.m */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -261,6 +289,15 @@
 			children = (
 			);
 			name = C;
+			sourceTree = "<group>";
+		};
+		1654BF3E1E5ED572002F1D00 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */,
+				1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */,
+			);
+			name = tools;
 			sourceTree = "<group>";
 		};
 		376989C8F18E57266BCAFC54 /* Pods */ = {
@@ -400,6 +437,7 @@
 		3E1841001E56D57500069568 /* ShoppingMall */ = {
 			isa = PBXGroup;
 			children = (
+				1654BF3E1E5ED572002F1D00 /* tools */,
 				1654BF391E5ED286002F1D00 /* medicinalShop */,
 				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
 			);
@@ -767,6 +805,7 @@
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
+				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
@@ -775,6 +814,7 @@
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
+				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
@@ -787,10 +827,14 @@
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
 				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
+				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
 				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
 				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
+				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
+				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
+				1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */,
 				3E1840E71E56C78300069568 /* YYTabBarController.m in Sources */,
 				3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */,
 				3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */,
