@@ -13,8 +13,8 @@
 #import "YYflowLay.h"
 #import "YYCollectionViewCell.h"
 #import "headerTitleBtn.h"
-//#import "YYAllMedicinalViewController.h"
-//#import "YYMedicinalDetailVC.h"
+#import "YYAllMedicinalViewController.h"
+#import "YYMedicinalDetailVC.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -198,9 +198,9 @@ static NSString* cellid = @"business_cell";
 }
 //药品点击事件
 -(void)medicinalClick:(UIButton*)btn{
-//    if (btn.tag == 105) {
-//        [self.navigationController pushViewController:[[YYAllMedicinalViewController alloc]init] animated:true];
-//    }
+    if (btn.tag == 105) {
+        [self.navigationController pushViewController:[[YYAllMedicinalViewController alloc]init] animated:true];
+    }
 }
 #pragma collectionViewDatasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -264,8 +264,8 @@ static NSString* cellid = @"business_cell";
 {
     //传药品的详情
 //   YYCollectionViewCell *cell = (YYCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
-//    YYMedicinalDetailVC *mdVC = [[YYMedicinalDetailVC alloc]init];
-//    [self.navigationController pushViewController:mdVC animated:true];
+    YYMedicinalDetailVC *mdVC = [[YYMedicinalDetailVC alloc]init];
+    [self.navigationController pushViewController:mdVC animated:true];
     
 
 }
