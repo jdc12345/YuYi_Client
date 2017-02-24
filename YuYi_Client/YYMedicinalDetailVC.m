@@ -16,7 +16,10 @@ static NSString *cellId = @"cell_id";
 @property(nonatomic,strong)NSArray *preTexts;
 @property(nonatomic,strong)NSArray *detailTexts;
 @property(nonatomic,strong)NSMutableArray *btns;
+//加减数量
 @property(nonatomic,assign)NSInteger number;
+//价格
+@property(nonatomic,assign)NSInteger priceNumber;
 @property(nonatomic,weak)UILabel *displayLabel;
 //购物车商品详情
 @property(nonatomic,strong)NSMutableArray *shopingCarDetails;
@@ -104,9 +107,13 @@ static NSString *cellId = @"cell_id";
     }];
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
-    priceLabel.text = @"¥38";
-    //记录药品名称
-    NSString *medicinalPrice = namelabel.text;
+    //价格数字
+    NSInteger priceNumber = 38;
+    self.priceNumber = priceNumber;
+    priceLabel.text = [NSString stringWithFormat:@"¥%ld",priceNumber];
+    
+    //记录药品价格
+    NSNumber *medicinalPrice = [NSNumber numberWithInteger:self.priceNumber];
     [self.shopingCarDetails addObject:medicinalPrice];
     priceLabel.font = [UIFont systemFontOfSize:15];
     priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
@@ -203,7 +210,8 @@ static NSString *cellId = @"cell_id";
     }];
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
-    priceLabel.text = @"¥38";
+    //价格数字
+    priceLabel.text = [NSString stringWithFormat:@"¥%ld",self.priceNumber];
     priceLabel.font = [UIFont systemFontOfSize:14];
     priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
     [optionView addSubview:priceLabel];
@@ -335,9 +343,6 @@ static NSString *cellId = @"cell_id";
     self.number = number;
     UILabel *displayNumberLabel = [[UILabel alloc]init];
     displayNumberLabel.text = [NSString stringWithFormat:@"%ld",self.number] ;
-    //记录购买药品数量
-    NSNumber *buyNumber = [NSNumber numberWithInteger:self.number];
-    [self.shopingCarDetails addObject:buyNumber];
     displayNumberLabel.font = [UIFont systemFontOfSize:17];
      self.displayLabel = displayNumberLabel;
     displayNumberLabel.textAlignment = NSTextAlignmentCenter;
@@ -384,6 +389,7 @@ static NSString *cellId = @"cell_id";
 -(void)buyNowWithOptions:(UIButton*)sender{
     YYConfirmVC *conVC = [[YYConfirmVC alloc]init];
     conVC.shopingCarDetails = self.shopingCarDetails;
+    conVC.number = self.number;
     [self.navigationController pushViewController:conVC animated:true];
 }
 //药品数量加减

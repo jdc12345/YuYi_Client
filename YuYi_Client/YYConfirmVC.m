@@ -15,8 +15,7 @@
 //收货信息三个label
 @property(nonatomic,strong)NSArray *preArr;
 @property(nonatomic,strong)NSArray *infoArr;
-//
-@property(nonatomic,weak)UIImageView *medicinalImage;
+
 @end
 
 @implementation YYConfirmVC
@@ -123,9 +122,39 @@
         make.left.offset(20);
         make.width.height.offset(75);
     }];
-//     self.medicinalImage = medicinalImage;
-    medicinalImage = self.medicinalImage;
-
+    //priceLabel
+    UILabel *priceLabel = [[UILabel alloc]init];
+    NSNumber *pn = self.shopingCarDetails[2];
+    NSString *ps = [NSString stringWithFormat:@"%@",pn];
+    priceLabel.text = ps;
+    priceLabel.font = [UIFont systemFontOfSize:14];
+    priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
+    [lowView addSubview:priceLabel];
+    [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(medicinalImage.mas_right).offset(10);
+        make.bottom.equalTo(medicinalImage);
+    }];
+    //药品名称
+    UILabel *namelabel = [[UILabel alloc]init];
+    namelabel.text = self.shopingCarDetails[1];
+    namelabel.font = [UIFont systemFontOfSize:14];
+    namelabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:namelabel];
+    [namelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(priceLabel);
+        make.bottom.equalTo(priceLabel.mas_top).offset(-10);
+    }];
+    //数量label
+    UILabel *numberLabel = [[UILabel alloc]init];
+    NSInteger i = self.number;
+    numberLabel.text = [NSString stringWithFormat:@"X %ld",i];
+    numberLabel.font = [UIFont systemFontOfSize:14];
+    numberLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:numberLabel];
+    [numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-20);
+        make.bottom.equalTo(priceLabel.mas_bottom);
+    }];
     //line2
     UIView *line2 = [[UIView alloc]init];
     [lowView addSubview:line2];
@@ -136,6 +165,35 @@
         make.top.equalTo(line.mas_bottom).offset(115);
         make.height.offset(1);
     }];
+    UILabel *allLabel = [[UILabel alloc]init];
+    allLabel.text = @"总计";
+    allLabel.font = [UIFont systemFontOfSize:15];
+    allLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:allLabel];
+    [allLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(20);
+        make.top.equalTo(line2.mas_bottom).offset(20);
+    }];
+    
+    UILabel *allNumberLabel = [[UILabel alloc]init];
+    allNumberLabel.text = [NSString stringWithFormat:@"共%ld件",i];
+    allNumberLabel.font = [UIFont systemFontOfSize:12];
+    allNumberLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:allNumberLabel];
+    [allNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(allLabel);
+        make.centerX.equalTo(self.view);
+    }];
+    UILabel *allpriceLabel = [[UILabel alloc]init];
+    allpriceLabel.text = [NSString stringWithFormat:@"¥%ld",i*[pn integerValue]];
+    allpriceLabel.font = [UIFont systemFontOfSize:12];
+    allpriceLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:allpriceLabel];
+    [allpriceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(allLabel);
+        make.right.offset(-20);
+    }];
+
     //line3
     UIView *line3 = [[UIView alloc]init];
     [lowView addSubview:line3];
@@ -146,6 +204,55 @@
         make.top.equalTo(line2.mas_bottom).offset(55);
         make.height.offset(1);
     }];
+    //即时送药
+    
+    UIButton *nowSendBtn = [[UIButton alloc]init];
+    [nowSendBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+    [nowSendBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
+    [lowView addSubview:nowSendBtn];
+    [nowSendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line3.mas_bottom).offset(35);
+        make.left.offset(20);
+    }];
+    UILabel *nowSendLabel = [[UILabel alloc]init];
+    nowSendLabel.text = @"即时送药（1小时极速送药）";
+    nowSendLabel.font = [UIFont systemFontOfSize:15];
+    nowSendLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:nowSendLabel];
+    [nowSendLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(nowSendBtn);
+        make.left.equalTo(nowSendBtn.mas_right).offset(10);
+    }];
+    //预约送药
+    UIButton *preSendBtn = [[UIButton alloc]init];
+    [preSendBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
+    [preSendBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
+    [lowView addSubview:preSendBtn];
+    [preSendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(nowSendBtn.mas_bottom).offset(35);
+        make.left.offset(20);
+    }];
+    UILabel *preSendLabel = [[UILabel alloc]init];
+    preSendLabel.text = @"预约送药";
+    preSendLabel.font = [UIFont systemFontOfSize:15];
+    preSendLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [lowView addSubview:preSendLabel];
+    [preSendLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(preSendBtn);
+        make.left.equalTo(preSendBtn.mas_right).offset(10);
+    }];
+    //确认订单order
+    UIButton *orderBtn = [[UIButton alloc]init];
+    orderBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
+    [orderBtn setTitle:@"确认付款" forState:UIControlStateNormal];
+    orderBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [lowView addSubview:orderBtn];
+    [orderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(60);
+        make.left.bottom.right.offset(0);
+    }];
+
+
 
 }
 //地址编辑按钮点击事件
