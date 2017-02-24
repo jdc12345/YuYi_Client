@@ -241,6 +241,45 @@
         make.top.equalTo(preSendBtn);
         make.left.equalTo(preSendBtn.mas_right).offset(10);
     }];
+    //时间label
+    UILabel *dayLabel = [[UILabel alloc]init];
+    dayLabel.text = @"今天";
+    dayLabel.font = [UIFont systemFontOfSize:14];
+    dayLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [dayLabel.layer setBorderWidth:0.8];
+    dayLabel.layer.borderColor=[UIColor colorWithHexString:@"e4e4e4"].CGColor;
+    [lowView addSubview:dayLabel];
+    [dayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(preSendBtn);
+        make.left.equalTo(preSendLabel.mas_right).offset(10);
+        make.width.offset(40);
+        make.height.offset(26);
+    }];
+    //时刻label
+    UILabel *timeLabel = [[UILabel alloc]init];
+    timeLabel.text = @"8:00";
+    timeLabel.font = [UIFont systemFontOfSize:14];
+    timeLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    [timeLabel.layer setBorderWidth:0.8];
+    timeLabel.layer.borderColor=[UIColor colorWithHexString:@"e4e4e4"].CGColor;
+    [lowView addSubview:timeLabel];
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(preSendBtn);
+        make.left.equalTo(dayLabel.mas_right).offset(3);
+        make.width.offset(60);
+        make.height.offset(26);
+    }];
+    //选择时间selectTimeBtn
+    UIButton *selectTimeBtn = [[UIButton alloc]init];
+    [selectTimeBtn setImage:[UIImage imageNamed:@"moreTime"] forState:UIControlStateNormal];
+    [lowView addSubview:selectTimeBtn];
+    [selectTimeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(timeLabel);
+        make.left.equalTo(timeLabel.mas_right).offset(10);
+    }];
+    [selectTimeBtn addTarget:self action:@selector(selectTime:) forControlEvents:UIControlEventTouchUpInside];
+
+
     //确认订单order
     UIButton *orderBtn = [[UIButton alloc]init];
     orderBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
@@ -251,22 +290,18 @@
         make.height.offset(60);
         make.left.bottom.right.offset(0);
     }];
-
-
-
+    
 }
 //地址编辑按钮点击事件
 -(void)addressEditBtn:(UIButton*)sender{
     NSLog(@"此处跳转地址编辑页面-----");
 }
-//传递药品详情
+//选择时间selectTimeBtn点击事件
+-(void)selectTime:(UIButton*)sender{
+    
+}
 
-//-(void)setShopingCarDetails:(NSMutableArray *)shopingCarDetails{
-//    _shopingCarDetails = shopingCarDetails;
-//    UIImage *image = shopingCarDetails[0];
-//    [self.medicinalImage setImage:image];
-//    
-//}
+
 //移除导航栏下边线
 -(void)viewWillDisappear:(BOOL)animated{
     [self.line removeFromSuperview];
