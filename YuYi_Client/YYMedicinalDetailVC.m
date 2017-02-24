@@ -23,6 +23,10 @@ static NSString *cellId = @"cell_id";
 @property(nonatomic,weak)UILabel *displayLabel;
 //购物车商品详情
 @property(nonatomic,strong)NSMutableArray *shopingCarDetails;
+//选项View
+@property(nonatomic,strong)UIView *optionView;
+//立刻购买Btn
+@property(nonatomic,strong)UIButton *buyBtn;
 @end
 
 @implementation YYMedicinalDetailVC
@@ -36,7 +40,6 @@ static NSString *cellId = @"cell_id";
     self.navigationController.navigationBar.layer.masksToBounds = YES;// 去掉横线（没有这一行代码导航栏的最下面还会有一个横线）
     // 4、设置导航栏半透明
     self.navigationController.navigationBar.translucent = true;
-
     //为了去除子页面的返回按钮字样
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
@@ -44,7 +47,7 @@ static NSString *cellId = @"cell_id";
     UIButton *rightButton = [[UIButton alloc]init];
     rightButton.frame = CGRectMake(0, 0, 44, 44);
     rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
-    [rightButton setImage:[UIImage imageNamed:@"shoppingcar"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"shoppingcart"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     [self loadData];
@@ -157,7 +160,6 @@ static NSString *cellId = @"cell_id";
     buyBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
     
     [self.view addSubview:buyBtn];
-    
     [buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.offset(0);
         make.height.offset(60);
@@ -177,10 +179,17 @@ static NSString *cellId = @"cell_id";
     [buyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.offset(0);
     }];
+    buyView.userInteractionEnabled = YES;
+    //添加tap手势：
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
+    //将手势添加至需要相应的view中
+    [buyView addGestureRecognizer:tapGesture];
+
     //商品规格选项
     UIView *optionView = [[UIView alloc]init];
     optionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:optionView];
+    self.optionView = optionView;
     [optionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.offset(0);
         make.top.offset(self.view.frame.size.height-320);
@@ -377,6 +386,7 @@ static NSString *cellId = @"cell_id";
     buyNowButton.titleLabel.font = [UIFont systemFontOfSize:18];
     buyNowButton.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
     [self.view addSubview:buyNowButton];
+    self.buyBtn = buyNowButton;
     [buyNowButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);
         make.height.offset(60);
@@ -421,6 +431,14 @@ static NSString *cellId = @"cell_id";
         }
     }
 }
+//执行手势触发的方法：
+- (void)event:(UITapGestureRecognizer *)gesture
+{
+    //移除view
+    [gesture.view removeFromSuperview];
+    [self.optionView removeFromSuperview];
+    [self.buyBtn removeFromSuperview];
+    }
 #pragma tableviewDelegate,datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 11;

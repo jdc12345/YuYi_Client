@@ -9,7 +9,8 @@
 #import "YYConfirmVC.h"
 #import "UIColor+colorValues.h"
 #import "Masonry.h"
-
+#import "YYPayOptionView.h"
+#import "YYPaySuccessView.h"
 @interface YYConfirmVC ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property(nonatomic,weak)UIView *line;
 //收货信息三个label
@@ -25,6 +26,10 @@
 @property(nonatomic,weak)UILabel *timeLabel;
 //pickView
 @property(nonatomic,weak)UIPickerView *pickView;
+//支付方式选项
+@property(nonatomic,weak)YYPayOptionView *optionView;
+//支付成功/失败View
+@property(nonatomic,weak)YYPaySuccessView *payResultView;
 
 @end
 
@@ -322,6 +327,7 @@
         make.height.offset(60);
         make.left.bottom.right.offset(0);
     }];
+    [orderBtn addTarget:self action:@selector(conformOrder:) forControlEvents:UIControlEventTouchUpInside];
     
 }
 #pragma - mark pickView
@@ -406,6 +412,69 @@
         self.pickView.hidden = false;
     }
     
+}
+//立即购买
+-(void)conformOrder:(UIButton*)sender{
+    //大蒙布View
+    UIView *payView = [[UIView alloc]init];
+    payView.backgroundColor = [UIColor colorWithHexString:@"#333333"];
+    payView.alpha = 0.2;
+    [self.view addSubview:payView];
+    [payView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.offset(0);
+    }];
+    payView.userInteractionEnabled = YES;
+    //添加tap手势：
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
+    //将手势添加至需要相应的view中
+    [payView addGestureRecognizer:tapGesture];
+    
+    //默认为单击触发事件：
+    //设置手指个数：
+//    [tapGesture setNumberOfTapsRequired:2];
+    //支付方式选项View
+    YYPayOptionView *optionView = [[YYPayOptionView alloc]init];
+    [self.view addSubview:optionView];
+    self.optionView = optionView;
+    [optionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.right.offset(0);
+        make.height.offset(290);
+    }];
+    //添加optionView上的确认按钮的点击事件
+    UIButton *optionConformBtn = optionView.payBtns[3];
+    [optionConformBtn addTarget:self action:@selector(optionConformBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+-(void)optionConformBtnClick:(UIButton*)sender{
+    NSLog(@"-----在此通过optionView上按钮的选择颜色来判断要采用哪种支付方式------");
+    [self.optionView removeFromSuperview];
+    //支付成功View
+    YYPaySuccessView *payResultView = [[YYPaySuccessView alloc]init];
+    self.payResultView = payResultView;
+    [self.view addSubview:payResultView];
+    [payResultView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.offset(335);
+        make.height.offset(250);
+        make.center.equalTo(self.view);
+    }];
+    [payResultView.imageView setImage:[UIImage imageNamed:@"completepayment"]];
+    payResultView.label.text = @"支付成功";
+    [payResultView.conformPayBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [payResultView.conformPayBtn addTarget:self action:@selector(payBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+
+}
+-(void)payBtnClick:(UIButton*)sender{
+    NSLog(@"-------支付 成功/失败 需要跳转的页面");
+    [self.payResultView.imageView setImage:[UIImage imageNamed:@"paymentfailure"]];
+    self.payResultView.label.text = @"支付失败";
+    [self.payResultView.conformPayBtn setTitle:@"继续支付" forState:UIControlStateNormal];
+}
+//执行手势触发的方法：
+- (void)event:(UITapGestureRecognizer *)gesture
+{
+     //移除view
+    [gesture.view removeFromSuperview];
+    [self.optionView removeFromSuperview];
+    [self.payResultView removeFromSuperview];
 }
 //移除导航栏下边线
 -(void)viewWillDisappear:(BOOL)animated{
