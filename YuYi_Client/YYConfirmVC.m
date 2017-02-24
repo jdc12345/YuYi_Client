@@ -10,11 +10,21 @@
 #import "UIColor+colorValues.h"
 #import "Masonry.h"
 
-@interface YYConfirmVC ()
+@interface YYConfirmVC ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property(nonatomic,weak)UIView *line;
 //收货信息三个label
 @property(nonatomic,strong)NSArray *preArr;
 @property(nonatomic,strong)NSArray *infoArr;
+//即时，预约送btn
+@property(nonatomic,weak)UIButton *nowSendBtn;
+@property(nonatomic,weak)UIButton *preSendBtn;
+//日期、时间
+@property(nonatomic,strong)NSArray *proDateList;
+@property(nonatomic,strong)NSArray *proTimeList;
+@property(nonatomic,weak)UILabel *dayLabel;
+@property(nonatomic,weak)UILabel *timeLabel;
+//pickView
+@property(nonatomic,weak)UIPickerView *pickView;
 
 @end
 
@@ -39,6 +49,11 @@
 -(void)loadData{
     self.preArr = @[@"收货人:",@"详细地址:",@"联系电话:"];
     self.infoArr = @[@"LIM&LIM:",@"北京市 朝阳区***** ***",@"184*********"];
+    NSArray *proDateList = [[NSArray alloc]initWithObjects:@"今天",@"明天",nil];
+    NSArray *proTimeList = [[NSArray alloc]initWithObjects:@"8:00", @"8:30",@"9:00",@"9:30",@"10:00",@"10:30",@"11:00",@"11:30",@"12:00",@"12:30",@"13:00",@"13:30",@"14:00", @"14:30",@"15:00",@"15:30",@"16:00",@"16:30",@"17:00",@"17:30",@"18:00",nil];
+    self.proDateList = proDateList;
+    self.proTimeList = proTimeList;
+    
 }
 //UI布局
 - (void)setupUI {
@@ -205,15 +220,15 @@
         make.height.offset(1);
     }];
     //即时送药
-    
     UIButton *nowSendBtn = [[UIButton alloc]init];
     [nowSendBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-    [nowSendBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
     [lowView addSubview:nowSendBtn];
+    self.nowSendBtn = nowSendBtn;
     [nowSendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(line3.mas_bottom).offset(35);
         make.left.offset(20);
     }];
+    [nowSendBtn addTarget:self action:@selector(nowSend:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *nowSendLabel = [[UILabel alloc]init];
     nowSendLabel.text = @"即时送药（1小时极速送药）";
     nowSendLabel.font = [UIFont systemFontOfSize:15];
@@ -226,12 +241,13 @@
     //预约送药
     UIButton *preSendBtn = [[UIButton alloc]init];
     [preSendBtn setImage:[UIImage imageNamed:@"unselected"] forState:UIControlStateNormal];
-    [preSendBtn setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
     [lowView addSubview:preSendBtn];
+    self.preSendBtn = preSendBtn;
     [preSendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(nowSendBtn.mas_bottom).offset(35);
         make.left.offset(20);
     }];
+    [preSendBtn addTarget:self action:@selector(preSend:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *preSendLabel = [[UILabel alloc]init];
     preSendLabel.text = @"预约送药";
     preSendLabel.font = [UIFont systemFontOfSize:15];
@@ -243,6 +259,7 @@
     }];
     //时间label
     UILabel *dayLabel = [[UILabel alloc]init];
+    dayLabel.textAlignment = NSTextAlignmentCenter;
     dayLabel.text = @"今天";
     dayLabel.font = [UIFont systemFontOfSize:14];
     dayLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
@@ -255,8 +272,10 @@
         make.width.offset(40);
         make.height.offset(26);
     }];
+    self.dayLabel = dayLabel;
     //时刻label
     UILabel *timeLabel = [[UILabel alloc]init];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
     timeLabel.text = @"8:00";
     timeLabel.font = [UIFont systemFontOfSize:14];
     timeLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
@@ -269,6 +288,7 @@
         make.width.offset(60);
         make.height.offset(26);
     }];
+    self.timeLabel = timeLabel;
     //选择时间selectTimeBtn
     UIButton *selectTimeBtn = [[UIButton alloc]init];
     [selectTimeBtn setImage:[UIImage imageNamed:@"moreTime"] forState:UIControlStateNormal];
@@ -278,8 +298,20 @@
         make.left.equalTo(timeLabel.mas_right).offset(10);
     }];
     [selectTimeBtn addTarget:self action:@selector(selectTime:) forControlEvents:UIControlEventTouchUpInside];
-
-
+    //添加pickView
+    UIPickerView *pickView = [[UIPickerView alloc]init];
+    [lowView addSubview:pickView];
+    //隐藏pickView
+    self.pickView = pickView;
+    self.pickView.hidden = true;
+    [pickView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(preSendBtn.mas_bottom).offset(10);
+        make.left.right.offset(0);
+        make.bottom.offset(-60);
+    }];
+    pickView.dataSource = self;
+    pickView.delegate = self;
+    pickView.showsSelectionIndicator = YES;
     //确认订单order
     UIButton *orderBtn = [[UIButton alloc]init];
     orderBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
@@ -292,16 +324,89 @@
     }];
     
 }
+#pragma - mark pickView
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 2;
+}
+// pickerView 每列个数
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    if (component == 0) {
+        return [self.proDateList count];
+    }
+    
+    return [self.proTimeList count];
+}
+
+#pragma Mark -- UIPickerViewDelegate
+// 每列宽度
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    
+    if (component == 1) {
+        return 100;
+    }
+    return 100;
+}
+// 返回选中的行
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    if (component == 0) {
+        NSString  *_proNameStr = [self.proDateList objectAtIndex:row];
+        self.dayLabel.text = _proNameStr;
+    } else {
+        NSString  *_proTimeStr = [self.proTimeList objectAtIndex:row];
+        self.timeLabel.text = _proTimeStr;
+    }
+
+}
+
+//返回当前行的内容,此处是将数组中数值添加到滚动的那个显示栏上
+-(NSString*)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    if (component == 0) {
+        return [self.proDateList objectAtIndex:row];
+    } else {
+        return [self.proTimeList objectAtIndex:row];
+        
+    }
+}
+#pragma - btn点击事件
 //地址编辑按钮点击事件
 -(void)addressEditBtn:(UIButton*)sender{
     NSLog(@"此处跳转地址编辑页面-----");
 }
-//选择时间selectTimeBtn点击事件
--(void)selectTime:(UIButton*)sender{
+//选择送药方式nowSendBtn点击事件
+-(void)nowSend:(UIButton*)sender{
+    UIImage *unImage = [UIImage imageNamed:@"unselected"];
+    UIImage *seImage = [UIImage imageNamed:@"Selected"];
+    if ([sender.imageView.image isEqual:unImage] ) {
+        [sender setImage:seImage forState:UIControlStateNormal];
+        [self.preSendBtn setImage:unImage forState:UIControlStateNormal];
+    }else{
+         [sender setImage:unImage forState:UIControlStateNormal];
+    }
     
 }
-
-
+//选择送药方式preSendBtn点击事件
+-(void)preSend:(UIButton*)sender{
+    UIImage *unImage = [UIImage imageNamed:@"unselected"];
+    UIImage *seImage = [UIImage imageNamed:@"Selected"];
+    if ([sender.imageView.image isEqual:unImage] ) {
+        [sender setImage:seImage forState:UIControlStateNormal];
+        [self.nowSendBtn setImage:unImage forState:UIControlStateNormal];
+    }else{
+        [sender setImage:unImage forState:UIControlStateNormal];
+    }
+    
+}
+//选择时间selectTimeBtn点击事件
+-(void)selectTime:(UIButton*)sender{
+    if (self.pickView.hidden == false) {
+        self.pickView.hidden = true;
+    }else{
+        self.pickView.hidden = false;
+    }
+    
+}
 //移除导航栏下边线
 -(void)viewWillDisappear:(BOOL)animated{
     [self.line removeFromSuperview];
