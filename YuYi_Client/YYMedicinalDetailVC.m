@@ -159,7 +159,7 @@ static NSString *cellId = @"cell_id";
     buyBtn.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     buyBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
     
-    [self.view addSubview:buyBtn];
+    [self.view addSubview:buyBtn]; 
     [buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.offset(0);
         make.height.offset(60);

@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "YYPayOptionView.h"
 #import "YYPaySuccessView.h"
+#import "YYAddressEditVC.h"
 @interface YYConfirmVC ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property(nonatomic,weak)UIView *line;
 //收货信息三个label
@@ -83,6 +84,7 @@
     NSMutableArray *labArr = [NSMutableArray array];
     for (int i=0; i<3; i++) {
         UILabel *label = [[UILabel alloc]init];
+        label.numberOfLines = 2;
         label.text = [NSString stringWithFormat:@"%@ %@",self.preArr[i],self.infoArr[i]];
         label.font = [UIFont systemFontOfSize:13];
         label.textColor = [UIColor colorWithHexString:@"333333"];
@@ -93,13 +95,16 @@
                 make.left.offset(20);
                 make.top.equalTo(titleLabel.mas_bottom).offset(10);
             }];
+            self.nameLabel = label;
         }
         if (i==1) {
             UILabel *lab1 = labArr[0];
             [label mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.offset(20);
+                make.right.offset(-10);
                 make.top.equalTo(lab1.mas_bottom).offset(10);
             }];
+            self.detailAddressLabel = label;
         }
         if (i==2) {
             UILabel *lab2 = labArr[1];
@@ -107,6 +112,7 @@
                 make.left.offset(20);
                 make.top.equalTo(lab2.mas_bottom).offset(10);
             }];
+            self.numberLabel = label;
         }
         [labArr addObject:label];
     }
@@ -379,6 +385,8 @@
 //地址编辑按钮点击事件
 -(void)addressEditBtn:(UIButton*)sender{
     NSLog(@"此处跳转地址编辑页面-----");
+    YYAddressEditVC *aeVC = [[YYAddressEditVC alloc]init];
+    [self.navigationController pushViewController:aeVC animated:true];
 }
 //选择送药方式nowSendBtn点击事件
 -(void)nowSend:(UIButton*)sender{

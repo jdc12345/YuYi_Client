@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
+		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
+		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
+		165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490171E6416950034CB5B /* UIPlaceholderTextView.m */; };
 		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
 		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
 		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
@@ -96,6 +100,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
+		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
+		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
+		165490101E63C9BB0034CB5B /* YYAddressEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditView.m; sourceTree = "<group>"; };
+		165490121E6405640034CB5B /* YYareaBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYareaBtn.h; sourceTree = "<group>"; };
+		165490131E6405640034CB5B /* YYareaBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYareaBtn.m; sourceTree = "<group>"; };
+		165490161E6416950034CB5B /* UIPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceholderTextView.h; sourceTree = "<group>"; };
+		165490171E6416950034CB5B /* UIPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceholderTextView.m; sourceTree = "<group>"; };
 		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
 		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
 		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -265,6 +277,8 @@
 				1654BF521E5EDFE8002F1D00 /* YYMedicinalDetailVC.m */,
 				1654BF541E5EDFFB002F1D00 /* YYConfirmVC.h */,
 				1654BF551E5EDFFB002F1D00 /* YYConfirmVC.m */,
+				1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */,
+				1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -291,6 +305,12 @@
 				16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */,
 				16E75D021E60117800A71AA5 /* YYPaySuccessView.h */,
 				16E75D031E60117800A71AA5 /* YYPaySuccessView.m */,
+				1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */,
+				165490101E63C9BB0034CB5B /* YYAddressEditView.m */,
+				165490121E6405640034CB5B /* YYareaBtn.h */,
+				165490131E6405640034CB5B /* YYareaBtn.m */,
+				165490161E6416950034CB5B /* UIPlaceholderTextView.h */,
+				165490171E6416950034CB5B /* UIPlaceholderTextView.m */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -866,6 +886,7 @@
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
+				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
@@ -880,11 +901,13 @@
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
+				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
+				165490141E6405640034CB5B /* YYareaBtn.m in Sources */,
 				1654BF591E5EE16B002F1D00 /* YYAllMedicinalViewController.m in Sources */,
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
@@ -903,6 +926,7 @@
 				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
 				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
 				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
+				165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
