@@ -34,9 +34,9 @@
     
     self.appointmentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.appointmentBtn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
-//    self.appointmentBtn =
     self.appointmentBtn.layer.cornerRadius = 27.5 *kiphone6;
     self.appointmentBtn.clipsToBounds = YES;
+    [self.appointmentBtn addTarget:self action:@selector(appointmentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
@@ -70,20 +70,56 @@
     }];
     [self.appointmentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.iconV.mas_top).with.offset(10 *kiphone6);
-        make.right.equalTo(self.contentView).with.offset(20 *kiphone6);
+        make.right.equalTo(self.contentView).with.offset(-20 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(55 *kiphone6, 55 *kiphone6));
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(42 *kiphone6);
+        make.top.equalTo(self.contentView).with.offset(30 *kiphone6);
+        
         make.left.equalTo(self.iconV.mas_right).with.offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(45 *kiphone6, 15 *kiphone6));
     }];
     [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.iconV.mas_bottom);
+        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(15*kiphone6);
         make.left.equalTo(self.iconV.mas_right).with.offset(15 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(205 *kiphone6, 30 *kiphone6));
+        make.right.equalTo(self.appointmentBtn.mas_left).with.offset(-15 *kiphone6);
+        make.height.mas_equalTo(30);
+    }];
+    
+    
+    
+    UILabel *texttxet = [[UILabel alloc]init];
+    texttxet.text = @"挂号";
+    texttxet.textColor = [UIColor colorWithHexString:@"fefbfb"];
+    texttxet.font = [UIFont systemFontOfSize:15];
+    texttxet.textAlignment = NSTextAlignmentCenter;
+    
+    
+    UILabel *countLabel = [[UILabel alloc]init];
+    countLabel.text = @"余号32";
+    countLabel.textColor = [UIColor colorWithHexString:@"fefbfb"];
+    countLabel.font = [UIFont systemFontOfSize:10];
+    countLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    [self.appointmentBtn addSubview:texttxet];
+    [self.appointmentBtn addSubview:countLabel];
+    
+    WS(ws);
+    [texttxet mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(ws.appointmentBtn).with.offset(12.5 *kiphone6);
+        make.centerX.equalTo(ws.appointmentBtn);
+        make.size.mas_equalTo(CGSizeMake(50 ,15));
+    }];
+    [countLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(texttxet.mas_bottom).with.offset(5 *kiphone6);
+        make.centerX.equalTo(ws.appointmentBtn);
+        make.size.mas_equalTo(CGSizeMake(50 ,10));
     }];
 
+}
+- (void)appointmentBtnClick:(UIButton *)sender{
+    self.bannerClick(YES);
 }
 - (void)awakeFromNib {
     [super awakeFromNib];
