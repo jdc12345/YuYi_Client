@@ -14,6 +14,7 @@
 #import "YYPersonalTableViewCell.h"
 #import "YYRecardTableViewCell.h"
 #import "YYPInfomationTableViewCell.h"
+#import "YYFeedbackViewController.h"
 
 
 @interface YYSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -73,8 +74,21 @@
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        }else if(indexPath.row == 1){
+            YYFeedbackViewController *feedVC = [[YYFeedbackViewController alloc]init];
+            [self.navigationController pushViewController:feedVC animated:YES];
+        }else if(indexPath.row == 2){
+            
+        }
+    }else{
+        
+    }
+   
     
-    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
+    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -

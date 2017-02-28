@@ -77,6 +77,8 @@
 		3EB10BC11E6448F300F5F9D2 /* YYFamilyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */; };
 		3EB10BC41E6518A000F5F9D2 /* YYPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */; };
 		3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */; };
+		3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */; };
+		3EB10BCD1E65598D00F5F9D2 /* YYFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */; };
 		3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */; };
 		3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */; };
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
@@ -244,6 +246,10 @@
 		3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalInfoViewController.m; sourceTree = "<group>"; };
 		3EB10BC51E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalInfoTableViewCell.h; sourceTree = "<group>"; };
 		3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalInfoTableViewCell.m; sourceTree = "<group>"; };
+		3EB10BC81E6538CF00F5F9D2 /* YYWIFIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWIFIViewController.h; sourceTree = "<group>"; };
+		3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWIFIViewController.m; sourceTree = "<group>"; };
+		3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFeedbackViewController.h; sourceTree = "<group>"; };
+		3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFeedbackViewController.m; sourceTree = "<group>"; };
 		3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHandleMeasureViewController.h; sourceTree = "<group>"; };
 		3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHandleMeasureViewController.m; sourceTree = "<group>"; };
 		3EBA2D691E5E80C8005C3448 /* UIBarButtonItem+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Helper.h"; sourceTree = "<group>"; };
@@ -568,6 +574,10 @@
 				3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */,
 				3EB10BC51E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.h */,
 				3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */,
+				3EB10BC81E6538CF00F5F9D2 /* YYWIFIViewController.h */,
+				3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */,
+				3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */,
+				3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */,
 			);
 			name = PersonalPage;
 			sourceTree = "<group>";
@@ -948,6 +958,7 @@
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
+				3EB10BCD1E65598D00F5F9D2 /* YYFeedbackViewController.m in Sources */,
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
@@ -963,6 +974,7 @@
 				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
+				3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,

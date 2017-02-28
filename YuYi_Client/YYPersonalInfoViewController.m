@@ -98,7 +98,7 @@
     return 60 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
+    NSArray *nameList = @[@"我的数据分析",@"我的病历档案",@"刘德华（爷爷）"];
     YYPersonalInfoTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYPersonalInfoTableViewCell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
         homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
@@ -205,10 +205,16 @@
     idName.text = @"18328887563";
     idName.textColor = [UIColor colorWithHexString:@"333333"];
     idName.font = [UIFont systemFontOfSize:13];
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setImage:[UIImage imageNamed:@"family-icon--1"] forState:UIControlStateNormal];
+    [btn sizeToFit];
     //
     [personV addSubview:iconV];
     [personV addSubview:nameLabel];
     [personV addSubview:idName];
+    [personV addSubview:btn];
     //
     [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(personV).with.offset(0);
@@ -226,6 +232,11 @@
         make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
         make.left.equalTo(nameLabel.mas_left);
         make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
+    }];
+    
+    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(personV).with.offset(15 *kiphone6);
+        make.right.equalTo(personV).with.offset(-10 *kiphone6);
     }];
     
     

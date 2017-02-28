@@ -40,8 +40,8 @@
     UILabel *lineL = [[UILabel alloc]init];
     lineL.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
-    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"disclosure-arrow"]];
-    [imageV sizeToFit];
+    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"disclosure-arrow-拷贝-2"]];
+//    [imageV sizeToFit];
     
     
     // [self.cardView addSubview:self.iconV];
@@ -63,6 +63,7 @@
     [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(ws.cardView);
         make.right.equalTo(ws.cardView).with.offset(-10 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(7.5 *kiphone6, 13 *kiphone6));
     }];
     
     

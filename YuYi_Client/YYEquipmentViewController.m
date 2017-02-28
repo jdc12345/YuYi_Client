@@ -13,6 +13,7 @@
 #import "YYAutoMeasureViewController.h"
 #import "YYHandleMeasureViewController.h"
 #import "YYConnectViewController.h"
+#import "YYWIFIViewController.h"
 
 @interface YYEquipmentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) FMActionSheet *fmActionS;
 @property (nonatomic, assign) NSInteger currentRow;
+
 
 @end
 
@@ -68,20 +70,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row != 2) {
+        YYWIFIViewController *wifiVC = [[YYWIFIViewController alloc]init];
+        [self.navigationController pushViewController:wifiVC animated:YES];
         
-//        
-//        
-//        FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
-//                                                       buttonTitles:[NSArray arrayWithObjects:@"自动输入",@"手动输入", nil]
-//                                                  cancelButtonTitle:@"取消"
-//                                                           delegate:(id<FMActionSheetDelegate>)self
-//                                                            buttonW:kScreenW];
-//        sheet.titleFont = [UIFont systemFontOfSize:20];
-//        sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
-//        sheet.titleColor = [UIColor colorWithHexString:@"666666"];
-//        sheet.lineColor = [UIColor colorWithHexString:@"dbdce4"];
-//        [sheet show];
-//        self.currentRow = indexPath.row;
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];
         [self.navigationController pushViewController:connectVC animated:YES];
