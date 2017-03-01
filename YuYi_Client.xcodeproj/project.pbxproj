@@ -11,6 +11,13 @@
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
 		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
 		165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490171E6416950034CB5B /* UIPlaceholderTextView.m */; };
+		1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654901E1E655A770034CB5B /* YYShopCartVC.m */; };
+		165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */; };
+		165490251E6560360034CB5B /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490241E6560360034CB5B /* UILabel+Addition.m */; };
+		165490281E6657AA0034CB5B /* YYShopCartSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490271E6657AA0034CB5B /* YYShopCartSingleton.m */; };
+		1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902A1E66611D0034CB5B /* YYShopCarTableView.m */; };
+		1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */; };
+		165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */; };
 		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
 		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
 		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
@@ -108,6 +115,19 @@
 		165490131E6405640034CB5B /* YYareaBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYareaBtn.m; sourceTree = "<group>"; };
 		165490161E6416950034CB5B /* UIPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceholderTextView.h; sourceTree = "<group>"; };
 		165490171E6416950034CB5B /* UIPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceholderTextView.m; sourceTree = "<group>"; };
+		1654901D1E655A770034CB5B /* YYShopCartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartVC.h; sourceTree = "<group>"; };
+		1654901E1E655A770034CB5B /* YYShopCartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartVC.m; sourceTree = "<group>"; };
+		165490201E655B7E0034CB5B /* YYShopCartEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartEmptyView.h; sourceTree = "<group>"; };
+		165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartEmptyView.m; sourceTree = "<group>"; };
+		165490231E6560360034CB5B /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Addition.h"; sourceTree = "<group>"; };
+		165490241E6560360034CB5B /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Addition.m"; sourceTree = "<group>"; };
+		165490261E6657AA0034CB5B /* YYShopCartSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartSingleton.h; sourceTree = "<group>"; };
+		165490271E6657AA0034CB5B /* YYShopCartSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartSingleton.m; sourceTree = "<group>"; };
+		165490291E66611D0034CB5B /* YYShopCarTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCarTableView.h; sourceTree = "<group>"; };
+		1654902A1E66611D0034CB5B /* YYShopCarTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCarTableView.m; sourceTree = "<group>"; };
+		1654902C1E6665580034CB5B /* YYShopCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCarTableViewCell.h; sourceTree = "<group>"; };
+		1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCarTableViewCell.m; sourceTree = "<group>"; };
+		1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYShopCarTableViewCell.xib; sourceTree = "<group>"; };
 		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
 		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
 		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -268,6 +288,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165490191E65593D0034CB5B /* shopCart */ = {
+			isa = PBXGroup;
+			children = (
+				1654901C1E6559880034CB5B /* C */,
+				1654901B1E65597D0034CB5B /* V */,
+				1654901A1E65596C0034CB5B /* M */,
+			);
+			name = shopCart;
+			sourceTree = "<group>";
+		};
+		1654901A1E65596C0034CB5B /* M */ = {
+			isa = PBXGroup;
+			children = (
+				165490261E6657AA0034CB5B /* YYShopCartSingleton.h */,
+				165490271E6657AA0034CB5B /* YYShopCartSingleton.m */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		1654901B1E65597D0034CB5B /* V */ = {
+			isa = PBXGroup;
+			children = (
+				165490201E655B7E0034CB5B /* YYShopCartEmptyView.h */,
+				165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */,
+				165490291E66611D0034CB5B /* YYShopCarTableView.h */,
+				1654902A1E66611D0034CB5B /* YYShopCarTableView.m */,
+				1654902C1E6665580034CB5B /* YYShopCarTableViewCell.h */,
+				1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */,
+				1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */,
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		1654901C1E6559880034CB5B /* C */ = {
+			isa = PBXGroup;
+			children = (
+				1654901D1E655A770034CB5B /* YYShopCartVC.h */,
+				1654901E1E655A770034CB5B /* YYShopCartVC.m */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
 		1654BF351E5ED20B002F1D00 /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +433,8 @@
 		1654BF3E1E5ED572002F1D00 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				165490231E6560360034CB5B /* UILabel+Addition.h */,
+				165490241E6560360034CB5B /* UILabel+Addition.m */,
 				1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */,
 				1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */,
 			);
@@ -521,6 +585,7 @@
 				1654BF3E1E5ED572002F1D00 /* tools */,
 				1654BF391E5ED286002F1D00 /* medicinalShop */,
 				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
+				165490191E65593D0034CB5B /* shopCart */,
 			);
 			name = ShoppingMall;
 			sourceTree = "<group>";
@@ -807,6 +872,7 @@
 				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
+				165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -884,22 +950,26 @@
 				1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
+				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				1654BF631E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
+				165490281E6657AA0034CB5B /* YYShopCartSingleton.m in Sources */,
 				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
+				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
@@ -924,12 +994,14 @@
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
 				1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */,
 				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
+				1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */,
 				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
 				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
 				165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
+				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
 				1654BF641E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m in Sources */,
 				1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */,

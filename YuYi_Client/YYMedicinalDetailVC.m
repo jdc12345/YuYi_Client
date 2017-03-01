@@ -10,6 +10,7 @@
 #import "UIColor+colorValues.h"
 #import "Masonry.h"
 #import "YYConfirmVC.h"
+#import "YYShopCartVC.h"
 
 static NSString *cellId = @"cell_id";
 @interface YYMedicinalDetailVC ()<UITableViewDelegate,UITableViewDataSource>
@@ -65,7 +66,8 @@ static NSString *cellId = @"cell_id";
 }
 //shoppingcar点击事件
 -(void)shoppingcar:(UIButton*)sender{
-    
+   YYShopCartVC *shopCartVC = [[YYShopCartVC alloc]init];
+    [self.navigationController pushViewController:shopCartVC animated:true];
 }
 //加载数据
 -(void)loadData{

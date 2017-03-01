@@ -12,6 +12,7 @@
 #import "YYPayOptionView.h"
 #import "YYPaySuccessView.h"
 #import "YYAddressEditVC.h"
+#import "YYShopCartSingleton.h"
 @interface YYConfirmVC ()<UIPickerViewDelegate,UIPickerViewDataSource>
 @property(nonatomic,weak)UIView *line;
 //收货信息三个label
@@ -173,6 +174,9 @@
     //数量label
     UILabel *numberLabel = [[UILabel alloc]init];
     NSInteger i = self.number;
+    //购物车单例记录商品数量
+    YYShopCartSingleton *shopCart = [YYShopCartSingleton sharedInstance];
+    [shopCart.shopCartGoods addObject:[NSNumber numberWithInteger:i]];
     numberLabel.text = [NSString stringWithFormat:@"X %ld",i];
     numberLabel.font = [UIFont systemFontOfSize:14];
     numberLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
