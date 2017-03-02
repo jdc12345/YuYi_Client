@@ -199,7 +199,7 @@ static NSString* classificationCellid = @"classification_cell";
         selectionBtn.layer.borderColor=[UIColor colorWithHexString:@"25F368"].CGColor;
         [selectionBtn setTitle:@"常用药品"  forState:UIControlStateNormal];
         [selectionBtn setTintColor:[UIColor colorWithHexString:@"25F368"] ];
-        [selectionBtn setImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [selectionBtn setImage:[UIImage imageNamed:@"close_classify"] forState:UIControlStateNormal];
         [selectionBtn setTitleColor:[UIColor colorWithHexString:@"25F368"] forState:UIControlStateNormal];
         
         [selectionBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];

@@ -11,18 +11,12 @@
 #import "UIColor+Extension.h"
 #import <Masonry.h>
 #import "FMActionSheet.h"
-#import "ZYAlertSView.h"
-#import "YYSpeechViewController.h"
-#import "YYAVViewController.h"
-#import "YYWordsViewController.h"
 
 @interface YYHospitalInfoViewController ()
 
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UITextView *infoTextV;
 @property (nonatomic, strong) UIButton *sureBtn;
-@property (nonatomic, weak) ZYAlertSView *alertView;
-@property (nonatomic, weak) UIView *selectView;
 
 
 @end
@@ -153,167 +147,18 @@
     
 }
 -(void)buttonClick:(UIButton *)button{
-    CGFloat alertW = 200 *kiphone6;
-    CGFloat alertH = 135 *kiphone6;
+    FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
+                                                   buttonTitles:[NSArray arrayWithObjects:@"语音咨询",@"视频咨询",@"文字咨询",nil]
+                                              cancelButtonTitle:@""
+                                                       delegate:(id<FMActionSheetDelegate>)self];
+    sheet.titleFont = [UIFont systemFontOfSize:20];
+    sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
+    sheet.titleColor = [UIColor colorWithHexString:@"666666"];
+    sheet.lineColor = [UIColor colorWithHexString:@"dbdce4"];
+    [sheet showWithFrame:CGRectMake((kScreenW - 200 *kiphone6)/2.0, (kScreenH - 135 *kiphone6)/2.0, 200 *kiphone6, 135 *kiphone6)];
+    [button setBackgroundColor:[UIColor colorWithHexString:@"25f368"]];
     
-    // 选项view
-    UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, alertH)];
-    
-    NSArray *nameList = @[@"语音咨询",@"视频咨询",@"文字咨询"];
-    NSInteger peopleCount = 2;        // 人数
-    for (int i = 0; i <= peopleCount ; i++) {
-        CGFloat y_padding = 45 *kiphone6;
-        
-        UIView *btnView = [[UIView alloc]initWithFrame:CGRectMake(0,i *y_padding, alertW,  y_padding)];
-        btnView.backgroundColor = [UIColor whiteColor];
-        btnView.tag = 200 +i;
-        
-        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapaClick:)];
-        [btnView addGestureRecognizer:tapGest];
-        
-        
-        UILabel *nameLabel = [[UILabel alloc]init];
-        nameLabel.textColor = [UIColor colorWithHexString:@"666666"];
-        nameLabel.font = [UIFont systemFontOfSize:12];
-        nameLabel.text = nameList[i];
-        nameLabel.textAlignment = NSTextAlignmentCenter;
-        if (i != 2) {
-            UILabel *lineLabel = [[UILabel alloc]init];
-            lineLabel.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-            
-            [btnView addSubview:lineLabel];
-            
-            [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.equalTo(btnView);
-                make.left.equalTo(btnView);
-                make.size.mas_equalTo(CGSizeMake(alertW,1));
-            }];
-            
-        }
- 
- 
-        [btnView addSubview:nameLabel];
-        
-        [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(btnView);
-            make.size.mas_equalTo(CGSizeMake(alertW,12));
-        }];
-        
-        [selectView addSubview:btnView];
-    }
-    self.selectView = selectView;
-
-    ZYAlertSView *alertV = [[ZYAlertSView alloc]initWithContentSize:CGSizeMake(alertW, alertH) TitleView:nil selectView:selectView sureView:nil];
-    [alertV show];
-    self.alertView = alertV;
 }
-- (void)alertClick:(UIButton *)sender{
-    if ([sender.currentTitle isEqualToString:@"取消"]) {
-        [self.alertView dismiss:nil];
-    }else{
-        
-    }
-}
-- (void)tapaClick:(UITapGestureRecognizer *)tapGesture{
-    UITapGestureRecognizer *singleTap = (UITapGestureRecognizer *)tapGesture;
-    NSInteger index = singleTap.view.tag -200;
-    [self.alertView dismiss:nil];
-    if (index == 0) {
-        YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]init];
-        [self.navigationController pushViewController:speechVC animated:NO];
-    }else if(index == 1){
-        YYAVViewController *avVC = [[YYAVViewController alloc]init];
-        [self.navigationController pushViewController:avVC animated:YES];
-    }else{
-        YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
-        [self.navigationController pushViewController:wordVC animated:YES];
-    }
-}
-
-/////////////////
-- (void)emptyClick{
-    CGFloat alertW = 335 *kiphone6;
-    CGFloat alertH = 310 *kiphone6;
-    
-    // titleView
-    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, 80 *kiphone6)];
-    UILabel *titleLabel = [[UILabel alloc]init];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"提示";
-    titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    titleLabel.font = [UIFont systemFontOfSize:20];
-    
-    UILabel *lineLabel = [[UILabel alloc]init];
-    lineLabel.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
-    [titleView addSubview:titleLabel];
-    [titleView addSubview:lineLabel];
-    
-    WS(ws);
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(120 ,20));
-    }];
-    [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(titleView);
-        make.bottom.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW ,1));
-    }];
-    // 选项view
-    UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];
-    
-    UILabel *promptLabel = [[UILabel alloc]init];
-    promptLabel.text = @"你还没有完善个人信息无法挂号，现在去完善?";
-    promptLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    promptLabel.font = [UIFont systemFontOfSize:16];
-    promptLabel.numberOfLines = 2;
-    
-    [selectView addSubview:promptLabel];
-    [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(selectView);
-        make.size.mas_equalTo(CGSizeMake(225 *kiphone6 ,40));
-    }];
-    
-    
-    
-    // 取消确定view
-    UIView *sureView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(selectView.frame), alertW, 60 *kiphone6)];
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    [cancelBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
-    cancelBtn.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
-    
-    [sureView addSubview:cancelBtn];
-    
-    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(sureView);
-        make.top.equalTo(sureView);
-        make.size.mas_equalTo(CGSizeMake(alertW/2.0, 60 *kiphone6));
-    }];
-    
-    UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sureBtn setTitle:@"去完善" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-    [sureBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
-    sureBtn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
-    
-    [sureView addSubview:sureBtn];
-    
-    [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(sureView);
-        make.top.equalTo(sureView);
-        make.size.mas_equalTo(CGSizeMake(sureView.frame.size.width/2.0, 60 *kiphone6));
-    }];
-    
-    
-    
-    ZYAlertSView *alertV = [[ZYAlertSView alloc]initWithContentSize:CGSizeMake(alertW, alertH) TitleView:titleView selectView:selectView sureView:sureView];
-    [alertV show];
-    self.alertView = alertV;
-}
-
-
 -(void)buttonClick1:(UIButton *)button{
     [button setBackgroundColor:[UIColor whiteColor]];
     
