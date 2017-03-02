@@ -16,6 +16,7 @@
 #import "YYFamilyAccountViewController.h"
 #import <Masonry.h>
 #import "YYPersonalInfoTableViewCell.h"
+#import "YYDataAnalyseViewController.h"
 
 @interface YYPersonalInfoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -69,20 +70,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row != 2) {
-        
-        
-        
-        FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
-                                                       buttonTitles:[NSArray arrayWithObjects:@"自动输入",@"手动输入", nil]
-                                                  cancelButtonTitle:@"取消"
-                                                           delegate:(id<FMActionSheetDelegate>)self
-                                                            buttonW:kScreenW];
-        sheet.titleFont = [UIFont systemFontOfSize:20];
-        sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
-        sheet.titleColor = [UIColor colorWithHexString:@"666666"];
-        sheet.lineColor = [UIColor colorWithHexString:@"dbdce4"];
-        [sheet show];
-        self.currentRow = indexPath.row;
+        if (indexPath.row == 0) {
+            YYDataAnalyseViewController *dataVC = [[YYDataAnalyseViewController alloc]init];
+            [self.navigationController pushViewController:dataVC animated:YES];
+        }else{
+            
+        }
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];
         [self.navigationController pushViewController:connectVC animated:YES];

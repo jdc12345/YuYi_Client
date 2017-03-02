@@ -15,6 +15,8 @@
 #import "YYRecardTableViewCell.h"
 #import "YYPInfomationTableViewCell.h"
 #import "YYFeedbackViewController.h"
+#import "YYAboutUSViewController.h"
+#import "YYContactViewController.h"
 
 
 @interface YYSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -76,12 +78,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            YYContactViewController *contactVC = [[YYContactViewController alloc]init];
+            [self.navigationController pushViewController:contactVC animated:YES];
             
         }else if(indexPath.row == 1){
             YYFeedbackViewController *feedVC = [[YYFeedbackViewController alloc]init];
             [self.navigationController pushViewController:feedVC animated:YES];
         }else if(indexPath.row == 2){
-            
+            YYAboutUSViewController *aboutVC = [[YYAboutUSViewController alloc]init];
+            [self.navigationController pushViewController:aboutVC animated:YES];
         }
     }else{
         

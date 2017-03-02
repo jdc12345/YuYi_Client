@@ -93,6 +93,16 @@
 		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
 		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
 		3EF565601E5693C50045918B /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5655F1E5693C50045918B /* HttpClient.m */; };
+		3EFBD62E1E6656C200B422BD /* YYDataAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */; };
+		3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */; };
+		3EFBD6341E66B55A00B422BD /* YYContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6331E66B55A00B422BD /* YYContactViewController.m */; };
+		3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */; };
+		3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6391E67B85100B422BD /* YYAVViewController.m */; };
+		3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */; };
+		3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */; };
+		3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */; };
+		3EFBD6451E67BD2700B422BD /* HcCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */; };
+		3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */; };
 		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
 
@@ -278,6 +288,23 @@
 		3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemberTableViewCell.m; sourceTree = "<group>"; };
 		3EF5655E1E5693C50045918B /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		3EF5655F1E5693C50045918B /* HttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpClient.m; sourceTree = "<group>"; };
+		3EFBD62C1E6656C200B422BD /* YYDataAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDataAnalyseViewController.h; sourceTree = "<group>"; };
+		3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYDataAnalyseViewController.m; sourceTree = "<group>"; };
+		3EFBD62F1E66AF6000B422BD /* YYAboutUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAboutUSViewController.h; sourceTree = "<group>"; };
+		3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAboutUSViewController.m; sourceTree = "<group>"; };
+		3EFBD6321E66B55A00B422BD /* YYContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYContactViewController.h; sourceTree = "<group>"; };
+		3EFBD6331E66B55A00B422BD /* YYContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYContactViewController.m; sourceTree = "<group>"; };
+		3EFBD6351E67A8F900B422BD /* YYSpeechViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSpeechViewController.h; sourceTree = "<group>"; };
+		3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpeechViewController.m; sourceTree = "<group>"; };
+		3EFBD6381E67B85100B422BD /* YYAVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAVViewController.h; sourceTree = "<group>"; };
+		3EFBD6391E67B85100B422BD /* YYAVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAVViewController.m; sourceTree = "<group>"; };
+		3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 001f3a978ff3154e897f16.jpg; sourceTree = "<group>"; };
+		3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 07ecfad393d14033924f2fcc18ff6af9_th.jpg; sourceTree = "<group>"; };
+		3EFBD63F1E67BAEA00B422BD /* YYWordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWordsViewController.h; sourceTree = "<group>"; };
+		3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWordsViewController.m; sourceTree = "<group>"; };
+		3EFBD6431E67BD2600B422BD /* HcCustomKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HcCustomKeyboard.h; sourceTree = "<group>"; };
+		3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HcCustomKeyboard.m; sourceTree = "<group>"; };
+		3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-03-02 上午10.55.18.png"; sourceTree = "<group>"; };
 		79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.release.xcconfig"; sourceTree = "<group>"; };
 		987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YuYi_Client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.debug.xcconfig"; sourceTree = "<group>"; };
@@ -442,6 +469,8 @@
 				3E9644021E602D8A001B49DE /* ZYActionSheet.m */,
 				3E9644041E603F1C001B49DE /* ZYLActionSheet.h */,
 				3E9644051E603F1C001B49DE /* ZYLActionSheet.m */,
+				3EFBD6431E67BD2600B422BD /* HcCustomKeyboard.h */,
+				3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */,
 			);
 			name = Root_Tools;
 			sourceTree = "<group>";
@@ -514,6 +543,9 @@
 				3E1841581E5AD13200069568 /* cell2.png */,
 				3E18415D1E5ADD8F00069568 /* medicine.png */,
 				3E1E47271E5AF2130042934D /* search_icon.png */,
+				3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */,
+				3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */,
+				3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -537,6 +569,12 @@
 				3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */,
 				3EBA2D6F1E5E9ECC005C3448 /* YYHospitalInfoViewController.h */,
 				3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */,
+				3EFBD6351E67A8F900B422BD /* YYSpeechViewController.h */,
+				3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */,
+				3EFBD6381E67B85100B422BD /* YYAVViewController.h */,
+				3EFBD6391E67B85100B422BD /* YYAVViewController.m */,
+				3EFBD63F1E67BAEA00B422BD /* YYWordsViewController.h */,
+				3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */,
 			);
 			name = ConsultPage;
 			sourceTree = "<group>";
@@ -578,6 +616,12 @@
 				3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */,
 				3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */,
 				3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */,
+				3EFBD62C1E6656C200B422BD /* YYDataAnalyseViewController.h */,
+				3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */,
+				3EFBD62F1E66AF6000B422BD /* YYAboutUSViewController.h */,
+				3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */,
+				3EFBD6321E66B55A00B422BD /* YYContactViewController.h */,
+				3EFBD6331E66B55A00B422BD /* YYContactViewController.m */,
 			);
 			name = PersonalPage;
 			sourceTree = "<group>";
@@ -864,6 +908,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E1E47281E5AF2130042934D /* search_icon.png in Resources */,
+				3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */,
 				3E1841591E5AD13200069568 /* cell2.png in Resources */,
 				3E18415E1E5ADD8F00069568 /* medicine.png in Resources */,
 				3E1841571E5AD0A900069568 /* cell1.png in Resources */,
@@ -873,6 +918,8 @@
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
 				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
+				3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */,
+				3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
 			);
@@ -957,11 +1004,13 @@
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
+				3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
 				3EB10BCD1E65598D00F5F9D2 /* YYFeedbackViewController.m in Sources */,
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				3EFBD6341E66B55A00B422BD /* YYContactViewController.m in Sources */,
 				3EB10BC11E6448F300F5F9D2 /* YYFamilyAccountViewController.m in Sources */,
 				3EB10BBB1E64346900F5F9D2 /* YYFamilyAddViewController.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
@@ -981,17 +1030,22 @@
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
+				3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */,
 				3E9644031E602D8A001B49DE /* ZYActionSheet.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
+				3EFBD6451E67BD2700B422BD /* HcCustomKeyboard.m in Sources */,
 				3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */,
+				3EFBD62E1E6656C200B422BD /* YYDataAnalyseViewController.m in Sources */,
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
 				3EB10BB51E63F70800F5F9D2 /* YYEquipmentTableViewCell.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
+				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
 				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
 				1654BF531E5EDFE8002F1D00 /* YYMedicinalDetailVC.m in Sources */,
 				3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */,
+				3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */,
 				3E9643F11E5FF2C5001B49DE /* YYPInfomartionViewController.m in Sources */,
 				3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */,
 				3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */,

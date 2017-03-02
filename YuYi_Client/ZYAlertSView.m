@@ -97,7 +97,7 @@
 // 隐藏视图
 - (void)dismiss:(UITapGestureRecognizer *)tap {
     
-    [UIView animateWithDuration:0.3f
+    [UIView animateWithDuration:0.0f
                           delay:0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{

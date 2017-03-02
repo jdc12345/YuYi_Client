@@ -132,7 +132,7 @@
         YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
         [self.navigationController pushViewController:infoDetail animated:YES];
     }
-
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark -
