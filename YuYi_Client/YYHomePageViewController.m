@@ -17,11 +17,14 @@
 #import "InfomationViewController.h"
 #import "YYAppointmentViewController.h"
 #import "ViewController.h"
+#import "YYInfoDetailViewController.h"
+#import "ZYAlertSView.h"
 
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, weak) ZYAlertSView *alertView;
 
 @end
 
@@ -65,7 +68,9 @@
     homeHeadView.bannerClick = ^(BOOL isShopping){
         if (isShopping) {
             NSLog(@"跳转到医药商城");
+
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
+
         }else{
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];
@@ -122,6 +127,13 @@
 }
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0 ) {
+        YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
+        [self.navigationController pushViewController:infoDetail animated:YES];
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
@@ -233,8 +245,79 @@
     InfomationViewController *infoVC = [[InfomationViewController alloc]init];
     [self.navigationController pushViewController:infoVC animated:YES];
 }
+- (void)back_click:(UIButton *)sender{
+    CGFloat alertW = 335 *kiphone6;
+    CGFloat alertH = 310 *kiphone6;
+    
+    // titleView
+    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, 80 *kiphone6)];
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.text = @"选择挂号人";
+    titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
+    titleLabel.font = [UIFont systemFontOfSize:20];
+    
+    UILabel *lineLabel = [[UILabel alloc]init];
+    lineLabel.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    
+    [titleView addSubview:titleLabel];
+    [titleView addSubview:lineLabel];
+    
+    WS(ws);
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(titleView);
+        make.size.mas_equalTo(CGSizeMake(120 ,20));
+    }];
+    [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleView);
+        make.bottom.equalTo(titleView);
+        make.size.mas_equalTo(CGSizeMake(kScreenW ,1));
+    }];
+    // 选项view
+    UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];
+    
+    // 取消确定view
+    UIView *sureView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(selectView.frame), alertW, 60 *kiphone6)];
+    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    [cancelBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
+    cancelBtn.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
+    
+    [sureView addSubview:cancelBtn];
+    
+    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(sureView);
+        make.top.equalTo(sureView);
+        make.size.mas_equalTo(CGSizeMake(alertW/2.0, 60 *kiphone6));
+    }];
+    
+    UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
+    [sureBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
+    sureBtn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
+    
+    [sureView addSubview:sureBtn];
+    
+    [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(sureView);
+        make.top.equalTo(sureView);
+        make.size.mas_equalTo(CGSizeMake(sureView.frame.size.width/2.0, 60 *kiphone6));
+    }];
 
-
+    
+    
+    ZYAlertSView *alertV = [[ZYAlertSView alloc]initWithContentSize:CGSizeMake(alertW, alertH) TitleView:titleView selectView:selectView sureView:sureView];
+    [alertV show];
+    self.alertView = alertV;
+}
+- (void)alertClick:(UIButton *)sender{
+    if ([sender.currentTitle isEqualToString:@"取消"]) {
+         [self.alertView dismiss:nil];
+    }else{
+        
+    }
+}
 // 取消吸顶 顶部悬停
 
 /*
