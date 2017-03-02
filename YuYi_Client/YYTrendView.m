@@ -119,7 +119,7 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
 
 - (void)dealloc
 {
-    dispatch_source_cancel(_timer);
+//    dispatch_source_cancel(_timer);
 }
 
 - (void)drawRect:(CGRect)rect
