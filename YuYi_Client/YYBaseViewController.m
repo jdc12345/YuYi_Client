@@ -36,7 +36,7 @@
 //    rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
     [rightButton setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(searching:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton]; //
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
 }
 //导航栏按钮点击事件

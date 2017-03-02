@@ -35,7 +35,7 @@
 
 #pragma mark -
 #pragma mark ------------Font----------------------
-#define kPingFang_M       @"PingFang-SC-Semibold"
+#define kPingFang_M       @"PingFang-SC-Medium"
 #define kPingFang_S       @"PingFang-SC-Semibold"
 
 
