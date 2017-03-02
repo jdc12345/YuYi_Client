@@ -11,6 +11,7 @@
 #import "YYShopCarTableViewCell.h"
 #import <Masonry.h>
 #import "UIColor+colorValues.h"
+#import "YYLogInVC.h"
 
 static NSString *shopCarGoodCellId = @"shopCarGoodCell_id";
 @interface YYShopCarTableView () <UITableViewDelegate, UITableViewDataSource>
@@ -70,9 +71,16 @@ static NSString *shopCarGoodCellId = @"shopCarGoodCell_id";
         make.width.offset(100);
         make.height.offset(30);
     }];
+    [balanceBtn addTarget:self action:@selector(goBalance:) forControlEvents:UIControlEventTouchUpInside];
     return view;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 100;
+}
+#pragma goBalance
+-(void)goBalance:(UIButton*)sender{
+    //换登录
+    YYLogInVC *liVC = [[YYLogInVC alloc]init];
+    [self.vc.navigationController pushViewController:liVC animated:true];
 }
 @end

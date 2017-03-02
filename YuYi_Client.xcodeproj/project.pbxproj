@@ -20,6 +20,7 @@
 		165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */; };
 		165490331E66A6AC0034CB5B /* YYSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */; };
 		165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */; };
+		1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654903C1E67EF470034CB5B /* YYLogInVC.m */; };
 		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
 		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
 		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
@@ -134,6 +135,8 @@
 		165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchTableViewController.m; sourceTree = "<group>"; };
 		165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSearchRecordSingleton.h; sourceTree = "<group>"; };
 		165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchRecordSingleton.m; sourceTree = "<group>"; };
+		1654903B1E67EF470034CB5B /* YYLogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLogInVC.h; sourceTree = "<group>"; };
+		1654903C1E67EF470034CB5B /* YYLogInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLogInVC.m; sourceTree = "<group>"; };
 		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
 		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
 		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -336,6 +339,15 @@
 			name = C;
 			sourceTree = "<group>";
 		};
+		1654903A1E67EEC60034CB5B /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				1654903B1E67EF470034CB5B /* YYLogInVC.h */,
+				1654903C1E67EF470034CB5B /* YYLogInVC.m */,
+			);
+			name = LogIn;
+			sourceTree = "<group>";
+		};
 		1654BF351E5ED20B002F1D00 /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +514,7 @@
 			children = (
 				3EAB2B791E2F065800D6795F /* AppDelegate.h */,
 				3EAB2B7A1E2F065800D6795F /* AppDelegate.m */,
+				1654903A1E67EEC60034CB5B /* LogIn */,
 			);
 			name = "App Delegate";
 			sourceTree = "<group>";
@@ -967,6 +980,7 @@
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */,
 				1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,

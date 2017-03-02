@@ -169,6 +169,8 @@ static NSString *cellId = @"cell_id";
     }];
     //添加立即购买按钮的点击事件
     [buyBtn addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
+    //添加加入购物车按钮的点击事件
+    [shopCarBtn addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 //立即购买
