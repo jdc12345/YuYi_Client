@@ -14,8 +14,5 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *introduceLabel;
 @property (nonatomic, strong) UIButton *appointmentBtn;
-@property (nonatomic, strong) UILabel *countLabel;
 
-
-@property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
 @end
