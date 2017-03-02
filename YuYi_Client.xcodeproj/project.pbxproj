@@ -18,6 +18,8 @@
 		1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902A1E66611D0034CB5B /* YYShopCarTableView.m */; };
 		1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */; };
 		165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */; };
+		165490331E66A6AC0034CB5B /* YYSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */; };
+		165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */; };
 		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
 		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
 		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
@@ -128,6 +130,10 @@
 		1654902C1E6665580034CB5B /* YYShopCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCarTableViewCell.h; sourceTree = "<group>"; };
 		1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCarTableViewCell.m; sourceTree = "<group>"; };
 		1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYShopCarTableViewCell.xib; sourceTree = "<group>"; };
+		165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSearchTableViewController.h; sourceTree = "<group>"; };
+		165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchTableViewController.m; sourceTree = "<group>"; };
+		165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSearchRecordSingleton.h; sourceTree = "<group>"; };
+		165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchRecordSingleton.m; sourceTree = "<group>"; };
 		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
 		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
 		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -341,6 +347,8 @@
 				1654BF551E5EDFFB002F1D00 /* YYConfirmVC.m */,
 				1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */,
 				1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */,
+				165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */,
+				165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -348,6 +356,8 @@
 		1654BF371E5ED224002F1D00 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */,
+				165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -1003,6 +1013,8 @@
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
 				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
+				165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */,
+				165490331E66A6AC0034CB5B /* YYSearchTableViewController.m in Sources */,
 				1654BF641E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m in Sources */,
 				1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */,
 				3E1840E71E56C78300069568 /* YYTabBarController.m in Sources */,
