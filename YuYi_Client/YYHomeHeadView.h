@@ -12,6 +12,6 @@
 
 @property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
 
-- (instancetype)init;
+- (instancetype)init;//
 
 @end
