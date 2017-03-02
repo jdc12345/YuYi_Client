@@ -71,6 +71,7 @@
 
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
 
+
         }else{
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];

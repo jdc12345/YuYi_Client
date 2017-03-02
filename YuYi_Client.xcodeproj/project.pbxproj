@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
+		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
+		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
+		165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490171E6416950034CB5B /* UIPlaceholderTextView.m */; };
+		1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654901E1E655A770034CB5B /* YYShopCartVC.m */; };
+		165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */; };
+		165490251E6560360034CB5B /* UILabel+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490241E6560360034CB5B /* UILabel+Addition.m */; };
+		165490281E6657AA0034CB5B /* YYShopCartSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490271E6657AA0034CB5B /* YYShopCartSingleton.m */; };
+		1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902A1E66611D0034CB5B /* YYShopCarTableView.m */; };
+		1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */; };
+		165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */; };
+		165490331E66A6AC0034CB5B /* YYSearchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */; };
+		165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */; };
+		1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654903C1E67EF470034CB5B /* YYLogInVC.m */; };
 		1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */; };
 		1654BF441E5ED790002F1D00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF431E5ED790002F1D00 /* ViewController.m */; };
 		1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF461E5ED7E9002F1D00 /* searchBar.m */; };
@@ -20,6 +34,8 @@
 		1654BF641E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF5F1E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m */; };
 		1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF611E5EE18F002F1D00 /* YYClassificationFlowLayout.m */; };
 		1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654BF671E5EE25A002F1D00 /* YYBaseViewController.m */; };
+		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
+		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
 		3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840CD1E569CAB00069568 /* YYNavigationController.m */; };
 		3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840D31E569D6200069568 /* YYHomePageViewController.m */; };
 		3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840D71E56AC4E00069568 /* UIColor+Extension.m */; };
@@ -57,7 +73,6 @@
 		3E9643F11E5FF2C5001B49DE /* YYPInfomartionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643F01E5FF2C5001B49DE /* YYPInfomartionViewController.m */; };
 		3E9643F41E5FF9F8001B49DE /* YYPInfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643F31E5FF9F8001B49DE /* YYPInfomationTableViewCell.m */; };
 		3E9643FA1E6001B5001B49DE /* YYDetailRecardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643F91E6001B5001B49DE /* YYDetailRecardViewController.m */; };
-		3E9643FD1E6019F8001B49DE /* YYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643FC1E6019F8001B49DE /* YYSettingViewController.m */; };
 		3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643FF1E601DB8001B49DE /* ZYAlertView.m */; };
 		3E9644031E602D8A001B49DE /* ZYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644021E602D8A001B49DE /* ZYActionSheet.m */; };
 		3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644051E603F1C001B49DE /* ZYLActionSheet.m */; };
@@ -72,9 +87,7 @@
 		3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BB11E63F60400F5F9D2 /* YYEquipmentViewController.m */; };
 		3EB10BB51E63F70800F5F9D2 /* YYEquipmentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BB41E63F70800F5F9D2 /* YYEquipmentTableViewCell.m */; };
 		3EB10BB81E64006800F5F9D2 /* ZYAlertSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BB71E64006800F5F9D2 /* ZYAlertSView.m */; };
-		3EB10BBB1E64346900F5F9D2 /* YYFamilyAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */; };
 		3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BBD1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m */; };
-		3EB10BC11E6448F300F5F9D2 /* YYFamilyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */; };
 		3EB10BC41E6518A000F5F9D2 /* YYPersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */; };
 		3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */; };
 		3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */; };
@@ -84,7 +97,6 @@
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
 		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
 		3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */; };
-		3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */; };
 		3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */; };
 		3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */; };
 		3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */; };
@@ -93,16 +105,20 @@
 		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
 		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
 		3EF565601E5693C50045918B /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5655F1E5693C50045918B /* HttpClient.m */; };
-		3EFBD62E1E6656C200B422BD /* YYDataAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */; };
 		3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */; };
-		3EFBD6341E66B55A00B422BD /* YYContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6331E66B55A00B422BD /* YYContactViewController.m */; };
 		3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */; };
 		3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6391E67B85100B422BD /* YYAVViewController.m */; };
 		3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */; };
 		3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */; };
 		3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */; };
-		3EFBD6451E67BD2700B422BD /* HcCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */; };
 		3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */; };
+		3EFBD64F1E6831FC00B422BD /* YYPersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */; };
+		3EFBD6501E68320700B422BD /* HcCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */; };
+		3EFBD6511E68321800B422BD /* YYDataAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */; };
+		3EFBD6521E68322300B422BD /* YYSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643FC1E6019F8001B49DE /* YYSettingViewController.m */; };
+		3EFBD6531E68323700B422BD /* YYContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6331E66B55A00B422BD /* YYContactViewController.m */; };
+		3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */; };
+		3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */; };
 		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +140,33 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
+		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
+		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
+		165490101E63C9BB0034CB5B /* YYAddressEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditView.m; sourceTree = "<group>"; };
+		165490121E6405640034CB5B /* YYareaBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYareaBtn.h; sourceTree = "<group>"; };
+		165490131E6405640034CB5B /* YYareaBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYareaBtn.m; sourceTree = "<group>"; };
+		165490161E6416950034CB5B /* UIPlaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIPlaceholderTextView.h; sourceTree = "<group>"; };
+		165490171E6416950034CB5B /* UIPlaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPlaceholderTextView.m; sourceTree = "<group>"; };
+		1654901D1E655A770034CB5B /* YYShopCartVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartVC.h; sourceTree = "<group>"; };
+		1654901E1E655A770034CB5B /* YYShopCartVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartVC.m; sourceTree = "<group>"; };
+		165490201E655B7E0034CB5B /* YYShopCartEmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartEmptyView.h; sourceTree = "<group>"; };
+		165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartEmptyView.m; sourceTree = "<group>"; };
+		165490231E6560360034CB5B /* UILabel+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Addition.h"; sourceTree = "<group>"; };
+		165490241E6560360034CB5B /* UILabel+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Addition.m"; sourceTree = "<group>"; };
+		165490261E6657AA0034CB5B /* YYShopCartSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCartSingleton.h; sourceTree = "<group>"; };
+		165490271E6657AA0034CB5B /* YYShopCartSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCartSingleton.m; sourceTree = "<group>"; };
+		165490291E66611D0034CB5B /* YYShopCarTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCarTableView.h; sourceTree = "<group>"; };
+		1654902A1E66611D0034CB5B /* YYShopCarTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCarTableView.m; sourceTree = "<group>"; };
+		1654902C1E6665580034CB5B /* YYShopCarTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYShopCarTableViewCell.h; sourceTree = "<group>"; };
+		1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYShopCarTableViewCell.m; sourceTree = "<group>"; };
+		1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYShopCarTableViewCell.xib; sourceTree = "<group>"; };
+		165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSearchTableViewController.h; sourceTree = "<group>"; };
+		165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchTableViewController.m; sourceTree = "<group>"; };
+		165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSearchRecordSingleton.h; sourceTree = "<group>"; };
+		165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSearchRecordSingleton.m; sourceTree = "<group>"; };
+		1654903B1E67EF470034CB5B /* YYLogInVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYLogInVC.h; sourceTree = "<group>"; };
+		1654903C1E67EF470034CB5B /* YYLogInVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYLogInVC.m; sourceTree = "<group>"; };
 		1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+colorValues.h"; sourceTree = "<group>"; };
 		1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+colorValues.m"; sourceTree = "<group>"; };
 		1654BF421E5ED790002F1D00 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -151,6 +194,11 @@
 		1654BF611E5EE18F002F1D00 /* YYClassificationFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassificationFlowLayout.m; sourceTree = "<group>"; };
 		1654BF661E5EE25A002F1D00 /* YYBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYBaseViewController.h; sourceTree = "<group>"; };
 		1654BF671E5EE25A002F1D00 /* YYBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYBaseViewController.m; sourceTree = "<group>"; };
+		16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = YYPersonalTableViewCell.m; path = YuYi_Client/YYPersonalTableViewCell.m; sourceTree = "<group>"; };
+		16E75CFF1E5FFDE700A71AA5 /* YYPayOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPayOptionView.h; sourceTree = "<group>"; };
+		16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPayOptionView.m; sourceTree = "<group>"; };
+		16E75D021E60117800A71AA5 /* YYPaySuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPaySuccessView.h; sourceTree = "<group>"; };
+		16E75D031E60117800A71AA5 /* YYPaySuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPaySuccessView.m; sourceTree = "<group>"; };
 		3E1840CC1E569CAB00069568 /* YYNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYNavigationController.h; sourceTree = "<group>"; };
 		3E1840CD1E569CAB00069568 /* YYNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYNavigationController.m; sourceTree = "<group>"; };
 		3E1840D21E569D6200069568 /* YYHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomePageViewController.h; sourceTree = "<group>"; };
@@ -336,6 +384,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		165490191E65593D0034CB5B /* shopCart */ = {
+			isa = PBXGroup;
+			children = (
+				1654901C1E6559880034CB5B /* C */,
+				1654901B1E65597D0034CB5B /* V */,
+				1654901A1E65596C0034CB5B /* M */,
+			);
+			name = shopCart;
+			sourceTree = "<group>";
+		};
+		1654901A1E65596C0034CB5B /* M */ = {
+			isa = PBXGroup;
+			children = (
+				165490261E6657AA0034CB5B /* YYShopCartSingleton.h */,
+				165490271E6657AA0034CB5B /* YYShopCartSingleton.m */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		1654901B1E65597D0034CB5B /* V */ = {
+			isa = PBXGroup;
+			children = (
+				165490201E655B7E0034CB5B /* YYShopCartEmptyView.h */,
+				165490211E655B7E0034CB5B /* YYShopCartEmptyView.m */,
+				165490291E66611D0034CB5B /* YYShopCarTableView.h */,
+				1654902A1E66611D0034CB5B /* YYShopCarTableView.m */,
+				1654902C1E6665580034CB5B /* YYShopCarTableViewCell.h */,
+				1654902D1E6665580034CB5B /* YYShopCarTableViewCell.m */,
+				1654902E1E6665580034CB5B /* YYShopCarTableViewCell.xib */,
+			);
+			name = V;
+			sourceTree = "<group>";
+		};
+		1654901C1E6559880034CB5B /* C */ = {
+			isa = PBXGroup;
+			children = (
+				1654901D1E655A770034CB5B /* YYShopCartVC.h */,
+				1654901E1E655A770034CB5B /* YYShopCartVC.m */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
+		1654903A1E67EEC60034CB5B /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				1654903B1E67EF470034CB5B /* YYLogInVC.h */,
+				1654903C1E67EF470034CB5B /* YYLogInVC.m */,
+			);
+			name = LogIn;
+			sourceTree = "<group>";
+		};
 		1654BF351E5ED20B002F1D00 /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,6 +444,10 @@
 				1654BF521E5EDFE8002F1D00 /* YYMedicinalDetailVC.m */,
 				1654BF541E5EDFFB002F1D00 /* YYConfirmVC.h */,
 				1654BF551E5EDFFB002F1D00 /* YYConfirmVC.m */,
+				1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */,
+				1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */,
+				165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */,
+				165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -352,6 +455,8 @@
 		1654BF371E5ED224002F1D00 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */,
+				165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -367,6 +472,16 @@
 				1654BF4F1E5ED8D3002F1D00 /* YYCollectionViewCell.m */,
 				1654BF4B1E5ED892002F1D00 /* YYflowLay.h */,
 				1654BF4C1E5ED892002F1D00 /* YYflowLay.m */,
+				16E75CFF1E5FFDE700A71AA5 /* YYPayOptionView.h */,
+				16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */,
+				16E75D021E60117800A71AA5 /* YYPaySuccessView.h */,
+				16E75D031E60117800A71AA5 /* YYPaySuccessView.m */,
+				1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */,
+				165490101E63C9BB0034CB5B /* YYAddressEditView.m */,
+				165490121E6405640034CB5B /* YYareaBtn.h */,
+				165490131E6405640034CB5B /* YYareaBtn.m */,
+				165490161E6416950034CB5B /* UIPlaceholderTextView.h */,
+				165490171E6416950034CB5B /* UIPlaceholderTextView.m */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -427,6 +542,8 @@
 		1654BF3E1E5ED572002F1D00 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				165490231E6560360034CB5B /* UILabel+Addition.h */,
+				165490241E6560360034CB5B /* UILabel+Addition.m */,
 				1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */,
 				1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */,
 			);
@@ -494,6 +611,7 @@
 			children = (
 				3EAB2B791E2F065800D6795F /* AppDelegate.h */,
 				3EAB2B7A1E2F065800D6795F /* AppDelegate.m */,
+				1654903A1E67EEC60034CB5B /* LogIn */,
 			);
 			name = "App Delegate";
 			sourceTree = "<group>";
@@ -632,6 +750,7 @@
 				1654BF3E1E5ED572002F1D00 /* tools */,
 				1654BF391E5ED286002F1D00 /* medicinalShop */,
 				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
+				165490191E65593D0034CB5B /* shopCart */,
 			);
 			name = ShoppingMall;
 			sourceTree = "<group>";
@@ -698,6 +817,7 @@
 		3EAB2B6A1E2F065800D6795F = {
 			isa = PBXGroup;
 			children = (
+				16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */,
 				3EAB2B751E2F065800D6795F /* YuYi_Client */,
 				3EAB2B8F1E2F065900D6795F /* YuYi_ClientTests */,
 				3EAB2B9A1E2F065900D6795F /* YuYi_ClientUITests */,
@@ -922,6 +1042,7 @@
 				3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
+				165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -994,6 +1115,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */,
+				3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */,
+				3EFBD6531E68323700B422BD /* YYContactViewController.m in Sources */,
+				3EFBD6521E68322300B422BD /* YYSettingViewController.m in Sources */,
+				3EFBD6511E68321800B422BD /* YYDataAnalyseViewController.m in Sources */,
+				3EFBD64F1E6831FC00B422BD /* YYPersonalTableViewCell.m in Sources */,
+				3EFBD6501E68320700B422BD /* HcCustomKeyboard.m in Sources */,
 				3E9643F41E5FF9F8001B49DE /* YYPInfomationTableViewCell.m in Sources */,
 				3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */,
 				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
@@ -1001,8 +1129,10 @@
 				1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
+				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
+				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,
 				3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
@@ -1010,9 +1140,8 @@
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
-				3EFBD6341E66B55A00B422BD /* YYContactViewController.m in Sources */,
-				3EB10BC11E6448F300F5F9D2 /* YYFamilyAccountViewController.m in Sources */,
-				3EB10BBB1E64346900F5F9D2 /* YYFamilyAddViewController.m in Sources */,
+				1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */,
+				1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
@@ -1020,12 +1149,15 @@
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				1654BF631E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
+				165490281E6657AA0034CB5B /* YYShopCartSingleton.m in Sources */,
 				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
+				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
+				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
@@ -1033,12 +1165,11 @@
 				3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */,
 				3E9644031E602D8A001B49DE /* ZYActionSheet.m in Sources */,
 				3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */,
-				3EFBD6451E67BD2700B422BD /* HcCustomKeyboard.m in Sources */,
-				3EBA2D771E5ED8EE005C3448 /* YYPersonalTableViewCell.m in Sources */,
-				3EFBD62E1E6656C200B422BD /* YYDataAnalyseViewController.m in Sources */,
+				165490141E6405640034CB5B /* YYareaBtn.m in Sources */,
 				3E1E47491E5C26B90042934D /* YYSectorViewController.m in Sources */,
 				3EB10BB51E63F70800F5F9D2 /* YYEquipmentTableViewCell.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
+				16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
@@ -1051,6 +1182,7 @@
 				3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */,
 				3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
+				16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */,
 				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */,
 				3EB10BB81E64006800F5F9D2 /* ZYAlertSView.m in Sources */,
@@ -1058,14 +1190,18 @@
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
 				1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */,
 				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
-				3E9643FD1E6019F8001B49DE /* YYSettingViewController.m in Sources */,
+				1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */,
 				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
 				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
+				165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
+				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
+				165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */,
+				165490331E66A6AC0034CB5B /* YYSearchTableViewController.m in Sources */,
 				1654BF641E5EE18F002F1D00 /* YYAllMedicinalTitleBtn.m in Sources */,
 				1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */,
 				3E1840E71E56C78300069568 /* YYTabBarController.m in Sources */,
