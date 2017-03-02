@@ -10,24 +10,16 @@
 #import "UIColor+colorValues.h"
 #import "Masonry.h"
 #import "YYConfirmVC.h"
-#import "YYShopCartVC.h"
 
 static NSString *cellId = @"cell_id";
 @interface YYMedicinalDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSArray *preTexts;
 @property(nonatomic,strong)NSArray *detailTexts;
 @property(nonatomic,strong)NSMutableArray *btns;
-//加减数量
 @property(nonatomic,assign)NSInteger number;
-//价格
-@property(nonatomic,assign)NSInteger priceNumber;
 @property(nonatomic,weak)UILabel *displayLabel;
 //购物车商品详情
 @property(nonatomic,strong)NSMutableArray *shopingCarDetails;
-//选项View
-@property(nonatomic,strong)UIView *optionView;
-//立刻购买Btn
-@property(nonatomic,strong)UIButton *buyBtn;
 @end
 
 @implementation YYMedicinalDetailVC
@@ -41,6 +33,7 @@ static NSString *cellId = @"cell_id";
     self.navigationController.navigationBar.layer.masksToBounds = YES;// 去掉横线（没有这一行代码导航栏的最下面还会有一个横线）
     // 4、设置导航栏半透明
     self.navigationController.navigationBar.translucent = true;
+
     //为了去除子页面的返回按钮字样
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
@@ -48,7 +41,7 @@ static NSString *cellId = @"cell_id";
     UIButton *rightButton = [[UIButton alloc]init];
     rightButton.frame = CGRectMake(0, 0, 44, 44);
     rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
-    [rightButton setImage:[UIImage imageNamed:@"shoppingcart"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"shoppingcar"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     [self loadData];
@@ -66,8 +59,7 @@ static NSString *cellId = @"cell_id";
 }
 //shoppingcar点击事件
 -(void)shoppingcar:(UIButton*)sender{
-   YYShopCartVC *shopCartVC = [[YYShopCartVC alloc]init];
-    [self.navigationController pushViewController:shopCartVC animated:true];
+    
 }
 //加载数据
 -(void)loadData{
@@ -112,13 +104,9 @@ static NSString *cellId = @"cell_id";
     }];
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
-    //价格数字
-    NSInteger priceNumber = 38;
-    self.priceNumber = priceNumber;
-    priceLabel.text = [NSString stringWithFormat:@"¥%ld",priceNumber];
-    
-    //记录药品价格
-    NSNumber *medicinalPrice = [NSNumber numberWithInteger:self.priceNumber];
+    priceLabel.text = @"¥38";
+    //记录药品名称
+    NSString *medicinalPrice = namelabel.text;
     [self.shopingCarDetails addObject:medicinalPrice];
     priceLabel.font = [UIFont systemFontOfSize:15];
     priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
@@ -161,7 +149,8 @@ static NSString *cellId = @"cell_id";
     buyBtn.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     buyBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
     
-    [self.view addSubview:buyBtn]; 
+    [self.view addSubview:buyBtn];
+    
     [buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.bottom.offset(0);
         make.height.offset(60);
@@ -169,8 +158,6 @@ static NSString *cellId = @"cell_id";
     }];
     //添加立即购买按钮的点击事件
     [buyBtn addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
-    //添加加入购物车按钮的点击事件
-    [shopCarBtn addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 //立即购买
@@ -183,17 +170,10 @@ static NSString *cellId = @"cell_id";
     [buyView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.bottom.right.offset(0);
     }];
-    buyView.userInteractionEnabled = YES;
-    //添加tap手势：
-    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
-    //将手势添加至需要相应的view中
-    [buyView addGestureRecognizer:tapGesture];
-
     //商品规格选项
     UIView *optionView = [[UIView alloc]init];
     optionView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:optionView];
-    self.optionView = optionView;
     [optionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.bottom.right.offset(0);
         make.top.offset(self.view.frame.size.height-320);
@@ -223,8 +203,7 @@ static NSString *cellId = @"cell_id";
     }];
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
-    //价格数字
-    priceLabel.text = [NSString stringWithFormat:@"¥%ld",self.priceNumber];
+    priceLabel.text = @"¥38";
     priceLabel.font = [UIFont systemFontOfSize:14];
     priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
     [optionView addSubview:priceLabel];
@@ -356,6 +335,9 @@ static NSString *cellId = @"cell_id";
     self.number = number;
     UILabel *displayNumberLabel = [[UILabel alloc]init];
     displayNumberLabel.text = [NSString stringWithFormat:@"%ld",self.number] ;
+    //记录购买药品数量
+    NSNumber *buyNumber = [NSNumber numberWithInteger:self.number];
+    [self.shopingCarDetails addObject:buyNumber];
     displayNumberLabel.font = [UIFont systemFontOfSize:17];
      self.displayLabel = displayNumberLabel;
     displayNumberLabel.textAlignment = NSTextAlignmentCenter;
@@ -390,7 +372,6 @@ static NSString *cellId = @"cell_id";
     buyNowButton.titleLabel.font = [UIFont systemFontOfSize:18];
     buyNowButton.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
     [self.view addSubview:buyNowButton];
-    self.buyBtn = buyNowButton;
     [buyNowButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);
         make.height.offset(60);
@@ -403,7 +384,6 @@ static NSString *cellId = @"cell_id";
 -(void)buyNowWithOptions:(UIButton*)sender{
     YYConfirmVC *conVC = [[YYConfirmVC alloc]init];
     conVC.shopingCarDetails = self.shopingCarDetails;
-    conVC.number = self.number;
     [self.navigationController pushViewController:conVC animated:true];
 }
 //药品数量加减
@@ -435,14 +415,6 @@ static NSString *cellId = @"cell_id";
         }
     }
 }
-//执行手势触发的方法：
-- (void)event:(UITapGestureRecognizer *)gesture
-{
-    //移除view
-    [gesture.view removeFromSuperview];
-    [self.optionView removeFromSuperview];
-    [self.buyBtn removeFromSuperview];
-    }
 #pragma tableviewDelegate,datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 11;

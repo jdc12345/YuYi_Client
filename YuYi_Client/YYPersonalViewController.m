@@ -12,7 +12,11 @@
 #import <Masonry.h>
 #import "YYSectionViewController.h"
 #import "YYPersonalTableViewCell.h"
-
+#import "YYRecardViewController.h"
+#import "YYPInfomartionViewController.h"
+#import "YYSettingViewController.h"
+#import "YYEquipmentViewController.h"
+#import "YYFamilyAddViewController.h"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -57,7 +61,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病历",@"消息"],@[@"购物车",@"订单详情"],@[@"家庭成员管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病历",@"消息"],@[@"购物车",@"订单详情"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
     self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"Personal-shopping -icon-",@"order_icon_"],@[@"family-icon--1",@"equipment-icon-"],@[@"goods-icon-",@"Set-icon-"]];
     
     
@@ -80,6 +84,11 @@
     
     UIView *personV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 90 *kiphone6)];
     personV.backgroundColor = [UIColor whiteColor];
+    
+    
+    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headViewClick)];
+    [personV addGestureRecognizer:tapGest];
+    
     
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
     headerView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
@@ -121,15 +130,56 @@
         make.left.equalTo(nameLabel.mas_left);
         make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
     }];
+    
+    
 
     return personV;
+}
+- (void)headViewClick{
+    NSLog(@"123");
+    YYPInfomartionViewController *pInfoVC = [[YYPInfomartionViewController alloc]init];
+    [self.navigationController pushViewController:pInfoVC animated:YES];
 }
 
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            [self.navigationController pushViewController:[[YYRecardViewController alloc]init] animated:YES];
+        }else{
+            
+        }
+        
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            
+        }else{
+            
+        }
+        
+    }else if (indexPath.section == 2){
+        if (indexPath.row == 0) {
+            YYFamilyAddViewController *familyVC = [[YYFamilyAddViewController alloc]init];
+            [self.navigationController pushViewController:familyVC animated:YES];
+        }else{
+            YYEquipmentViewController *equipmentVC = [[YYEquipmentViewController alloc]init];
+            [self.navigationController pushViewController:equipmentVC animated:YES];
+        }
+        
+    }else{
+        if (indexPath.row == 0) {
+            
+        }else{
+            YYSettingViewController *setVC = [[YYSettingViewController alloc]init];
+            [self.navigationController pushViewController:setVC animated:YES];
+        }
+        
+    }
+    
+//    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -

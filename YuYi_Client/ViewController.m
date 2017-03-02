@@ -15,7 +15,6 @@
 #import "headerTitleBtn.h"
 #import "YYAllMedicinalViewController.h"
 #import "YYMedicinalDetailVC.h"
-#import "YYSearchTableViewController.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -27,7 +26,6 @@ static NSString* cellid = @"business_cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"医药商城";
-    self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
      [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];
 //        UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
@@ -66,8 +64,8 @@ static NSString* cellid = @"business_cell";
 //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
 //    NSDictionary *dict = arr[i];
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateHighlighted];
     [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     //添加药品分类按钮
     NSArray *nameArray = @[@"中药调理",@"肠胃用药",@"保健滋补",@"眼鼻喉耳",@"皮肤用药",@"全部"];
     NSMutableArray *classBtn = [NSMutableArray array];
@@ -91,7 +89,8 @@ static NSString* cellid = @"business_cell";
         //添加button的点击事件
         btn.tag = 100 + i;
         [btn addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
- 
+        
+        
     }
 
     for (int i = 0; i < 3; i++) {
@@ -202,10 +201,6 @@ static NSString* cellid = @"business_cell";
     if (btn.tag == 105) {
         [self.navigationController pushViewController:[[YYAllMedicinalViewController alloc]init] animated:true];
     }
-}
-//搜索跳转
--(void)searchBtnClick:(UIButton*)sender{
-    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
 }
 #pragma collectionViewDatasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
