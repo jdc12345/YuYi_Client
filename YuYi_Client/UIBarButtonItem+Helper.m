@@ -51,7 +51,7 @@
 }
 
 - (id)initWithTitle:(NSString *)title normalColor:(UIColor *)normal highlightedColor:(UIColor *)highlighted target:(id)target action:(SEL)action {
-    return [self initWithTitle:title backgroundImage:[UIImage new] normalColor:normal highlightedColor:highlighted target:target action:action];
+    return [self initWithTitle:title backgroundImage:[UIImage new] normalColor:[UIColor lightGrayColor] highlightedColor:[UIColor blackColor] target:target action:action];
 }
 
 // 设置文字按钮，backgroundImage:背景图片 normal：常规颜色 Highlighted：高亮颜色
