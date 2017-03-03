@@ -53,9 +53,9 @@
     UITextField *telNumberField = [[UITextField alloc]init];
     [self.view addSubview:telNumberField];
     [telNumberField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(telImageView.mas_left).offset(15);
+        make.left.equalTo(telImageView.mas_right).offset(15);
         make.bottom.equalTo(line1.mas_top).offset(-7.5);
-        make.width.offset(75);
+        make.width.offset(100);
     }];
 
     //添加line2
@@ -80,9 +80,9 @@
     UITextField *passWordField = [[UITextField alloc]init];
     [self.view addSubview:passWordField];
     [passWordField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(passWordImageView.mas_left).offset(15);
+        make.left.equalTo(passWordImageView.mas_right).offset(15);
         make.bottom.equalTo(line2.mas_top).offset(-7.5);
-        make.width.offset(75);
+        make.width.offset(100);
     }];
     //添加获取验证码Btn
     UIButton *getCodeBtn = [[UIButton alloc]init];
