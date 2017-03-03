@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3821E69170300C359A7 /* YYOrderDetailVC.m */; };
+		161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */; };
+		161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3901E69409200C359A7 /* YYOrderDetailView.m */; };
 		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
 		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
@@ -145,6 +148,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		161FA3811E69170300C359A7 /* YYOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailVC.h; sourceTree = "<group>"; };
+		161FA3821E69170300C359A7 /* YYOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailVC.m; sourceTree = "<group>"; };
+		161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYOrderDetailView.xib; sourceTree = "<group>"; };
+		161FA38F1E69409200C359A7 /* YYOrderDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailView.h; sourceTree = "<group>"; };
+		161FA3901E69409200C359A7 /* YYOrderDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailView.m; sourceTree = "<group>"; };
 		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
 		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
 		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
@@ -463,6 +471,8 @@
 				1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */,
 				165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */,
 				165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */,
+				161FA3811E69170300C359A7 /* YYOrderDetailVC.h */,
+				161FA3821E69170300C359A7 /* YYOrderDetailVC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -497,6 +507,9 @@
 				165490131E6405640034CB5B /* YYareaBtn.m */,
 				165490161E6416950034CB5B /* UIPlaceholderTextView.h */,
 				165490171E6416950034CB5B /* UIPlaceholderTextView.m */,
+				161FA38F1E69409200C359A7 /* YYOrderDetailView.h */,
+				161FA3901E69409200C359A7 /* YYOrderDetailView.m */,
+				161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -1062,6 +1075,7 @@
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
+				161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */,
 				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
 				3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */,
 				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
@@ -1170,6 +1184,7 @@
 				1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */,
 				1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
+				161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */,
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */,
@@ -1218,6 +1233,7 @@
 				3EFBD66B1E68FDD900B422BD /* GYZCityHeaderView.m in Sources */,
 				3E9643FA1E6001B5001B49DE /* YYDetailRecardViewController.m in Sources */,
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
+				161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */,
 				1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */,
 				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
 				1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */,
