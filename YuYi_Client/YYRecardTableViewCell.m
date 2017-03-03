@@ -35,7 +35,7 @@
     self.seeRecardLabel = [[UILabel alloc]init];
     self.seeRecardLabel.textColor = [UIColor colorWithHexString:@"333333"];
     self.seeRecardLabel.font = [UIFont systemFontOfSize:14];
-    self.seeRecardLabel.text = @"病理查看";
+    self.seeRecardLabel.text = @"病例查看";
     self.seeRecardLabel.textAlignment = NSTextAlignmentRight;
     
     

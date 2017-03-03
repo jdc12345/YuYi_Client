@@ -119,6 +119,11 @@
 		3EFBD6531E68323700B422BD /* YYContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6331E66B55A00B422BD /* YYContactViewController.m */; };
 		3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */; };
 		3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */; };
+		3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD65E1E68FDD900B422BD /* CityData.plist */; };
+		3EFBD6691E68FDD900B422BD /* GYZCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6601E68FDD900B422BD /* GYZCity.m */; };
+		3EFBD66A1E68FDD900B422BD /* GYZChooseCityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6631E68FDD900B422BD /* GYZChooseCityController.m */; };
+		3EFBD66B1E68FDD900B422BD /* GYZCityHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6651E68FDD900B422BD /* GYZCityHeaderView.m */; };
+		3EFBD66C1E68FDD900B422BD /* GYZCityGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6671E68FDD900B422BD /* GYZCityGroupCell.m */; };
 		6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */; };
 /* End PBXBuildFile section */
 
@@ -353,6 +358,16 @@
 		3EFBD6431E67BD2600B422BD /* HcCustomKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HcCustomKeyboard.h; sourceTree = "<group>"; };
 		3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HcCustomKeyboard.m; sourceTree = "<group>"; };
 		3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-03-02 上午10.55.18.png"; sourceTree = "<group>"; };
+		3EFBD65E1E68FDD900B422BD /* CityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CityData.plist; sourceTree = "<group>"; };
+		3EFBD65F1E68FDD900B422BD /* GYZCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZCity.h; sourceTree = "<group>"; };
+		3EFBD6601E68FDD900B422BD /* GYZCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYZCity.m; sourceTree = "<group>"; };
+		3EFBD6611E68FDD900B422BD /* GYZChooseCityDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZChooseCityDelegate.h; sourceTree = "<group>"; };
+		3EFBD6621E68FDD900B422BD /* GYZChooseCityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZChooseCityController.h; sourceTree = "<group>"; };
+		3EFBD6631E68FDD900B422BD /* GYZChooseCityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYZChooseCityController.m; sourceTree = "<group>"; };
+		3EFBD6641E68FDD900B422BD /* GYZCityHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZCityHeaderView.h; sourceTree = "<group>"; };
+		3EFBD6651E68FDD900B422BD /* GYZCityHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYZCityHeaderView.m; sourceTree = "<group>"; };
+		3EFBD6661E68FDD900B422BD /* GYZCityGroupCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZCityGroupCell.h; sourceTree = "<group>"; };
+		3EFBD6671E68FDD900B422BD /* GYZCityGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYZCityGroupCell.m; sourceTree = "<group>"; };
 		79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.release.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.release.xcconfig"; sourceTree = "<group>"; };
 		987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-YuYi_Client.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YuYi_Client.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YuYi_Client/Pods-YuYi_Client.debug.xcconfig"; sourceTree = "<group>"; };
@@ -562,6 +577,16 @@
 		3E1220661E56910600BD5F21 /* Root_Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3EFBD65E1E68FDD900B422BD /* CityData.plist */,
+				3EFBD65F1E68FDD900B422BD /* GYZCity.h */,
+				3EFBD6601E68FDD900B422BD /* GYZCity.m */,
+				3EFBD6611E68FDD900B422BD /* GYZChooseCityDelegate.h */,
+				3EFBD6621E68FDD900B422BD /* GYZChooseCityController.h */,
+				3EFBD6631E68FDD900B422BD /* GYZChooseCityController.m */,
+				3EFBD6641E68FDD900B422BD /* GYZCityHeaderView.h */,
+				3EFBD6651E68FDD900B422BD /* GYZCityHeaderView.m */,
+				3EFBD6661E68FDD900B422BD /* GYZCityGroupCell.h */,
+				3EFBD6671E68FDD900B422BD /* GYZCityGroupCell.m */,
 				3ECBB4671E5D739F00BD5BE5 /* FMActionSheet.h */,
 				3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */,
 				3E1840D61E56AC4E00069568 /* UIColor+Extension.h */,
@@ -988,6 +1013,7 @@
 				TargetAttributes = {
 					3EAB2B721E2F065800D6795F = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HM3WX6CXQ7;
 						ProvisioningStyle = Automatic;
 					};
 					3EAB2B8B1E2F065800D6795F = {
@@ -1037,6 +1063,7 @@
 				3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
+				3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */,
 				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
 				3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */,
 				3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */,
@@ -1159,6 +1186,7 @@
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
+				3EFBD66A1E68FDD900B422BD /* GYZChooseCityController.m in Sources */,
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,
 				3E1840F81E56C8BF00069568 /* YYPersonalViewController.m in Sources */,
@@ -1181,11 +1209,13 @@
 				3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */,
 				3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */,
 				3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */,
+				3EFBD66C1E68FDD900B422BD /* GYZCityGroupCell.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
 				16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */,
 				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */,
 				3EB10BB81E64006800F5F9D2 /* ZYAlertSView.m in Sources */,
+				3EFBD66B1E68FDD900B422BD /* GYZCityHeaderView.m in Sources */,
 				3E9643FA1E6001B5001B49DE /* YYDetailRecardViewController.m in Sources */,
 				3E1840D41E569D6200069568 /* YYHomePageViewController.m in Sources */,
 				1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */,
@@ -1197,6 +1227,7 @@
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */,
+				3EFBD6691E68FDD900B422BD /* GYZCity.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
 				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
@@ -1362,6 +1393,7 @@
 			baseConfigurationReference = C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HM3WX6CXQ7;
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";
@@ -1374,6 +1406,7 @@
 			baseConfigurationReference = 79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HM3WX6CXQ7;
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";

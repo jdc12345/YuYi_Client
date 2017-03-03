@@ -19,12 +19,15 @@
 #import "ViewController.h"
 #import "YYInfoDetailViewController.h"
 #import "ZYAlertSView.h"
+#import "GYZChooseCityController.h"
 
-@interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation>
+@interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, weak) ZYAlertSView *alertView;
+
+@property (nonatomic, weak) UIButton *leftBtn;
 
 @end
 
@@ -85,18 +88,20 @@
     // 左侧地址按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [leftButton setFrame:CGRectMake(0,0,40, 30)];
+    [leftButton setFrame:CGRectMake(0,0,50, 15)];
     
     [leftButton setTitle:@"北京" forState:UIControlStateNormal];
     
-    [leftButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    
+    leftButton.titleLabel.font = [UIFont systemFontOfSize:15];
     
     [leftButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
     self.navigationItem.leftBarButtonItem = leftItem;
-    
+    self.leftBtn = leftButton;
     
     // 右侧通知按钮
     UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -110,6 +115,8 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
     self.navigationItem.rightBarButtonItem = rightItem;
+    
+    [rightButton sizeToFit];
     
     
     UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
@@ -247,78 +254,32 @@
     [self.navigationController pushViewController:infoVC animated:YES];
 }
 - (void)back_click:(UIButton *)sender{
-    CGFloat alertW = 335 *kiphone6;
-    CGFloat alertH = 310 *kiphone6;
+    GYZChooseCityController *cityPickerVC = [[GYZChooseCityController alloc] init];
+    [cityPickerVC setDelegate:self];
     
-    // titleView
-    UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, 80 *kiphone6)];
-    UILabel *titleLabel = [[UILabel alloc]init];
-    titleLabel.text = @"选择挂号人";
-    titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    titleLabel.font = [UIFont systemFontOfSize:20];
+    //    cityPickerVC.locationCityID = @"1400010000";
+    //    cityPickerVC.commonCitys = [[NSMutableArray alloc] initWithArray: @[@"1400010000", @"100010000"]];        // 最近访问城市，如果不设置，将自动管理
+    //    cityPickerVC.hotCitys = @[@"100010000", @"200010000", @"300210000", @"600010000", @"300110000"];
     
-    UILabel *lineLabel = [[UILabel alloc]init];
-    lineLabel.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
-    [titleView addSubview:titleLabel];
-    [titleView addSubview:lineLabel];
-    
-    WS(ws);
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(120 ,20));
-    }];
-    [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(titleView);
-        make.bottom.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW ,1));
-    }];
-    // 选项view
-    UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];
-    
-    // 取消确定view
-    UIView *sureView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(selectView.frame), alertW, 60 *kiphone6)];
-    UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
-    [cancelBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
-    cancelBtn.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
-    
-    [sureView addSubview:cancelBtn];
-    
-    [cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(sureView);
-        make.top.equalTo(sureView);
-        make.size.mas_equalTo(CGSizeMake(alertW/2.0, 60 *kiphone6));
-    }];
-    
-    UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-    [sureBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
-    sureBtn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
-    
-    [sureView addSubview:sureBtn];
-    
-    [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(sureView);
-        make.top.equalTo(sureView);
-        make.size.mas_equalTo(CGSizeMake(sureView.frame.size.width/2.0, 60 *kiphone6));
-    }];
-
-    
-    
-    ZYAlertSView *alertV = [[ZYAlertSView alloc]initWithContentSize:CGSizeMake(alertW, alertH) TitleView:titleView selectView:selectView sureView:sureView];
-    [alertV show];
-    self.alertView = alertV;
-}
-- (void)alertClick:(UIButton *)sender{
-    if ([sender.currentTitle isEqualToString:@"取消"]) {
-         [self.alertView dismiss:nil];
-    }else{
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:cityPickerVC] animated:YES completion:^{
         
-    }
+    }];
 }
+#pragma mark - GYZCityPickerDelegate
+- (void) cityPickerController:(GYZChooseCityController *)chooseCityController didSelectCity:(GYZCity *)city
+{
+    [self.leftBtn setTitle:city.cityName forState:UIControlStateNormal];
+    [chooseCityController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
+- (void) cityPickerControllerDidCancel:(GYZChooseCityController *)chooseCityController
+{
+    [self.leftBtn setTitle:chooseCityController.locationCityID forState:UIControlStateNormal];
+    [chooseCityController dismissViewControllerAnimated:YES completion:^{
+    }];
+}
+
 // 取消吸顶 顶部悬停
 
 /*

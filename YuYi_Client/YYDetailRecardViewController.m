@@ -53,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"病理查看";
+    self.title = @"病例查看";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     

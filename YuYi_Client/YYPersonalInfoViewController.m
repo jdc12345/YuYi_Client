@@ -17,6 +17,7 @@
 #import <Masonry.h>
 #import "YYPersonalInfoTableViewCell.h"
 #import "YYDataAnalyseViewController.h"
+#import "YYDetailRecardViewController.h"
 
 @interface YYPersonalInfoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -74,7 +75,8 @@
             YYDataAnalyseViewController *dataVC = [[YYDataAnalyseViewController alloc]init];
             [self.navigationController pushViewController:dataVC animated:YES];
         }else{
-            
+            YYDetailRecardViewController *recardVC = [[YYDetailRecardViewController alloc]init];
+            [self.navigationController pushViewController:recardVC animated:YES];
         }
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];

@@ -55,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"电子病历";
+    self.title = @"电子病例";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
@@ -159,7 +159,7 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, kScreenW, 40 *kiphone6)];
     headerView.backgroundColor = [UIColor whiteColor];
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"李四的病历";
+    nameLabel.text = @"李四的病例";
     nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
     nameLabel.font = [UIFont systemFontOfSize:15];
     

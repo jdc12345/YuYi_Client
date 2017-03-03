@@ -9,6 +9,7 @@
 #import "InfomationViewController.h"
 #import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
+#import "YYInfoDetailViewController.h"
 
 @interface InfomationViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -53,6 +54,13 @@
     headView.backgroundColor = [UIColor clearColor];
     self.tableView.tableHeaderView = headView;
     // Do any additional setup after loading the view.
+}
+#pragma mark -
+#pragma mark ------------TableView Delegate----------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    YYInfoDetailViewController *infoDetailVC = [[YYInfoDetailViewController alloc]init];
+    [self.navigationController pushViewController:infoDetailVC animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------

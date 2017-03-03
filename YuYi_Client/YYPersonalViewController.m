@@ -61,7 +61,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病历",@"消息"],@[@"购物车",@"订单详情"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"购物车",@"订单详情"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
     self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"Personal-shopping -icon-",@"order_icon_"],@[@"family-icon--1",@"equipment-icon-"],@[@"goods-icon-",@"Set-icon-"]];
     
     
