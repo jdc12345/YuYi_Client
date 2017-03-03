@@ -201,7 +201,7 @@
     
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"family-icon--1"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
     [btn sizeToFit];
     //
     [personV addSubview:iconV];
