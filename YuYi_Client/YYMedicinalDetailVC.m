@@ -11,7 +11,7 @@
 #import "Masonry.h"
 #import "YYConfirmVC.h"
 #import "YYShopCartVC.h"
-
+#import "YYOrderDetailVC.h"
 static NSString *cellId = @"cell_id";
 @interface YYMedicinalDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)NSArray *preTexts;
@@ -434,6 +434,8 @@ static NSString *cellId = @"cell_id";
             
         }
     }
+    //换到个人信息订单详情页面
+    [self.navigationController pushViewController:[[YYOrderDetailVC alloc]init] animated:true];
 }
 //执行手势触发的方法：
 - (void)event:(UITapGestureRecognizer *)gesture
