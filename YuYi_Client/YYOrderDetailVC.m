@@ -18,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
+    UIView *view = [[NSBundle mainBundle] loadNibNamed:@"YYOrderDetailView" owner:nil options:nil][0];
+    [self.view addSubview:view];
+    [view mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(64);
+        make.left.right.bottom.offset(0);
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
