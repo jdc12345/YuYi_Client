@@ -109,12 +109,10 @@ static NSString *shopCarGoodCellId = @"shopCarGoodCell_id";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该商品？" preferredStyle:UIAlertControllerStyleAlert];
         //        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            //
-            //            [_classArray removeObjectAtIndex:indexPath.row];
-            //            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             //            MessageModel *model = weakself.dataArray[indexPath.row];
             //            [weakself singleDelet:model.mid];
             [self.goodsArray removeObjectAtIndex:indexPath.row];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             [self reloadData];
             
         }]];
