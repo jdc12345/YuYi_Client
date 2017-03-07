@@ -13,6 +13,8 @@
 #import <MapKit/MapKit.h>
 #import "UIColor+Extension.h"
 #import "UIBarButtonItem+Helper.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 @interface GYZChooseCityController ()<GYZCityGroupCellDelegate,UISearchBarDelegate,CLLocationManagerDelegate>
 /**
  *  记录所有城市信息，用于搜索
@@ -45,6 +47,8 @@
  */
 @property (nonatomic, strong) NSMutableArray *searchCities;
 @property(nonatomic,retain)CLLocationManager *locationManager;
+
+@property(nonatomic,retain)AMapLocationManager *locationManager2;
 @end
 
 NSString *const cityHeaderView = @"CityHeaderView";
@@ -202,7 +206,7 @@ NSString *const cityCell = @"CityCell";
 - (NSMutableArray *) arraySection
 {
     if (_arraySection == nil) {
-        _arraySection = [[NSMutableArray alloc] initWithObjects:UITableViewIndexSearch, @"定位", nil];
+        _arraySection = [[NSMutableArray alloc] initWithObjects:UITableViewIndexSearch, nil];
 //        _arraySection = [[NSMutableArray alloc] initWithObjects:UITableViewIndexSearch, @"定位", @"最近", @"最热", nil];
     }
     return _arraySection;
@@ -292,7 +296,7 @@ NSString *const cityCell = @"CityCell";
         return nil;
     }
     GYZCityHeaderView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:cityHeaderView];
-    NSString *title = [_arraySection objectAtIndex:section -1];
+    NSString *title = [_arraySection objectAtIndex:section -2];
     headerView.titleLabel.text = title;
     return headerView;
 }
@@ -440,7 +444,7 @@ NSString *const cityCell = @"CityCell";
 }
 
 //开始定位
--(void)locationStart{
+-(void)locationStart2{
     //判断定位操作是否被允许
     
     if([CLLocationManager locationServicesEnabled]) {
@@ -460,6 +464,54 @@ NSString *const cityCell = @"CityCell";
         NSLog(@"%@",@"定位服务当前可能尚未打开，请设置打开！");
         
     }
+    
+    
+}
+-(void)locationStart{
+    
+    NSLog(@"高德定位");
+    [AMapServices sharedServices].apiKey =@"1ed56a722c410ad36180cd7272d9ae7f";
+    
+    
+    
+    
+    self.locationManager2 = [[AMapLocationManager alloc]init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager2 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为2s
+    self.locationManager2.locationTimeout =2;
+    //   逆地理请求超时时间，最低2s，此处设置为2s
+    self.locationManager2.reGeocodeTimeout = 2;
+    
+    [self.locationManager2 requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == AMapLocationErrorLocateFailed)
+            {
+                return;
+            }
+        }
+        
+        NSLog(@"location:%@", location);
+        
+        if (regeocode)
+        {
+            NSLog(@"reGeocode:%@", regeocode);
+            self.locationCityID =  regeocode.district;
+            GYZCity *city = [[GYZCity alloc] init];
+            city.cityName = regeocode.district;
+            city.shortName = regeocode.district;
+            [self.localCityData addObject:city];
+#pragma mark -
+#pragma mark ------------mark----------------------
+            [self.tableView reloadData];
+        }
+        
+    }];
+    
 }
 #pragma mark - CoreLocation Delegate
 

@@ -6,6 +6,6 @@ pod 'Masonry'
 pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'SDCycleScrollView'
-
+pod 'AMapLocation'
 end
 
