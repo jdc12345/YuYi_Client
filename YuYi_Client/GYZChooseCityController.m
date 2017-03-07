@@ -24,6 +24,9 @@
  *  定位城市
  */
 @property (nonatomic, strong) NSMutableArray *localCityData;
+
+
+@property (nonatomic, weak) GYZCityGroupCell *locationCell;
 /**
  *  热门城市
  */
@@ -264,9 +267,14 @@ NSString *const cityCell = @"CityCell";
         GYZCityGroupCell *cell = [tableView dequeueReusableCellWithIdentifier:cityGroupCell];
         if (indexPath.section == 0) {
             cell.titleLabel.text = @"当前城市";
-            cell.noDataLabel.text = @"无法定位当前城市，请稍后再试";
+            if (!self.locationCityID) {
+                cell.noDataLabel.text = @"无法定位当前城市，请稍后再试";
+            }else{
+                cell.noDataLabel.text = self.locationCityID;
+            }
             [cell setCityArray:self.localCityData];
             cell.contentView.backgroundColor = [UIColor whiteColor];
+            self.locationCell = cell;
         }
         else if (indexPath.section == 1) {
             cell.titleLabel.text = @"最近访问城市";
@@ -504,10 +512,11 @@ NSString *const cityCell = @"CityCell";
             GYZCity *city = [[GYZCity alloc] init];
             city.cityName = regeocode.district;
             city.shortName = regeocode.district;
-            [self.localCityData addObject:city];
+            // [self.localCityData addObject:city];
+            self.locationCell.noDataLabel.text  = regeocode.district;
 #pragma mark -
 #pragma mark ------------mark----------------------
-            [self.tableView reloadData];
+//            [self.tableView reloadData];
         }
         
     }];

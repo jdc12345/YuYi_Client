@@ -20,6 +20,8 @@
 #import "YYInfoDetailViewController.h"
 #import "ZYAlertSView.h"
 #import "GYZChooseCityController.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
 
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
@@ -28,6 +30,7 @@
 @property (nonatomic, weak) ZYAlertSView *alertView;
 
 @property (nonatomic, weak) UIButton *leftBtn;
+@property (nonatomic, strong) AMapLocationManager *locationManager2;
 
 @end
 
@@ -125,6 +128,42 @@
     
     
     
+    // 首页高德定位
+    NSLog(@"首页高德定位");
+    [AMapServices sharedServices].apiKey =@"1ed56a722c410ad36180cd7272d9ae7f";
+    
+    
+    
+    
+    self.locationManager2 = [[AMapLocationManager alloc]init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager2 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为2s
+    self.locationManager2.locationTimeout =2;
+    //   逆地理请求超时时间，最低2s，此处设置为2s
+    self.locationManager2.reGeocodeTimeout = 2;
+    
+    [self.locationManager2 requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == AMapLocationErrorLocateFailed)
+            {
+                return;
+            }
+        }
+        
+        NSLog(@"location:%@", location);
+        
+        if (regeocode)
+        {
+            NSLog(@"reGeocode:%@", regeocode);
+             [leftButton setTitle:regeocode.district forState:UIControlStateNormal];
+        }
+        
+    }];
     
     // Do any additional setup after loading the view.
 }
