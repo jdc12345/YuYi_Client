@@ -48,6 +48,7 @@ static NSString *shopCarGoodCellId = @"shopCarGoodCell_id";
     [self registerNib:[UINib nibWithNibName:@"YYShopCarTableViewCell" bundle:nil] forCellReuseIdentifier:shopCarGoodCellId];
 }
 
+#pragma tableViewDelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.goodsArray.count;
 }
@@ -59,24 +60,79 @@ static NSString *shopCarGoodCellId = @"shopCarGoodCell_id";
     return 160;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 100)];
-    view.backgroundColor = [UIColor whiteColor];
-    UIButton *balanceBtn = [[UIButton alloc]init];
-    balanceBtn.backgroundColor = [UIColor colorWithHexString:@"66cc00"];
-    [balanceBtn setTitle:@"去结算" forState:UIControlStateNormal];
-    [balanceBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-    [view addSubview:balanceBtn];
-    [balanceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(view);
-        make.width.offset(100);
-        make.height.offset(30);
-    }];
-    [balanceBtn addTarget:self action:@selector(goBalance:) forControlEvents:UIControlEventTouchUpInside];
-    return view;
+    if (self.goodsArray.count>0) {
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 100)];
+        view.backgroundColor = [UIColor whiteColor];
+        UIButton *balanceBtn = [[UIButton alloc]init];
+        balanceBtn.backgroundColor = [UIColor colorWithHexString:@"66cc00"];
+        [balanceBtn setTitle:@"去结算" forState:UIControlStateNormal];
+        [balanceBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
+        [view addSubview:balanceBtn];
+        [balanceBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(view);
+            make.width.offset(100);
+            make.height.offset(30);
+        }];
+        [balanceBtn addTarget:self action:@selector(goBalance:) forControlEvents:UIControlEventTouchUpInside];
+        return view;
+        
+    }else{
+        return nil;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 100;
+    if (self.goodsArray.count>0) {
+        return 100;
+    }else{
+        return 0;
+    }
+    
 }
+
+
+-(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return   UITableViewCellEditingStyleDelete;
+}
+//先要设Cell可编辑
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+//进入编辑模式，按下出现的编辑按钮后
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //    WS(weakself);
+    [tableView setEditing:NO animated:YES];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"你确定删除该商品？" preferredStyle:UIAlertControllerStyleAlert];
+        //        [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            //
+            //            [_classArray removeObjectAtIndex:indexPath.row];
+            //            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            //            MessageModel *model = weakself.dataArray[indexPath.row];
+            //            [weakself singleDelet:model.mid];
+            [self.goodsArray removeObjectAtIndex:indexPath.row];
+            [self reloadData];
+            
+        }]];
+        
+        [self.vc presentViewController:alertController animated:YES completion:nil];
+    }
+}
+//修改编辑按钮文字
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+//设置进入编辑状态时，Cell不会缩进
+- (BOOL)tableView: (UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
 #pragma goBalance
 -(void)goBalance:(UIButton*)sender{
     //换登录
