@@ -261,7 +261,7 @@ static NSString *cellId = @"cell_id";
         [btn.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
         //边框宽度
         [btn.layer setBorderWidth:0.8];
-        btn.layer.borderColor=[UIColor colorWithHexString:@"#f3f3f3"].CGColor;
+        btn.layer.borderColor=[UIColor colorWithHexString:@"999999"].CGColor;
         [btn setTitle:numberOptions[i]   forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:@"999999"]
                   forState:UIControlStateNormal];
@@ -421,11 +421,7 @@ static NSString *cellId = @"cell_id";
 //选择数量规格
 -(void)numberOptionClick:(UIButton*)sender{
     [sender setTitleColor:[UIColor colorWithHexString:@"25f368"]  forState:UIControlStateNormal];
-    [sender.layer setMasksToBounds:YES];
-    [sender.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
-    //边框宽度
-    [sender.layer setBorderWidth:0.8];
-    sender.layer.borderColor=[UIColor colorWithHexString:@"25f36"].CGColor;
+    sender.layer.borderColor=[UIColor colorWithHexString:@"25f368"].CGColor;
     for (int i = 0; i<self.btns.count; i++) {
         UIButton *btn = self.btns[i];
         if (sender.tag != btn.tag) {
