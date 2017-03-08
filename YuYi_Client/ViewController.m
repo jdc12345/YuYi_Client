@@ -84,7 +84,7 @@ static NSString* cellid = @"business_cell";
         [btn.titleLabel setFont:[UIFont systemFontOfSize:14]];
         [self.view addSubview:btn];
         [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.offset(105);
+            make.width.offset((kScreenW-30)*0.3);
             make.height.offset(39);
         }];
         [classBtn addObject:btn];

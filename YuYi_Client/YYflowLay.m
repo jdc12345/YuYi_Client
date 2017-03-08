@@ -17,7 +17,8 @@
     [super prepareLayout];
     
     CGFloat w = self.collectionView.bounds.size.width / 3;
-    CGFloat h = self.collectionView.bounds.size.height/2-50;
+//    CGFloat h = self.collectionView.bounds.size.height/2-50;
+    CGFloat h = 166;
     self.itemSize = CGSizeMake(w, h); // cell大小
     self.minimumLineSpacing = 1; // 行间距
     self.minimumInteritemSpacing = 0; // cell间距

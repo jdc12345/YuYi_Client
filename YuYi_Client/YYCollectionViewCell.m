@@ -74,12 +74,6 @@
     
     
     // 自动布局
-    [iconView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.offset(0);
-        make.centerX.equalTo(self.contentView);
-        make.width.offset(self.contentView.frame.size.width*0.7);
-        make.height.offset(self.contentView.frame.size.height*0.7);
-    }];
     [priceLabel mas_makeConstraints:^(MASConstraintMaker* make) {
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
         make.centerX.equalTo(self.contentView);
@@ -88,7 +82,13 @@
         make.bottom.equalTo(priceLabel.mas_top).offset(-8);
         make.centerX.equalTo(self.contentView);
     }];
-    
+    [iconView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.bottom.equalTo(nameLabel.mas_top).offset(10);
+        make.centerX.equalTo(self.contentView);
+        //        make.width.offset(self.contentView.frame.size.width*0.7);
+        //        make.height.offset(self.contentView.frame.size.height*0.7);
+        make.width.height.offset(100);
+    }];
     self.iconView = iconView;
     self.nameLabel = nameLabel;
 }
