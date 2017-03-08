@@ -22,6 +22,7 @@
 #import "GYZChooseCityController.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
+#import "NotficationViewController.h"
 
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
@@ -113,7 +114,7 @@
     
     [rightButton setBackgroundImage:[UIImage imageNamed:@"notfic_select"] forState:UIControlStateNormal];
     
-    [rightButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
+    [rightButton addTarget:self action:@selector(back_click_right:) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
@@ -159,8 +160,12 @@
         
         if (regeocode)
         {
-            NSLog(@"reGeocode:%@", regeocode);
+            NSLog(@"reGeocode:%@", regeocode.district);
+            if(!regeocode.district){
+                [leftButton setTitle:@"无定位" forState:UIControlStateNormal];
+            }else{
              [leftButton setTitle:regeocode.district forState:UIControlStateNormal];
+            }
         }
         
     }];
@@ -303,6 +308,10 @@
     [self presentViewController:[[UINavigationController alloc] initWithRootViewController:cityPickerVC] animated:YES completion:^{
         
     }];
+}
+- (void)back_click_right:(UIButton *)sender{
+    NotficationViewController *noteVC = [[NotficationViewController alloc]init];
+    [self.navigationController pushViewController:noteVC animated:YES];
 }
 #pragma mark - GYZCityPickerDelegate
 - (void) cityPickerController:(GYZChooseCityController *)chooseCityController didSelectCity:(GYZCity *)city

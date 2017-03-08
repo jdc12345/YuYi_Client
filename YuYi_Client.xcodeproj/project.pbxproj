@@ -100,6 +100,21 @@
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
 		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
 		3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */; };
+		3EC2BFF21E6F9C3B00F01795 /* jcore-ios-1.1.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFEF1E6F9C3B00F01795 /* jcore-ios-1.1.1.a */; };
+		3EC2BFF31E6F9C3B00F01795 /* jpush-ios-3.0.2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF01E6F9C3B00F01795 /* jpush-ios-3.0.2.a */; };
+		3EC2BFF51E6F9CA600F01795 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF41E6F9CA600F01795 /* CFNetwork.framework */; };
+		3EC2BFF71E6F9CC000F01795 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF61E6F9CC000F01795 /* CoreFoundation.framework */; };
+		3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF81E6F9CC900F01795 /* CoreTelephony.framework */; };
+		3EC2BFFB1E6F9D0000F01795 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFFA1E6F9D0000F01795 /* SystemConfiguration.framework */; };
+		3EC2BFFD1E6F9D0B00F01795 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFFC1E6F9D0B00F01795 /* CoreGraphics.framework */; };
+		3EC2BFFF1E6F9D1900F01795 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFFE1E6F9D1900F01795 /* Foundation.framework */; };
+		3EC2C0011E6F9D3600F01795 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2C0001E6F9D3600F01795 /* UIKit.framework */; };
+		3EC2C0031E6F9D4000F01795 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2C0021E6F9D4000F01795 /* Security.framework */; };
+		3EC2C0051E6F9D5000F01795 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2C0041E6F9D5000F01795 /* libz.tbd */; };
+		3EC2C0071E6F9D6000F01795 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2C0061E6F9D6000F01795 /* UserNotifications.framework */; };
+		3EC2C0091E6F9D6E00F01795 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2C0081E6F9D6E00F01795 /* libresolv.tbd */; };
+		3EC2C00D1E6FF32000F01795 /* NotficationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2C00C1E6FF32000F01795 /* NotficationViewController.m */; };
+		3EC2C0101E6FF47B00F01795 /* NotficationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EC2C00F1E6FF47B00F01795 /* NotficationTableViewCell.m */; };
 		3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */; };
 		3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */; };
 		3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */; };
@@ -333,6 +348,25 @@
 		3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultTableViewCell.m; sourceTree = "<group>"; };
 		3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalTableViewCell.h; sourceTree = "<group>"; };
 		3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
+		3EC2BFED1E6F97AF00F01795 /* YuYi_Client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YuYi_Client.entitlements; sourceTree = "<group>"; };
+		3EC2BFEF1E6F9C3B00F01795 /* jcore-ios-1.1.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.1.a"; sourceTree = "<group>"; };
+		3EC2BFF01E6F9C3B00F01795 /* jpush-ios-3.0.2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.2.a"; sourceTree = "<group>"; };
+		3EC2BFF11E6F9C3B00F01795 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		3EC2BFF41E6F9CA600F01795 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3EC2BFF61E6F9CC000F01795 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		3EC2BFF81E6F9CC900F01795 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		3EC2BFFA1E6F9D0000F01795 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3EC2BFFC1E6F9D0B00F01795 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3EC2BFFE1E6F9D1900F01795 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3EC2C0001E6F9D3600F01795 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3EC2C0021E6F9D4000F01795 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3EC2C0041E6F9D5000F01795 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3EC2C0061E6F9D6000F01795 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		3EC2C0081E6F9D6E00F01795 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		3EC2C00B1E6FF32000F01795 /* NotficationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotficationViewController.h; sourceTree = "<group>"; };
+		3EC2C00C1E6FF32000F01795 /* NotficationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotficationViewController.m; sourceTree = "<group>"; };
+		3EC2C00E1E6FF47B00F01795 /* NotficationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotficationTableViewCell.h; sourceTree = "<group>"; };
+		3EC2C00F1E6FF47B00F01795 /* NotficationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotficationTableViewCell.m; sourceTree = "<group>"; };
 		3ECBB45C1E5C600F00BD5BE5 /* YYSectorTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSectorTableViewCell.h; sourceTree = "<group>"; };
 		3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSectorTableViewCell.m; sourceTree = "<group>"; };
 		3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMeasureTableViewCell.h; sourceTree = "<group>"; };
@@ -386,7 +420,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EC2C0091E6F9D6E00F01795 /* libresolv.tbd in Frameworks */,
+				3EC2C0071E6F9D6000F01795 /* UserNotifications.framework in Frameworks */,
+				3EC2C0051E6F9D5000F01795 /* libz.tbd in Frameworks */,
+				3EC2C0031E6F9D4000F01795 /* Security.framework in Frameworks */,
+				3EC2C0011E6F9D3600F01795 /* UIKit.framework in Frameworks */,
+				3EC2BFFF1E6F9D1900F01795 /* Foundation.framework in Frameworks */,
+				3EC2BFFD1E6F9D0B00F01795 /* CoreGraphics.framework in Frameworks */,
+				3EC2BFFB1E6F9D0000F01795 /* SystemConfiguration.framework in Frameworks */,
+				3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */,
+				3EC2BFF71E6F9CC000F01795 /* CoreFoundation.framework in Frameworks */,
+				3EC2BFF51E6F9CA600F01795 /* CFNetwork.framework in Frameworks */,
+				3EC2BFF31E6F9C3B00F01795 /* jpush-ios-3.0.2.a in Frameworks */,
 				6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */,
+				3EC2BFF21E6F9C3B00F01795 /* jcore-ios-1.1.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +637,7 @@
 		3E1220661E56910600BD5F21 /* Root_Tools */ = {
 			isa = PBXGroup;
 			children = (
+				3EC2BFEE1E6F9BEC00F01795 /* APNs */,
 				3EFBD65E1E68FDD900B422BD /* CityData.plist */,
 				3EFBD65F1E68FDD900B422BD /* GYZCity.h */,
 				3EFBD6601E68FDD900B422BD /* GYZCity.m */,
@@ -676,6 +724,7 @@
 				3E1E47391E5BE1150042934D /* V */,
 				3E1E473A1E5BE11B0042934D /* C */,
 				3E1E473B1E5BE14C0042934D /* InformationPage */,
+				3EC2C00A1E6FF2D400F01795 /* NotficationPage */,
 				3E1841001E56D57500069568 /* ShoppingMall */,
 				3E1E47401E5BF50D0042934D /* AppointmentPage */,
 			);
@@ -878,6 +927,7 @@
 		3EAB2B751E2F065800D6795F /* YuYi_Client */ = {
 			isa = PBXGroup;
 			children = (
+				3EC2BFED1E6F97AF00F01795 /* YuYi_Client.entitlements */,
 				3E1220661E56910600BD5F21 /* Root_Tools */,
 				3E1840D91E56C56200069568 /* Classes */,
 				3EAB2B761E2F065800D6795F /* Supporting Files */,
@@ -909,6 +959,27 @@
 				3EAB2B9D1E2F065900D6795F /* Info.plist */,
 			);
 			path = YuYi_ClientUITests;
+			sourceTree = "<group>";
+		};
+		3EC2BFEE1E6F9BEC00F01795 /* APNs */ = {
+			isa = PBXGroup;
+			children = (
+				3EC2BFEF1E6F9C3B00F01795 /* jcore-ios-1.1.1.a */,
+				3EC2BFF01E6F9C3B00F01795 /* jpush-ios-3.0.2.a */,
+				3EC2BFF11E6F9C3B00F01795 /* JPUSHService.h */,
+			);
+			name = APNs;
+			sourceTree = "<group>";
+		};
+		3EC2C00A1E6FF2D400F01795 /* NotficationPage */ = {
+			isa = PBXGroup;
+			children = (
+				3EC2C00B1E6FF32000F01795 /* NotficationViewController.h */,
+				3EC2C00C1E6FF32000F01795 /* NotficationViewController.m */,
+				3EC2C00E1E6FF47B00F01795 /* NotficationTableViewCell.h */,
+				3EC2C00F1E6FF47B00F01795 /* NotficationTableViewCell.m */,
+			);
+			name = NotficationPage;
 			sourceTree = "<group>";
 		};
 		3ECBB45F1E5D4F1800BD5BE5 /* M */ = {
@@ -951,6 +1022,17 @@
 		4BCFE1CDF028F8743BA4C987 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EC2C0081E6F9D6E00F01795 /* libresolv.tbd */,
+				3EC2C0061E6F9D6000F01795 /* UserNotifications.framework */,
+				3EC2C0041E6F9D5000F01795 /* libz.tbd */,
+				3EC2C0021E6F9D4000F01795 /* Security.framework */,
+				3EC2C0001E6F9D3600F01795 /* UIKit.framework */,
+				3EC2BFFE1E6F9D1900F01795 /* Foundation.framework */,
+				3EC2BFFC1E6F9D0B00F01795 /* CoreGraphics.framework */,
+				3EC2BFFA1E6F9D0000F01795 /* SystemConfiguration.framework */,
+				3EC2BFF81E6F9CC900F01795 /* CoreTelephony.framework */,
+				3EC2BFF61E6F9CC000F01795 /* CoreFoundation.framework */,
+				3EC2BFF41E6F9CA600F01795 /* CFNetwork.framework */,
 				987C0FA07F4A18B3B3BED3C7 /* libPods-YuYi_Client.a */,
 			);
 			name = Frameworks;
@@ -1028,6 +1110,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = HM3WX6CXQ7;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					3EAB2B8B1E2F065800D6795F = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1197,6 +1284,7 @@
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
+				3EC2C00D1E6FF32000F01795 /* NotficationViewController.m in Sources */,
 				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
@@ -1217,6 +1305,7 @@
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
 				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
+				3EC2C0101E6FF47B00F01795 /* NotficationTableViewCell.m in Sources */,
 				1654BF531E5EDFE8002F1D00 /* YYMedicinalDetailVC.m in Sources */,
 				3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */,
 				3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */,
@@ -1409,11 +1498,29 @@
 			baseConfigurationReference = C0AB83EC4D10272B4B64A4A4 /* Pods-YuYi_Client.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = YuYi_Client/YuYi_Client.entitlements;
 				DEVELOPMENT_TEAM = HM3WX6CXQ7;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+				);
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client",
+					"\"$(SRCROOT)/YuYi_Client/Lib\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/YuYi_Client/Lib\"";
 			};
 			name = Debug;
 		};
@@ -1422,11 +1529,29 @@
 			baseConfigurationReference = 79EE98A8F7200045E176C0DD /* Pods-YuYi_Client.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = YuYi_Client/YuYi_Client.entitlements;
 				DEVELOPMENT_TEAM = HM3WX6CXQ7;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+				);
 				INFOPLIST_FILE = YuYi_Client/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client",
+					"\"$(SRCROOT)/YuYi_Client/Lib\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)/YuYi_Client/Lib\"";
 			};
 			name = Release;
 		};
