@@ -17,6 +17,9 @@
 #import "YYSettingViewController.h"
 #import "YYEquipmentViewController.h"
 #import "YYFamilyAddViewController.h"
+#import "YYShopCartVC.h"
+#import "YYOrderDetailVC.h"
+#import "YYAddressEditVC.h"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -155,9 +158,11 @@
         
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            
+            YYShopCartVC *shopVC = [[YYShopCartVC alloc]init];
+            [self.navigationController pushViewController:shopVC animated:YES];
         }else{
-            
+            YYOrderDetailVC *shopVC = [[YYOrderDetailVC alloc]init];
+            [self.navigationController pushViewController:shopVC animated:YES];
         }
         
     }else if (indexPath.section == 2){
@@ -171,7 +176,8 @@
         
     }else{
         if (indexPath.row == 0) {
-            
+            YYAddressEditVC *shopVC = [[YYAddressEditVC alloc]init];
+            [self.navigationController pushViewController:shopVC animated:YES];
         }else{
             YYSettingViewController *setVC = [[YYSettingViewController alloc]init];
             [self.navigationController pushViewController:setVC animated:YES];
@@ -179,7 +185,6 @@
         
     }
     
-//    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -

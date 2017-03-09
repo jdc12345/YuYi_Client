@@ -23,7 +23,8 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import <AMapLocationKit/AMapLocationKit.h>
 #import "NotficationViewController.h"
-
+#import "searchBar.h"
+#import "YYSearchTableViewController.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -125,7 +126,21 @@
     
     UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
     searchImageV.image = [UIImage imageNamed:@"search_icon"];
-    self.navigationItem.titleView = searchImageV;
+    
+    
+    
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
+    searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
+    [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
+    [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    NSDictionary *dict = arr[i];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = searchBtn;
     
     
     
@@ -327,7 +342,12 @@
     [chooseCityController dismissViewControllerAnimated:YES completion:^{
     }];
 }
+#pragma mark -
+#pragma mark ------------Search----------------------
 
+-(void)searchBtnClick:(UIButton*)sender{
+    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+}
 // 取消吸顶 顶部悬停
 
 /*
