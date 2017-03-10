@@ -199,9 +199,9 @@ static NSString* cellid = @"business_cell";
 }
 //药品点击事件
 -(void)medicinalClick:(UIButton*)btn{
-    if (btn.tag == 105) {
+//    if (btn.tag == 105) {
         [self.navigationController pushViewController:[[YYAllMedicinalViewController alloc]init] animated:true];
-    }
+//    }
 }
 //搜索跳转
 -(void)searchBtnClick:(UIButton*)sender{
@@ -249,11 +249,12 @@ static NSString* cellid = @"business_cell";
             make.left.right.bottom.offset(0);
             make.height.offset(1);
         }];
-//        [button addTarget:self action:sel_registerName("doOpen:") forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
+
 //        button.tag = 1000 + indexPath.section;
-//        for (UIView *view in header.subviews) {
-//            [view removeFromSuperview];
-//        } // 防止复用分区头
+        for (UIView *view in header.subviews) {
+            [view removeFromSuperview];
+        } // 防止复用分区头
         [header addSubview:button];
         return header;
     } else if (kind == UICollectionElementKindSectionFooter) {
