@@ -37,7 +37,7 @@ static NSString *cellId = @"cell_id";
     self.automaticallyAdjustsScrollViewInsets = true;
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
     
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
+//    [self.navigationController.navigationBar setBackgroundColor:[UIColor clearColor]];
     self.navigationController.navigationBar.layer.masksToBounds = YES;// 去掉横线（没有这一行代码导航栏的最下面还会有一个横线）
     // 4、设置导航栏半透明
     self.navigationController.navigationBar.translucent = true;
@@ -63,6 +63,8 @@ static NSString *cellId = @"cell_id";
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
+    self.navigationController.navigationBar.translucent = false;
+    self.navigationController.navigationBar.layer.masksToBounds = false;
 }
 //shoppingcar点击事件
 -(void)shoppingcar:(UIButton*)sender{
