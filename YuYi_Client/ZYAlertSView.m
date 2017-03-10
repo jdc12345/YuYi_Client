@@ -105,9 +105,9 @@
                          [_maskView setAlpha:0];
                          [_maskView setUserInteractionEnabled:NO];
                          
-                         CGRect frame = _mainView.frame;
-                         frame.origin.y += frame.size.height;
-                         [_mainView setFrame:frame];
+//                         CGRect frame = _mainView.frame;
+//                         frame.origin.y += frame.size.height;
+//                         [_mainView setFrame:frame];
                      }
                      completion:^(BOOL finished) {
                          _actionWindow.hidden = YES;

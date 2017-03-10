@@ -77,6 +77,11 @@ NSString *const cityCell = @"CityCell";
     [self.searchBar setBarTintColor:[UIColor whiteColor]];///colorWithWhite:0.95 alpha:1.0]];
     [self.searchBar.layer setBorderWidth:0.5f];
     [self.searchBar.layer setBorderColor:[UIColor colorWithWhite:0.7 alpha:1.0].CGColor];
+    self.searchBar.tintColor = [UIColor colorWithHexString:@"25f368"];
+
+    
+
+
     
     
     
@@ -378,6 +383,7 @@ NSString *const cityCell = @"CityCell";
     [searchBar setShowsCancelButton:YES animated:YES];
     UIButton *btn=[searchBar valueForKey:@"_cancelButton"];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:@"25f368"] forState:UIControlStateNormal];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:16.0f]];
 }
 

@@ -98,7 +98,7 @@
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
+//    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -

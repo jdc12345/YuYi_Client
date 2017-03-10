@@ -76,6 +76,7 @@
     [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
     [sureBtn addTarget:self action:@selector(buttonClick1:) forControlEvents:UIControlEventTouchUpInside];
     
+    
     [self.view addSubview:self.iconV];
     [self.view addSubview:hospital];
     [self.view addSubview:self.infoTextV];
@@ -153,6 +154,9 @@
     
 }
 -(void)buttonClick:(UIButton *)button{
+    
+    [button setBackgroundColor:[UIColor colorWithHexString:@"25f368"]];
+    
     CGFloat alertW = 200 *kiphone6;
     CGFloat alertH = 135 *kiphone6;
     
