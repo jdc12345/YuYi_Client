@@ -242,11 +242,10 @@
     
     UIView *whiteView = [[UIView alloc]init];
     whiteView.backgroundColor = [UIColor whiteColor];
-    
+    whiteView.tag = 200 +section;
     
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Actiondo:)];
-    tapGesture.numberOfTapsRequired = 1;
     [whiteView addGestureRecognizer:tapGesture];
     
     UILabel *sectionName = [[UILabel alloc]init];
@@ -320,7 +319,9 @@
 #pragma mark -
 #pragma mark ------------section click----------------------
 
-- (void)Actiondo:(NSInteger)sectionNum{
+- (void)Actiondo:(UITapGestureRecognizer *)tapNum{
+    
+    NSInteger sectionNum = tapNum.view.tag -200;
     if (sectionNum == 0) {
         
 
