@@ -66,7 +66,7 @@ static NSString* classificationCellid = @"classification_cell";
     // 注册单元格
     [collectionView registerClass:[YYAllMedicinalCollectionViewCell class] forCellWithReuseIdentifier:allMedicinalCellid];
     [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-//    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
     
     // 取消指示器(滚动条)
     collectionView.showsVerticalScrollIndicator = NO;
@@ -113,9 +113,7 @@ static NSString* classificationCellid = @"classification_cell";
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath
-{
-    
-    NSLog(@"cellForItemAtIndexPath");
+{    
     if (collectionView==self.collectionView) {
         YYAllMedicinalCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:allMedicinalCellid forIndexPath:indexPath];
 
@@ -182,9 +180,9 @@ static NSString* classificationCellid = @"classification_cell";
             }
             
             //        button.tag = 1000 + indexPath.section;
-            //        for (UIView *view in header.subviews) {
-            //            [view removeFromSuperview];
-            //        } // 防止复用分区头
+            for (UIView *view in header.subviews) {
+                        [view removeFromSuperview];
+                    } // 防止复用分区头
             [header addSubview:button];
             [button mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.right.bottom.offset(0);
@@ -210,17 +208,19 @@ static NSString* classificationCellid = @"classification_cell";
             make.centerY.equalTo(button.mas_centerY);
         }];
         self.selectionBtn = selectionBtn;
-
+        
         return header;
     } else{
-        return nil;
+        UICollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
+       
+        return footer;
     }
     }else{
         if ([kind isEqualToString:UICollectionElementKindSectionFooter]) {
             kind = @"UICollectionElementKindSectionHeader";
         }
         if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-            UICollectionReusableView *classHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
+            UICollectionReusableView *classHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader        withReuseIdentifier:@"header" forIndexPath:indexPath];
 
             classHeader.backgroundColor = [UIColor whiteColor];
             UILabel *titleLabel = [[UILabel alloc]init];

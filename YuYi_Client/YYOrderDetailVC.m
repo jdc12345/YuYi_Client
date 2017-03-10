@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"订单详情";
     self.view.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
     UIView *view = [[NSBundle mainBundle] loadNibNamed:@"YYOrderDetailView" owner:nil options:nil][0];
     [self.view addSubview:view];
