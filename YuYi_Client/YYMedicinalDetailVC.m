@@ -59,6 +59,7 @@ static NSString *cellId = @"cell_id";
     //把导航栏变透明
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[[UIImage alloc]init]];
+    self.navigationController.navigationBar.translucent = true;
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
@@ -432,8 +433,7 @@ static NSString *cellId = @"cell_id";
             
         }
     }
-    //换到个人信息订单详情页面
-    [self.navigationController pushViewController:[[YYOrderDetailVC alloc]init] animated:true];
+    
 }
 //执行手势触发的方法：
 - (void)event:(UITapGestureRecognizer *)gesture
