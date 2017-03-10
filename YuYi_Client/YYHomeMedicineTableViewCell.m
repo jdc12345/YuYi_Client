@@ -41,6 +41,9 @@
         UIView *medicineV = [[UIView alloc]init];
         medicineV.tag = 100 +i;
         
+        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(actionDo:)];
+        [medicineV addGestureRecognizer:tapGest];
+        
         self.iconV = [[UIImageView alloc]init];
         
         self.titleLabel = [[UILabel alloc]init];
@@ -88,6 +91,12 @@
             make.size.mas_equalTo(CGSizeMake(buttonW, 166 *kiphone6));
         }];
     }
+}
+- (void)actionDo:(UITapGestureRecognizer *)tapGest{
+    
+    UIView *clickView = tapGest.view;
+    self.itemClick(clickView.tag -100);
+    NSLog(@"click num =  %ld", clickView.tag -100);
 }
 
 - (void)awakeFromNib {

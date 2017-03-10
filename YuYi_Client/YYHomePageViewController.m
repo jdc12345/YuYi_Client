@@ -25,6 +25,8 @@
 #import "NotficationViewController.h"
 #import "searchBar.h"
 #import "YYSearchTableViewController.h"
+#import "YYAllMedicinalViewController.h"
+#import "YYMedicinalDetailVC.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -84,6 +86,11 @@
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];
         }
+    };
+    
+    homeHeadView.itemClick = ^(NSInteger index){
+        YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
+        [self.navigationController pushViewController:infoDetail animated:YES];
     };
     self.tableView.tableHeaderView = homeHeadView;
     
@@ -290,12 +297,17 @@
         YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
         [homeTableViewCell createDetailView:2];
         homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
-        homeTableViewCell.backgroundColor = [UIColor cyanColor];
         return homeTableViewCell;
     }else{
         YYHomeMedicineTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeMedicineTableViewCell" forIndexPath:indexPath];
         homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
-        homeTableViewCell.backgroundColor = [UIColor cyanColor];
+        [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
+        
+        homeTableViewCell.itemClick = ^(NSInteger itemNum){
+            YYMedicinalDetailVC *medicinaDVC = [[YYMedicinalDetailVC alloc]init];
+            [self.navigationController pushViewController:medicinaDVC animated:YES];
+        };
         return homeTableViewCell;
     }
     
@@ -309,8 +321,15 @@
 #pragma mark ------------section click----------------------
 
 - (void)Actiondo:(NSInteger)sectionNum{
+    if (sectionNum == 0) {
+        
+
     InfomationViewController *infoVC = [[InfomationViewController alloc]init];
-    [self.navigationController pushViewController:infoVC animated:YES];
+        [self.navigationController pushViewController:infoVC animated:YES];
+    }else{
+        YYAllMedicinalViewController *medicinalVC = [[YYAllMedicinalViewController alloc]init];
+        [self.navigationController pushViewController:medicinalVC animated:YES];
+    }
 }
 - (void)back_click:(UIButton *)sender{
     GYZChooseCityController *cityPickerVC = [[GYZChooseCityController alloc] init];

@@ -20,6 +20,7 @@
 #import "YYShopCartVC.h"
 #import "YYOrderDetailVC.h"
 #import "YYAddressEditVC.h"
+#import "NotficationViewController.h"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -153,7 +154,8 @@
         if (indexPath.row == 0) {
             [self.navigationController pushViewController:[[YYRecardViewController alloc]init] animated:YES];
         }else{
-            
+            NotficationViewController *shopVC = [[NotficationViewController alloc]init];
+            [self.navigationController pushViewController:shopVC animated:YES];
         }
         
     }else if (indexPath.section == 1){

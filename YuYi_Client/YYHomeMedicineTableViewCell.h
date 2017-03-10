@@ -15,4 +15,6 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 
 
+@property (nonatomic, copy) void(^itemClick)(NSInteger index);
+
 @end

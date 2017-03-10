@@ -13,7 +13,7 @@
 #import "YYTrendView.h"
 #import "ZYPageControl.h"
 
-@interface YYHomeHeadView()<UIScrollViewDelegate>
+@interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
 @property (nonatomic, strong)ZYPageControl *pageCtrl;
@@ -41,6 +41,7 @@
     SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
     cycleScrollView2.localizationImagesGroup = @[[UIImage imageNamed:@"carinalau1.jpg"],[UIImage imageNamed:@"carinalau2.jpg"],[UIImage imageNamed:@"carinalau3.jpg"],[UIImage imageNamed:@"carinalau4.jpg"]];
     cycleScrollView2.showPageControl = YES;
+    cycleScrollView2.delegate = self;
    
     
     // 按钮banner
@@ -344,6 +345,9 @@
         NSLog(@"预约挂号");
         self.bannerClick(NO);
     }
+}
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+    self.itemClick(index);
 }
 
 /*

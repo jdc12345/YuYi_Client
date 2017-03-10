@@ -11,6 +11,7 @@
 @interface YYHomeHeadView : UIView
 
 @property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
+@property (nonatomic, copy) void(^itemClick)(NSInteger index);
 
 - (instancetype)init;
 
