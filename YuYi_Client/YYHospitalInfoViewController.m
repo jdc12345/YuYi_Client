@@ -88,12 +88,12 @@
     [ws.iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.view).with.offset(64 *kiphone6);
         make.left.equalTo(ws.view);
-        make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,225 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(kScreenW,225 *kiphone6));
     }];
     [hospital mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.iconV.mas_bottom).with.offset(10 *kiphone6);
         make.left.equalTo(ws.view).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64 *kiphone6 ,14 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
     }];
 
     [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -139,12 +139,12 @@
     [alphaView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(ws.iconV);
         make.left.equalTo(ws.iconV);
-        make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,40 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(kScreenW ,40 *kiphone6));
     }];
     [hospitalLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(alphaView.mas_bottom).with.offset(-12.5 *kiphone6);
         make.left.equalTo(alphaView.mas_left).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(90 *kiphone6 ,15 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(90  ,15 *kiphone6));
     }];
     [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(alphaView.mas_centerY);
@@ -223,13 +223,17 @@
     NSInteger index = singleTap.view.tag -200;
     [self.alertView dismiss:nil];
     if (index == 0) {
-        YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]init];
+        YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:@"789789" mediaType:RCCallMediaAudio];
         [self.navigationController pushViewController:speechVC animated:NO];
     }else if(index == 1){
         YYAVViewController *avVC = [[YYAVViewController alloc]init];
         [self.navigationController pushViewController:avVC animated:YES];
     }else{
         YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+        wordVC.conversationType = ConversationType_PRIVATE;
+        //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+        wordVC.targetId = @"789789";
         [self.navigationController pushViewController:wordVC animated:YES];
     }
 }

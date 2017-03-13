@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface YYWordsViewController : UIViewController
+#import <RongIMKit/RongIMKit.h>
+@interface YYWordsViewController : RCConversationViewController
 
 @end

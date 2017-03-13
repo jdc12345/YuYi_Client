@@ -10,6 +10,7 @@
 #import "UIColor+Extension.h"
 #import <Masonry.h>
 #import "HcCustomKeyboard.h"
+#import <RongIMKit/RongIMKit.h>
 @interface YYWordsViewController ()<HcCustomKeyboardDelegate>
 @property (nonatomic, strong) HcCustomKeyboard *cc;
 @end
@@ -20,26 +21,27 @@
     [super viewDidLoad];
     self.title = @"医生";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    self.cc = [HcCustomKeyboard customKeyboard];
-    [self.cc textViewShowView:self customKeyboardDelegate:self];
-    
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setImage:[UIImage imageNamed:@"屏幕快照 2017-03-02 上午10.55.18"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"屏幕快照 2017-03-02 上午10.55.18"] forState:UIControlStateSelected];
-    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.view addSubview:btn];
-    
-    WS(ws);
-    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(ws.view).with.offset(0 *kiphone6);
-        make.left.equalTo(ws.view).with.offset(0 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(kScreenW, 44 *kiphone6));
-    }];
-    
-    
-    NSLog(@"弹出评论框");
+//    self.cc = [HcCustomKeyboard customKeyboard];
+//    [self.cc textViewShowView:self customKeyboardDelegate:self];
+//    
+//    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn setImage:[UIImage imageNamed:@"屏幕快照 2017-03-02 上午10.55.18"] forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageNamed:@"屏幕快照 2017-03-02 上午10.55.18"] forState:UIControlStateSelected];
+//    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    [self.view addSubview:btn];
+//    
+//    WS(ws);
+//    [btn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(ws.view).with.offset(0 *kiphone6);
+//        make.left.equalTo(ws.view).with.offset(0 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(kScreenW, 44 *kiphone6));
+//    }];
+//    
+//    
+//    NSLog(@"弹出评论框");
+
 }
 - (void)btnClick:(UIButton *)sender{
     [self.cc.mTextView becomeFirstResponder];

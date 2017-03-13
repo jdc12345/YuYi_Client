@@ -60,7 +60,7 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.left.equalTo(self.contentView).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(100 *kiphone6, 14 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(100, 14 *kiphone6));
     }];
     
     [self.seeRecardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -71,7 +71,7 @@
     [self.editInfoText mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.right.equalTo(self.contentView).with.offset(-10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(200 *kiphone6, 14 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(200 , 14 *kiphone6));
     }];
 }
 - (void)setType:(NSString *)cellType{

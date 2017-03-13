@@ -45,7 +45,7 @@
     [promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(connectBtn.mas_top).with.offset(-15 *kiphone6);
         make.left.equalTo(ws.view).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,15 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(kScreenW  ,15 *kiphone6));
     }];
     // Do any additional setup after loading the view.
 }

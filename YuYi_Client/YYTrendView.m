@@ -11,15 +11,17 @@
 #define GraphColor      [UIColor colorWithHexString:@"6a6a6a" alpha:1]
 #define str(index)                                  [NSString stringWithFormat : @"%.f", -[[self.values objectAtIndex:(index)] floatValue] * kYScale]
 #define point(x, y)                                 CGPointMake((x) * kXScale +xOffset, yOffset + (y) * kYScale)
+
+#define kXScale  40.0 *kiphone6
+#define kYScale  55.0 *kiphone6
 #import "YYTrendView.h"
 #import "UIColor+Extension.h"
 @interface YYTrendView () @property (nonatomic, strong)   dispatch_source_t timer;
 
 @end
 @implementation YYTrendView
-
-const CGFloat   kXScale = 40.0 ;
-const CGFloat   kYScale = 55.0 ;
+//CGFloat   kXScale = 40.0 *kiphone6;
+//CGFloat   kYScale = 55.0 *kiphone6;
 
 static inline CGAffineTransform
 CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
@@ -214,6 +216,19 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         // 3.显示所绘制的东西   FillPath实心
 //        CGContextFillPath(ctx);
         CGContextStrokePath(ctx);
+    }
+    
+    for (NSUInteger x = 0; x < [self.values count]; ++x) {
+        y = [[self.values objectAtIndex:x] floatValue];
+        // CGContextAddEllipseInRect(ctx, CGRectMake(x*kXScale, y*kYScale +yOffset, 5, 5));
+        // CGContextSetLineWidth(ctx, 10);
+        CGContextAddArc(ctx, (x+1)*kXScale +xOffset, y*kYScale +yOffset, 2.5, 0, M_PI * 2, 0);
+        //        CGPathAddArc(path, &transform, x, y, 2, 0, M_PI *2, 0);
+        [[UIColor colorWithHexString:@"8bfad4"] set];//设置颜色  红色
+        
+        // 3.显示所绘制的东西   FillPath实心
+                CGContextFillPath(ctx);
+//        CGContextStrokePath(ctx);
     }
 }
 

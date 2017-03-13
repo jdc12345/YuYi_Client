@@ -38,6 +38,12 @@
 #define kPingFang_M       @"PingFang-SC-Medium"
 #define kPingFang_S       @"PingFang-SC-Semibold"
 
+#pragma mark -
+#pragma mark ------------RCLOUD----------------------
+
+#define mRCToken @"VEFVYY49JO7Tue0D8KSQ6YuZqhNeP62jUkZowKgPQxsXdaGtWFcdtK0w42GZ1eo9DEVAb8JzUQGPgDvPV905mQ=="  //123123
+#define mRCToken2 @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
+
 
 
 
