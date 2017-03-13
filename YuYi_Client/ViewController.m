@@ -275,11 +275,14 @@ static NSString* cellid = @"business_cell";
     
 
 }
-//
+//设置导航栏高度适应
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = false;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = true;
+}
 
 @end

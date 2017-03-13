@@ -8,6 +8,8 @@
 
 #import "YYBaseViewController.h"
 #import "UIColor+colorValues.h"
+#import "YYSearchTableViewController.h"
+
 @interface YYBaseViewController ()
 
 @end
@@ -24,32 +26,35 @@
 //配置导航栏
 - (void)configNavigationBar
 {
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftButton.frame = CGRectMake(0, 0, 44, 44);
-//    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 10);
-    [leftButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+//    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    leftButton.frame = CGRectMake(0, 0, 44, 44);
+////    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 10);
+//    [leftButton addTarget:self action:@selector(backButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
     UIButton *rightButton = [[UIButton alloc]init];
-    rightButton.frame = CGRectMake(0, 0, 44, 44);
-//    rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
     [rightButton setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [rightButton sizeToFit];
     [rightButton addTarget:self action:@selector(searching:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
 }
-//导航栏按钮点击事件
--(void)backButtonClick:(id)sender{
-     [self.navigationController popViewControllerAnimated:true];
-}
+////导航栏按钮点击事件
+//-(void)backButtonClick:(id)sender{
+//     [self.navigationController popViewControllerAnimated:true];
+//}
 -(void)searching:(id)sender{
-    NSLog(@"搜索跳转");
+    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
 }
-//
+//设置导航栏高度适应
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent = NO;
+    self.navigationController.navigationBar.translucent = false;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = true;
 }
 /*
 #pragma mark - Navigation
