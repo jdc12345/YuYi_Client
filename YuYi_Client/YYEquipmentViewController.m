@@ -69,9 +69,9 @@
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row == 1) {
-//        YYWIFIViewController *wifiVC = [[YYWIFIViewController alloc]init];
-//        [self.navigationController pushViewController:wifiVC animated:YES];
+    if (indexPath.row != 2) {
+        YYWIFIViewController *wifiVC = [[YYWIFIViewController alloc]init];
+        [self.navigationController pushViewController:wifiVC animated:YES];
         
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];

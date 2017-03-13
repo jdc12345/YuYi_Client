@@ -97,7 +97,7 @@
   
     
     
-    // 左侧地址按钮   测
+    // 左侧地址按钮
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
     [leftButton setFrame:CGRectMake(0,0,50, 15)];
@@ -255,8 +255,7 @@
     
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clickButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-//    [clickButton addTarget:self action:@selector(Actiondo:) forControlEvents:UIControlEventTouchUpInside];
-//    [clickButton addGestureRecognizer:tapGesture];
+    [clickButton addTarget:self action:@selector(Actiondo:) forControlEvents:UIControlEventTouchUpInside];
     
     [whiteView addSubview:sectionName];
     [whiteView addSubview:clickButton];

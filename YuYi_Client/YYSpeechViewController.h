@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <RongCallKit/RongCallKit.h>
 
-@interface YYSpeechViewController : RCCallSingleCallViewController
+@interface YYSpeechViewController : UIViewController
 
 @end

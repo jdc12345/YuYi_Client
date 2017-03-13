@@ -7,9 +7,5 @@ pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'SDCycleScrollView'
 pod 'AMapLocation'
-pod 'RongCloudIM/IMLib', '~> 2.8.3'
-pod 'RongCloudIM/IMKit', '~> 2.8.3'
-pod 'RongCloudIM/CallLib', '~> 2.8.3'
-pod 'RongCloudIM/CallKit', '~> 2.8.3'
 end
 

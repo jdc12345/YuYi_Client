@@ -83,7 +83,7 @@
     [self.posLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
         make.right.equalTo(self.contentView).offset(-10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(expectSize.width, expectSize.height*kiphone6));
+        make.size.mas_equalTo(CGSizeMake(expectSize.width *kiphone6, expectSize.height*kiphone6));
     }];
     [posImageV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);

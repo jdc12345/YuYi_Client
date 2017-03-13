@@ -41,9 +41,9 @@
     [self.view addSubview:self.cardView];
     
     [self.cardView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).with.offset(90);
-        make.left.equalTo(self.view).with.offset(10);
-        make.size.mas_equalTo(CGSizeMake(kScreenW - 20 , 200));
+        make.top.equalTo(self.view).with.offset(74 *kiphone6);
+        make.left.equalTo(self.view).with.offset(10 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(kScreenW - 20 *kiphone6, 200 *kiphone6));
     }];
     
     
@@ -78,7 +78,7 @@
             make.left.equalTo(ws.cardView).with.offset(20 *kiphone6);
 //            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
             make.centerY.equalTo(inputText.mas_centerY);
-            make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
+            make.size.mas_equalTo(CGSizeMake(64 *kiphone6 ,14 *kiphone6));
         }];
     }
     
@@ -95,7 +95,7 @@
     }];
     
     
-    UILabel *promtyLabel = [[UILabel alloc]initWithFrame:CGRectMake(104 *kiphone6, 285 , 80, 11)];
+    UILabel *promtyLabel = [[UILabel alloc]initWithFrame:CGRectMake(104 *kiphone6, 285 *kiphone6, 80, 11)];
     promtyLabel.text = @"选添项";
     promtyLabel.textColor = [UIColor colorWithHexString:@"cccccc"];
     promtyLabel.font = [UIFont systemFontOfSize:11];
@@ -127,10 +127,10 @@
     
 
     [self.cardView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.view).with.offset(74 );
-        make.left.equalTo(ws.view).with.offset(10);
+        make.top.equalTo(self.view).with.offset(74 *kiphone6);
+        make.left.equalTo(self.view).with.offset(10 *kiphone6);
         make.bottom.equalTo(wordsLabel.mas_bottom).with.offset(20);
-        make.width.mas_equalTo(kScreenW - 20 );
+        make.width.mas_equalTo(kScreenW - 20 *kiphone6);
     }];
     
 }

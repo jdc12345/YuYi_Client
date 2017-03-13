@@ -65,7 +65,7 @@
     [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.iconV.mas_bottom);
         make.left.equalTo(self.iconV.mas_right).with.offset(15 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(205 *kiphone6, 15 *lineNum));
+        make.size.mas_equalTo(CGSizeMake(205 *kiphone6, 15 *lineNum *kiphone6));
     }];
 
     
@@ -81,7 +81,7 @@
     [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10 *kiphone6);
         make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(60 , 13 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(60 *kiphone6, 13 *kiphone6));
     }];
     
     

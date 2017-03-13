@@ -25,71 +25,71 @@
     
     
     
-//    
-//    _actionWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//    _actionWindow.windowLevel       = UIWindowLevelStatusBar;
-//    _actionWindow.backgroundColor   = [UIColor clearColor];
-//    _actionWindow.hidden = NO;
-//    _actionWindow.multipleTouchEnabled = YES;
-//    
-//    
-//    UIView *maskView = [[UIView alloc] init];
-//    
-//    UIColor *color = [UIColor blackColor];
-//    color = [color colorWithAlphaComponent:0.6];
-//    maskView.backgroundColor = color;
-//    [maskView setUserInteractionEnabled:NO];
-//    [maskView setFrame:(CGRect){0, 0, kScreenW, kScreenH}];
-//    maskView.userInteractionEnabled = YES;
-//
-////    [self.view addSubview:maskView];
-//    _maskView = maskView;
-//
-//    
-//    [_actionWindow addSubview:maskView];
-//    
-//    
-//    
-//    UILabel *titleLabel = [[UILabel alloc]init];
-//    titleLabel.text = @"等待对方语音接受...";
-//    titleLabel.textColor = [UIColor colorWithHexString:@"f9f9f9"];
-//    titleLabel.font = [UIFont boldSystemFontOfSize:14];
-//    titleLabel.textAlignment = NSTextAlignmentCenter;
-//    
-//    
-//    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"voice-phone-icon-1"]];
-//    imageV.userInteractionEnabled = YES;
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
-//    [imageV addGestureRecognizer:tap];
-//    
-//    
-//    
-//    UILabel *putLabel = [[UILabel alloc]init];
-//    putLabel.text = @"挂断";
-//    putLabel.textColor = [UIColor colorWithHexString:@"f9f9f9"];
-//    putLabel.font = [UIFont boldSystemFontOfSize:15];
-//    putLabel.textAlignment = NSTextAlignmentCenter;
-//    
-//    
-//    [maskView addSubview:titleLabel];
-//    [maskView addSubview:imageV];
-//    [maskView addSubview:putLabel];
-//    
-//    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(maskView).with.offset(64 +260*kiphone6);
-//        make.centerX.equalTo(maskView);
-//        make.size.mas_equalTo(CGSizeMake(kScreenW ,14));
-//    }];
-//    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(titleLabel.mas_bottom).with.offset(155 *kiphone6);
-//        make.centerX.equalTo(maskView);
-//        make.size.mas_equalTo(CGSizeMake(60 *kiphone6 ,60 *kiphone6));
-//    }];
-//    [putLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(imageV.mas_bottom).with.offset(15 *kiphone6);
-//        make.centerX.equalTo(maskView);
-//        make.size.mas_equalTo(CGSizeMake(kScreenW ,15));
-//    }];
+    
+    _actionWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _actionWindow.windowLevel       = UIWindowLevelStatusBar;
+    _actionWindow.backgroundColor   = [UIColor clearColor];
+    _actionWindow.hidden = NO;
+    _actionWindow.multipleTouchEnabled = YES;
+    
+    
+    UIView *maskView = [[UIView alloc] init];
+    
+    UIColor *color = [UIColor blackColor];
+    color = [color colorWithAlphaComponent:0.6];
+    maskView.backgroundColor = color;
+    [maskView setUserInteractionEnabled:NO];
+    [maskView setFrame:(CGRect){0, 0, kScreenW, kScreenH}];
+    maskView.userInteractionEnabled = YES;
+
+//    [self.view addSubview:maskView];
+    _maskView = maskView;
+
+    
+    [_actionWindow addSubview:maskView];
+    
+    
+    
+    UILabel *titleLabel = [[UILabel alloc]init];
+    titleLabel.text = @"等待对方语音接受...";
+    titleLabel.textColor = [UIColor colorWithHexString:@"f9f9f9"];
+    titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"voice-phone-icon-1"]];
+    imageV.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+    [imageV addGestureRecognizer:tap];
+    
+    
+    
+    UILabel *putLabel = [[UILabel alloc]init];
+    putLabel.text = @"挂断";
+    putLabel.textColor = [UIColor colorWithHexString:@"f9f9f9"];
+    putLabel.font = [UIFont boldSystemFontOfSize:15];
+    putLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
+    [maskView addSubview:titleLabel];
+    [maskView addSubview:imageV];
+    [maskView addSubview:putLabel];
+    
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(maskView).with.offset(64 +260*kiphone6);
+        make.centerX.equalTo(maskView);
+        make.size.mas_equalTo(CGSizeMake(kScreenW ,14));
+    }];
+    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(titleLabel.mas_bottom).with.offset(155 *kiphone6);
+        make.centerX.equalTo(maskView);
+        make.size.mas_equalTo(CGSizeMake(60 *kiphone6 ,60 *kiphone6));
+    }];
+    [putLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(imageV.mas_bottom).with.offset(15 *kiphone6);
+        make.centerX.equalTo(maskView);
+        make.size.mas_equalTo(CGSizeMake(kScreenW ,15));
+    }];
     
     
 

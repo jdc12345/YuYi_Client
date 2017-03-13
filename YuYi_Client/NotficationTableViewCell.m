@@ -92,13 +92,13 @@
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.cardView).with.offset(23 *kiphone6);
         make.left.equalTo(ws.iconV.mas_right).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64 , 14 ));
+        make.size.mas_equalTo(CGSizeMake(64 *kiphone6, 14 *kiphone6));
     }];
     
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(ws.iconV.mas_centerY);
         make.right.equalTo(ws.cardView.mas_right).with.offset(-15 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64 , 12 ));
+        make.size.mas_equalTo(CGSizeMake(64 *kiphone6, 12 *kiphone6));
     }];
     
     
@@ -113,7 +113,7 @@
     [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(lineL.mas_bottom).with.offset(15 *kiphone6);
         make.left.equalTo(ws.iconV.mas_left);
-        make.size.mas_equalTo(CGSizeMake( kScreenW - 50 *kiphone6, 30));
+        make.size.mas_equalTo(CGSizeMake( kScreenW - 50 *kiphone6, 30 *kiphone6));
     }];
     
     
