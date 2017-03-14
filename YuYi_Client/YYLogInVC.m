@@ -67,7 +67,7 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(line1.mas_bottom).offset(40);
         make.width.offset(225);
-        make.height.offset(0.5);
+        make.height.offset(1);
     }];
     //添加密码imageView图标
     UIImageView *passWordImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_lock_icon"]];
