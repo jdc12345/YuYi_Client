@@ -64,8 +64,8 @@ static NSString *cellId = @"cell_id";
 -(void)viewWillDisappear:(BOOL)animated{
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
-    self.navigationController.navigationBar.translucent = false;
-//    self.navigationController.navigationBar.layer.masksToBounds = false;
+//    self.navigationController.navigationBar.translucent = false;
+
 }
 //shoppingcar点击事件
 -(void)shoppingcar:(UIButton*)sender{
