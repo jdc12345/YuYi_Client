@@ -11,6 +11,9 @@
 #import <Masonry.h>
 #import "HcCustomKeyboard.h"
 #import <RongIMKit/RongIMKit.h>
+#import "YYSpeechViewController.h"
+#import "YYAVViewController.h"
+
 @interface YYWordsViewController ()<HcCustomKeyboardDelegate>
 @property (nonatomic, strong) HcCustomKeyboard *cc;
 @end
@@ -21,6 +24,21 @@
     [super viewDidLoad];
     self.title = @"医生";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    
+    // 判断是否直接连接语音或视频
+    if ([self.modalityVC isEqualToString:@"speech"]) {
+                YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:@"123123" mediaType:RCCallMediaAudio];
+                [self presentViewController:speechVC animated:YES completion:^{
+                    
+                }];
+    }else if([self.modalityVC isEqualToString:@"av"]){
+                YYAVViewController *avVC = [[YYAVViewController alloc]init];
+        [self presentViewController:avVC animated:YES completion:^{
+            
+        }];
+    }else{
+        
+    }
 //    self.cc = [HcCustomKeyboard customKeyboard];
 //    [self.cc textViewShowView:self customKeyboardDelegate:self];
 //    

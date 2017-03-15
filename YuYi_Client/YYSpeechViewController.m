@@ -9,10 +9,11 @@
 #import "YYSpeechViewController.h"
 #import "UIColor+Extension.h"
 #import <Masonry.h>
-
-@interface YYSpeechViewController ()
+@interface YYSpeechViewController ()<RCCallSessionDelegate ,RCCallReceiveDelegate>
 @property (nonatomic, strong) UIWindow *actionWindow;
 @property (nonatomic, strong) UIView *maskView;
+
+//@property (nonatomic,strong) RCCallSession *callSession;
 
 @end
 
@@ -22,8 +23,12 @@
     [super viewDidLoad];
     self.title = @"医生";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:@"789789" to:@[@""] mediaType:RCCallMediaAudio sessionDelegate:self extra:nil];
     
     
+    [[RCCallClient sharedRCCallClient] setDelegate:self];
+    
+    [[RCCallClient sharedRCCallClient] isAudioCallEnabled:ConversationType_PRIVATE];
     
 //    
 //    _actionWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -195,7 +200,26 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)callDidConnect{
+    NSLog(@"通话接通");
+}
+- (void)callDidDisconnect{
+    NSLog(@"通话结束");
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+- (void)didReceiveCall:(RCCallSession *)callSession{
+    
+}
 
+- (void)didReceiveCallRemoteNotification:(NSString *)callId inviterUserId:(NSString *)inviterUserId mediaType:(RCCallMediaType)mediaType userIdList:(NSArray *)userIdList userDict:(NSDictionary *)userDict{
+    
+}
+
+- (void)didCancelCallRemoteNotification:(NSString *)callId inviterUserId:(NSString *)inviterUserId mediaType:(RCCallMediaType)mediaType userIdList:(NSArray *)userIdList{
+    
+}
 /*
 #pragma mark - Navigation
 

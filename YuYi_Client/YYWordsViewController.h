@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <RongIMKit/RongIMKit.h>
 @interface YYWordsViewController : RCConversationViewController
+@property (nonatomic, strong) NSString *modalityVC;
 
 @end

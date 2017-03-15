@@ -15,8 +15,9 @@
 #import "YYSpeechViewController.h"
 #import "YYAVViewController.h"
 #import "YYWordsViewController.h"
+#import <RongCallKit/RongCallKit.h>
 
-@interface YYHospitalInfoViewController ()
+@interface YYHospitalInfoViewController ()<RCCallSessionDelegate>
 
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UITextView *infoTextV;
@@ -222,20 +223,26 @@
     UITapGestureRecognizer *singleTap = (UITapGestureRecognizer *)tapGesture;
     NSInteger index = singleTap.view.tag -200;
     [self.alertView dismiss:nil];
+    
+    YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+    //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+    wordVC.conversationType = ConversationType_PRIVATE;
+    //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+    wordVC.targetId = @"789789";
+    
     if (index == 0) {
-        YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:@"789789" mediaType:RCCallMediaAudio];
-        [self.navigationController pushViewController:speechVC animated:NO];
+
+        wordVC.modalityVC = @"speech";
+
     }else if(index == 1){
-        YYAVViewController *avVC = [[YYAVViewController alloc]init];
-        [self.navigationController pushViewController:avVC animated:YES];
+        wordVC.modalityVC = @"av";
+
+
     }else{
-        YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
-        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
-        wordVC.conversationType = ConversationType_PRIVATE;
-        //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        wordVC.targetId = @"789789";
-        [self.navigationController pushViewController:wordVC animated:YES];
+        wordVC.modalityVC = @"empty";
     }
+    
+    [self.navigationController pushViewController:wordVC animated:YES];
 }
 
 /////////////////
