@@ -19,11 +19,13 @@
 #import "YYCategoryModel.h"
 #import "YYModel.h"
 #import "HttpClient.h"
+#import "YYMedinicalDetailModel.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
 @property (nonatomic,strong) NSArray<YYCategoryModel *> *categoryArr;
+@property (nonatomic,strong) NSArray *getfirstPageArr;
 @end
 
 @implementation ViewController
@@ -43,7 +45,14 @@ static NSString* cellid = @"business_cell";
 }
 -(void)loadData{
     HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:@"http://192.168.1.55:8080/yuyi/category/listAllTree.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [httpManager requestWithPath:@"http://192.168.1.55:8080/yuyi/category/listTreeDrugs.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
+        NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
+        if (getfirstPageArr.count>=6) {
+            NSArray *normalArr = [NSArray arrayWithObjects:getfirstPageArr[0],getfirstPageArr[1],getfirstPageArr[2], nil];
+            NSArray *bellyArr = [NSArray arrayWithObjects:getfirstPageArr[3],getfirstPageArr[4],getfirstPageArr[5], nil];
+            self.getfirstPageArr = [NSArray arrayWithObjects:normalArr,bellyArr, nil];
+        }
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"category"];
         NSArray *getArr = [NSArray yy_modelArrayWithClass:[YYCategoryModel class] json:categoryArr];
         NSMutableArray *fiveCategory = [NSMutableArray array];
@@ -204,11 +213,12 @@ static NSString* cellid = @"business_cell";
 }
 #pragma collectionViewDatasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 2;
+    return self.getfirstPageArr.count;
 }
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    NSArray *arr = (NSArray*)self.getfirstPageArr[section];
+    return arr.count;
 }
 
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath
@@ -216,24 +226,24 @@ static NSString* cellid = @"business_cell";
     
     NSLog(@"cellForItemAtIndexPath");
     YYCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellid forIndexPath:indexPath];
+    NSArray *arr = self.getfirstPageArr[indexPath.section];
     
-    //    cell.xxxxx = 数组[indexPath.row];
-//    cell.businessType = self.buinessTypeData[indexPath.row];
-    
-        // 设置随机颜色 测试
-//        cell.backgroundColor = [UIColor redColor];
+        cell.model = arr[indexPath.row];
     
     return cell;
 }
 //
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    NSArray *kinds = @[@"常用药品",@"滋补调养"];
+    //截取分类数组的前两个
+    NSArray *kinds = [NSArray arrayWithObjects:self.categoryArr[0],self.categoryArr[1], nil];
+//    NSArray *kinds = @[@"常用药品",@"滋补调养"];
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
         header.backgroundColor = [UIColor whiteColor];
         headerTitleBtn *button = [[headerTitleBtn alloc]init];
         button.frame = header.bounds;
-        [button setTitle:kinds[indexPath.section]  forState:UIControlStateNormal];
+        YYCategoryModel *categoryModel = kinds[indexPath.section];
+        [button setTitle:categoryModel.name forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
         [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
@@ -244,6 +254,8 @@ static NSString* cellid = @"business_cell";
             make.left.right.bottom.offset(0);
             make.height.offset(1);
         }];
+        
+        button.tag = [categoryModel.id intValue];
         [button addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
 
 //        button.tag = 1000 + indexPath.section;

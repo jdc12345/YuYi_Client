@@ -9,6 +9,9 @@
 #import "YYCollectionViewCell.h"
 #import "Masonry.h"
 #import "UIColor+colorValues.h"
+#import "UIImageView+WebCache.h"
+#import "YYHTTPSHOPConst.h"
+
 @interface YYCollectionViewCell ()
 
 @property (nonatomic, weak) UIImageView* iconView;
@@ -50,7 +53,14 @@
 //    self.iconView.image = [UIImage imageNamed:businessType.icon];
 //    self.nameLabel.text = businessType.name;
 //}
-
+-(void)setModel:(YYMedinicalDetailModel *)model{
+    _model = model;
+    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:model.picture];
+    //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.42:8080/yuyi%@",model.picture];
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:urlString]];
+    self.priceLabel.text = [NSString stringWithFormat:@"%ld",model.price];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@",model.drugsName];
+}
 // 初始化控件
 - (void)setupUI
 {
@@ -83,7 +93,7 @@
         make.centerX.equalTo(self.contentView);
     }];
     [iconView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.bottom.equalTo(nameLabel.mas_top).offset(10);
+        make.bottom.equalTo(nameLabel.mas_top).offset(-10);
         make.centerX.equalTo(self.contentView);
         //        make.width.offset(self.contentView.frame.size.width*0.7);
         //        make.height.offset(self.contentView.frame.size.height*0.7);
