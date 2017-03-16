@@ -9,5 +9,6 @@
 #import "YYBaseViewController.h"
 
 @interface YYAllMedicinalViewController : YYBaseViewController
-
+//所选药品的分类Id
+@property(nonatomic,copy)NSString *id;
 @end

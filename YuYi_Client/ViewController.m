@@ -16,26 +16,54 @@
 #import "YYAllMedicinalViewController.h"
 #import "YYMedicinalDetailVC.h"
 #import "YYSearchTableViewController.h"
+#import "YYCategoryModel.h"
+#import "YYModel.h"
+#import "HttpClient.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
-
+//商城首页药品分类按钮数据
+@property (nonatomic,strong) NSArray<YYCategoryModel *> *categoryArr;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self loadData];
+}
+-(void)loadData{
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:@"http://192.168.1.42:8080/yuyi/category/listAllTree.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"category"];
+        NSArray *getArr = [NSArray yy_modelArrayWithClass:[YYCategoryModel class] json:categoryArr];
+        NSMutableArray *fiveCategory = [NSMutableArray array];
+        if (getArr.count>5) {//判断如果数据源大于5个需要截取前五个
+            for (int i = 0; i < 5; i++) {
+                [fiveCategory addObject:getArr[i]];
+            }
+            self.categoryArr = fiveCategory;
+            [self setupUI];
+        }else{
+            self.categoryArr = getArr;
+            [self setupUI];
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+}
+-(void)setupUI{
     self.title = @"医药商城";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-     [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];
-//        UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
-//        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];
+    //        UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
+    //        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
-        [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
-        [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
+    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:@"333333"]];
     //添加配送范围标题
     UILabel *psLabel = [[UILabel alloc]init];
@@ -60,94 +88,57 @@ static NSString* cellid = @"business_cell";
         make.height.offset(40);
     }];
     searchBtn.backgroundColor = [UIColor colorWithHexString:@"#f3f3f3"];
-
+    
     [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
     [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-//    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    NSDictionary *dict = arr[i];
+    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    NSDictionary *dict = arr[i];
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view layoutIfNeeded];
     //添加药品分类按钮
-    NSArray *nameArray = @[@"中药调理",@"肠胃用药",@"保健滋补",@"眼鼻喉耳",@"皮肤用药",@"全部"];
-    NSMutableArray *classBtn = [NSMutableArray array];
-    for (int i = 0; i<6; i++) {
+    int columnCount=3;
+    //没个格子的宽度和高度
+    CGFloat appW=105.0;
+    CGFloat appH=39.0;
+    //计算间隙
+    CGFloat appMargin=(self.view.frame.size.width-20-columnCount*appW)/(columnCount+1);
+    
+    //添加数据源  nameArray.count表示资源个数
+    NSMutableArray *nameArray = [NSMutableArray array];
+    [nameArray addObjectsFromArray:self.categoryArr];
+    YYCategoryModel *allModel = [[YYCategoryModel alloc]init];
+    allModel.name = @"全部";
+    [nameArray addObject:allModel];
+    for (int i=0; i<nameArray.count; i++) {
+        
         UIButton *btn = [[UIButton alloc]init];
         [btn.layer setMasksToBounds:YES];
         [btn.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
         //边框宽度
         [btn.layer setBorderWidth:0.8];
         btn.layer.borderColor=[UIColor colorWithHexString:@"#f3f3f3"].CGColor;
-        [btn setTitle:nameArray[i] forState:UIControlStateNormal];
+        YYCategoryModel *model = nameArray[i];
+        [btn setTitle:model.name forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"]
                   forState:UIControlStateNormal];
         [btn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+        //计算列号和行号
+        int colX=i%columnCount;
+        int rowY=i/columnCount;
+        //计算坐标
+        CGFloat appX=appMargin+colX*(appW+appMargin);
+        CGFloat appY=searchBtn.frame.origin.y+40+10+rowY*(appH+appMargin);
+        
+        btn.frame=CGRectMake(appX, appY, appW, appH);
+        
         [self.view addSubview:btn];
-        [btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.width.offset((kScreenW-30)*0.3);
-            make.height.offset(39);
-        }];
-        [classBtn addObject:btn];
         //添加button的点击事件
-        btn.tag = 100 + i;
+        btn.tag = [model.id intValue];
         [btn addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
- 
     }
 
-    for (int i = 0; i < 3; i++) {
-        if (i<2) {
-            UIButton* currentBtn = classBtn[i];
-            UIButton* nextBtn = classBtn[i + 1];
-            [classBtn[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(searchBtn.mas_bottom).offset(10);
-            }];
-            if (i == 0) { // 如果是第一个需要设置左边
-                [currentBtn mas_makeConstraints:^(MASConstraintMaker* make) {
-                    make.left.offset(20);
-                }];
-            }
-            
-            [nextBtn mas_makeConstraints:^(MASConstraintMaker* make) {
-                // 后一个的左边 和 前一个的右边 一样
-                make.left.equalTo(currentBtn.mas_right).offset(10);
-            }];
-        }
-        if (i==2) {
-            UIButton* twoBtn = classBtn[i - 1];
-            [classBtn[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(twoBtn.mas_right).offset(10);
-                make.top.equalTo(searchBtn.mas_bottom).offset(10);
-                
-            }];
-        }
-        
-    }
-    for (int i = 3; i < 6; i++) {
-        if (i<5) {
-            UIButton* currentBtn = classBtn[i];
-            UIButton* nextBtn = classBtn[i + 1];
-            [classBtn[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(searchBtn.mas_bottom).offset(59);
-            }];
-            if (i == 3) { // 如果是第一个需要设置左边
-                [currentBtn mas_makeConstraints:^(MASConstraintMaker* make) {
-                    make.left.offset(20);
-                }];
-            }
-            
-            [nextBtn mas_makeConstraints:^(MASConstraintMaker* make) {
-                // 后一个的左边 和 前一个的右边 一样
-                make.left.equalTo(currentBtn.mas_right).offset(10);
-            }];
-        }
-        if (i==5) {
-            UIButton* fourBtn = classBtn[i - 1];
-            [classBtn[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(fourBtn.mas_right).offset(10);
-                 make.top.equalTo(searchBtn.mas_bottom).offset(59);
-            }];
-        }
-    }
     //添加分割view
     UIView *sepView = [[UIView alloc]init];
     [self.view addSubview:sepView];
@@ -160,6 +151,7 @@ static NSString* cellid = @"business_cell";
     //添加药品模块
     [self addMedicinals];
 }
+
 //添加药品模块
 -(void)addMedicinals{
     // 创建流水布局
@@ -200,7 +192,9 @@ static NSString* cellid = @"business_cell";
 //药品点击事件
 -(void)medicinalClick:(UIButton*)btn{
 //    if (btn.tag == 105) {
-        [self.navigationController pushViewController:[[YYAllMedicinalViewController alloc]init] animated:true];
+    YYAllMedicinalViewController *categoryVC = [[YYAllMedicinalViewController alloc]init];
+    categoryVC.id = [NSString stringWithFormat:@"%ld",(long)btn.tag];
+        [self.navigationController pushViewController:categoryVC animated:true];
 //    }
 }
 //搜索跳转

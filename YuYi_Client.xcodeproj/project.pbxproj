@@ -10,6 +10,9 @@
 		161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3821E69170300C359A7 /* YYOrderDetailVC.m */; };
 		161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */; };
 		161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3901E69409200C359A7 /* YYOrderDetailView.m */; };
+		16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A971E7A323700BCE38D /* YYCategoryModel.m */; };
+		16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */; };
+		16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9D1E7A33F600BCE38D /* YYClassInfo.m */; };
 		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
 		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
@@ -185,6 +188,13 @@
 		161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYOrderDetailView.xib; sourceTree = "<group>"; };
 		161FA38F1E69409200C359A7 /* YYOrderDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailView.h; sourceTree = "<group>"; };
 		161FA3901E69409200C359A7 /* YYOrderDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailView.m; sourceTree = "<group>"; };
+		16443A961E7A323700BCE38D /* YYCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCategoryModel.h; sourceTree = "<group>"; };
+		16443A971E7A323700BCE38D /* YYCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCategoryModel.m; sourceTree = "<group>"; };
+		16443A9A1E7A33F600BCE38D /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
+		16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+YYModel.m"; sourceTree = "<group>"; };
+		16443A9C1E7A33F600BCE38D /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		16443A9D1E7A33F600BCE38D /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		16443A9E1E7A33F600BCE38D /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
 		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
 		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
 		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
@@ -505,6 +515,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16443A991E7A33F600BCE38D /* YYModel */ = {
+			isa = PBXGroup;
+			children = (
+				16443A9A1E7A33F600BCE38D /* NSObject+YYModel.h */,
+				16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */,
+				16443A9C1E7A33F600BCE38D /* YYClassInfo.h */,
+				16443A9D1E7A33F600BCE38D /* YYClassInfo.m */,
+				16443A9E1E7A33F600BCE38D /* YYModel.h */,
+			);
+			path = YYModel;
+			sourceTree = "<group>";
+		};
 		165490191E65593D0034CB5B /* shopCart */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,6 +602,8 @@
 			children = (
 				165490341E66B2A00034CB5B /* YYSearchRecordSingleton.h */,
 				165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */,
+				16443A961E7A323700BCE38D /* YYCategoryModel.h */,
+				16443A971E7A323700BCE38D /* YYCategoryModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -668,6 +692,7 @@
 		1654BF3E1E5ED572002F1D00 /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				16443A991E7A33F600BCE38D /* YYModel */,
 				165490231E6560360034CB5B /* UILabel+Addition.h */,
 				165490241E6560360034CB5B /* UILabel+Addition.m */,
 				1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */,
@@ -1324,6 +1349,7 @@
 				3E9643EE1E5FDD81001B49DE /* YYRecardTableViewCell.m in Sources */,
 				1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
+				16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */,
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
 				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
@@ -1336,6 +1362,7 @@
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */,
 				1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */,
 				1654901F1E655A770034CB5B /* YYShopCartVC.m in Sources */,
 				3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */,
@@ -1401,6 +1428,7 @@
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
 				3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */,
 				3EFBD6691E68FDD900B422BD /* GYZCity.m in Sources */,
+				16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
 				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
