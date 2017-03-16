@@ -13,9 +13,15 @@
 #import "Masonry.h"
 #import "YYAllMedicinalTitleBtn.h"
 #import "YYClassificationFlowLayout.h"
+#import "YYModel.h"
+#import "HttpClient.h"
+#import "YYMedinicalDetailModel.h"
+
 static NSString* allMedicinalCellid = @"allMedicinal_cell";
 static NSString* classificationCellid = @"classification_cell";
 @interface YYAllMedicinalViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+//商城首页药品分类按钮数据
+@property (nonatomic,strong) NSArray<YYMedinicalDetailModel *> *categoryArr;
 //分类按钮图标切换
 @property(nonatomic,assign)BOOL flag;
 //全部视图
@@ -44,7 +50,6 @@ static NSString* classificationCellid = @"classification_cell";
     [super viewDidLoad];
     self.title = @"全部药品";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self addAllMedicinalCollectionView];
     //加载数据
     [self loadData];
 }
@@ -52,7 +57,17 @@ static NSString* classificationCellid = @"classification_cell";
 -(void)loadData{
     self.groupTitles = @[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病"];
     self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
-    
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        [self addAllMedicinalCollectionView];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+
 }
 //添加全部药品collectionView
 -(void)addAllMedicinalCollectionView{
@@ -104,7 +119,7 @@ static NSString* classificationCellid = @"classification_cell";
 - (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (collectionView==self.collectionView) {
-        return 8;
+        return self.categoryArr.count;
     }else{
         NSArray *titles = self.detailTitles[section];
         return titles.count;
@@ -116,8 +131,8 @@ static NSString* classificationCellid = @"classification_cell";
 {    
     if (collectionView==self.collectionView) {
         YYAllMedicinalCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:allMedicinalCellid forIndexPath:indexPath];
-
-        
+        YYMedinicalDetailModel *model = self.categoryArr[indexPath.row];
+        cell.model = model;
         return cell;
 
     }else{
@@ -208,7 +223,7 @@ static NSString* classificationCellid = @"classification_cell";
             make.centerY.equalTo(button.mas_centerY);
         }];
         self.selectionBtn = selectionBtn;
-        
+        [self.selectionBtn setTitle:self.categoryName forState:UIControlStateNormal];
         return header;
     } else{
         UICollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
@@ -310,4 +325,5 @@ static NSString* classificationCellid = @"classification_cell";
 {
     
 }
+
 @end

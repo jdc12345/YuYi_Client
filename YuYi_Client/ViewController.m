@@ -30,11 +30,20 @@ static NSString* cellid = @"business_cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"医药商城";
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = item;
+    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
+    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
+    [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:@"333333"]];
     [self loadData];
 }
 -(void)loadData{
     HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:@"http://192.168.1.42:8080/yuyi/category/listAllTree.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [httpManager requestWithPath:@"http://192.168.1.55:8080/yuyi/category/listAllTree.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"category"];
         NSArray *getArr = [NSArray yy_modelArrayWithClass:[YYCategoryModel class] json:categoryArr];
         NSMutableArray *fiveCategory = [NSMutableArray array];
@@ -54,17 +63,7 @@ static NSString* cellid = @"business_cell";
     }];
 }
 -(void)setupUI{
-    self.title = @"医药商城";
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];
-    //        UIImage *backButtonImage = [[UIImage imageNamed:@"back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 30, 0, 0)];
-    //        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = item;
-    [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
-    [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
-    [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:@"333333"]];
+   
     //添加配送范围标题
     UILabel *psLabel = [[UILabel alloc]init];
     [self.view addSubview:psLabel];
@@ -195,6 +194,7 @@ static NSString* cellid = @"business_cell";
     YYAllMedicinalViewController *categoryVC = [[YYAllMedicinalViewController alloc]init];
     categoryVC.id = [NSString stringWithFormat:@"%ld",(long)btn.tag];
         [self.navigationController pushViewController:categoryVC animated:true];
+    categoryVC.categoryName = btn.titleLabel.text;
 //    }
 }
 //搜索跳转

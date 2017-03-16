@@ -9,6 +9,8 @@
 #import "YYAllMedicinalCollectionViewCell.h"
 #import "Masonry.h"
 #import "UIColor+colorValues.h"
+#import "UIImageView+WebCache.h"
+#import "YYHTTPSHOPConst.h"
 @interface YYAllMedicinalCollectionViewCell ()
 
 @property (nonatomic, weak) UIImageView* iconView;
@@ -26,6 +28,14 @@
         [self setupUI];
     }
     return self;
+}
+-(void)setModel:(YYMedinicalDetailModel *)model{
+    _model = model;
+    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:model.picture];
+//    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.42:8080/yuyi%@",model.picture];
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:urlString]];
+    self.priceLabel.text = [NSString stringWithFormat:@"%ld",model.price];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@",model.drugsName];
 }
 // 初始化控件
 - (void)setupUI

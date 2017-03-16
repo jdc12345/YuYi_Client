@@ -13,6 +13,7 @@
 		16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A971E7A323700BCE38D /* YYCategoryModel.m */; };
 		16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */; };
 		16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9D1E7A33F600BCE38D /* YYClassInfo.m */; };
+		16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */; };
 		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
 		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
@@ -195,6 +196,9 @@
 		16443A9C1E7A33F600BCE38D /* YYClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
 		16443A9D1E7A33F600BCE38D /* YYClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
 		16443A9E1E7A33F600BCE38D /* YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYModel.h; sourceTree = "<group>"; };
+		16443AA11E7A419900BCE38D /* YYMedinicalDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMedinicalDetailModel.h; sourceTree = "<group>"; };
+		16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedinicalDetailModel.m; sourceTree = "<group>"; };
+		16443AA51E7A652600BCE38D /* YYHTTPSHOPConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYHTTPSHOPConst.h; sourceTree = "<group>"; };
 		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
 		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
 		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
@@ -661,6 +665,8 @@
 		1654BF3B1E5ED35A002F1D00 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				16443AA11E7A419900BCE38D /* YYMedinicalDetailModel.h */,
+				16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -697,6 +703,7 @@
 				165490241E6560360034CB5B /* UILabel+Addition.m */,
 				1654BF3F1E5ED675002F1D00 /* UIColor+colorValues.h */,
 				1654BF401E5ED675002F1D00 /* UIColor+colorValues.m */,
+				16443AA51E7A652600BCE38D /* YYHTTPSHOPConst.h */,
 			);
 			name = tools;
 			sourceTree = "<group>";
@@ -1353,6 +1360,7 @@
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
 				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
+				16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
 				3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */,

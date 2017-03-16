@@ -11,4 +11,6 @@
 @interface YYAllMedicinalViewController : YYBaseViewController
 //所选药品的分类Id
 @property(nonatomic,copy)NSString *id;
+//所选药品的分类name
+@property(nonatomic,copy)NSString *categoryName;
 @end

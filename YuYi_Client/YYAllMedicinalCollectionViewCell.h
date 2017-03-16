@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YYMedinicalDetailModel.h"
 @interface YYAllMedicinalCollectionViewCell : UICollectionViewCell
-
+@property(nonatomic,strong)YYMedinicalDetailModel *model;
 @end
