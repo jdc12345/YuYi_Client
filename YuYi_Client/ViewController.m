@@ -109,6 +109,7 @@ static NSString* cellid = @"business_cell";
     [nameArray addObjectsFromArray:self.categoryArr];
     YYCategoryModel *allModel = [[YYCategoryModel alloc]init];
     allModel.name = @"全部";
+    allModel.id = @"106";
     [nameArray addObject:allModel];
     for (int i=0; i<nameArray.count; i++) {
         

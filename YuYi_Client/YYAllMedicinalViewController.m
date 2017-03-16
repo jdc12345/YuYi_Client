@@ -57,7 +57,12 @@ static NSString* classificationCellid = @"classification_cell";
 -(void)loadData{
     self.groupTitles = @[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病"];
     self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
+    NSString *urlString = [NSString string];
+    if ([self.id isEqualToString:@"106"]) {
+         urlString = @"http://192.168.1.55:8080/yuyi/drugs/findall.do?start=0&limit=10";
+    }else{
+        urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
+    }
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
