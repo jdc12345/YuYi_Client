@@ -16,7 +16,7 @@
 #import "YYPInfomationTableViewCell.h"
 #import "ZYActionSheet.h"
 #import "ZYAlertSView.h"
-@interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -26,6 +26,11 @@
 @property (nonatomic, weak) UIView *selectView;
 @property (nonatomic, weak) UIImageView *manV;
 @property (nonatomic, weak) UIImageView *womanV;
+
+
+@property (nonatomic,strong) NSString *filePath;
+@property (nonatomic, weak) UIImageView *userIcon;
+@property (nonatomic,strong) UIImage *chooseImage;
 
 @end
 
@@ -83,54 +88,56 @@
     
     // Do any additional setup after loading the view.
 }
-- (UIView *)personInfomation{
-    
-    UIView *personV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 90 *kiphone6)];
-    personV.backgroundColor = [UIColor whiteColor];
-    
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
-    headerView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
-    [personV addSubview:headerView];
-    
-    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LIM_"]];
-    iconV.layer.cornerRadius = 25;
-    iconV.clipsToBounds = YES;
-    //
-    UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"李美丽";
-    nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    nameLabel.font = [UIFont systemFontOfSize:14];
-    //
-    UILabel *idName = [[UILabel alloc]init];
-    idName.text = @"用户：18328887563";
-    idName.textColor = [UIColor colorWithHexString:@"333333"];
-    idName.font = [UIFont systemFontOfSize:13];
-    //
-    [personV addSubview:iconV];
-    [personV addSubview:nameLabel];
-    [personV addSubview:idName];
-    //
-    [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(personV).with.offset(10);
-        make.left.equalTo(personV).with.offset(25 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(50 *kiphone6, 50 *kiphone6));
-    }];
-    //
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(personV).with.offset(31.5 *kiphone6);
-        make.left.equalTo(iconV.mas_right).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(140 *kiphone6, 14 *kiphone6));
-    }];
-    //
-    [idName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
-        make.left.equalTo(nameLabel.mas_left);
-        make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
-    }];
-    
-    return personV;
-}
+//- (UIView *)personInfomation{
+//    
+//    UIView *personV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 90 *kiphone6)];
+//    personV.backgroundColor = [UIColor whiteColor];
+//    
+//    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
+//    headerView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+//    
+//    [personV addSubview:headerView];
+//    
+//    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LIM_"]];
+//    iconV.layer.cornerRadius = 25;
+//    iconV.clipsToBounds = YES;
+//    //
+//    UILabel *nameLabel = [[UILabel alloc]init];
+//    nameLabel.text = @"李美丽";
+//    nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
+//    nameLabel.font = [UIFont systemFontOfSize:14];
+//    //
+//    UILabel *idName = [[UILabel alloc]init];
+//    idName.text = @"用户：18328887563";
+//    idName.textColor = [UIColor colorWithHexString:@"333333"];
+//    idName.font = [UIFont systemFontOfSize:13];
+//    //
+//    [personV addSubview:iconV];
+//    [personV addSubview:nameLabel];
+//    [personV addSubview:idName];
+//    //
+//    [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(personV).with.offset(10);
+//        make.left.equalTo(personV).with.offset(25 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(50 *kiphone6, 50 *kiphone6));
+//    }];
+//    //
+//    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(personV).with.offset(31.5 *kiphone6);
+//        make.left.equalTo(iconV.mas_right).with.offset(10 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(140 *kiphone6, 14 *kiphone6));
+//    }];
+//    //
+//    [idName mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
+//        make.left.equalTo(nameLabel.mas_left);
+//        make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
+//    }];
+//    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserIcon:)];
+//    [personV addGestureRecognizer:tapGest];
+//    
+//    return personV;
+//}
 
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
@@ -258,6 +265,8 @@
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
     
+    self.userIcon = iconV;
+    
     [headerView addSubview:iconV];
     
     [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -282,6 +291,8 @@
     }];
     
     [allHeadSectionV addSubview:headerView];
+        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserIcon:)];
+        [allHeadSectionV addGestureRecognizer:tapGest];
     return allHeadSectionV;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -325,6 +336,81 @@
         self.manV.image = [UIImage imageNamed:imageStr[1]];
         self.womanV.image = [UIImage imageNamed:imageStr[0]];
     }
+}
+
+#pragma mark ----------pickerView代理事件------------
+- (void)changeUserIcon:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    //设置选择后的图片可被编辑
+    picker.allowsEditing = YES;
+    [self presentViewController:picker animated:YES completion:nil];
+    
+}
+//当选择一张图片后进入这里
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+
+{
+    
+    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    //当选择的类型是图片
+    if ([type isEqualToString:@"public.image"]){
+        //先把图片转成NSData
+        self.chooseImage = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        NSData *data;
+        if (UIImagePNGRepresentation(self.chooseImage) == nil){
+            data = UIImageJPEGRepresentation(self.chooseImage, 1.0);
+        }else{
+            data = UIImagePNGRepresentation(self.chooseImage);
+        }
+        
+        //图片保存的路径
+        //这里将图片放在沙盒的documents文件夹中
+        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+        
+        //文件管理器
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
+        [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
+        [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:@"/image.png"] contents:data attributes:nil];
+        
+        //得到选择后沙盒中图片的完整路径
+        _filePath = [[NSString alloc]initWithFormat:@"%@%@",DocumentsPath,  @"/image.png"];
+        //关闭相册界面
+        [picker dismissViewControllerAnimated:YES completion:nil];
+        
+        /****图片本地持久化*******/
+        
+        
+        
+        //        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
+        //        NSString *myfilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"picture.png"]];
+        //        // 保存文件的名称
+        //        [UIImagePNGRepresentation(self.chooseImage)writeToFile: myfilePath  atomically:YES];
+        //        NSUserDefaults *userDef= [NSUserDefaults standardUserDefaults];
+        //        [userDef setObject:myfilePath forKey:kImageFilePath];
+        
+        //创建一个选择后图片的小图标放在下方
+        //类似微薄选择图后的效果
+        self.userIcon.image = [self.chooseImage  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+    }
+    
+}
+
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    
+    NSLog(@"您取消了选择图片");
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+-(void)sendInfo
+{
+    NSLog(@"图片的路径是：%@", _filePath);
+    
 }
 
 /*

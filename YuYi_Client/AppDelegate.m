@@ -71,7 +71,7 @@
     // 登陆融云
     
     
-    [[RCIM sharedRCIM] connectWithToken:mRCToken2     success:^(NSString *userId) {
+    [[RCIM sharedRCIM] connectWithToken:mRCToken     success:^(NSString *userId) {
         NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
     } error:^(RCConnectErrorCode status) {
         NSLog(@"登陆的错误码为:%d", status);

@@ -42,7 +42,12 @@
 #pragma mark ------------RCLOUD----------------------
 
 #define mRCToken @"VEFVYY49JO7Tue0D8KSQ6YuZqhNeP62jUkZowKgPQxsXdaGtWFcdtK0w42GZ1eo9DEVAb8JzUQGPgDvPV905mQ=="  //123123
-#define mRCToken2 @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
+#define mUserID @"789789"
+
+
+
+//#define mRCToken @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
+//#define mUserID @"123123"
 
 
 

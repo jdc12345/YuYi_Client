@@ -27,12 +27,12 @@
     
     // 判断是否直接连接语音或视频
     if ([self.modalityVC isEqualToString:@"speech"]) {
-                YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:@"123123" mediaType:RCCallMediaAudio];
+                YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:mUserID mediaType:RCCallMediaAudio];
                 [self presentViewController:speechVC animated:YES completion:^{
                     
                 }];
     }else if([self.modalityVC isEqualToString:@"av"]){
-                YYAVViewController *avVC = [[YYAVViewController alloc]init];
+                YYAVViewController *avVC = [[YYAVViewController alloc]initWithOutgoingCall:mUserID mediaType:RCCallMediaVideo];
         [self presentViewController:avVC animated:YES completion:^{
             
         }];

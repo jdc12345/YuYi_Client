@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <RongCallKit/RongCallKit.h>
 
-@interface YYAVViewController : UIViewController
+@interface YYAVViewController : RCCallSingleCallViewController
 
 @end

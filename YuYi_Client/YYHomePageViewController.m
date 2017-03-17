@@ -255,6 +255,7 @@
     
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [clickButton setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    clickButton.enabled = NO;
 //    [clickButton addTarget:self action:@selector(Actiondo:) forControlEvents:UIControlEventTouchUpInside];
 //    [clickButton addGestureRecognizer:tapGesture];
     

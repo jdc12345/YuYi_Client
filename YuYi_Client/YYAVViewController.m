@@ -10,7 +10,7 @@
 #import "UIColor+Extension.h"
 #import <Masonry.h>
 
-@interface YYAVViewController ()
+@interface YYAVViewController ()<RCCallSessionDelegate ,RCCallReceiveDelegate>
 
 @end
 
@@ -21,7 +21,15 @@
     self.title = @"医生";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
-    [self createSubView];
+    
+    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:mUserID to:@[@""] mediaType:RCCallMediaVideo sessionDelegate:self extra:nil];
+    
+    
+    [[RCCallClient sharedRCCallClient] setDelegate:self];
+    
+    [[RCCallClient sharedRCCallClient] isAudioCallEnabled:ConversationType_PRIVATE];
+    
+//    [self createSubView];
     // Do any additional setup after loading the view.
 }
 - (void)createSubView{
@@ -108,10 +116,31 @@
         make.centerX.equalTo(btn2.mas_centerX);
         make.size.mas_equalTo(CGSizeMake(70 *kiphone6,15 *kiphone6));
     }];
+    
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)callDidConnect{
+    NSLog(@"通话接通");
+}
+- (void)callDidDisconnect{
+    NSLog(@"通话结束");
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+- (void)didReceiveCall:(RCCallSession *)callSession{
+    
+}
+
+- (void)didReceiveCallRemoteNotification:(NSString *)callId inviterUserId:(NSString *)inviterUserId mediaType:(RCCallMediaType)mediaType userIdList:(NSArray *)userIdList userDict:(NSDictionary *)userDict{
+    
+}
+
+- (void)didCancelCallRemoteNotification:(NSString *)callId inviterUserId:(NSString *)inviterUserId mediaType:(RCCallMediaType)mediaType userIdList:(NSArray *)userIdList{
 }
 
 /*
