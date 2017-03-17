@@ -43,6 +43,11 @@ static NSString* classificationCellid = @"classification_cell";
 @property(nonatomic,weak)UIButton *selectionBtn;
 //分类头部右侧按钮
 @property(nonatomic,weak)UIButton *button;
+//大组数据Id
+@property(nonatomic,copy)NSString *bigCategoryId;
+//小组数据Id
+@property(nonatomic,copy)NSString *smallCategoryId;
+
 
 
 @end
@@ -58,8 +63,8 @@ static NSString* classificationCellid = @"classification_cell";
 }
 //
 -(void)loadData{
-    self.groupTitles = @[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病"];
-    self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
+//    self.groupTitles = @[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病"];
+//    self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
     NSString *urlString = [NSString string];
     if ([self.id isEqualToString:@"106"]) {
          urlString = @"http://192.168.1.55:8080/yuyi/drugs/findall.do?start=0&limit=10";
@@ -166,6 +171,8 @@ static NSString* classificationCellid = @"classification_cell";
         titleBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [titleBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"]
                   forState:UIControlStateNormal];
+        //传递小类id
+        titleBtn.tag = [smallModel.id intValue];
         //item上button点击事件
         [titleBtn addTarget:self action:@selector(clickClassItem:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -189,6 +196,18 @@ static NSString* classificationCellid = @"classification_cell";
 -(void)clickClassItem:(UIButton*)sender{
     self.selectionBtn.titleLabel.text = sender.titleLabel.text;
     [self packup:self.button];
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag];
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        [self.collectionView reloadData];
+        [self.classificationView removeFromSuperview];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+    self.categoryName = sender.titleLabel.text;
 
     NSLog(@"-------此处更改全部药品页面数据源");
 }
@@ -238,7 +257,7 @@ static NSString* classificationCellid = @"classification_cell";
         //边框宽度
         [selectionBtn.layer setBorderWidth:0.8];
         selectionBtn.layer.borderColor=[UIColor colorWithHexString:@"25F368"].CGColor;
-        [selectionBtn setTitle:@"常用药品"  forState:UIControlStateNormal];
+//        [selectionBtn setTitle:@"常用药品"  forState:UIControlStateNormal];
         [selectionBtn setTintColor:[UIColor colorWithHexString:@"25F368"] ];
         [selectionBtn setImage:[UIImage imageNamed:@"close_classify"] forState:UIControlStateNormal];
         [selectionBtn setTitleColor:[UIColor colorWithHexString:@"25F368"] forState:UIControlStateNormal];
@@ -266,18 +285,22 @@ static NSString* classificationCellid = @"classification_cell";
             UICollectionReusableView *classHeader = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader        withReuseIdentifier:@"header" forIndexPath:indexPath];
 
             classHeader.backgroundColor = [UIColor whiteColor];
-            UILabel *titleLabel = [[UILabel alloc]init];
+
+            UIButton *titleBtn = [[UIButton alloc]init];
             for (UIView *view in classHeader.subviews) {
             [view removeFromSuperview];
             } // 防止复用分区头
-            [classHeader addSubview:titleLabel];
+            [classHeader addSubview:titleBtn];
             YYCategoryModel *model = self.bigCategoryArr[indexPath.section];
-            titleLabel.text = model.name;
-            titleLabel.font = [UIFont systemFontOfSize:13];
-            titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
-            [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            [titleBtn setTitle:model.name forState:UIControlStateNormal];
+            titleBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+            [titleBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+            [titleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.offset(10);
             }];
+            //传递大组id
+            titleBtn.tag = [model.id intValue];
+            [titleBtn addTarget:self action:@selector(updateDataSource:) forControlEvents:UIControlEventTouchUpInside];
 
             return classHeader;
 
@@ -285,6 +308,23 @@ static NSString* classificationCellid = @"classification_cell";
             return nil;
         }
 }
+}
+//分类按钮open点击事件
+-(void)updateDataSource:(UIButton*)sender{
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%ld&start=0&limit=10",sender.tag];
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        [self.collectionView reloadData];
+        [self.classificationView removeFromSuperview];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+    self.categoryName = sender.titleLabel.text;
+
 }
 //分类按钮open点击事件
 -(void)doOpen:(UIButton*)sender{
