@@ -9,5 +9,7 @@
 #import "YYCategoryModel.h"
 
 @implementation YYCategoryModel
-
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
+    
+}
 @end

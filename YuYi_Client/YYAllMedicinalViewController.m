@@ -16,12 +16,15 @@
 #import "YYModel.h"
 #import "HttpClient.h"
 #import "YYMedinicalDetailModel.h"
+#import "YYMedicinalDetailVC.h"
+#import "YYCategoryModel.h"
 
 static NSString* allMedicinalCellid = @"allMedicinal_cell";
 static NSString* classificationCellid = @"classification_cell";
 @interface YYAllMedicinalViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
 @property (nonatomic,strong) NSArray<YYMedinicalDetailModel *> *categoryArr;
+@property (nonatomic,strong) NSArray<YYCategoryModel *> *bigCategoryArr;
 //分类按钮图标切换
 @property(nonatomic,assign)BOOL flag;
 //全部视图
@@ -117,7 +120,7 @@ static NSString* classificationCellid = @"classification_cell";
     if (collectionView==self.collectionView) {
         return 1;
     }else{
-        return self.groupTitles.count;
+        return self.bigCategoryArr.count;
     }
     
 }
@@ -126,8 +129,9 @@ static NSString* classificationCellid = @"classification_cell";
     if (collectionView==self.collectionView) {
         return self.categoryArr.count;
     }else{
-        NSArray *titles = self.detailTitles[section];
-        return titles.count;
+        YYCategoryModel *model = self.bigCategoryArr[section];
+        NSArray *smallArr = model.children;
+        return smallArr.count;
     }
 
 }
@@ -150,8 +154,15 @@ static NSString* classificationCellid = @"classification_cell";
         titleBtn.layer.borderColor=[UIColor colorWithHexString:@"#f3f3f3"].CGColor;
         [cell.contentView addSubview:titleBtn];
         titleBtn.frame = cell.contentView.frame;
-        NSArray *titles = self.detailTitles[indexPath.section];
-        [titleBtn setTitle:titles[indexPath.row] forState:UIControlStateNormal];
+        //取出大类的model
+        YYCategoryModel *model = self.bigCategoryArr[indexPath.section];
+        NSArray *smallArr = model.children;
+        YYCategoryModel *smallModel = [[YYCategoryModel alloc]init];
+        NSDictionary *dic = smallArr[indexPath.row];
+        
+         [smallModel setValuesForKeysWithDictionary:dic];
+
+        [titleBtn setTitle:smallModel.name forState:UIControlStateNormal];
         titleBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         [titleBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"]
                   forState:UIControlStateNormal];
@@ -162,6 +173,18 @@ static NSString* classificationCellid = @"classification_cell";
 
     }
     }
+//点击cell跳转
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (collectionView == self.collectionView) {
+        //传药品的详情
+        YYAllMedicinalCollectionViewCell *cell = (YYAllMedicinalCollectionViewCell*)[collectionView  cellForItemAtIndexPath:indexPath];
+        YYMedicinalDetailVC *mdVC = [[YYMedicinalDetailVC alloc]init];
+        mdVC.id = cell.model.id;
+        [self.navigationController pushViewController:mdVC animated:true];
+    }
+    
+}
 //全部分类页面分类按钮点击事件
 -(void)clickClassItem:(UIButton*)sender{
     self.selectionBtn.titleLabel.text = sender.titleLabel.text;
@@ -248,7 +271,8 @@ static NSString* classificationCellid = @"classification_cell";
             [view removeFromSuperview];
             } // 防止复用分区头
             [classHeader addSubview:titleLabel];
-            titleLabel.text = self.groupTitles[indexPath.section];
+            YYCategoryModel *model = self.bigCategoryArr[indexPath.section];
+            titleLabel.text = model.name;
             titleLabel.font = [UIFont systemFontOfSize:13];
             titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
             [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -271,51 +295,63 @@ static NSString* classificationCellid = @"classification_cell";
          [sender addTarget:self action:@selector(packup:) forControlEvents:UIControlEventTouchUpInside];
         //防止重复添加
         if (self.classificationView == nil) {
-            UIView *lineView = [[UIView alloc]init];
-            lineView.backgroundColor = [UIColor whiteColor];
-            self.lineView = lineView;
-            // 创建流水布局
-            YYClassificationFlowLayout* layout = [[YYClassificationFlowLayout alloc] init];
-            
-            // 创建集合视图
-            UICollectionView* classificationView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-            self.classificationView = classificationView;
-            // 注册单元格
-            [classificationView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:classificationCellid];
-            [classificationView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-            //    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-            
-            // 取消指示器(滚动条)
-            classificationView.showsVerticalScrollIndicator = NO;
-            classificationView.showsHorizontalScrollIndicator = NO;
-            classificationView.pagingEnabled = YES;
-            
-            // 设置背景颜色
-            classificationView.backgroundColor = [UIColor whiteColor];
-            
-            // 设置数据源
-            classificationView.dataSource = self;
-            classificationView.delegate = self;
-            
-            // 添加视图
-            [self.view addSubview:classificationView];
-            [self.view addSubview:lineView];
-            // 设置自动布局
-            [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.header.mas_bottom);
-                make.left.right.offset(0);
-                make.height.offset(10);
-            }];
-            [classificationView mas_makeConstraints:^(MASConstraintMaker* make) {
-                make.top.equalTo(lineView.mas_bottom);
-                make.left.right.offset(0);
-                make.bottom.offset(0);
-                
-            }];
+            NSString *urlString = @"http://192.168.1.55:8080/yuyi/category/listAllTree.do";
+            HttpClient *httpManager = [HttpClient defaultClient];
+            [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                NSArray *bigCategoryArr = ((NSDictionary*)responseObject)[@"category"];
+                self.bigCategoryArr = [NSArray yy_modelArrayWithClass:[YYCategoryModel class] json:bigCategoryArr];
+                [self addCategoryCollectionView];
 
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                return ;
+            }];
         }
  
        }
+}
+//添加分类collectionView
+-(void)addCategoryCollectionView{
+    UIView *lineView = [[UIView alloc]init];
+    lineView.backgroundColor = [UIColor whiteColor];
+    self.lineView = lineView;
+    // 创建流水布局
+    YYClassificationFlowLayout* layout = [[YYClassificationFlowLayout alloc] init];
+    
+    // 创建集合视图
+    UICollectionView* classificationView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.classificationView = classificationView;
+    // 注册单元格
+    [classificationView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:classificationCellid];
+    [classificationView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
+    //    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
+    
+    // 取消指示器(滚动条)
+    classificationView.showsVerticalScrollIndicator = NO;
+    classificationView.showsHorizontalScrollIndicator = NO;
+    classificationView.pagingEnabled = YES;
+    
+    // 设置背景颜色
+    classificationView.backgroundColor = [UIColor whiteColor];
+    
+    // 设置数据源
+    classificationView.dataSource = self;
+    classificationView.delegate = self;
+    
+    // 添加视图
+    [self.view addSubview:classificationView];
+    [self.view addSubview:lineView];
+    // 设置自动布局
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.header.mas_bottom);
+        make.left.right.offset(0);
+        make.height.offset(10);
+    }];
+    [classificationView mas_makeConstraints:^(MASConstraintMaker* make) {
+        make.top.equalTo(lineView.mas_bottom);
+        make.left.right.offset(0);
+        make.bottom.offset(0);
+        
+    }];
 }
 //分类按钮packup点击事件
 -(void)packup:(UIButton*)sender{
@@ -325,10 +361,6 @@ static NSString* classificationCellid = @"classification_cell";
     [self.classificationView removeFromSuperview];
     [self.lineView removeFromSuperview];
 }
-//
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
+
 
 @end

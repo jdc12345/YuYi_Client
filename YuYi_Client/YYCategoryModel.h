@@ -21,4 +21,6 @@
 @property(nonatomic,copy)NSString *id;
 @property(nonatomic,copy)NSString *name;
 @property(nonatomic,strong)NSArray *children;
+
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key;
 @end
