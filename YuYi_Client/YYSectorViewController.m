@@ -88,7 +88,10 @@
 
             }
         };
-        
+        if (i == 0) {
+            // 设置为默认选中状态
+            [sectorView selectInit];
+        }
         [scrollTrendView addSubview:sectorView];
         
         [sectorView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,7 +141,6 @@
 //    [homeTableViewCell createDetailView:2];
 //    [homeTableViewCell addStarView];
     homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
-    homeTableViewCell.backgroundColor = [UIColor cyanColor];
     WS(ws);
     
     if (indexPath.row%2) {
@@ -151,7 +153,7 @@
         };
     }
    
-    
+    [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return homeTableViewCell;
     
 }
@@ -181,7 +183,7 @@
     [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleView);
         make.bottom.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW ,1));
+        make.size.mas_equalTo(CGSizeMake(alertW ,1));
     }];
     // 选项view
     UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];
@@ -203,6 +205,10 @@
         UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClick:)];
      
         [btnView addGestureRecognizer:tapGest];
+        
+        if (i == 0) {
+            [self tapClick:tapGest];
+        }
         
         UIImageView *imageV = [[UIImageView alloc]initWithFrame:CGRectMake(10 *kiphone6, 14 *kiphone6, 32 *kiphone6, 32 *kiphone6)];
         imageV.layer.cornerRadius = 16 *kiphone6;
@@ -322,7 +328,7 @@
     [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(titleView);
         make.bottom.equalTo(titleView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW ,1));
+        make.size.mas_equalTo(CGSizeMake(alertW ,1));
     }];
     // 选项view
     UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];

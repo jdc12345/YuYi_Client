@@ -11,6 +11,7 @@
 #import "YYHomeNewTableViewCell.h"
 #import <Masonry.h>
 #import "YYSectionViewController.h"
+#import "YYSearchTableViewController.h"
 @interface YYAppointmentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -53,9 +54,29 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
     headView.backgroundColor = [UIColor whiteColor];
-    UIImageView *imageV =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search_icon"]];
-    [headView addSubview:imageV];
-    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+//    UIImageView *imageV =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search_icon"]];
+////    [headView addSubview:imageV];
+//    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(headView).with.offset(20 *kiphone6);
+//        make.left.equalTo(headView).with.offset(20 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
+//    }];
+    
+    
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
+    searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
+    [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
+    [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    NSDictionary *dict = arr[i];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [headView addSubview:searchBtn];
+    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(headView).with.offset(20 *kiphone6);
         make.left.equalTo(headView).with.offset(20 *kiphone6);
         make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
@@ -88,6 +109,9 @@
     
     return homeTableViewCell;
     
+}
+-(void)searchBtnClick:(UIButton*)sender{
+    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
 }
 /*
 #pragma mark - Navigation

@@ -111,7 +111,7 @@
         homeTableViewCell.introduceLabel.text = @"添加其他设备";
         
     }
-    homeTableViewCell.backgroundColor = [UIColor blackColor];
+//    homeTableViewCell.backgroundColor = [UIColor blackColor];
     [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return homeTableViewCell;
     

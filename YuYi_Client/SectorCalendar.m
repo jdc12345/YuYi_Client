@@ -134,6 +134,10 @@
     self.morningBtn.selected = NO;
     self.afternoonBtn.selected = NO;
 }
+
+- (void)selectInit{
+    [self clickAction:self.morningBtn];
+}
 /*
  // Only override drawRect: if you perform custom drawing.
  // An empty implementation adversely affects performance during animation.

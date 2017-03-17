@@ -18,6 +18,7 @@
 #import "YYPersonalInfoTableViewCell.h"
 #import "YYDataAnalyseViewController.h"
 #import "YYDetailRecardViewController.h"
+#import "YYPInfomartionViewController.h"
 
 @interface YYPersonalInfoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -204,6 +205,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btn sizeToFit];
     //
     [personV addSubview:iconV];
@@ -238,7 +240,9 @@
     
     return headerView;
 }
-
+-(void)searchBtnClick:(UIButton*)sender{
+    [self.navigationController pushViewController:[[YYPInfomartionViewController alloc]init] animated:YES];
+}
 /*
 #pragma mark - Navigation
 

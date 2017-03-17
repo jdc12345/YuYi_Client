@@ -19,8 +19,12 @@
 @property (nonatomic, strong) UIButton *afternoonBtn;
 
 
+
+
 @property (nonatomic, copy) void(^timeClick)(BOOL isMorning);
 
 - (void)resumeView;
+
+- (void)selectInit;
 
 @end
