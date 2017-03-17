@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YYMedinicalDetailModel.h"
 @interface YYMedicinalDetailVC : UIViewController
-
+//"id": 1,
+@property(nonatomic,assign)NSInteger id;
 @end
