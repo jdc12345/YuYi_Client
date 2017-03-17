@@ -12,8 +12,17 @@
 #import "YYConfirmVC.h"
 #import "YYShopCartVC.h"
 #import "YYOrderDetailVC.h"
+#import "YYModel.h"
+#import "HttpClient.h"
+#import "YYMedinicalDetailModel.h"
+#import "UIImageView+WebCache.h"
+#import "YYHTTPSHOPConst.h"
+
+
 static NSString *cellId = @"cell_id";
 @interface YYMedicinalDetailVC ()<UITableViewDelegate,UITableViewDataSource>
+//请求回来的药品详情model
+@property(nonatomic,strong)YYMedinicalDetailModel *detailModel;
 @property(nonatomic,strong)NSArray *preTexts;
 @property(nonatomic,strong)NSArray *detailTexts;
 @property(nonatomic,strong)NSMutableArray *btns;
@@ -52,7 +61,6 @@ static NSString *cellId = @"cell_id";
     [rightButton addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     [self loadData];
-    [self setupUI];
 }
 //防止导航栏设置影响其他页面
 -(void)viewWillAppear:(BOOL)animated{
@@ -74,8 +82,27 @@ static NSString *cellId = @"cell_id";
 }
 //加载数据
 -(void)loadData{
-    self.preTexts = @[@"产品名称:",@"药品分类:",@"包装大小:",@"药品商品名:",@"药品通用名:",@"批准文号:",@"生产企业:",@"品牌:",@"药品类型:",@"剂型:",@"适用人群:"];
-    self.detailTexts = @[@"感冒灵颗粒",@"(非处方药)中成药",@"100",@"感冒灵颗粒",@"感冒灵颗粒",@"国药准字Z44021940",@"华润三九医药股份有限公司",@"999",@"中药",@"颗粒",@"不限"];
+    self.preTexts = @[@"产品名称:",@"药品数量(库存):",@"包装大小:",@"药品商品名:",@"药品通用名:",@"批准文号:",@"生产企业:",@"品牌:",@"药品类型:",@"剂型:",@"产品规格:",@"用法用量:",@"适用症/功能主治:",@"序号:"];
+    NSString *pathStr = [NSString string];
+    if (self.id != 0) {
+        pathStr = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getid.do?id=%ld",self.id];
+    }else{
+        return;
+    }
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:pathStr method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        YYMedinicalDetailModel *detailModel = [[YYMedinicalDetailModel alloc]init];
+        [detailModel setValuesForKeysWithDictionary:(NSDictionary*)responseObject];
+        self.detailModel = detailModel;
+        self.detailTexts = @[detailModel.drugsName,[NSString stringWithFormat:@"%ld",detailModel.number],detailModel.packing,detailModel.commodityName,detailModel.drugsCurrencyName,detailModel.approvalNumber,detailModel.businesses,detailModel.brand,detailModel.drugsType,detailModel.dosageForm,detailModel.productSpecification,detailModel.drugsDosage,detailModel.drugsFunction,[NSString stringWithFormat:@"%ld",detailModel.oid]];
+        [self setupUI];
+
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+
+    
+    
     self.shopingCarDetails = [NSMutableArray array];
 }
 //UI
@@ -91,10 +118,11 @@ static NSString *cellId = @"cell_id";
     }];
     //图片
     UIImageView *imageView = [[UIImageView alloc]init];
-    UIImage *image = [UIImage imageNamed:@"timg-8"];
+    UIImage *image = [UIImage imageNamed:@""];
+    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:self.detailModel.picture];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     //记录药品图片
-    [self.shopingCarDetails addObject:image];
-    imageView.image = image;
+    [self.shopingCarDetails addObject:imageView.image];
     [headerView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.offset(0);
@@ -102,7 +130,7 @@ static NSString *cellId = @"cell_id";
     }];
     //nameLabel
     UILabel *namelabel = [[UILabel alloc]init];
-    namelabel.text = @"999感冒灵颗粒";
+    namelabel.text = self.detailModel.drugsName;
     //记录药品名称
     NSString *medicinalName = namelabel.text;
     [self.shopingCarDetails addObject:medicinalName];
@@ -116,7 +144,7 @@ static NSString *cellId = @"cell_id";
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
     //价格数字
-    NSInteger priceNumber = 38;
+    NSInteger priceNumber = self.detailModel.price;
     self.priceNumber = priceNumber;
     priceLabel.text = [NSString stringWithFormat:@"¥%ld",priceNumber];
     
@@ -203,7 +231,9 @@ static NSString *cellId = @"cell_id";
     }];
     //imageView
     UIImageView *imageView = [[UIImageView alloc]init];
-    imageView.image = [UIImage imageNamed:@"timg-8"];
+    UIImage *image = [UIImage imageNamed:@""];
+    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:self.detailModel.picture];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     [optionView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(20);
@@ -216,7 +246,7 @@ static NSString *cellId = @"cell_id";
     imageView.layer.borderColor=[UIColor colorWithHexString:@"#f3f3f3"].CGColor;
     //nameLabel
     UILabel *namelabel = [[UILabel alloc]init];
-    namelabel.text = @"999感冒灵颗粒";
+    namelabel.text = self.detailModel.drugsName;
     namelabel.font = [UIFont systemFontOfSize:16];
     namelabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     [optionView addSubview:namelabel];
@@ -445,7 +475,7 @@ static NSString *cellId = @"cell_id";
     }
 #pragma tableviewDelegate,datasource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 11;
+    return self.detailTexts.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
@@ -462,11 +492,19 @@ static NSString *cellId = @"cell_id";
 }
 //行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 22;
+    NSInteger height = 0;
+    for (int i = 0; i < self.detailTexts.count; i++) {
+        if (!self.detailTexts[i]) {
+            height = 0;
+        }else{
+            height = 22;
+        }
+    }
+    return height;
 }
 //组头高度
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50;
+    return 15;
 }
 //商品详情
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -474,11 +512,12 @@ static NSString *cellId = @"cell_id";
     UILabel *lable = [[UILabel alloc]init];
     lable.text = @"商品详情";
     lable.font = [UIFont systemFontOfSize:15];
+    [lable sizeToFit];
     lable.textColor = [UIColor colorWithHexString:@"25f368"];
     [view addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.offset(20);
-        make.bottom.offset(0);
+        make.left.offset(20);
+//        make.top.bottom.offset(0);
     }];
     return view;
 }

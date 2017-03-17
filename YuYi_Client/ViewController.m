@@ -276,8 +276,9 @@ static NSString* cellid = @"business_cell";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     //传药品的详情
-//   YYCollectionViewCell *cell = (YYCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+   YYCollectionViewCell *cell = (YYCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     YYMedicinalDetailVC *mdVC = [[YYMedicinalDetailVC alloc]init];
+    mdVC.id = cell.model.id;
     [self.navigationController pushViewController:mdVC animated:true];
     
 

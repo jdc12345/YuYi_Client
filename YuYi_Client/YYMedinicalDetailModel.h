@@ -16,7 +16,7 @@
 //"specificationsd": "一盒3包",
 @property(nonatomic,copy)NSString *specificationsd;
 //"oid": 1,
-@property(nonatomic,assign)NSInteger *oid;
+@property(nonatomic,assign)NSInteger oid;
 //"packing": "10g x3",
 @property(nonatomic,copy)NSString *packing;
 //"drugsCurrencyName": "999感冒灵1",
@@ -36,7 +36,7 @@
 //"details": "专治感冒",
 @property(nonatomic,copy)NSString *details;
 //"id": 1,
-@property(nonatomic,assign)NSInteger *id;
+@property(nonatomic,assign)NSInteger id;
 //"brand": "999",
 @property(nonatomic,copy)NSString *brand;
 //"businesses": "华润三九医药公司",
@@ -56,5 +56,5 @@
 //"commodityName": "999感冒灵1",
 @property(nonatomic,copy)NSString *commodityName;
 //"status": 1
-
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key;
 @end
