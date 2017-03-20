@@ -55,7 +55,7 @@
 //}
 -(void)setModel:(YYMedinicalDetailModel *)model{
     _model = model;
-    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:model.picture];
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:model.picture];
     //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.42:8080/yuyi%@",model.picture];
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:urlString]];
     self.priceLabel.text = [NSString stringWithFormat:@"%ld",model.price];

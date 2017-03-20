@@ -11,8 +11,16 @@
 #import <Masonry.h>
 #import "UILabel+Addition.h"
 #import "YYTabBarController.h"
+#import "HttpClient.h"
+#import "YYHTTPSHOPConst.h"
+#import "CcUserModel.h"
+
 @interface YYLogInVC ()
 @property(nonatomic,weak)UILabel *countdownLabel;
+
+@property(nonatomic,weak)UITextField *telNumberField;
+
+@property(nonatomic,weak)UITextField *passWordField;
 @end
 
 @implementation YYLogInVC
@@ -58,7 +66,8 @@
         make.bottom.equalTo(line1.mas_top).offset(-7.5);
         make.width.offset(110);
     }];
-
+    self.telNumberField = telNumberField;
+    
     //添加line2
     UIView *line2 = [[UIView alloc]init];
     line2.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
@@ -85,6 +94,8 @@
         make.bottom.equalTo(line2.mas_top).offset(-7.5);
         make.width.offset(110);
     }];
+    self.passWordField = passWordField;
+    
     //添加获取验证码Btn
     UIButton *getCodeBtn = [[UIButton alloc]init];
     [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
@@ -125,9 +136,40 @@
     }];
     //点击事件
     [logInBtn addTarget:self action:@selector(logIn:) forControlEvents:UIControlEventTouchUpInside];
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
+    //将手势添加至需要相应的view中
+    [self.view addGestureRecognizer:tapGesture];
 }
-
+//执行手势触发的方法：
+- (void)event:(UITapGestureRecognizer *)gesture
+{
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
+    
+    
+    
+}
 -(void)buttonClick:(UIButton *)button{
+    //发送获取验证码请求
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/vcode.do?id=%@",self.telNumberField.text]];
+    HttpClient *httpManager = [HttpClient defaultClient];
+    
+    [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *getCodeDic = (NSDictionary*)responseObject;
+        if ([getCodeDic[@"code"] isEqualToString:@"0"]) {
+            self.passWordField.text = getCodeDic[@"result"];
+        }else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请输入正确的11位电话号码" preferredStyle:UIAlertControllerStyleAlert];
+            //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+            //            [alert addAction:cancelAction];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            self.telNumberField.text = nil;
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return;
+    }];
     //倒计时时间
     __block NSInteger timeOut = 59;
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -163,8 +205,39 @@
 }
 
 -(void)logIn:(UIButton*)sender{
-    YYTabBarController *firstVC = [[YYTabBarController alloc]init];
-    [self.navigationController pushViewController:firstVC animated:true];
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/login.do?id=%@&vcode=%@",self.telNumberField.text,self.passWordField.text]];
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dic = (NSDictionary *)responseObject;
+        if ([dic[@"code"] isEqualToString:@"0"]) {
+            //保存登录电话和验证码
+//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//            [defaults setObject:self.telNumberField.text forKey:@"telNumber"];
+//            [defaults setObject:self.passWordField.text forKey:@"passWord"];
+            //保存token
+            CcUserModel *userModel = [CcUserModel defaultClient];
+            userModel.userToken = dic[@"result"];
+            [userModel saveAllInfo];
+            
+            //跳转登录首页
+            YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+            [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+//            self.view.window.rootViewController = firstVC;
+
+        }else{
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:dic[@"result"] preferredStyle:UIAlertControllerStyleAlert];
+            //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
+            //            [alert addAction:cancelAction];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            self.passWordField.text = nil;
+            
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

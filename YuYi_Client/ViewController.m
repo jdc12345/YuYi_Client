@@ -20,6 +20,7 @@
 #import "YYModel.h"
 #import "HttpClient.h"
 #import "YYMedinicalDetailModel.h"
+#import "YYHTTPSHOPConst.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -45,7 +46,8 @@ static NSString* cellid = @"business_cell";
 }
 -(void)loadData{
     HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:@"http://192.168.1.55:8080/yuyi/category/listTreeDrugs.do" method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listTreeDrugs.do"];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
         NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
         if (getfirstPageArr.count>=6) {

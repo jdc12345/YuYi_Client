@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>MJExtension.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 		<key>Masonry.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -29,10 +34,30 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>SDCycleScrollView.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>04CF549EBEEE7BC87AEAE35397184D94</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>078AAB8928D8C1A85A483BC42B9BB1E7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1C46333D46B14D9DB0CB4B08D69A1FBF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -42,7 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>7F113C10EF19813CD436920A094B8C70</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>9DC8D9E02903E93BD0B2FEC9D846EA20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A316B54C67E947D23CECD230FA5BFAEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

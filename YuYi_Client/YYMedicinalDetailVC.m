@@ -85,7 +85,8 @@ static NSString *cellId = @"cell_id";
     self.preTexts = @[@"产品名称:",@"药品数量(库存):",@"包装大小:",@"药品商品名:",@"药品通用名:",@"批准文号:",@"生产企业:",@"品牌:",@"药品类型:",@"剂型:",@"产品规格:",@"用法用量:",@"适用症/功能主治:",@"序号:"];
     NSString *pathStr = [NSString string];
     if (self.id != 0) {
-        pathStr = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getid.do?id=%ld",self.id];
+        pathStr = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/drugs/getid.do?id=%ld",self.id]];
+//        pathStr = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getid.do?id=%ld",self.id];
     }else{
         return;
     }
@@ -119,7 +120,7 @@ static NSString *cellId = @"cell_id";
     //图片
     UIImageView *imageView = [[UIImageView alloc]init];
     UIImage *image = [UIImage imageNamed:@""];
-    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:self.detailModel.picture];
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:self.detailModel.picture];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     //记录药品图片
     [self.shopingCarDetails addObject:imageView.image];
@@ -232,7 +233,7 @@ static NSString *cellId = @"cell_id";
     //imageView
     UIImageView *imageView = [[UIImageView alloc]init];
     UIImage *image = [UIImage imageNamed:@""];
-    NSString *urlString = [API_PICTURE_URL stringByAppendingPathComponent:self.detailModel.picture];
+    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:self.detailModel.picture];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     [optionView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
