@@ -20,12 +20,27 @@
 #pragma mark --------------Color--------------------
 #define kColor_DefaultGray [UIColor  colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1]
 
+
+
+
+
+
 #pragma mark -
 #pragma mark ---------------Dev - Url------------------
-
+#define mPrefixUrl @"http://192.168.1.44:8080/yuyi"
 #pragma mark -
 #pragma mark ---------------Dis - Url------------------
 
+// 首页资讯2条数据接口
+#define mHomepageInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=2"]
+// 首页资讯详情数据接口
+#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/get.do?id="]
+// 我的页面用户信息接口
+#define mMyInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/get.do?token="]
+// 医院科室接口
+#define mHospitalClass [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/department/gethid.do?hid="]
+// 添加家庭用户的接口
+#define mAddFamily [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"homeuser/save.do"]
 
 
 #pragma mark  ------------WeakSelf------------------
@@ -46,8 +61,14 @@
 
 
 
+
+
+#define mStrAddStr(str1,str2) [NSString stringWithFormat@"%@%@",str1,str2]
+#define mStrAddStr2  [NSString stringWithFormat:@"%@%@",mPrefixUrl,mHomepageImages]
+
 //#define mRCToken @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
 //#define mUserID @"123123"
+
 
 
 

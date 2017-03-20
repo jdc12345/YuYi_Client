@@ -27,6 +27,10 @@
 #import "YYSearchTableViewController.h"
 #import "YYAllMedicinalViewController.h"
 #import "YYMedicinalDetailVC.h"
+#import "HttpClient.h"
+#import "YYInfomationModel.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -70,9 +74,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"首页";
-    
+    [self httpRequest];
     
     YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
     homeHeadView.bannerClick = ^(BOOL isShopping){
@@ -203,7 +208,10 @@
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 ) {
+        
+        YYInfomationModel *infoModel = self.dataSource[indexPath.row];
         YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
+        infoDetail.info_id = infoModel.info_id;
         [self.navigationController pushViewController:infoDetail animated:YES];
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -295,9 +303,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
+        
         YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
         [homeTableViewCell createDetailView:2];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+        if (self.dataSource.count != 0) {
+            YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+            [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
+            homeTableViewCell.titleLabel.text = infoModel.hospitalName;
+            homeTableViewCell.introduceLabel.text = infoModel.introduction;
+        }else{
+            homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+        }
         return homeTableViewCell;
     }else{
         YYHomeMedicineTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeMedicineTableViewCell" forIndexPath:indexPath];
@@ -369,6 +385,25 @@
 
 -(void)searchBtnClick:(UIButton*)sender{
     [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+}
+
+
+#pragma mark -
+#pragma mark ------------Http client----------------------
+
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *rowArray = responseObject[@"rows"];
+        for (NSDictionary *dict in rowArray){
+            YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:infoModel];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 // 取消吸顶 顶部悬停
 

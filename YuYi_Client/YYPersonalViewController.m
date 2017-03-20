@@ -21,12 +21,21 @@
 #import "YYOrderDetailVC.h"
 #import "YYAddressEditVC.h"
 #import "NotficationViewController.h"
+#import "HttpClient.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
+#import "CcUserModel.h"
+
+#define myToken @"6DD620E22A92AB0AED590DB66F84D064"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSArray *iconList;
 
+@property (nonatomic, strong) UILabel *nameLabel;
+@property (nonatomic, strong) UILabel *idLabel;
+@property (nonatomic, strong) UIImageView *iconV;
 
 @end
 
@@ -62,6 +71,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的";
+    [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
@@ -135,7 +145,9 @@
         make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
     }];
     
-    
+    self.nameLabel = nameLabel;
+    self.idLabel = idName;
+    self.iconV = iconV;
 
     return personV;
 }
@@ -219,6 +231,23 @@
     
     return homeTableViewCell;
     
+}
+
+#pragma mark -
+#pragma mark ------------Http client----------------------
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMyInfo,myToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        CcUserModel *userMoedel = [CcUserModel mj_objectWithKeyValues:responseObject];
+        
+        [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userMoedel.avatar]]];
+        
+        self.nameLabel.text = userMoedel.trueName;
+        self.idLabel.text = [NSString stringWithFormat:@"用户：%@",userMoedel.info_id];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 /*
 #pragma mark - Navigation

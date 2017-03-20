@@ -4,6 +4,7 @@ target 'YuYi_Client' do
 pod 'AFNetworking', '~> 2.6.0'
 pod 'Masonry'
 pod 'MJRefresh'
+pod 'MJExtension'
 pod 'SDWebImage'
 pod 'SDCycleScrollView'
 pod 'AMapLocation'

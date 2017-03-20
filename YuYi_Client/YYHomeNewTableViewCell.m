@@ -38,7 +38,7 @@
     self.introduceLabel.numberOfLines = lineNum;
     self.introduceLabel.textColor = [UIColor colorWithHexString:@"888888"];
     self.introduceLabel.font = [UIFont systemFontOfSize:12];
-    self.introduceLabel.text = @"涿州北大医院是集医疗，科研，预防，保健，康复为一体的现代化新型医院，是涿州市民工人的惠民医院。涿州北大医院以服务人民为宗旨";
+    self.introduceLabel.text = @"";//@"涿州北大医院是集医疗，科研，预防，保健，康复为一体的现代化新型医院，是涿州市民工人的惠民医院。涿州北大医院以服务人民为宗旨";
     
     
     [self.contentView addSubview:lineL];
@@ -72,12 +72,12 @@
 }
 - (void)addStarView{
     UILabel *starLabel = [[UILabel alloc]init];
-    starLabel.text = @"三级甲等";
+    starLabel.text = @"";
     starLabel.textColor = [UIColor colorWithHexString:@"686868"];
     starLabel.font = [UIFont systemFontOfSize:13];
     
     [self addSubview:starLabel];
-    
+    self.starLabel = starLabel;
     [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.titleLabel.mas_bottom).with.offset(10 *kiphone6);
         make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);

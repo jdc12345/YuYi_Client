@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *introduceLabel;
+@property (nonatomic, strong) UILabel *starLabel;
 
 - (void)createDetailView:(NSInteger)lineNum;
 - (void)addStarView;

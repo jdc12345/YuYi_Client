@@ -9,10 +9,18 @@
 #import "YYInfoDetailViewController.h"
 #import "UIColor+Extension.h"
 #import <Masonry.h>
+#import "HttpClient.h"
+#import <UIImageView+WebCache.h>
 
 @interface YYInfoDetailViewController ()
 
 @property (nonatomic, strong) UIScrollView *infomationS;
+
+@property (nonatomic, strong) UIImageView *imageV;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *starLabel;
+@property (nonatomic, strong) UILabel *introduceLabel;
+
 
 @end
 
@@ -20,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self httpRequest];
     self.title = @"资讯详情";
     self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     
@@ -58,6 +67,11 @@
     infoLabel.textColor = [UIColor colorWithHexString:@"333333"];
     
     
+    
+    self.imageV = imageV;
+    self.titleLabel = titleLabel;
+    self.starLabel = detailLabel;
+    self.introduceLabel = infoLabel;
 //    imageV.backgroundColor = [UIColor cyanColor];
 //    detailLabel.backgroundColor = [UIColor redColor];
 //    subLabel.backgroundColor =[ UIColor yellowColor];
@@ -109,6 +123,22 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+#pragma mark -
+#pragma mark ------------Http client----------------------
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomepageInfoDetail,self.info_id] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        
+        [self.imageV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,responseObject[@"picture"]]]];
+        self.titleLabel.text = responseObject[@"hospitalName"];
+        self.starLabel.text = responseObject[@"gradeName"];
+        self.introduceLabel.text = responseObject[@"introduction"];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 /*

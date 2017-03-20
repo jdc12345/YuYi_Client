@@ -12,6 +12,10 @@
 #import <Masonry.h>
 #import "YYSectionViewController.h"
 #import "YYSearchTableViewController.h"
+#import "HttpClient.h"
+#import <MJExtension.h>
+#import "YYInfomationModel.h"
+#import <UIImageView+WebCache.h>
 @interface YYAppointmentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -51,6 +55,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"预约挂号";
+    [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
     headView.backgroundColor = [UIColor whiteColor];
@@ -88,14 +93,21 @@
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
+    YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+    YYSectionViewController *sectionVC = [[YYSectionViewController alloc]init];
+    sectionVC.info_id = infoModel.info_id;
+    [self.navigationController pushViewController:sectionVC animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    if (self.dataSource.count == 0) {
+        return 1;
+    }else{
+        return self.dataSource.count;
+    }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -105,13 +117,40 @@
     YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
     [homeTableViewCell createDetailView:2];
     [homeTableViewCell addStarView];
-    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
-    
+
+    if (self.dataSource.count != 0) {
+        YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+        
+        
+        [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
+        homeTableViewCell.titleLabel.text = infoModel.hospitalName;
+        homeTableViewCell.introduceLabel.text = infoModel.introduction;
+        homeTableViewCell.starLabel.text = infoModel.gradeName;
+    }else{
+        homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+    }
     return homeTableViewCell;
+    
     
 }
 -(void)searchBtnClick:(UIButton*)sender{
     [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+}
+#pragma mark -
+#pragma mark ------------Http client----------------------
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *rowArray = responseObject[@"rows"];
+        for (NSDictionary *dict in rowArray){
+            YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:infoModel];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 /*
 #pragma mark - Navigation

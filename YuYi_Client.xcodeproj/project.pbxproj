@@ -91,6 +91,9 @@
 		3E5C671C1E7638F1005EAE19 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5C671B1E7638F1005EAE19 /* QuartzCore.framework */; };
 		3E5C671E1E76390D005EAE19 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5C671D1E76390C005EAE19 /* Photos.framework */; };
 		3E5C67201E763913005EAE19 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E5C671F1E763913005EAE19 /* SafariServices.framework */; };
+		3E74BD541E7FA3FC00364EC6 /* YYInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD531E7FA3FC00364EC6 /* YYInfomationModel.m */; };
+		3E74BD571E7FBECC00364EC6 /* SectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD561E7FBECC00364EC6 /* SectionModel.m */; };
+		3E74BD5B1E7FC35400364EC6 /* CcUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */; };
 		3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */; };
 		3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */; };
 		3E9643EE1E5FDD81001B49DE /* YYRecardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643ED1E5FDD81001B49DE /* YYRecardTableViewCell.m */; };
@@ -329,6 +332,12 @@
 		3E5C671B1E7638F1005EAE19 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		3E5C671D1E76390C005EAE19 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		3E5C671F1E763913005EAE19 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		3E74BD521E7FA3FC00364EC6 /* YYInfomationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYInfomationModel.h; sourceTree = "<group>"; };
+		3E74BD531E7FA3FC00364EC6 /* YYInfomationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYInfomationModel.m; sourceTree = "<group>"; };
+		3E74BD551E7FBECC00364EC6 /* SectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionModel.h; sourceTree = "<group>"; };
+		3E74BD561E7FBECC00364EC6 /* SectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionModel.m; sourceTree = "<group>"; };
+		3E74BD591E7FC35400364EC6 /* CcUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CcUserModel.h; sourceTree = "<group>"; };
+		3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CcUserModel.m; sourceTree = "<group>"; };
 		3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAllMedicinalViewController.m; sourceTree = "<group>"; };
 		3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYRecardViewController.h; sourceTree = "<group>"; };
 		3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYRecardViewController.m; sourceTree = "<group>"; };
@@ -870,6 +879,7 @@
 		3E1840E01E56C74000069568 /* PersonalPage */ = {
 			isa = PBXGroup;
 			children = (
+				3E74BD581E7FC31E00364EC6 /* Model */,
 				3E1840F61E56C8BF00069568 /* YYPersonalViewController.h */,
 				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
 				3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */,
@@ -928,6 +938,8 @@
 		3E1E47381E5BE10D0042934D /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3E74BD521E7FA3FC00364EC6 /* YYInfomationModel.h */,
+				3E74BD531E7FA3FC00364EC6 /* YYInfomationModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -974,6 +986,8 @@
 				3E1E47421E5BF5350042934D /* YYAppointmentViewController.m */,
 				3E1E47441E5C11250042934D /* YYSectionViewController.h */,
 				3E1E47451E5C11250042934D /* YYSectionViewController.m */,
+				3E74BD551E7FBECC00364EC6 /* SectionModel.h */,
+				3E74BD561E7FBECC00364EC6 /* SectionModel.m */,
 				3E1E47471E5C26B90042934D /* YYSectorViewController.h */,
 				3E1E47481E5C26B90042934D /* YYSectorViewController.m */,
 				3E1E474A1E5C291A0042934D /* SectorCalendar.h */,
@@ -982,6 +996,15 @@
 				3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */,
 			);
 			name = AppointmentPage;
+			sourceTree = "<group>";
+		};
+		3E74BD581E7FC31E00364EC6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E74BD591E7FC35400364EC6 /* CcUserModel.h */,
+				3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		3EAB2B6A1E2F065800D6795F = {
@@ -1344,6 +1367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */,
+				3E74BD5B1E7FC35400364EC6 /* CcUserModel.m in Sources */,
 				3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */,
 				3EFBD6531E68323700B422BD /* YYContactViewController.m in Sources */,
 				3EFBD6521E68322300B422BD /* YYSettingViewController.m in Sources */,
@@ -1378,6 +1402,7 @@
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
 				3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */,
+				3E74BD571E7FBECC00364EC6 /* SectionModel.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				1654BF631E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
@@ -1414,6 +1439,7 @@
 				3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */,
 				3E9643F11E5FF2C5001B49DE /* YYPInfomartionViewController.m in Sources */,
 				3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */,
+				3E74BD541E7FA3FC00364EC6 /* YYInfomationModel.m in Sources */,
 				3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */,
 				3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */,
 				3EFBD66C1E68FDD900B422BD /* GYZCityGroupCell.m in Sources */,
