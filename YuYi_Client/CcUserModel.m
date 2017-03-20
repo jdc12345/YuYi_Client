@@ -37,6 +37,7 @@
     [[NSUserDefaults standardUserDefaults] setValue:self.uid forKey:@"uid"];
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_id forKey:@"provider_id"];
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_uid forKey:@"provider_uid"];
+    [[NSUserDefaults standardUserDefaults] setValue:self.userToken forKey:@"userToken"];
 }
 - (void)setUserModelInfo{
     self.avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
@@ -46,6 +47,7 @@
     self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"uid"];
     self.provider_uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"provider_uid"];
     self.provider_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"provider_id"];
+    self.userToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"userToken"];
 }
 - (void)removeUserInfo{
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"avatar"];
@@ -55,6 +57,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"uid"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"provider_uid"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"provider_id"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userToken"];
 
 }
 
