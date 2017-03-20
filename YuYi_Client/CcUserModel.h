@@ -20,6 +20,7 @@
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *provider_id;
 @property (nonatomic, strong) NSString *provider_uid;
+@property (nonatomic, strong) NSString *userToken;
 
 @property (nonatomic,strong) NSArray *userCollectionArr;
 @property (nonatomic,strong) NSArray *userAttentionArr;
