@@ -11,6 +11,6 @@
 
 #define STATIC_STRING(A) static NSString * const A =
 #pragma mark - method
-STATIC_STRING(API_BASE_URL)                     @"http://192.168.1.44:8080/yuyi";
+STATIC_STRING(API_BASE_URL)                     @"http://192.168.1.55:8080/yuyi";
 
 #endif /* YYHTTPSHOPConst_h */

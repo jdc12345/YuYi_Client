@@ -23,6 +23,7 @@
 #import "YYHTTPSHOPConst.h"
 #import "UILabel+Addition.h"
 #import "YYAllMedicinalTitleBtn.h"
+#import "YYMyMedicinalStateVC.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
@@ -252,7 +253,8 @@ static NSString* cellid = @"business_cell";
 }
 //点击当前状态按钮
 -(void)stateBtnClick:(UIButton*)sender{
-    
+    YYMyMedicinalStateVC *stateVC = [[YYMyMedicinalStateVC alloc]init];
+    [self.navigationController pushViewController:stateVC animated:true];
 }
 #pragma collectionViewDatasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
