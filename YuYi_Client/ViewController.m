@@ -21,12 +21,16 @@
 #import "HttpClient.h"
 #import "YYMedinicalDetailModel.h"
 #import "YYHTTPSHOPConst.h"
+#import "UILabel+Addition.h"
+#import "YYAllMedicinalTitleBtn.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
 @property (nonatomic,strong) NSArray<YYCategoryModel *> *categoryArr;
 @property (nonatomic,strong) NSArray *getfirstPageArr;
+//“全部”按钮
+@property (nonatomic,weak) UIButton *allBtn;
 @end
 
 @implementation ViewController
@@ -75,26 +79,56 @@ static NSString* cellid = @"business_cell";
 }
 -(void)setupUI{
    
-    //添加配送范围标题
-    UILabel *psLabel = [[UILabel alloc]init];
-    [self.view addSubview:psLabel];
-    [psLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    //添加药品状态栏
+    UIView *medicineState = [[UIView alloc]init];
+    [self.view addSubview:medicineState];
+    [medicineState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.offset(0);
         make.top.offset(0);
-        make.height.offset(20);
+        make.height.offset(70);
     }];
-    [psLabel setBackgroundColor:[UIColor colorWithHexString:@"#25f368"]];
-    [psLabel setText:@"目前只支持涿州市区范围"];
-    psLabel.textAlignment = NSTextAlignmentCenter;
-    [psLabel setTextColor:[UIColor colorWithHexString:@"ffffff"]];
-    [psLabel setFont:[UIFont systemFontOfSize:12]];
+    [medicineState setBackgroundColor:[UIColor colorWithHexString:@"#f9f9f9"]];
+    UIImageView *mImageView = [[UIImageView alloc]init];//添加药品图标
+    mImageView.image = [UIImage imageNamed:@"medicinal"];
+    [medicineState addSubview:mImageView];
+    [mImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(medicineState);
+        make.left.offset(20);
+    }];
+    UILabel *mineStateLabel = [UILabel labelWithText:@"我的药品状态" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态标题
+    [medicineState addSubview:mineStateLabel];
+    [mineStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(medicineState.mas_centerY).offset(-3);
+        make.left.equalTo(mImageView.mas_right).offset(10);
+    }];
+    UILabel *dateLabel = [UILabel labelWithText:@"2017-3-20" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
+    [medicineState addSubview:dateLabel];
+    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(medicineState.mas_centerY).offset(3);
+        make.left.equalTo(mImageView.mas_right).offset(10);
+    }];
+    
+    YYAllMedicinalTitleBtn *stateBtn = [[YYAllMedicinalTitleBtn alloc]init];//添加右侧当前状态按钮
+    NSString *stateStr = @"煎药中";
+    [stateBtn setTitle:[NSString stringWithFormat:@"当前状态：%@",stateStr]  forState:UIControlStateNormal];
+    [stateBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    [stateBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
+    [stateBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
+    [medicineState addSubview:stateBtn];
+    [stateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(medicineState);
+        make.right.offset(-20);
+    }];
+    stateBtn.tag = 1000;
+    //当前按钮点击事件
+    [stateBtn addTarget:self action:@selector(stateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     //添加搜索框
     searchBar *searchBtn = [[searchBar alloc]init];
     [self.view addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(20);
         make.right.offset(-20);
-        make.top.equalTo(psLabel.mas_bottom).offset(10);
+        make.top.equalTo(medicineState.mas_bottom).offset(10);
         make.height.offset(40);
     }];
     searchBtn.backgroundColor = [UIColor colorWithHexString:@"#f3f3f3"];
@@ -148,6 +182,9 @@ static NSString* cellid = @"business_cell";
         //添加button的点击事件
         btn.tag = [model.id intValue];
         [btn addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
+        if (i==nameArray.count-1) {
+            self.allBtn = btn;
+        }
     }
 
     //添加分割view
@@ -155,7 +192,7 @@ static NSString* cellid = @"business_cell";
     [self.view addSubview:sepView];
     sepView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
     [sepView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(183);
+        make.top.equalTo(self.allBtn.mas_bottom).offset(10);
         make.left.right.offset(0);
         make.height.offset(10);
     }];
@@ -193,7 +230,7 @@ static NSString* cellid = @"business_cell";
     
     // 设置自动布局
     [collectionView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.offset(193);
+        make.top.equalTo(self.allBtn.mas_bottom).offset(20);
         make.left.right.offset(0);
         make.bottom.offset(0);
         
@@ -212,6 +249,10 @@ static NSString* cellid = @"business_cell";
 //搜索跳转
 -(void)searchBtnClick:(UIButton*)sender{
     [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+}
+//点击当前状态按钮
+-(void)stateBtnClick:(UIButton*)sender{
+    
 }
 #pragma collectionViewDatasource
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
