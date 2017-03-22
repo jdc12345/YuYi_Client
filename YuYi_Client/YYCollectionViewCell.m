@@ -16,7 +16,7 @@
 
 @property (nonatomic, weak) UIImageView* iconView;
 @property (nonatomic, weak) UILabel* nameLabel;
-@property (nonatomic, weak) UILabel* priceLabel;
+//@property (nonatomic, weak) UILabel* priceLabel;
 
 @end
 @implementation YYCollectionViewCell
@@ -55,10 +55,10 @@
 //}
 -(void)setModel:(YYMedinicalDetailModel *)model{
     _model = model;
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:model.picture];
+    NSString *urlString = [mPrefixUrl stringByAppendingPathComponent:model.picture];
     //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.42:8080/yuyi%@",model.picture];
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:urlString]];
-    self.priceLabel.text = [NSString stringWithFormat:@"%ld",model.price];
+//    self.priceLabel.text = [NSString stringWithFormat:@"%ld",model.price];
     self.nameLabel.text = [NSString stringWithFormat:@"%@",model.drugsName];
 }
 // 初始化控件
@@ -67,29 +67,30 @@
     
     // icon
     UIImageView* iconView = [[UIImageView alloc] init];
-    iconView.image = [UIImage imageNamed:@"timg-8"];
+    iconView.image = [UIImage imageNamed:@""];
     [self.contentView addSubview:iconView];
     // price
-    UILabel* priceLabel = [[UILabel alloc] init];
-    priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
-    priceLabel.font = [UIFont systemFontOfSize:15];
-    priceLabel.text = @"¥38";
-    [self.contentView addSubview:priceLabel];
+//    UILabel* priceLabel = [[UILabel alloc] init];
+//    priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
+//    priceLabel.font = [UIFont systemFontOfSize:15];
+//    priceLabel.text = @"¥38";
+//    [self.contentView addSubview:priceLabel];
     // name
     UILabel* nameLabel = [[UILabel alloc] init];
     nameLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     nameLabel.font = [UIFont systemFontOfSize:15];
-    nameLabel.text = @"999感冒灵";
+    nameLabel.text = @"";
     [self.contentView addSubview:nameLabel];
     
     
     // 自动布局
-    [priceLabel mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
-        make.centerX.equalTo(self.contentView);
-    }];
+//    [priceLabel mas_makeConstraints:^(MASConstraintMaker* make) {
+//        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+//        make.centerX.equalTo(self.contentView);
+//    }];
     [nameLabel mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.bottom.equalTo(priceLabel.mas_top).offset(-8);
+//        make.bottom.equalTo(priceLabel.mas_top).offset(-8);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
         make.centerX.equalTo(self.contentView);
     }];
     [iconView mas_makeConstraints:^(MASConstraintMaker* make) {

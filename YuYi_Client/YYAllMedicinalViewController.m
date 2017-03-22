@@ -18,7 +18,7 @@
 #import "YYMedinicalDetailModel.h"
 #import "YYMedicinalDetailVC.h"
 #import "YYCategoryModel.h"
-#import "YYHTTPSHOPConst.h"
+
 
 static NSString* allMedicinalCellid = @"allMedicinal_cell";
 static NSString* classificationCellid = @"classification_cell";
@@ -68,10 +68,10 @@ static NSString* classificationCellid = @"classification_cell";
 //    self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
     NSString *urlString = [NSString string];
     if ([self.id isEqualToString:@"106"]) {
-        urlString = [API_BASE_URL stringByAppendingPathComponent:@"/drugs/findall.do?start=0&limit=10"];
+        urlString = allCategoryBtnInfo;
 //         urlString = @"http://192.168.1.55:8080/yuyi/drugs/findall.do?start=0&limit=10";
     }else{
-        urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id]];
+        urlString = [otherCategoryBtnsInfo stringByAppendingString:[NSString stringWithFormat:@"%@&start=0&limit=10",self.id]];
 //        urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
     }
     HttpClient *httpManager = [HttpClient defaultClient];
@@ -200,7 +200,7 @@ static NSString* classificationCellid = @"classification_cell";
     self.selectionBtn.titleLabel.text = sender.titleLabel.text;
     [self packup:self.button];
 //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag];
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag]];
+    NSString *urlString = [smallCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=10",sender.tag]];
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
@@ -317,7 +317,7 @@ static NSString* classificationCellid = @"classification_cell";
 -(void)updateDataSource:(UIButton*)sender{
     
 //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%ld&start=0&limit=10",sender.tag];
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/drugs/getcid1.do?cid1=%ld&start=0&limit=10",sender.tag]];
+    NSString *urlString = [bigCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=10",sender.tag]];
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
@@ -341,7 +341,7 @@ static NSString* classificationCellid = @"classification_cell";
         //防止重复添加
         if (self.classificationView == nil) {
 //            NSString *urlString = @"http://192.168.1.55:8080/yuyi/category/listAllTree.do";
-            NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listAllTree.do"];
+            NSString *urlString = categorysInfo;
             HttpClient *httpManager = [HttpClient defaultClient];
             [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                 NSArray *bigCategoryArr = ((NSDictionary*)responseObject)[@"category"];

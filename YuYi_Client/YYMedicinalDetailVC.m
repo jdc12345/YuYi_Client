@@ -53,13 +53,13 @@ static NSString *cellId = @"cell_id";
     //为了去除子页面的返回按钮字样
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = item;
-    //自定义右侧购物车按钮
-    UIButton *rightButton = [[UIButton alloc]init];
-    rightButton.frame = CGRectMake(0, 0, 44, 44);
-    rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
-    [rightButton setImage:[UIImage imageNamed:@"shoppingcart"] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+//    //自定义右侧购物车按钮
+//    UIButton *rightButton = [[UIButton alloc]init];
+//    rightButton.frame = CGRectMake(0, 0, 44, 44);
+//    rightButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, -15);
+//    [rightButton setImage:[UIImage imageNamed:@"shoppingcart"] forState:UIControlStateNormal];
+//    [rightButton addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     [self loadData];
 }
 //防止导航栏设置影响其他页面
@@ -85,7 +85,7 @@ static NSString *cellId = @"cell_id";
     self.preTexts = @[@"产品名称:",@"药品数量(库存):",@"包装大小:",@"药品商品名:",@"药品通用名:",@"批准文号:",@"生产企业:",@"品牌:",@"药品类型:",@"剂型:",@"产品规格:",@"用法用量:",@"适用症/功能主治:",@"序号:"];
     NSString *pathStr = [NSString string];
     if (self.id != 0) {
-        pathStr = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/drugs/getid.do?id=%ld",self.id]];
+        pathStr = [medinicalDetailPage stringByAppendingString:[NSString stringWithFormat:@"%ld",self.id]];
 //        pathStr = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getid.do?id=%ld",self.id];
     }else{
         return;
@@ -123,7 +123,7 @@ static NSString *cellId = @"cell_id";
     NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:self.detailModel.picture];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     //记录药品图片
-    [self.shopingCarDetails addObject:imageView.image];
+//    [self.shopingCarDetails addObject:imageView.image];
     [headerView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.offset(0);
@@ -142,23 +142,23 @@ static NSString *cellId = @"cell_id";
         make.left.offset(20);
         make.top.equalTo(imageView.mas_bottom).offset(15);
     }];
-    //priceLabel
-    UILabel *priceLabel = [[UILabel alloc]init];
-    //价格数字
-    NSInteger priceNumber = self.detailModel.price;
-    self.priceNumber = priceNumber;
-    priceLabel.text = [NSString stringWithFormat:@"¥%ld",priceNumber];
+//    //priceLabel
+//    UILabel *priceLabel = [[UILabel alloc]init];
+//    //价格数字
+//    NSInteger priceNumber = self.detailModel.price;
+//    self.priceNumber = priceNumber;
+//    priceLabel.text = [NSString stringWithFormat:@"¥%ld",priceNumber];
     
-    //记录药品价格
-    NSNumber *medicinalPrice = [NSNumber numberWithInteger:self.priceNumber];
-    [self.shopingCarDetails addObject:medicinalPrice];
-    priceLabel.font = [UIFont systemFontOfSize:15];
-    priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
-    [headerView addSubview:priceLabel];
-    [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(20);
-        make.top.equalTo(namelabel.mas_bottom).offset(10);
-    }];
+//    //记录药品价格
+//    NSNumber *medicinalPrice = [NSNumber numberWithInteger:self.priceNumber];
+//    [self.shopingCarDetails addObject:medicinalPrice];
+//    priceLabel.font = [UIFont systemFontOfSize:15];
+//    priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
+//    [headerView addSubview:priceLabel];
+//    [priceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.offset(20);
+//        make.top.equalTo(namelabel.mas_bottom).offset(10);
+//    }];
     //详情view
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.backgroundColor = [UIColor whiteColor];
@@ -175,34 +175,34 @@ static NSString *cellId = @"cell_id";
     tableView.dataSource = self;
     tableView.delegate = self;
     [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:cellId];
-    //底部button
-    UIButton *shopCarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:shopCarBtn];
-    [shopCarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.offset(0);
-        make.height.offset(60);
-        make.width.offset((self.view.frame.size.width-1)*0.5);
-    }];
-    [shopCarBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
-    [shopCarBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
-    shopCarBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    shopCarBtn.backgroundColor = [UIColor colorWithHexString:@"#6dfbca"];
-    UIButton *buyBtn = [[UIButton alloc]init];
-    [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
-    buyBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-    buyBtn.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
-    buyBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
-    
-    [self.view addSubview:buyBtn]; 
-    [buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.offset(0);
-        make.height.offset(60);
-        make.width.offset((self.view.frame.size.width-1)*0.5);
-    }];
-    //添加立即购买按钮的点击事件
-    [buyBtn addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
-    //添加加入购物车按钮的点击事件
-    [shopCarBtn addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
+//    //底部button
+//    UIButton *shopCarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.view addSubview:shopCarBtn];
+//    [shopCarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.bottom.offset(0);
+//        make.height.offset(60);
+//        make.width.offset((self.view.frame.size.width-1)*0.5);
+//    }];
+//    [shopCarBtn setTitle:@"加入购物车" forState:UIControlStateNormal];
+//    [shopCarBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+//    shopCarBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+//    shopCarBtn.backgroundColor = [UIColor colorWithHexString:@"#6dfbca"];
+//    UIButton *buyBtn = [[UIButton alloc]init];
+//    [buyBtn setTitle:@"立即购买" forState:UIControlStateNormal];
+//    buyBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+//    buyBtn.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+//    buyBtn.backgroundColor = [UIColor colorWithHexString:@"#fcd186"];
+//    
+//    [self.view addSubview:buyBtn]; 
+//    [buyBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.bottom.offset(0);
+//        make.height.offset(60);
+//        make.width.offset((self.view.frame.size.width-1)*0.5);
+//    }];
+//    //添加立即购买按钮的点击事件
+//    [buyBtn addTarget:self action:@selector(buyNow:) forControlEvents:UIControlEventTouchUpInside];
+//    //添加加入购物车按钮的点击事件
+//    [shopCarBtn addTarget:self action:@selector(shoppingcar:) forControlEvents:UIControlEventTouchUpInside];
 
 }
 //立即购买
