@@ -13,10 +13,23 @@
 #import <Masonry.h>
 #import "YYMemberTableViewCell.h"
 
+#import "HttpClient.h"
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
+
+
 @interface YYHandleMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIView *memberView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, assign) NSInteger currentUser;
+
+
+
+@property (nonatomic, weak) YYCardInputView *cardView1;
+@property (nonatomic, weak) YYCardInputView *cardView2;
 @end
 
 @implementation YYHandleMeasureViewController
@@ -36,6 +49,8 @@
         [_tableView registerClass:[YYMemberTableViewCell class] forCellReuseIdentifier:@"YYMemberTableViewCell"];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.memberView addSubview:_tableView];
+        
+        self.currentUser = 0;
         // [self.memberView sendSubviewToBack:_tableView];
     }
     return _tableView;
@@ -51,7 +66,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.title = @"手动输入";
-    [self createOtherView];
+    [self httpRequestForUser];
+   
     
     
     // Do any additional setup after loading the view.
@@ -60,6 +76,7 @@
     
     CGFloat cardH;
     YYCardInputView *card = [[YYCardInputView alloc]initWithFrame:CGRectMake(10 *kiphone6, (64 +10) *kiphone6, kScreenW - 20 *kiphone6, 100 *kiphone6)];
+    self.cardView1 = card;
     if ([self.navTitle isEqualToString:@"当前体温"]) {
         card.titleLabel.text = @"体温";
         card.dataLabel.text = @"38℃";
@@ -74,7 +91,7 @@
         cardView.dataLabel.text = @"90";
         
         [self.view addSubview:cardView];
-        
+        self.cardView2 = cardView;
         cardH = CGRectGetMaxY(cardView.frame);
         
     }else{
@@ -148,7 +165,7 @@
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.dataSource.count +1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -158,7 +175,8 @@
     
     YYMemberTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYMemberTableViewCell" forIndexPath:indexPath];
     
-    if (indexPath.row == 3) {
+    
+    if (indexPath.row == self.dataSource.count) {
         homeTableViewCell.iconV.image = [UIImage imageNamed:@"add-1"];
         homeTableViewCell.titleLabel.text = @"添加其他成员";
         homeTableViewCell.titleLabel.textColor = [UIColor colorWithHexString:@"c7c5c5"];
@@ -166,6 +184,11 @@
         homeTableViewCell.titleLabel.highlightedTextColor = [UIColor whiteColor];
         homeTableViewCell.selectedBackgroundView = [[UIView alloc] initWithFrame:homeTableViewCell.frame];
         homeTableViewCell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+        
+        
+        YYHomeUserModel *homeUser = self.dataSource[indexPath.row];
+        homeTableViewCell.titleLabel.text = homeUser.trueName;
+        [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,homeUser.avatar]]];
     }
     return homeTableViewCell;
     
@@ -176,6 +199,7 @@
 }
 -(void)buttonClick1:(UIButton *)button{
     [button setBackgroundColor:[UIColor whiteColor]];
+    [self httpRequest];
     
 }
 
@@ -183,6 +207,59 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)httpRequest{
+    NSString *urlStr ;
+    NSDictionary *parametersDict;
+    
+    // token
+    NSString *usertoken = [CcUserModel defaultClient].userToken;
+    // humeuserId
+    NSInteger current = self.currentUser;
+    YYHomeUserModel *homeUser = self.dataSource[current];
+    NSLog(@"%@,%@,%@,%@",usertoken,homeUser.info_id,self.cardView1.dataTextField.text,self.cardView2.dataTextField.text);
 
+    if ([self.navTitle isEqualToString:@"当前血压"]) {
+        urlStr = mBloodpressure;
+        parametersDict = @{@"token":usertoken,
+                           @"humeuserId":homeUser.info_id,
+                           @"systolic":self.cardView1.dataTextField.text,
+                           @"diastolic":self.cardView2.dataTextField.text
+                           };
+    }else{
+        urlStr = mTemperature;
+        parametersDict = @{@"token":usertoken,
+                           @"humeuserId":homeUser.info_id,
+                           @"temperaturet":self.cardView1.dataTextField.text
+                           };
+    }
+    
+
+    NSLog(@"参数：　%@",parametersDict);
+    
+    [[HttpClient defaultClient]requestWithPath:urlStr method:1 parameters:parametersDict prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+- (void)httpRequestForUser{
+    NSString *userToken = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"homeUsers = %@",responseObject);
+        NSArray *usersList = responseObject[@"result"];
+        for (NSDictionary *dict in usersList) {
+            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:homeUser];
+            [self createOtherView];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
 
 @end

@@ -27,7 +27,7 @@
 
 #pragma mark -
 #pragma mark ---------------Dev - Url------------------
-#define mPrefixUrl @"http://192.168.1.44:8080/yuyi"
+#define mPrefixUrl @"http://192.168.1.55:8080/yuyi"
 #pragma mark -
 #pragma mark ---------------Dis - Url------------------
 
@@ -55,9 +55,12 @@
 
 // .首页搜索药品接口
 #define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]
-
-//
-
+// 获取家庭成员
+#define mHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findList.do?token="]
+// 血压录入
+#define mBloodpressure [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/bloodpressure/save.do"]
+// 体温录入
+#define mTemperature [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/temperature/save.do"]
 
 // 商城首页接口
 #define medinicalFirstPage [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/category/listTreeDrugs.do"]

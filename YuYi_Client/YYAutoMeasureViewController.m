@@ -12,11 +12,22 @@
 #import <Masonry.h>
 //#import "YYMeasureTableViewCell.h"
 #import "YYMemberTableViewCell.h"
+#import "HttpClient.h"
+
+#import "HttpClient.h"
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
 
 @interface YYAutoMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIView *memberView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+
+@property (nonatomic, weak) YYCardView *cardView1;
+@property (nonatomic, weak) YYCardView *cardView2;
+@property (nonatomic, assign) NSInteger currentUser;
 @end
 
 @implementation YYAutoMeasureViewController
@@ -37,6 +48,7 @@
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.memberView addSubview:_tableView];
         // [self.memberView sendSubviewToBack:_tableView];
+        self.currentUser = 0;
     }
     return _tableView;
 }
@@ -51,8 +63,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.title = self.navTitle;
+    [self httpRequestForUser];
     
-    [self createOtherView];
     
     
     // Do any additional setup after loading the view.
@@ -61,6 +73,7 @@
     
     CGFloat cardH;
     YYCardView *card = [[YYCardView alloc]initWithFrame:CGRectMake(10 *kiphone6, (64 +10) *kiphone6, kScreenW - 20 *kiphone6, 100 *kiphone6)];
+    self.cardView1 = card;
     if ([self.navTitle isEqualToString:@"当前体温"]) {
         card.titleLabel.text = @"体温";
         card.dataLabel.text = @"38℃";
@@ -73,7 +86,7 @@
         YYCardView *cardView = [[YYCardView alloc]initWithFrame:CGRectMake(10 *kiphone6, CGRectGetMaxY(card.frame) +10 *kiphone6, kScreenW - 20 *kiphone6, 100 *kiphone6)];
         cardView.titleLabel.text = @"舒张压（低压）";
         cardView.dataLabel.text = @"90";
-        
+        self.cardView2 = cardView;
         [self.view addSubview:cardView];
         
         cardH = CGRectGetMaxY(cardView.frame);
@@ -149,7 +162,7 @@
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -167,6 +180,10 @@
         homeTableViewCell.titleLabel.highlightedTextColor = [UIColor whiteColor];
         homeTableViewCell.selectedBackgroundView = [[UIView alloc] initWithFrame:homeTableViewCell.frame] ;
         homeTableViewCell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+        
+        YYHomeUserModel *homeUser = self.dataSource[indexPath.row];
+        homeTableViewCell.titleLabel.text = homeUser.trueName;
+        [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,homeUser.avatar]]];
     }
     return homeTableViewCell;
 
@@ -177,6 +194,7 @@
 }
 -(void)buttonClick1:(UIButton *)button{
     [button setBackgroundColor:[UIColor whiteColor]];
+    [self httpRequest];
 
 }
 
@@ -194,5 +212,58 @@
  // Pass the selected object to the new view controller.
  }
  */
-
+- (void)httpRequest{
+    NSString *urlStr ;
+    NSDictionary *parametersDict;
+    
+    // token
+    NSString *usertoken = [CcUserModel defaultClient].userToken;
+    // humeuserId
+    NSInteger current = self.currentUser;
+    YYHomeUserModel *homeUser = self.dataSource[current];
+    NSLog(@"%@,%@,%@,%@",usertoken,homeUser.info_id,self.cardView1.dataLabel.text,self.cardView2.dataLabel.text);
+    
+    if ([self.navTitle isEqualToString:@"当前血压"]) {
+        urlStr = mBloodpressure;
+        parametersDict = @{@"token":usertoken,
+                           @"humeuserId":homeUser.info_id,
+                           @"systolic":self.cardView1.dataLabel.text,
+                           @"diastolic":self.cardView2.dataLabel.text
+                           };
+    }else{
+        urlStr = mTemperature;
+        parametersDict = @{@"token":usertoken,
+                           @"humeuserId":homeUser.info_id,
+                           @"temperaturet":self.cardView1.dataLabel.text
+                           };
+    }
+    
+    
+    NSLog(@"参数：　%@",parametersDict);
+    
+    [[HttpClient defaultClient]requestWithPath:urlStr method:1 parameters:parametersDict prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+- (void)httpRequestForUser{
+    NSString *userToken = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"homeUsers = %@",responseObject);
+        NSArray *usersList = responseObject[@"result"];
+        for (NSDictionary *dict in usersList) {
+            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:homeUser];
+            [self createOtherView];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
 @end

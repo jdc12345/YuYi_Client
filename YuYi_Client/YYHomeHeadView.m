@@ -13,14 +13,27 @@
 #import "YYTrendView.h"
 #import "ZYPageControl.h"
 #import "HttpClient.h"
+#import "YYHeadViewModel.h"
+#import <MJExtension.h>
 
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
-@property (nonatomic, strong)ZYPageControl *pageCtrl;
+@property (nonatomic, strong) ZYPageControl *pageCtrl;
+@property (nonatomic, strong) NSMutableArray *imagesList;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView2;
+
+@property (nonatomic, strong) NSArray *listlist;
+
 @end
 
 @implementation YYHomeHeadView
+- (NSMutableArray *)imagesList{
+    if (_imagesList == nil) {
+        _imagesList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _imagesList;
+}
 
 - (instancetype)init
 {
@@ -43,10 +56,13 @@
     SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
 //    cycleScrollView2.localizationImagesGroup = @[[UIImage imageNamed:@"carinalau1.jpg"],[UIImage imageNamed:@"carinalau2.jpg"],[UIImage imageNamed:@"carinalau3.jpg"],[UIImage imageNamed:@"carinalau4.jpg"]];
 //    cycleScrollView2.imageURLStringsGroup = []
-    cycleScrollView2.placeholderImage = [UIImage imageNamed:@"carinalau1.jpg"];
+//    cycleScrollView2.placeholderImage = [UIImage imageNamed:@"carinalau1.jpg"];
     cycleScrollView2.showPageControl = YES;
     cycleScrollView2.delegate = self;
+    NSLog(@"image list = %@",self.listlist);
+    cycleScrollView2.imageURLStringsGroup  = self.listlist;
    
+    self.cycleScrollView2 = cycleScrollView2;
     
     // 按钮banner
     UIView *bannerView = [[UIView alloc]init];
@@ -350,7 +366,8 @@
     }
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
-    self.itemClick(index);
+    YYHeadViewModel *headModel = self.imagesList [index];
+    self.itemClick(headModel.info_id);
 }
 - (void)httpRequest{
     [[HttpClient defaultClient]requestWithPath:mHomepageImages method:0 parameters:nil prepareExecute:^{
@@ -358,7 +375,16 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
         NSArray *array = responseObject[@"result"][@"rows"];
-        NSLog(@"urls = %@",array);
+        NSMutableArray *imageList = [[NSMutableArray alloc]initWithCapacity:2];
+        for (NSDictionary *dict in array) {
+            YYHeadViewModel *headModel = [YYHeadViewModel mj_objectWithKeyValues:dict];
+            [self.imagesList addObject:headModel];
+            
+            [imageList addObject:[NSString stringWithFormat:@"%@%@",mPrefixUrl,headModel.picture]];
+        }
+        
+        self.cycleScrollView2.imageURLStringsGroup  = imageList;
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

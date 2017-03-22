@@ -31,10 +31,13 @@
 #import "YYInfomationModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dataHomeSource;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 
 @property (nonatomic, weak) UIButton *leftBtn;
@@ -72,6 +75,13 @@
     return _dataSource;
 }
 
+- (NSMutableArray *)dataHomeSource{
+    if (_dataHomeSource == nil) {
+        _dataHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _dataHomeSource;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -93,9 +103,11 @@
         }
     };
     
-    homeHeadView.itemClick = ^(NSInteger index){
+    homeHeadView.itemClick = ^(NSString *index){
         YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
+        infoDetail.info_id = index;
         [self.navigationController pushViewController:infoDetail animated:YES];
+        
     };
     self.tableView.tableHeaderView = homeHeadView;
     
@@ -401,6 +413,23 @@
             [self.dataSource addObject:infoModel];
         }
         [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+
+- (void)httpRequestForUser{
+    NSString *userToken = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"homeUsers = %@",responseObject);
+        NSArray *usersList = responseObject[@"result"];
+        for (NSDictionary *dict in usersList) {
+            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
+            [self.dataHomeSource addObject:homeUser];
+        }
+     
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

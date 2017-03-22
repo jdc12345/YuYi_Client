@@ -34,7 +34,7 @@
     
     self.infomationS = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH -64)];
     self.infomationS.backgroundColor = [UIColor whiteColor];
-    [self createSubView];
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.infomationS];
     ;
@@ -131,7 +131,7 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
-        
+        [self createSubView];
         [self.imageV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,responseObject[@"picture"]]]];
         self.titleLabel.text = responseObject[@"hospitalName"];
         self.starLabel.text = responseObject[@"gradeName"];

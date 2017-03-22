@@ -144,6 +144,7 @@
 }
 -(void)buttonClick1:(UIButton *)button{
     [button setBackgroundColor:[UIColor whiteColor]];
+
     
 }
 
