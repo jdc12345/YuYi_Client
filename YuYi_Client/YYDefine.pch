@@ -67,6 +67,8 @@
 #define allCategoryBtnInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/findall.do?start=0&limit=10"]
 // 其他药品分类按钮接口
 #define otherCategoryBtnsInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid1.do?cid1="]
+// 药品分类接口
+#define categorysInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/category/listAllTree.do"]
 // 药品分类小类接口
 #define smallCategoryInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid2.do?cid2="]
 // 药品分类大类接口
