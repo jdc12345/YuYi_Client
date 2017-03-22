@@ -35,6 +35,8 @@
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
+@property (nonatomic, strong) NSArray *responeList;
+
 
 @end
 
@@ -160,10 +162,14 @@
         // 取消选中效果
 //        [self.leftTableView deselectRowAtIndexPath:moveToIndexPath animated:YES];
     }else{
-        
+        NSDictionary *dict = self.responeList[indexPath.section];
+        NSArray *array = dict[@"clinicList"];
+        NSDictionary *rightDict = array[indexPath.row];
+        NSString *cid = rightDict[@"id"];
         NSArray *currentDataSource = self.rightDataSourceList[self.sectionCount];
         YYSectorViewController *sectorVC = [[YYSectorViewController alloc]init];
         sectorVC.sectorTitle = currentDataSource[indexPath.row];
+        sectorVC.cid = cid;
         [self.navigationController pushViewController:sectorVC animated:YES];
         [self.rightTableView deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -243,6 +249,7 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHospitalClass,self.info_id] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
         [self.leftDataSource removeAllObjects];
         [self.rightDataSourceList removeAllObjects];
         NSArray *dataList = responseObject[@"result"];
@@ -259,7 +266,7 @@
         }
         [self.leftTableView reloadData];
         [self.rightTableView reloadData];
-        
+        self.responeList = dataList;
         
     
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

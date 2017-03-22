@@ -12,6 +12,7 @@
 #import "UIColor+Extension.h"
 #import "YYTrendView.h"
 #import "ZYPageControl.h"
+#import "HttpClient.h"
 
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
@@ -31,6 +32,7 @@
         [self setViewInHead];
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
+        [self httpRequest];
     }
     return self;
 }
@@ -39,7 +41,9 @@
     WS(ws);
     // 图片轮播器
     SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
-    cycleScrollView2.localizationImagesGroup = @[[UIImage imageNamed:@"carinalau1.jpg"],[UIImage imageNamed:@"carinalau2.jpg"],[UIImage imageNamed:@"carinalau3.jpg"],[UIImage imageNamed:@"carinalau4.jpg"]];
+//    cycleScrollView2.localizationImagesGroup = @[[UIImage imageNamed:@"carinalau1.jpg"],[UIImage imageNamed:@"carinalau2.jpg"],[UIImage imageNamed:@"carinalau3.jpg"],[UIImage imageNamed:@"carinalau4.jpg"]];
+//    cycleScrollView2.imageURLStringsGroup = []
+    cycleScrollView2.placeholderImage = [UIImage imageNamed:@"carinalau1.jpg"];
     cycleScrollView2.showPageControl = YES;
     cycleScrollView2.delegate = self;
    
@@ -316,7 +320,6 @@
     
     [self bringSubviewToFront:_pageCtrl];
     
-
 }
 - (void)pageTurn:(UIPageControl*)sender
 {
@@ -349,7 +352,17 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     self.itemClick(index);
 }
-
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:mHomepageImages method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSArray *array = responseObject[@"result"][@"rows"];
+        NSLog(@"urls = %@",array);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

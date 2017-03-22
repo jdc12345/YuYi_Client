@@ -10,6 +10,7 @@
 
 @interface YYSectorViewController : UIViewController
 
-@property (nonatomic, strong)NSString *sectorTitle;
+@property (nonatomic, strong) NSString *sectorTitle;
+@property (nonatomic, strong) NSString *cid;
 
 @end

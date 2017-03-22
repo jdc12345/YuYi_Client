@@ -12,6 +12,7 @@
 #import "UIColor+Extension.h"
 #import "YYSectorTableViewCell.h"
 #import "ZYAlertSView.h"
+#import "HttpClient.h"
 @interface YYSectorViewController ()<UIScrollViewDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -52,6 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.sectorTitle;
+    [self httpRequest];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.tableHeaderView = [self updataView];
@@ -383,14 +385,16 @@
     [alertV show];
     self.alertView = alertV;
 }
-//- (void)alertClick:(UIButton *)sender{
-//    if ([sender.currentTitle isEqualToString:@"取消"]) {
-//        [self.alertView dismiss:nil];
-//    }else{
-//
-//    }
-//}
-/*
+- (void)httpRequest{
+    NSLog(@"cid = %@",self.cid);
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mAppointmentCount,self.cid] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
 
 /*
  #pragma mark - Navigation

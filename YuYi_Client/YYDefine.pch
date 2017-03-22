@@ -42,6 +42,40 @@
 // 添加家庭用户的接口
 #define mAddFamily [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"homeuser/save.do"]
 
+// .用户挂号接口
+#define mAppointmentCount [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/getcid.do?cid="]
+// .药品全部分类接口
+//#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"start=0&limit=10&cid1=1"]
+// .获取药品详情接口
+//#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getid.do?id=3"]
+// .首页搜索药品接口
+//#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/get.do?id="]
+// .意见反馈接口
+#define mFeedBack [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/feedback//save.do?"]
+
+// .首页搜索药品接口
+#define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]
+
+//
+
+
+// 商城首页接口
+#define medinicalFirstPage [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/category/listTreeDrugs.do"]
+// 药品详情数据接口
+#define medinicalDetailPage [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getid.do?id="]
+// 药品分类“全部”按钮接口
+#define allCategoryBtnInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/findall.do?start=0&limit=10"]
+// 其他药品分类按钮接口
+#define otherCategoryBtnsInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid1.do?cid1="]
+// 药品分类小类接口
+#define smallCategoryInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid2.do?cid2="]
+// 药品分类大类接口
+#define bigCategoryInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid1.do?cid1="]
+// 医院搜索接口
+#define hospitalSearchInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findvague.do?vague="]
+// 药品搜索接口
+#define medicinalSearchInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/findvague.do?vague="]
+
 
 #pragma mark  ------------WeakSelf------------------
 

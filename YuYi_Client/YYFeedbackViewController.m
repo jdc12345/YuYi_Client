@@ -10,9 +10,12 @@
 #import "UIColor+Extension.h"
 #import <Masonry.h>
 #import "UIBarButtonItem+Helper.h"
+#import "HttpClient.h"
+#import "CcUserModel.h"
 
 @interface YYFeedbackViewController ()
-
+@property (nonatomic, strong) UITextView *feedTextView;
+@property (nonatomic, strong) UITextField *phoneTextF;
 @end
 
 @implementation YYFeedbackViewController
@@ -111,10 +114,19 @@
         make.size.mas_equalTo(CGSizeMake(kScreenW -40, 14 *kiphone6 ));
     }];
     
+    self.feedTextView = feedTextView;
+    self.phoneTextF = phoneTextF;
     
 }
 - (void)sendFeedBack{
-    
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@content=%@&token=%@&contact=%@",mFeedBack,self.feedTextView.text,tokenStr,self.phoneTextF.text] method:0 parameters:nil prepareExecute:^{
+        [self.navigationController popViewControllerAnimated:YES];
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"提交成功");
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
