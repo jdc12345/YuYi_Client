@@ -900,37 +900,26 @@
 		3E1840E01E56C74000069568 /* PersonalPage */ = {
 			isa = PBXGroup;
 			children = (
+				3E48A6CB1E839E06009EAE6C /* View */,
 				3E74BD581E7FC31E00364EC6 /* Model */,
 				3E1840F61E56C8BF00069568 /* YYPersonalViewController.h */,
 				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
-				3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */,
-				3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */,
 				3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */,
 				3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */,
-				3E9643EC1E5FDD81001B49DE /* YYRecardTableViewCell.h */,
-				3E9643ED1E5FDD81001B49DE /* YYRecardTableViewCell.m */,
 				3E9643F81E6001B5001B49DE /* YYDetailRecardViewController.h */,
 				3E9643F91E6001B5001B49DE /* YYDetailRecardViewController.m */,
 				3E9643EF1E5FF2C5001B49DE /* YYPInfomartionViewController.h */,
 				3E9643F01E5FF2C5001B49DE /* YYPInfomartionViewController.m */,
-				3E9643F21E5FF9F8001B49DE /* YYPInfomationTableViewCell.h */,
-				3E9643F31E5FF9F8001B49DE /* YYPInfomationTableViewCell.m */,
 				3E9643FB1E6019F8001B49DE /* YYSettingViewController.h */,
 				3E9643FC1E6019F8001B49DE /* YYSettingViewController.m */,
 				3EB10BB01E63F60400F5F9D2 /* YYEquipmentViewController.h */,
 				3EB10BB11E63F60400F5F9D2 /* YYEquipmentViewController.m */,
-				3EB10BB31E63F70800F5F9D2 /* YYEquipmentTableViewCell.h */,
-				3EB10BB41E63F70800F5F9D2 /* YYEquipmentTableViewCell.m */,
 				3EB10BB91E64346900F5F9D2 /* YYFamilyAddViewController.h */,
 				3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */,
-				3EB10BBC1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.h */,
-				3EB10BBD1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m */,
 				3EB10BBF1E6448F300F5F9D2 /* YYFamilyAccountViewController.h */,
 				3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */,
 				3EB10BC21E6518A000F5F9D2 /* YYPersonalInfoViewController.h */,
 				3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */,
-				3EB10BC51E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.h */,
-				3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */,
 				3EB10BC81E6538CF00F5F9D2 /* YYWIFIViewController.h */,
 				3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */,
 				3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */,
@@ -1019,6 +1008,25 @@
 				3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */,
 			);
 			name = AppointmentPage;
+			sourceTree = "<group>";
+		};
+		3E48A6CB1E839E06009EAE6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */,
+				3EBA2D761E5ED8EE005C3448 /* YYPersonalTableViewCell.m */,
+				3E9643EC1E5FDD81001B49DE /* YYRecardTableViewCell.h */,
+				3E9643ED1E5FDD81001B49DE /* YYRecardTableViewCell.m */,
+				3E9643F21E5FF9F8001B49DE /* YYPInfomationTableViewCell.h */,
+				3E9643F31E5FF9F8001B49DE /* YYPInfomationTableViewCell.m */,
+				3EB10BB31E63F70800F5F9D2 /* YYEquipmentTableViewCell.h */,
+				3EB10BB41E63F70800F5F9D2 /* YYEquipmentTableViewCell.m */,
+				3EB10BBC1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.h */,
+				3EB10BBD1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m */,
+				3EB10BC51E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.h */,
+				3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 		3E74BD581E7FC31E00364EC6 /* Model */ = {

@@ -10,11 +10,15 @@
 #import <Masonry.h>
 #import "UIColor+Extension.h"
 #import "UIBarButtonItem+Helper.h"
+#import "CcUserModel.h"
+#import "HttpClient.h"
 
 @interface YYFamilyAccountViewController ()
 
 @property (nonatomic, strong) UIView *cardView;
 @property (nonatomic, assign) CGFloat currentH;
+
+@property (nonatomic, weak) UIImageView *iconV;
 
 @end
 
@@ -51,7 +55,7 @@
     imageV.layer.cornerRadius = 30 *kiphone6;
     imageV.clipsToBounds = YES;
     
-    
+    self.iconV = imageV;
     
     for (int i = 0; i < 4; i++) {
         UITextField *inputText = [[UITextField alloc]init];
@@ -70,13 +74,13 @@
         
         WS(ws);
         [inputText mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(ws.cardView).with.offset(104 *kiphone6);
-                    make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
-                    make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6));
-                }];
+            make.left.equalTo(ws.cardView).with.offset(104 *kiphone6);
+            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
+            make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6));
+        }];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(ws.cardView).with.offset(20 *kiphone6);
-//            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
+            //            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
             make.centerY.equalTo(inputText.mas_centerY);
             make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
         }];
@@ -84,7 +88,7 @@
     
     
     [self.cardView addSubview:imageV];
-
+    
     
     
     WS(ws);
@@ -125,7 +129,7 @@
         make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,11 *kiphone6));
     }];
     
-
+    
     [self.cardView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(ws.view).with.offset(74 );
         make.left.equalTo(ws.view).with.offset(10);
@@ -135,7 +139,47 @@
     
 }
 - (void)addFamily{
+    NSString *userToken = [CcUserModel defaultClient].userToken;
     
+    UITextField *textField1 = (UITextField *)[self.cardView viewWithTag:200];
+    UITextField *textField2 = (UITextField *)[self.cardView viewWithTag:201];
+    UITextField *textField3 = (UITextField *)[self.cardView viewWithTag:202];
+    UITextField *textField4 = (UITextField *)[self.cardView viewWithTag:203];
+    
+    NSString *nickName = [NSString stringWithFormat:@"&nickName=%@",textField1.text];
+    NSString *age = [NSString stringWithFormat:@"&age=%@",textField2.text];
+    NSString *trueName = [NSString stringWithFormat:@"&trueName=%@",textField3.text];
+    NSString *telephone = [NSString stringWithFormat:@"&telephone=%@",textField4.text];
+    
+    
+    //UIImage图片转成Base64字符串：
+    UIImage *originImage = self.iconV.image;
+    NSData *data = UIImageJPEGRepresentation(originImage, 1.0f);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
+    [dict setValue:userToken forKey:@"token"];
+    if (![nickName isEqualToString:@"&nickName="]) {
+        [dict setValue:textField1.text forKey:@"nickName"];
+    }
+    if (![age isEqualToString:@"&age="]) {
+        [dict setValue:textField2.text forKey:@"age"];
+    }
+    if (![trueName isEqualToString:@"&trueName="]) {
+        [dict setValue:textField3.text forKey:@"trueName"];
+    }
+    if (![telephone isEqualToString:@"&telephone="]) {
+        [dict setValue:textField4.text forKey:@"telephone"];;
+    }
+    if (![encodedImageStr isEqualToString:@""]) {
+        [dict setValue:encodedImageStr forKey:@"avatar"];;
+    }
+    [[HttpClient defaultClient]requestWithPath:mAddFamily method:1 parameters:dict prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -143,13 +187,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

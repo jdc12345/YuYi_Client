@@ -28,6 +28,7 @@
     [userModel setUserModelInfo];
     return userModel;
 }
+// telephoneNum
 
 - (void)saveAllInfo{
     [[NSUserDefaults standardUserDefaults] setValue:self.avatar forKey:@"avatar"];
@@ -38,6 +39,7 @@
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_id forKey:@"provider_id"];
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_uid forKey:@"provider_uid"];
     [[NSUserDefaults standardUserDefaults] setValue:self.userToken forKey:@"userToken"];
+     [[NSUserDefaults standardUserDefaults] setValue:self.userToken forKey:@"telephoneNum"];
 }
 - (void)setUserModelInfo{
     self.avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];
@@ -48,6 +50,7 @@
     self.provider_uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"provider_uid"];
     self.provider_id = [[NSUserDefaults standardUserDefaults] objectForKey:@"provider_id"];
     self.userToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"userToken"];
+    self.telephoneNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"telephoneNum"];
 }
 - (void)removeUserInfo{
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"avatar"];
@@ -58,6 +61,7 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"provider_uid"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"provider_id"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"userToken"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"telephoneNum"];
 
 }
 

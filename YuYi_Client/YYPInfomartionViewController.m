@@ -16,6 +16,10 @@
 #import "YYPInfomationTableViewCell.h"
 #import "ZYActionSheet.h"
 #import "ZYAlertSView.h"
+#import "UIColor+Extension.h"
+#import "UIBarButtonItem+Helper.h"
+#import "CcUserModel.h"
+#import "HttpClient.h"
 @interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -69,7 +73,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@"用户名",@"性别",@"年龄",@"身份证号码",@"籍贯"]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@"用户名",@"性别",@"年龄",@"身份证号码"]];
     //    self.iconList =@[@"Personal-EMR-icon-",@"Personal-message-icon-",@"Personal-shopping -icon-",@"order_icon_",@"family-icon--1",@"equipment-icon-",@"goods-icon-",@"Set-icon-"];
     
     
@@ -83,7 +87,7 @@
     //        make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
     //    }];
     //   self.tableView.tableHeaderView = [self personInfomation];
-    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithbackGroundColor:[UIColor colorWithHexString:@"25f368"] title:@"保存" target:self action:@selector(saveInfo)];
     [self tableView];
     
     // Do any additional setup after loading the view.
@@ -302,7 +306,8 @@
     
     homeTableViewCell.titleLabel.text = self.dataSource[indexPath.row];
     if (indexPath.row ==  0) {
-        homeTableViewCell.seeRecardLabel.text = @"18511694068";
+        [homeTableViewCell setType:@"celltextfield"];
+         homeTableViewCell.editInfoText.text = @"18511694068";
          homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  1) {
         homeTableViewCell.seeRecardLabel.text = @"男";
@@ -311,7 +316,9 @@
         homeTableViewCell.editInfoText.text = @"26";
          homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  3) {
-        homeTableViewCell.seeRecardLabel.text = @"2301221993077220014";
+        [homeTableViewCell setType:@"celltextfield"];
+        homeTableViewCell.editInfoText.text = @"2301221993077220014";
+
         homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  4) {
         homeTableViewCell.seeRecardLabel.text = @"黑龙江省哈尔滨";
@@ -411,6 +418,18 @@
 {
     NSLog(@"图片的路径是：%@", _filePath);
     
+}
+
+- (void)saveInfo{
+    NSLog(@"保存个人信息");
+    NSString *userToken = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 /*

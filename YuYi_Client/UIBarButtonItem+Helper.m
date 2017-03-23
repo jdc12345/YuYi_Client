@@ -22,7 +22,18 @@
     
     return [self initWithCustomView:btn];
 }
-
+// 设置图片按钮,normal:常规图片，highlighted:高亮图片
+- (id)initWithbackGroundColor:(UIColor *)color title:(NSString *)title target:(id)target action:(SEL)action {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.backgroundColor = color;
+    btn.titleLabel.font = [UIFont fontWithName:kPingFang_M size:12];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.bounds = (CGRect){CGPointZero, CGSizeMake(32.5, 17.5)};
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    
+    return [self initWithCustomView:btn];
+}
 + (id)itemWithNormalIcon:(NSString *)normal highlightedIcon:(NSString *)highlighted target:(id)target action:(SEL)action {
     return [[self alloc] initWithNormalIcon:normal highlightedIcon:highlighted target:target action:action];
 }

@@ -35,12 +35,19 @@
 #define mHomepageInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=2"]
 // 首页资讯详情数据接口
 #define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/get.do?id="]
+// 首页用户列表和测量数据
+#define mUserAndMeasureInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findListHome.do?"]
+
+// [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findOne.do?"]
 // 我的页面用户信息接口
 #define mMyInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/get.do?token="]
 // 医院科室接口
 #define mHospitalClass [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/department/gethid.do?hid="]
 // 添加家庭用户的接口
-#define mAddFamily [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"homeuser/save.do"]
+#define mAddFamily [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/save.do?"]
+
+// 个人信息更改
+#define mChangeInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/save.do?"]
 
 // .用户挂号接口
 #define mAppointmentCount [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/getcid.do?cid="]
@@ -57,6 +64,9 @@
 #define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]
 // 获取家庭成员
 #define mHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findList.do?token="]
+// 获取家庭成员
+#define mAddHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/save.do?"]
+
 // 血压录入
 #define mBloodpressure [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/bloodpressure/save.do"]
 // 体温录入

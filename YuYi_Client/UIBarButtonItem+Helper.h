@@ -36,5 +36,6 @@
 - (id)initWithTitle:(NSString *)title backgroundImage:(UIImage *)backImage normalColor:(UIColor *)normal highlightedColor:(UIColor *)highlighted target:(id)target action:(SEL)action;
 // 我
 + (id)itemWithTitle:(NSString *)title selectTitle:(NSString *)selectTitle target:(id)target action:(SEL)action;
+- (id)initWithbackGroundColor:(UIColor *)color title:(NSString *)title target:(id)target action:(SEL)action;
 
 @end

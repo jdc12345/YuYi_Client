@@ -15,13 +15,19 @@
 #import "HttpClient.h"
 #import "YYHeadViewModel.h"
 #import <MJExtension.h>
-
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
+#import <MJExtension.h>
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
 @property (nonatomic, strong) ZYPageControl *pageCtrl;
 @property (nonatomic, strong) NSMutableArray *imagesList;
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView2;
+
+@property (nonatomic, strong) NSMutableArray *userList;
+@property (nonatomic, copy) NSArray *bloodpressureList;
+@property (nonatomic, copy) NSArray *temperatureList;
 
 @property (nonatomic, strong) NSArray *listlist;
 
@@ -33,6 +39,12 @@
         _imagesList = [[NSMutableArray alloc]initWithCapacity:2];
     }
     return _imagesList;
+}
+- (NSMutableArray *)userList{
+    if (_userList == nil) {
+        _userList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _userList;
 }
 
 - (instancetype)init
@@ -46,6 +58,7 @@
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
         [self httpRequest];
+        [self httpRequestForUser];
     }
     return self;
 }
@@ -388,6 +401,25 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+}
+
+- (void)httpRequestForUser{
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSLog(@"%@",responseObject);
+        
+        NSArray *result = responseObject[@"result"];
+        for (NSDictionary *dict in result) {
+            YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+
 }
 /*
 // Only override drawRect: if you perform custom drawing.
