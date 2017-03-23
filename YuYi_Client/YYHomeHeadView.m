@@ -19,6 +19,7 @@
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
+#import <UIImage+AFNetworking.h>
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
@@ -127,25 +128,37 @@
     
     NSArray *iconArray = @[@"LIM_",@"add_normal"];
     NSArray *nameArray = @[@"LIM",@""];
-    NSInteger userCount = self.userList.count;
     
+    YYHomeUserModel *addModel = [[YYHomeUserModel alloc]init];
+    addModel.avatar = @"add_normal";
+    addModel.trueName = @"";
+    [self.userList addObject:addModel];
+    NSLog(@"userCount = %ld",self.userList.count);
+    NSInteger userCount = self.userList.count -1;
     for (int i = 0; i < userCount+1; i++) {
-        if (i != userCount) {
+//        if (i != userCount) {
             YYHomeUserModel *userModel = self.userList[i];
-        }
-        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,]];
-        UIImage *icon_user = [UIImage safeImageWithData:[NSData dataWithContentsOfURL:url]];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel.avatar]];
+//        UIImage *icon_user = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     
         // icon
-        UIButton *button_banner = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button_banner setBackgroundImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
+            
+        UIImageView *button_banner = [[UIImageView alloc]init];
+        if (i == userCount) {
+            button_banner.image = [UIImage  imageNamed:userModel.avatar];
+        }else{
+            [button_banner sd_setImageWithURL:url];
+        }
+//        UIButton *button_banner = [UIButton buttonWithType:UIButtonTypeCustom];
+//        [button_banner setBackgroundImage:icon_user forState:UIControlStateNormal];
         button_banner.layer.cornerRadius = 37/2.0*kiphone6;
         button_banner.clipsToBounds = YES;
         
         
         // title
         UILabel *label_banner = [[UILabel alloc]init];
-        label_banner.text = nameArray[i];
+        label_banner.text = userModel.trueName;
         label_banner.font = [UIFont systemFontOfSize:10];
         label_banner.textColor = [UIColor colorWithHexString:@"25f368"];
         label_banner.textAlignment = NSTextAlignmentCenter;
@@ -174,7 +187,8 @@
         }];
         
         
-    }
+        }
+//    }
     
     //information View
     UIView *infoView = [[UIView alloc] init];
@@ -421,6 +435,8 @@
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.userList addObject:userModel];
         }
+        YYHomeUserModel *userModel = self.userList[0];
+//        self.bloodpressureList = userModel.
         [self setViewInHead];
     // [];
         
