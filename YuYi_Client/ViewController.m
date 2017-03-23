@@ -51,8 +51,8 @@ static NSString* cellid = @"business_cell";
 }
 -(void)loadData{
     HttpClient *httpManager = [HttpClient defaultClient];
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listTreeDrugs.do"];
-    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+//    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listTreeDrugs.do"];
+    [httpManager requestWithPath:medinicalFirstPage method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
         NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
         if (getfirstPageArr.count>=6) {

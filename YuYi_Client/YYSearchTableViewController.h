@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YYSearchTableViewController : UITableViewController
-
+@interface YYSearchTableViewController : UIViewController
+@property(nonatomic,assign)NSInteger searchCayegory;
 @end
