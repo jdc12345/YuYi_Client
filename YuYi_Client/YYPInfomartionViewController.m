@@ -318,7 +318,6 @@
     }else if (indexPath.row ==  3) {
         [homeTableViewCell setType:@"celltextfield"];
         homeTableViewCell.editInfoText.text = @"2301221993077220014";
-
         homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  4) {
         homeTableViewCell.seeRecardLabel.text = @"黑龙江省哈尔滨";
@@ -423,10 +422,40 @@
 - (void)saveInfo{
     NSLog(@"保存个人信息");
     NSString *userToken = [CcUserModel defaultClient].userToken;
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+    
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
+    for (int i = 0; i<4; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+        YYPInfomationTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        // cell.editInfoText.text;
+        NSLog(@"%@",cell.editInfoText.text);
+        if (i == 0 &&![cell.editInfoText.text isEqualToString:@""]) {
+            [dict setObject:cell.editInfoText.text forKey:@"trueName"];
+        }else if(i == 1&&![cell.seeRecardLabel.text isEqualToString:@""]){
+            NSString *gender;
+            if ([cell.seeRecardLabel.text isEqualToString:@"男"]) {
+                gender = @"0";
+            }else{
+                gender = @"1";
+            }
+            [dict setObject:gender forKey:@"gender"];
+        }else if(i == 2&&![cell.editInfoText.text isEqualToString:@""]){
+            [dict setObject:cell.editInfoText.text forKey:@"age"];
+        }else if(i == 3&&![cell.editInfoText.text isEqualToString:@""]){
+            [dict setObject:cell.editInfoText.text forKey:@"idCard"];
+        }
+    }
+    NSLog(@"%@",dict);
+    //UIImage图片转成Base64字符串：
+    UIImage *originImage = self.userIcon.image;
+    NSData *data = UIImageJPEGRepresentation(originImage, 1.0f);
+    NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    [dict setValue:userToken forKey:@"token"];
+    [dict setValue:encodedImageStr forKey:@"avatar"];
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@",mChangeInfo] method:1 parameters:dict prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        
+        NSLog(@"%@",responseObject);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

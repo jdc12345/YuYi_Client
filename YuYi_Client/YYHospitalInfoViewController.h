@@ -10,4 +10,6 @@
 
 @interface YYHospitalInfoViewController : UIViewController
 
+@property (nonatomic, strong) NSString *hid;
+
 @end

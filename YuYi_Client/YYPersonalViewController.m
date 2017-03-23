@@ -236,7 +236,8 @@
 #pragma mark -
 #pragma mark ------------Http client----------------------
 - (void)httpRequest{
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMyInfo,myToken] method:0 parameters:nil prepareExecute:^{
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMyInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         CcUserModel *userMoedel = [CcUserModel mj_objectWithKeyValues:responseObject];

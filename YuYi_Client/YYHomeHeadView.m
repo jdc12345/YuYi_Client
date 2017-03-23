@@ -127,7 +127,7 @@
     
     NSArray *iconArray = @[@"LIM_",@"add_normal"];
     NSArray *nameArray = @[@"LIM",@""];
-    int userCount = 1;
+    int userCount = 2;
     
     for (int i = 0; i < userCount+1; i++) {
         
@@ -414,7 +414,10 @@
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
+            [self.userList addObject:userModel];
         }
+        
+        [];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);
