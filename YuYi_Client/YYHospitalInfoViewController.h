@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YYInfomationModel.h"
 
 @interface YYHospitalInfoViewController : UIViewController
 
-@property (nonatomic, strong) NSString *hid;
+@property (nonatomic, strong) YYInfomationModel *yyInfomationModel;
+
 
 @end

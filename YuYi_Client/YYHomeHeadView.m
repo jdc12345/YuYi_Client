@@ -18,6 +18,7 @@
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
+#import <UIImageView+WebCache.h>
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
@@ -54,7 +55,7 @@
         NSLog(@"123123123");
         
         self.backgroundColor = kColor_DefaultGray;
-        [self setViewInHead];
+        // [self setViewInHead];
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
         [self httpRequest];
@@ -90,7 +91,6 @@
         [button_banner setBackgroundImage:[UIImage imageNamed:butArray[i]] forState:UIControlStateNormal];
         button_banner.tag = i +130;
         [button_banner addTarget:self action:@selector(bannerButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        
         // title
         UILabel *label_banner = [[UILabel alloc]init];
         label_banner.text = labelArray[i];
@@ -127,10 +127,15 @@
     
     NSArray *iconArray = @[@"LIM_",@"add_normal"];
     NSArray *nameArray = @[@"LIM",@""];
-    int userCount = 2;
+    NSInteger userCount = self.userList.count;
     
     for (int i = 0; i < userCount+1; i++) {
-        
+        if (i != userCount) {
+            YYHomeUserModel *userModel = self.userList[i];
+        }
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,]];
+        UIImage *icon_user = [UIImage safeImageWithData:[NSData dataWithContentsOfURL:url]];
+    
         // icon
         UIButton *button_banner = [UIButton buttonWithType:UIButtonTypeCustom];
         [button_banner setBackgroundImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
@@ -416,8 +421,8 @@
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.userList addObject:userModel];
         }
-        
-        [];
+        [self setViewInHead];
+    // [];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);

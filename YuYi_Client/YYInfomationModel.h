@@ -13,6 +13,9 @@
 @property (nonatomic, copy) NSString *mediumUrl;
 @property (nonatomic, copy) NSString *highUrl;
 @property (nonatomic, copy) NSString *defaultUrl;
+
+
+
 @property (nonatomic, copy) NSString *introduction;
 @property (nonatomic, copy) NSString *hospitalName;
 @property (nonatomic, copy) NSString *gradeName;
