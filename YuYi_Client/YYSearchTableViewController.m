@@ -15,6 +15,7 @@
 #import "YYMedinicalDetailModel.h"
 #import "YYMedicinalDetailVC.h"
 #import "YYHospitalInfoViewController.h"
+#import "YYInfomationModel.h"
 
 static NSString *dentifier=@"cellforappliancelist";
 @interface YYSearchTableViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -32,6 +33,7 @@ static NSString *dentifier=@"cellforappliancelist";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.searchCayegory=1;
     self.view.backgroundColor = [UIColor whiteColor];
     //搜索框
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 35)];
@@ -121,11 +123,16 @@ static NSString *dentifier=@"cellforappliancelist";
     if (cell==nil) {
         cell=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:dentifier];
     }
-    if (self.active) {
+    if (self.active) {//处于搜索出新数据状态
         
         if (indexPath.row<self.searchingList.count) {
-            YYMedinicalDetailModel *model = self.searchingList[indexPath.row];
-            [cell.textLabel setText:model.drugsName];
+            if (self.searchCayegory==0) {
+                YYMedinicalDetailModel *model = self.searchingList[indexPath.row];
+                [cell.textLabel setText:model.drugsName];
+            }else if (self.searchCayegory==1){
+                YYInfomationModel *ingModel = self.searchingList[indexPath.row];
+                [cell.textLabel setText:ingModel.hospitalName];
+            }
         }
         
     }
@@ -145,18 +152,36 @@ static NSString *dentifier=@"cellforappliancelist";
     //去重复
     if (self.searchedList.count>0) {
         if (self.searchingList.count>0) {//判断是处于显示新搜索数据状态下的点击
-            YYMedinicalDetailModel *ingModel = self.searchingList[indexPath.row];
-            NSArray *arr = [NSArray arrayWithArray: self.searchedList];
-            for (NSString *recodeName in arr) {
-                if ([recodeName isEqualToString:ingModel.drugsName] ) {
-                    [self.searchedList removeObject:recodeName];
+            if (self.searchCayegory==0) {
+                YYMedinicalDetailModel *ingModel = self.searchingList[indexPath.row];
+                NSArray *arr = [NSArray arrayWithArray: self.searchedList];
+                for (NSString *recodeName in arr) {
+                    if ([recodeName isEqualToString:ingModel.drugsName] ) {
+                        [self.searchedList removeObject:recodeName];
+                    }
+                    
                 }
-                
+                [self.searchedList insertObject:ingModel.drugsName atIndex:0];
+            }else if (self.searchCayegory==1){
+                YYInfomationModel *ingModel = self.searchingList[indexPath.row];
+                NSArray *arr = [NSArray arrayWithArray: self.searchedList];
+                for (NSString *recodeName in arr) {
+                    if ([recodeName isEqualToString:ingModel.hospitalName] ) {
+                        [self.searchedList removeObject:recodeName];
+                    }
+                    
+                }
+                [self.searchedList insertObject:ingModel.hospitalName atIndex:0];
             }
-            [self.searchedList insertObject:ingModel.drugsName atIndex:0];
+            
             //数组转化为data持久化
             NSData *encodeList = [NSKeyedArchiver archivedDataWithRootObject:self.searchedList];
-            [self.defaults setObject:encodeList forKey:@"searchedList"];
+                if (self.searchCayegory==0) {
+                   [self.defaults setObject:encodeList forKey:@"searchedList"];
+                }else if (self.searchCayegory==1){
+                   [self.defaults setObject:encodeList forKey:@"searchedHospitalList"];
+                }
+            
             [self.defaults synchronize];
         }else{//判断是处于显示搜索记录状态下的点击
             NSString *recodeName = self.searchedList[indexPath.row];
@@ -174,9 +199,11 @@ static NSString *dentifier=@"cellforappliancelist";
         detailVC.id = model.id;
         [self.navigationController pushViewController:detailVC animated:true];
         
-    }else if (self.searchCayegory == 1){
+    }else if (self.searchCayegory == 1 && self.flag == 0){//跳转医院详情页面
         YYHospitalInfoViewController *hospitaiVC = [[YYHospitalInfoViewController alloc]init];
-        //        hospitaiVC.hid =
+        //传递model---------------------
+        hospitaiVC.yyInfomationModel = self.searchingList[indexPath.row];
+        [self.navigationController pushViewController:hospitaiVC animated:true];
         
     }
     
@@ -248,7 +275,7 @@ static NSString *dentifier=@"cellforappliancelist";
         NSArray *responseArr = responseDic[@"result"];
         NSArray *resultArr = [NSArray array];
         if (self.searchCayegory==1) {
-            
+            resultArr = [NSArray yy_modelArrayWithClass:[YYInfomationModel class] json:responseArr];
         }else if (self.searchCayegory==0){
             resultArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:responseArr];
         }
@@ -270,17 +297,25 @@ static NSString *dentifier=@"cellforappliancelist";
         return ;
     }];
     //记录搜索过的内容
-    NSArray *arr = [NSArray arrayWithArray: self.searchedList];
-    for (NSString *recodeName in arr) {
-        if ([recodeName isEqualToString:self.searchField.text] ) {
-            [self.searchedList removeObject:recodeName];
-        }
+    if (self.searchingList.count>0) {//只有搜索结果不为空才本地保存
         
+        NSArray *arr = [NSArray arrayWithArray: self.searchedList];
+        for (NSString *recodeName in arr) {
+            if ([recodeName isEqualToString:self.searchField.text] ) {
+                [self.searchedList removeObject:recodeName];
+            }
+            
+        }
+        [self.searchedList insertObject:self.searchField.text atIndex:0];//记录写入内存
+        NSData *encodeList = [NSKeyedArchiver archivedDataWithRootObject:self.searchedList];
+        if (self.searchCayegory==0) {
+            [self.defaults setObject:encodeList forKey:@"searchedList"];
+            
+        }else if (self.searchCayegory==1){
+            [self.defaults setObject:encodeList forKey:@"searchedHospitalList"];
+        }
+        [self.defaults synchronize];//记录写入缓存
     }
-    [self.searchedList insertObject:self.searchField.text atIndex:0];//记录写入内存
-    NSData *encodeList = [NSKeyedArchiver archivedDataWithRootObject:self.searchedList];
-    [self.defaults setObject:encodeList forKey:@"searchedList"];
-    [self.defaults synchronize];//记录写入缓存
     
     
     return true;
@@ -296,15 +331,30 @@ static NSString *dentifier=@"cellforappliancelist";
     [self.navigationController popViewControllerAnimated:true];
 }
 -(void)clearSearedList:(UIButton*)sender{
-    [self.defaults removeObjectForKey:@"searchedList"];
-    NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedList"];
-    if (saveSearchedListData == nil) {
-        self.searchedList = [NSMutableArray array];
-    }else{
-        self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
-        
+//    if (self.searchCayegory==0) {
+//        
+//    }else if (self.searchCayegory==1){
+//        
+//    }
+    if (self.searchCayegory==0) {
+        [self.defaults removeObjectForKey:@"searchedList"];
+        NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedList"];
+        if (saveSearchedListData == nil) {
+            self.searchedList = [NSMutableArray array];
+        }else{
+            self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
     }
-    
+
+    }else if (self.searchCayegory==1){
+        [self.defaults removeObjectForKey:@"searchedHospitalList"];
+        NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedHospitalList"];
+        if (saveSearchedListData == nil) {
+            self.searchedList = [NSMutableArray array];
+        }else{
+            self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
+        }
+
+    }
     [self.tableView reloadData];
 }
 #pragma 懒加载
@@ -319,14 +369,27 @@ static NSString *dentifier=@"cellforappliancelist";
     [super viewWillAppear:animated];
     [self.searchingList removeAllObjects];
     //加载搜索记录
-    self.defaults = [NSUserDefaults standardUserDefaults];
-    NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedList"];
-    if (saveSearchedListData == nil) {
-        self.searchedList = [NSMutableArray array];
-    }else{
-        self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
-        
+    if (self.searchCayegory==0) {
+        self.defaults = [NSUserDefaults standardUserDefaults];
+        NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedList"];
+        if (saveSearchedListData == nil) {
+            self.searchedList = [NSMutableArray array];
+        }else{
+            self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
+            
+        }
+    }else if(self.searchCayegory==1){
+        self.defaults = [NSUserDefaults standardUserDefaults];
+        NSData *saveSearchedListData = [self.defaults objectForKey:@"searchedHospitalList"];
+        if (saveSearchedListData == nil) {
+            self.searchedList = [NSMutableArray array];
+        }else{
+            self.searchedList = (NSMutableArray *)[NSKeyedUnarchiver unarchiveObjectWithData:saveSearchedListData];
+            
+        }
+ 
     }
+    
     [self.tableView reloadData];//页面出现时候刷新数据
     self.searchField.text = nil;//页面出现时候清空搜索框数据
     self.navigationController.navigationBar.hidden = true;
