@@ -228,6 +228,7 @@
             //保存token
             CcUserModel *userModel = [CcUserModel defaultClient];
             userModel.userToken = dic[@"result"];
+            userModel.telephoneNum = self.telNumberField.text;
             [userModel saveAllInfo];
             
             //跳转登录首页

@@ -38,7 +38,7 @@ static NSString* cellid = @"business_cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"医药商城";
+    self.title = @"我的药品";
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController.navigationBar    setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"333333"],NSFontAttributeName:[UIFont systemFontOfSize:17.0f]}];

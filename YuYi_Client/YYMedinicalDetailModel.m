@@ -7,7 +7,9 @@
 //
 
 #import "YYMedinicalDetailModel.h"
+@interface YYMedinicalDetailModel()<NSCoding>
 
+@end
 @implementation YYMedinicalDetailModel
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
     
@@ -32,4 +34,24 @@
     }
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:self.drugsName forKey:@"drugsName"];
+    
+    [aCoder encodeObject:[NSString stringWithFormat:@"%ld",self.id] forKey:@"ID"];
+    
+}
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    
+    if (self = [super init]) {
+        
+        self.drugsName = [aDecoder decodeObjectForKey:@"drugsName"];
+        
+        self.id = [[aDecoder decodeObjectForKey:@"id"] integerValue];
+        
+    }
+    
+    return self;
+    
+}
 @end

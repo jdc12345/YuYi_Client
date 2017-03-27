@@ -64,11 +64,20 @@ static NSString *cellId = @"cell_id";
         make.top.equalTo(medicineState.mas_centerY).offset(3);
         make.left.equalTo(mImageView.mas_right).offset(10);
     }];
-    UILabel *stateLabel = [UILabel labelWithText:@"当前状态:煎药中" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];
-    [medicineState addSubview:stateLabel];
-    self.stateLbel = stateLabel;
-    [stateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *stateTitleLabel = [UILabel labelWithText:@"当前状态:" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];//添加当前状态
+    [medicineState addSubview:stateTitleLabel];
+    [stateTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(medicineState);
+//        make.right.offset(-15);
+        make.left.equalTo(mineStateLabel.mas_right).offset(5);
+    }];
+    UILabel *stateLbel = [UILabel labelWithText:@"" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];
+    [medicineState addSubview:stateLbel];
+    stateLbel.numberOfLines = 2;
+    self.stateLbel = stateLbel;
+    [stateLbel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(stateTitleLabel.mas_right).offset(5);
+        make.top.equalTo(stateTitleLabel);
         make.right.offset(-15);
     }];
     //添加进度条
