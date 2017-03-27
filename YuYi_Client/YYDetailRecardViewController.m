@@ -14,19 +14,25 @@
 #import "YYPersonalTableViewCell.h"
 #import "YYRecardTableViewCell.h"
 #import "YYPInfomationTableViewCell.h"
+#import "HttpClient.h"
+#import "CcUserModel.h"
+#import "RecardDetailModel.h"
+#import <MJExtension.h>
+
 
 @interface YYDetailRecardViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSArray *iconList;
+@property (nonatomic, strong) RecardDetailModel *dataModel;
 @end
 
 @implementation YYDetailRecardViewController
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH -64) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -56,12 +62,13 @@
     self.title = @"病例查看";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
+    [self httpRequest];
     
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"用户名",@"性别",@"年龄"],@[@"籍贯",@"职业",@"婚姻"],@[@"病理采集日期"]]];
-    self.iconList =@[@[@"18511694068",@"男",@"24"],@[@"黑龙江哈尔滨",@"程序员",@"未婚"],@[@"2016-10-23"]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"用户名",@"性别",@"年龄",@"婚姻"],@[@"病理采集日期"]]];
+    //    self.iconList =@[@[@"18511694068",@"男",@"24"],@[@"黑龙江哈尔滨",@"程序员",@"未婚"],@[@"2016-10-23"]];
     
     
-    self.tableView.tableFooterView = [self personInfomation];
+   
     
     // Do any additional setup after loading the view.
 }
@@ -73,7 +80,7 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(10 *kiphone6, 10 *kiphone6, kScreenW -20*kiphone6, 232 *kiphone6)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-     [personV addSubview:headerView];
+    [personV addSubview:headerView];
     
     //
     UILabel *nameLabel = [[UILabel alloc]init];
@@ -81,14 +88,26 @@
     nameLabel.textColor = [UIColor colorWithHexString:@"666666"];
     nameLabel.font = [UIFont systemFontOfSize:14];
     //
-
+    
+    UITextView *textView = [[UITextView alloc]init];
+    
+    textView.text = self.dataModel.medicalrecord;
+    textView.textColor = [UIColor colorWithHexString:@"666666"];
+    textView.font = [UIFont systemFontOfSize:13];
+    textView.editable = NO;
+    [headerView addSubview:textView];
     [headerView addSubview:nameLabel];
-
-
+    
+    
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(headerView).with.offset(10 *kiphone6);
         make.left.equalTo(headerView).with.offset(10 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(140 *kiphone6, 10 *kiphone6));
+    }];
+    [textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
+        make.left.equalTo(headerView).with.offset(10 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(kScreenW -30*kiphone6, 180 *kiphone6));
     }];
     
     return personV;
@@ -98,7 +117,7 @@
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-//    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
+    //    [self.navigationController pushViewController:[[YYSectionViewController alloc]init] animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -
@@ -130,24 +149,58 @@
     YYPInfomationTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYPInfomationTableViewCell" forIndexPath:indexPath];
     
     homeTableViewCell.titleLabel.text = self.dataSource[indexPath.section][indexPath.row];
-//    if (indexPath.row ==  0) {
-//        homeTableViewCell.seeRecardLabel.text = @"18511694068";
-//    }else if (indexPath.row ==  1) {
-//        homeTableViewCell.seeRecardLabel.text = @"男";
-//    }else if (indexPath.row ==  2) {
-//        homeTableViewCell.seeRecardLabel.text = @"26";
-//    }else if (indexPath.row ==  3) {
-//        homeTableViewCell.seeRecardLabel.text = @"布依族";
-//    }else if (indexPath.row ==  4) {
-//        homeTableViewCell.seeRecardLabel.text = @"2301221993077220014";
-//    }else if (indexPath.row ==  5) {
-//        homeTableViewCell.seeRecardLabel.text = @"黑龙江省哈尔滨";
-//    }
-    homeTableViewCell.seeRecardLabel.text = self.iconList[indexPath.section][indexPath.row];
+    if (indexPath.section == 0) {
+        
+        if (indexPath.row ==  0) {
+            homeTableViewCell.seeRecardLabel.text = self.dataModel.trueName;
+        }else if (indexPath.row ==  1) {
+            if ([self.dataModel.gender isEqualToString:@"0"]) {
+                homeTableViewCell.seeRecardLabel.text = @"男";
+            }else{
+                homeTableViewCell.seeRecardLabel.text = @"女";
+            }
+            
+        }else if (indexPath.row ==  2) {
+            homeTableViewCell.seeRecardLabel.text = self.dataModel.age;
+        }else if (indexPath.row ==  3) {
+            if ([self.dataModel.marital isEqualToString:@"0"]) {
+                homeTableViewCell.seeRecardLabel.text = @"未婚";
+            }
+            if ([self.dataModel.marital isEqualToString:@"1"]) {
+                homeTableViewCell.seeRecardLabel.text = @"已婚";
+            }if ([self.dataModel.marital isEqualToString:@"2"]) {
+                homeTableViewCell.seeRecardLabel.text = @"离异";
+            }if ([self.dataModel.marital isEqualToString:@"3"]) {
+                homeTableViewCell.seeRecardLabel.text = @"丧偶";
+            }
+        }
+    }else{
+        
+        homeTableViewCell.seeRecardLabel.text = [self.dataModel.createTimeString componentsSeparatedByString:@" "].firstObject;;
+    }
+    //    homeTableViewCell.seeRecardLabel.text = self.iconList[indexPath.section][indexPath.row];
     //    homeTableViewCell.iconV.image = [UIImage imageNamed:self.iconList[indexPath.row]];
     
     return homeTableViewCell;
     
+}
+
+#pragma mark -
+#pragma mark ------------Http client----------------------
+
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMedicalDetail,self.recardID] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSArray *array = responseObject;
+        NSDictionary *dict = array.firstObject;
+        self.dataModel = [RecardDetailModel mj_objectWithKeyValues:dict];
+        self.tableView.tableFooterView = [self personInfomation];
+//        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 

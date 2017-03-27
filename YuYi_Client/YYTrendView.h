@@ -16,6 +16,7 @@
 
 - (void)setMeasureData:(NSDictionary *)measureData;    // 测量数据 字典
 
-
+- (void)updateBloodTrendDataList:(NSArray *)highList  lowList:(NSArray *)lowList;
+- (void)updateTempatureTrendDataList:(NSArray *)tempature  lowList:(NSArray *)lowList;
 
 @end

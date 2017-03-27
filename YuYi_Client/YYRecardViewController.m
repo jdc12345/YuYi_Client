@@ -14,6 +14,10 @@
 #import "YYPersonalTableViewCell.h"
 #import "YYRecardTableViewCell.h"
 #import "YYDetailRecardViewController.h"
+#import "HttpClient.h"
+#import "CcUserModel.h"
+#import "RecardModel.h"
+#import <MJExtension.h>
 
 @interface YYRecardViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -28,20 +32,21 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.bounces = NO;
-        _tableView.indicatorStyle =
+        // _tableView.indicatorStyle =
         _tableView.rowHeight = kScreenW *77/320.0 +10;
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
+        
         [_tableView registerClass:[YYRecardTableViewCell class] forCellReuseIdentifier:@"YYRecardTableViewCell"];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview:_tableView];
-        [self.view sendSubviewToBack:_tableView];
+        // [self.view sendSubviewToBack:_tableView];
         
     }
     return _tableView;
@@ -57,9 +62,9 @@
     [super viewDidLoad];
     self.title = @"电子病例";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
-    
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@"2016-01-05",@"2016-06-06",@"2016-07-08",@"2016-09-08"]];
+//    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@"2016-01-05",@"2016-06-06",@"2016-07-08",@"2016-09-08"]];
 //    self.iconList =@[@"Personal-EMR-icon-",@"Personal-message-icon-",@"Personal-shopping -icon-",@"order_icon_",@"family-icon--1",@"equipment-icon-",@"goods-icon-",@"Set-icon-"];
     
     
@@ -73,8 +78,8 @@
     //        make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
     //    }];
     //   self.tableView.tableHeaderView = [self personInfomation];
-    
-     [self tableView];
+    [self httpRequest];
+
     
     // Do any additional setup after loading the view.
 }
@@ -130,8 +135,9 @@
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    RecardModel *recardModel = self.dataSource[indexPath.row];
     YYDetailRecardViewController *detailRecardVC = [[YYDetailRecardViewController alloc]init];
+    detailRecardVC.recardID = recardModel.info_id;
     [self.navigationController pushViewController:detailRecardVC animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -152,6 +158,8 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    RecardModel *recardModel = self.dataSource[0];
+    
     
     UIView *allHeadSectionV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50 *kiphone6)];
     allHeadSectionV.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
@@ -159,7 +167,7 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, kScreenW, 40 *kiphone6)];
     headerView.backgroundColor = [UIColor whiteColor];
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"李四的病例";
+    nameLabel.text = [NSString stringWithFormat:@"%@的病例",recardModel.persinalId];
     nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
     nameLabel.font = [UIFont systemFontOfSize:15];
     
@@ -178,12 +186,36 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYRecardTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYRecardTableViewCell" forIndexPath:indexPath];
-    
-    homeTableViewCell.titleLabel.text = self.dataSource[indexPath.row];
+    RecardModel *recardModel = self.dataSource[indexPath.row];
+    homeTableViewCell.titleLabel.text = [recardModel.createTimeString componentsSeparatedByString:@" "].firstObject;//recardModel.createTimeString;
 //    homeTableViewCell.iconV.image = [UIImage imageNamed:self.iconList[indexPath.row]];
     
     return homeTableViewCell;
     
+}
+
+#pragma mark -
+#pragma mark ------------Http client----------------------
+
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mMedicalToken,[CcUserModel defaultClient].userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *rowArray = responseObject[@"result"];
+        NSLog(@"%@",responseObject);
+        for (NSDictionary *dict in rowArray) {
+        
+            RecardModel *recardModel = [RecardModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:recardModel];
+        }
+        if (self.dataSource.count != 0) {
+            [self tableView];
+        }
+        
+//        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 @end

@@ -56,10 +56,10 @@
         NSLog(@"123123123");
         
         self.backgroundColor = kColor_DefaultGray;
-        // [self setViewInHead];
+        
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
-        [self httpRequest];
+        
         [self httpRequestForUser];
     }
     return self;
@@ -194,9 +194,38 @@
     UIView *infoView = [[UIView alloc] init];
     infoView.backgroundColor = [UIColor whiteColor];
     
-    NSArray *testDataArray = @[@"129",@"87",@"38℃"];
+    
     NSArray *titleArray = @[@"收缩压(高压)",@"舒张压(低压)",@"体温"];
     NSString *statusTest = @"正常";
+    NSMutableArray *lateData = [[NSMutableArray alloc]initWithCapacity:2];
+    
+    
+    NSDictionary* dict_blood =  self.bloodpressureList.lastObject;
+    NSDictionary* dict_temperature =  self.temperatureList.lastObject;
+    
+    if (self.bloodpressureList.count != 0) {
+        [lateData addObject:dict_blood[@"systolic"]];
+    }else{
+        [lateData addObject:@"0"];
+    }
+    if (self.bloodpressureList.count != 0) {
+        [lateData addObject:dict_blood[@"diastolic"]];
+    }else{
+        [lateData addObject:@"0"];
+    }
+    if (self.temperatureList.count != 0) {
+        [lateData addObject:dict_temperature[@"temperaturet"]];
+    }else{
+        [lateData addObject:@"0"];
+    }
+    
+    
+    
+    
+    
+    
+    NSArray *testDataArray = lateData;//@[@"129",@"87",@"38℃"];
+
     
     
     CGFloat kLabelW = kScreenW /4.0;
@@ -228,7 +257,7 @@
         
         // data
         UILabel *test_banner = [[UILabel alloc]init];
-        test_banner.text = testDataArray[i];
+        test_banner.text = [NSString stringWithFormat:@"%@",testDataArray[i]];
         test_banner.font = [UIFont systemFontOfSize:15];
         test_banner.textColor = [UIColor colorWithHexString:@"666666"];
         test_banner.textAlignment = NSTextAlignmentCenter;
@@ -436,8 +465,10 @@
             [self.userList addObject:userModel];
         }
         YYHomeUserModel *userModel = self.userList[0];
-//        self.bloodpressureList = userModel.
+        self.bloodpressureList = userModel.bloodpressureList;
+        self.temperatureList = userModel.temperatureList;
         [self setViewInHead];
+        [self httpRequest];
     // [];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

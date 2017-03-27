@@ -150,7 +150,9 @@
 		3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */; };
 		3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */; };
 		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
+		3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC314D1E84EE6D003C75FD /* RecardModel.m */; };
 		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
+		3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */; };
 		3EF565601E5693C50045918B /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5655F1E5693C50045918B /* HttpClient.m */; };
 		3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */; };
 		3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */; };
@@ -451,8 +453,12 @@
 		3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCardView.m; sourceTree = "<group>"; };
 		3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConnectViewController.h; sourceTree = "<group>"; };
 		3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConnectViewController.m; sourceTree = "<group>"; };
+		3ECC314C1E84EE6D003C75FD /* RecardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecardModel.h; sourceTree = "<group>"; };
+		3ECC314D1E84EE6D003C75FD /* RecardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecardModel.m; sourceTree = "<group>"; };
 		3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemberTableViewCell.h; sourceTree = "<group>"; };
 		3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemberTableViewCell.m; sourceTree = "<group>"; };
+		3EE34CD41E84F84600FEA2FB /* RecardDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecardDetailModel.h; sourceTree = "<group>"; };
+		3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecardDetailModel.m; sourceTree = "<group>"; };
 		3EF5655E1E5693C50045918B /* HttpClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpClient.h; sourceTree = "<group>"; };
 		3EF5655F1E5693C50045918B /* HttpClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpClient.m; sourceTree = "<group>"; };
 		3EFBD62C1E6656C200B422BD /* YYDataAnalyseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDataAnalyseViewController.h; sourceTree = "<group>"; };
@@ -1034,6 +1040,10 @@
 			children = (
 				3E74BD591E7FC35400364EC6 /* CcUserModel.h */,
 				3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */,
+				3ECC314C1E84EE6D003C75FD /* RecardModel.h */,
+				3ECC314D1E84EE6D003C75FD /* RecardModel.m */,
+				3EE34CD41E84F84600FEA2FB /* RecardDetailModel.h */,
+				3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1401,6 +1411,7 @@
 			files = (
 				3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */,
 				3E74BD5B1E7FC35400364EC6 /* CcUserModel.m in Sources */,
+				3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */,
 				3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */,
 				3EFBD6531E68323700B422BD /* YYContactViewController.m in Sources */,
 				3EFBD6521E68322300B422BD /* YYSettingViewController.m in Sources */,
@@ -1469,6 +1480,7 @@
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
+				3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */,
 				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
 				3EC2C0101E6FF47B00F01795 /* NotficationTableViewCell.m in Sources */,
 				1654BF531E5EDFE8002F1D00 /* YYMedicinalDetailVC.m in Sources */,

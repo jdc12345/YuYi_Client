@@ -17,14 +17,18 @@
 #import "UIBarButtonItem+Helper.h"
 #import "YYFamilyAccountViewController.h"
 #import "YYPersonalInfoViewController.h"
-
+#import "HttpClient.h"
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
+#import <MJExtension.h>
+#import <UIImageView+WebCache.h>
 @interface YYFamilyAddViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) FMActionSheet *fmActionS;
 @property (nonatomic, assign) NSInteger currentRow;
-
+@property (nonatomic, strong) NSMutableArray *userList;
 
 @end
 
@@ -57,14 +61,23 @@
     }
     return _dataSource;
 }
+- (NSMutableArray *)userList{
+    if (_userList == nil) {
+        _userList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _userList;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"家庭用户管理";
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 0 *kiphone6)];
-    headView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = headView;
+    
+    [self httpRequestForUser];
+
+    
+    
+    
     [UIColor colorWithHexString:@"25f368"];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" normalColor:[UIColor colorWithHexString:@"25f368"] highlightedColor:[UIColor colorWithHexString:@"25f368"] target:self action:@selector(addFamily)];
     // Do any additional setup after loading the view.
@@ -81,7 +94,7 @@
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.userList.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -90,22 +103,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
     YYFamilyAddTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYFamilyAddTableViewCell" forIndexPath:indexPath];
-    if (indexPath.row == 0) {
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-
-        
-    }else if(indexPath.row == 1){
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell2"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-
-    }else{
-//        [homeTableViewCell addOtherCell];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-        
-    }
-    homeTableViewCell.backgroundColor = [UIColor blackColor];
+//    if (indexPath.row == 0) {
+//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
+//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+//
+//        
+//    }else if(indexPath.row == 1){
+//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell2"]];
+//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+//
+//    }else{
+////        [homeTableViewCell addOtherCell];
+//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
+//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+//        
+//    }
+    YYHomeUserModel *userModel = self.userList[indexPath.row];
+    [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel.avatar]]];
+    //.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
+    homeTableViewCell.titleLabel.text = userModel.trueName;//nameList[indexPath.row];
     [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return homeTableViewCell;
     
@@ -118,6 +134,30 @@
 - (void)addFamily{
     YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
     [self.navigationController pushViewController:familyAVC animated:YES];
+}
+
+
+- (void)httpRequestForUser{
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSArray *result = responseObject[@"result"];
+        for (NSDictionary *dict in result) {
+            YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
+            [self.userList addObject:userModel];
+        }
+        
+        
+        UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 0 *kiphone6)];
+        headView.backgroundColor = [UIColor clearColor];
+        self.tableView.tableHeaderView = headView;
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 
 /*

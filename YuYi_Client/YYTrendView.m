@@ -16,7 +16,10 @@
 #define kYScale  55.0 *kiphone6
 #import "YYTrendView.h"
 #import "UIColor+Extension.h"
-@interface YYTrendView () @property (nonatomic, strong)   dispatch_source_t timer;
+@interface YYTrendView ()
+@property (nonatomic, strong)   dispatch_source_t timer;
+
+@property (strong , nonatomic) NSMutableArray *startPoints;
 
 @end
 @implementation YYTrendView
@@ -247,5 +250,12 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
 - (void)zydrawAtPoint:(CGPoint)point withStr:(NSString *)str
 {
     [str drawAtPoint:point withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:9], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"6a6a6a" alpha:0.7]}];
+}
+
+- (void)updateBloodTrendDataList:(NSArray *)highList  lowList:(NSArray *)lowList{
+    
+}
+- (void)updateTempatureTrendDataList:(NSArray *)tempature  lowList:(NSArray *)lowList{
+    
 }
 @end

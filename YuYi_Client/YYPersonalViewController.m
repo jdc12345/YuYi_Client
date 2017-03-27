@@ -25,6 +25,7 @@
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
 #import "CcUserModel.h"
+#import "YYHomeUserModel.h"
 
 #define myToken @"6DD620E22A92AB0AED590DB66F84D064"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -240,12 +241,17 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMyInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        CcUserModel *userMoedel = [CcUserModel mj_objectWithKeyValues:responseObject];
-        
+        NSLog(@"res = = %@",responseObject);
+        NSDictionary *dict = responseObject[@"result"];
+//        CcUserModel *userMoedel = [CcUserModel mj_objectWithKeyValues:responseObject];
+        YYHomeUserModel *userMoedel = [YYHomeUserModel mj_objectWithKeyValues:dict];
+        NSLog(@"%@",userMoedel.trueName);
         [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userMoedel.avatar]]];
         
         self.nameLabel.text = userMoedel.trueName;
-        self.idLabel.text = [NSString stringWithFormat:@"用户：%@",userMoedel.info_id];
+        self.idLabel.text = [NSString stringWithFormat:@"%@",userMoedel.info_id];
+        
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

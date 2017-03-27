@@ -49,6 +49,12 @@
 // 个人信息更改
 #define mChangeInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/save.do?"]
 
+// 电子病历获取
+#define mMedicalToken [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/medical/token.do?"]
+
+// 电子病历详情
+#define mMedicalDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/medical/get.do?id="]
+
 // .用户挂号接口
 #define mAppointmentCount [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/getcid.do?cid="]
 // .药品全部分类接口
@@ -58,7 +64,7 @@
 // .首页搜索药品接口
 //#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/get.do?id="]
 // .意见反馈接口
-#define mFeedBack [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/feedback//save.do?"]
+#define mFeedBack [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/feedback/save.do?"]
 
 // .首页搜索药品接口
 #define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]

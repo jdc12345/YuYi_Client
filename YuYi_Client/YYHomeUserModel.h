@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface YYHomeUserModel : NSObject
+
 @property (nonatomic, copy) NSString *age;
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *createTimeString;
@@ -19,5 +20,7 @@
 @property (nonatomic, copy) NSString *info_id;
 @property (nonatomic, copy) NSString *role;
 @property (nonatomic, copy) NSString *trueName;
+@property (nonatomic, copy) NSArray *bloodpressureList;
+@property (nonatomic, copy) NSArray *temperatureList;
 
 @end
