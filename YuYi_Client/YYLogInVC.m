@@ -154,6 +154,11 @@
     
 }
 -(void)buttonClick:(UIButton *)button{
+    if (![self valiMobile:self.telNumberField.text]) {
+        [self showAlertWithMessage:@"请确认电话号码是否输入正确"];
+        return;
+    }
+
     //发送获取验证码请求
     NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/vcode.do?id=%@",self.telNumberField.text]];
     HttpClient *httpManager = [HttpClient defaultClient];
@@ -199,12 +204,7 @@
             dispatch_resume(_timer);
 
         }else{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请确认电话号码正确以及网络是否正常" preferredStyle:UIAlertControllerStyleAlert];
-            //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-            //            [alert addAction:cancelAction];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
+            [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];
             self.telNumberField.text = nil;
             self.countdownLabel.hidden = true;
             
@@ -216,6 +216,10 @@
 }
 
 -(void)logIn:(UIButton*)sender{
+    if (![self valiMobile:self.telNumberField.text]||[self.passWordField.text isEqualToString:@""]) {
+        [self showAlertWithMessage:@"请确认电话号码和验证码是否输入正确"];
+        return;
+    }
     NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/login.do?id=%@&vcode=%@",self.telNumberField.text,self.passWordField.text]];
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -237,12 +241,13 @@
 //            self.view.window.rootViewController = firstVC;
 
         }else{
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:dic[@"result"] preferredStyle:UIAlertControllerStyleAlert];
-            //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:nil];
-            //            [alert addAction:cancelAction];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
+            if ([dic[@"result"] isEqualToString:@""]) {
+                [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];
+            }else{
+                
+                [self showAlertWithMessage:dic[@"result"]];
+            }
+
             self.passWordField.text = nil;
             
         }
@@ -267,43 +272,56 @@
         return YES;
     }
     NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string]; //得到输入框的内容
-    if (self.telNumberField == textField)  //判断是否时我们想要限定的那个输入框
-        
+    if (self.telNumberField == textField)  //判断是否是我们想要限定的那个输入框
     {
-        
-        if ([textField.text length] == 10){
-            if ([self valiMobile:toBeString]) {
-                return YES;
-            }else{
-                textField.text = nil;
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请输入正确的11位电话号码" preferredStyle:UIAlertControllerStyleAlert];
-                //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-                //            [alert addAction:cancelAction];
-                [alert addAction:okAction];
-                [self presentViewController:alert animated:YES completion:nil];
-                
-
-                return NO;
-            }
-        }else if ([textField.text length] > 10) { //如果输入框内容大于20则弹出警告
-            textField.text = [toBeString substringToIndex:11];
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"请输入正确的11位电话号码" preferredStyle:UIAlertControllerStyleAlert];
-            //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
-            //            [alert addAction:cancelAction];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:nil];
+             if ([toBeString length] > 11) { //如果输入框内容大于20则弹出警告
+//            textField.text = [textField.text substringToIndex:11];
+            [self showAlertWithMessage:@"您输入的电话号码超过11位"];
             
             return NO;
-            
         }
-        
     }
     return YES; 
     
 }
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    NSString * toBeString = textField.text; //得到输入框的内容
+    if (self.telNumberField == textField)  //判断是否是我们想要限定的那个输入框
+        
+    {
+        
+        if ([textField.text length] < 11){
+            [self showAlertWithMessage:@"您输入的电话号码少于11位"];
+            
+            
+        }else if ([textField.text length] == 11){
+            if (![self valiMobile:toBeString]) {
+                [self showAlertWithMessage:@"请输入正确的11位电话号码"];
 
+            }
+        }
+    }
+}
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    NSString * toBeString = textField.text; //得到输入框的内容
+    if ([textField.text length] == 11){
+        if (![self valiMobile:toBeString]) {
+            [self showAlertWithMessage:@"请输入正确的11位电话号码"];
+            return false;
+        }
+    }
+    return true;
+
+}
+//弹出alert
+-(void)showAlertWithMessage:(NSString*)message{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];
+    //            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];
+    //            [alert addAction:cancelAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 //判断手机号码格式是否正确
 - (BOOL)valiMobile:(NSString *)mobile
 {
