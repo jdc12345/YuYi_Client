@@ -71,6 +71,7 @@ static NSString *dentifier=@"cellforappliancelist";
         make.left.offset(5);
         make.top.right.bottom.offset(0);
     }];
+    searchField.returnKeyType = UIReturnKeySearch;
     searchField.leftView = view;
     searchField.leftViewMode = UITextFieldViewModeAlways;
     [searchField.layer setMasksToBounds:YES];
@@ -292,30 +293,31 @@ static NSString *dentifier=@"cellforappliancelist";
             [self.tableView reloadData];
             self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         }
+        //记录搜索过的内容
+        if (self.searchingList.count>0) {//只有搜索结果不为空才本地保存
+            
+            NSArray *arr = [NSArray arrayWithArray: self.searchedList];
+            for (NSString *recodeName in arr) {
+                if ([recodeName isEqualToString:self.searchField.text] ) {
+                    [self.searchedList removeObject:recodeName];
+                }
+                
+            }
+            [self.searchedList insertObject:self.searchField.text atIndex:0];//记录写入内存
+            NSData *encodeList = [NSKeyedArchiver archivedDataWithRootObject:self.searchedList];
+            if (self.searchCayegory==0) {
+                [self.defaults setObject:encodeList forKey:@"searchedList"];
+                
+            }else if (self.searchCayegory==1){
+                [self.defaults setObject:encodeList forKey:@"searchedHospitalList"];
+            }
+            [self.defaults synchronize];//记录写入缓存
+        }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         return ;
     }];
-    //记录搜索过的内容
-    if (self.searchingList.count>0) {//只有搜索结果不为空才本地保存
-        
-        NSArray *arr = [NSArray arrayWithArray: self.searchedList];
-        for (NSString *recodeName in arr) {
-            if ([recodeName isEqualToString:self.searchField.text] ) {
-                [self.searchedList removeObject:recodeName];
-            }
-            
-        }
-        [self.searchedList insertObject:self.searchField.text atIndex:0];//记录写入内存
-        NSData *encodeList = [NSKeyedArchiver archivedDataWithRootObject:self.searchedList];
-        if (self.searchCayegory==0) {
-            [self.defaults setObject:encodeList forKey:@"searchedList"];
-            
-        }else if (self.searchCayegory==1){
-            [self.defaults setObject:encodeList forKey:@"searchedHospitalList"];
-        }
-        [self.defaults synchronize];//记录写入缓存
-    }
+   
     
     
     return true;

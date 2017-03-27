@@ -61,12 +61,13 @@
     }];
     //添加电话textField
     UITextField *telNumberField = [[UITextField alloc]init];
+    telNumberField.placeholder = @"请输入电话号码";
     telNumberField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
     [self.view addSubview:telNumberField];
     [telNumberField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(telImageView.mas_right).offset(15);
         make.bottom.equalTo(line1.mas_top).offset(-7.5);
-        make.width.offset(110);
+        make.width.offset(122);
     }];
     self.telNumberField = telNumberField;
     telNumberField.delegate = self;
@@ -91,6 +92,7 @@
     }];
     //添加密码textField
     UITextField *passWordField = [[UITextField alloc]init];
+    passWordField.placeholder = @"请输入验证码";
     passWordField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
     [self.view addSubview:passWordField];
     [passWordField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -355,6 +357,10 @@
             return NO;
         }
     }
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.telNumberField becomeFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
