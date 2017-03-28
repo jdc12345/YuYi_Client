@@ -151,6 +151,7 @@
 		3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */; };
 		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
 		3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC314D1E84EE6D003C75FD /* RecardModel.m */; };
+		3ED8175C1E8A677800EDAE7B /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8175B1E8A677800EDAE7B /* AppointmentModel.m */; };
 		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
 		3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */; };
 		3EF16BFF1E89108C00C7F22E /* SimpleMedicalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF16BFE1E89108C00C7F22E /* SimpleMedicalModel.m */; };
@@ -456,6 +457,8 @@
 		3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConnectViewController.m; sourceTree = "<group>"; };
 		3ECC314C1E84EE6D003C75FD /* RecardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecardModel.h; sourceTree = "<group>"; };
 		3ECC314D1E84EE6D003C75FD /* RecardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecardModel.m; sourceTree = "<group>"; };
+		3ED8175A1E8A677800EDAE7B /* AppointmentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppointmentModel.h; sourceTree = "<group>"; };
+		3ED8175B1E8A677800EDAE7B /* AppointmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentModel.m; sourceTree = "<group>"; };
 		3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemberTableViewCell.h; sourceTree = "<group>"; };
 		3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemberTableViewCell.m; sourceTree = "<group>"; };
 		3EE34CD41E84F84600FEA2FB /* RecardDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecardDetailModel.h; sourceTree = "<group>"; };
@@ -963,6 +966,8 @@
 				3E74BD531E7FA3FC00364EC6 /* YYInfomationModel.m */,
 				3EF16BFD1E89108C00C7F22E /* SimpleMedicalModel.h */,
 				3EF16BFE1E89108C00C7F22E /* SimpleMedicalModel.m */,
+				3ED8175A1E8A677800EDAE7B /* AppointmentModel.h */,
+				3ED8175B1E8A677800EDAE7B /* AppointmentModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -1485,6 +1490,7 @@
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
+				3ED8175C1E8A677800EDAE7B /* AppointmentModel.m in Sources */,
 				3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */,
 				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
 				3EC2C0101E6FF47B00F01795 /* NotficationTableViewCell.m in Sources */,

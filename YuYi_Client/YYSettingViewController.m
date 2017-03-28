@@ -17,7 +17,8 @@
 #import "YYFeedbackViewController.h"
 #import "YYAboutUSViewController.h"
 #import "YYContactViewController.h"
-
+#import "CcUserModel.h"
+#import "YYLogInVC.h"
 
 @interface YYSettingViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -89,6 +90,19 @@
             [self.navigationController pushViewController:aboutVC animated:YES];
         }
     }else{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"你确定退出吗" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            CcUserModel *userModel = [CcUserModel defaultClient];
+            [userModel removeUserInfo];//清除本地存储
+            [CcUserModel defaultClient];//清除缓存
+            YYLogInVC *logVC = [[YYLogInVC alloc]init];
+            [self.navigationController presentViewController:logVC animated:true completion:nil];
+        }];
+        
+        [alert addAction:cancelAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
         
     }
    

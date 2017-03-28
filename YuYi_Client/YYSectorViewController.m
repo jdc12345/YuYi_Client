@@ -13,12 +13,16 @@
 #import "YYSectorTableViewCell.h"
 #import "ZYAlertSView.h"
 #import "HttpClient.h"
+#import "AppointmentModel.h"
+#import <MJExtension.h>
 @interface YYSectorViewController ()<UIScrollViewDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
+@property (nonatomic, strong) NSMutableArray *dateList;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 @property (nonatomic, weak) UIView *selectView;
+@property (nonatomic, copy) NSString *dateStr;
 
 @end
 
@@ -49,7 +53,12 @@
     }
     return _dataSource;
 }
-
+- (NSMutableArray *)dateList{
+    if (_dateList == nil) {
+        _dateList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _dateList;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = self.sectorTitle;
@@ -391,6 +400,20 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
+        NSArray *dateArray = responseObject[@"result"];
+        for (NSDictionary *dict in dateArray) {
+            
+            
+            NSArray *dateNumList = dict[@"datenumberList"];
+            NSMutableArray *datebydayList = [[NSMutableArray alloc]initWithCapacity:2];
+            for(NSDictionary *dictionary in dateNumList){
+                AppointmentModel *model = [AppointmentModel mj_objectWithKeyValues:dictionary];
+                [datebydayList addObject:model];
+            }
+            [self.dateList addObject:dict[@"datastr"]];
+            [self.dataSource addObject:datebydayList];
+        }
+        NSLog(@"%@",self.dateList);
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
