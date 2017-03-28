@@ -169,7 +169,7 @@
         NSDictionary *getCodeDic = (NSDictionary*)responseObject;
         if ([getCodeDic[@"code"] isEqualToString:@"0"]) {
             self.countdownLabel.hidden = false;
-            self.passWordField.text = getCodeDic[@"result"];
+//            self.passWordField.text = getCodeDic[@"result"];
             //倒计时时间
             __block NSInteger timeOut = 59;
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -227,10 +227,6 @@
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[@"code"] isEqualToString:@"0"]) {
-            //保存登录电话和验证码
-//            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//            [defaults setObject:self.telNumberField.text forKey:@"telNumber"];
-//            [defaults setObject:self.passWordField.text forKey:@"passWord"];
             //保存token
             CcUserModel *userModel = [CcUserModel defaultClient];
             userModel.userToken = dic[@"result"];
@@ -240,8 +236,6 @@
             //跳转登录首页
             YYTabBarController *firstVC = [[YYTabBarController alloc]init];
             [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
-//            self.view.window.rootViewController = firstVC;
-
         }else{
             if ([dic[@"result"] isEqualToString:@""]) {
                 [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];
@@ -304,17 +298,17 @@
         }
     }
 }
--(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    NSString * toBeString = textField.text; //得到输入框的内容
-    if ([textField.text length] == 11){
-        if (![self valiMobile:toBeString]) {
-            [self showAlertWithMessage:@"请输入正确的11位电话号码"];
-            return false;
-        }
-    }
-    return true;
-
-}
+//-(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+//    NSString * toBeString = textField.text; //得到输入框的内容
+//    if ([textField.text length] == 11){
+//        if (![self valiMobile:toBeString]) {
+//            [self showAlertWithMessage:@"请输入正确的11位电话号码"];
+//            return false;
+//        }
+//    }
+//    return true;
+//
+//}
 //弹出alert
 -(void)showAlertWithMessage:(NSString*)message{
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:UIAlertControllerStyleAlert];

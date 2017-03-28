@@ -33,7 +33,6 @@ static NSString *dentifier=@"cellforappliancelist";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.searchCayegory=1;
     self.view.backgroundColor = [UIColor whiteColor];
     //搜索框
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 35)];
@@ -58,7 +57,11 @@ static NSString *dentifier=@"cellforappliancelist";
     }];
     searchField.delegate = self;
     self.searchField = searchField;
-    searchField.placeholder = @"搜索医院、药品";
+    if (self.searchCayegory==1) {
+        searchField.placeholder = @"搜索医院";
+    }else if (self.searchCayegory==0){
+        searchField.placeholder = @"搜索药品";
+    }
     searchField.clearButtonMode = UITextFieldViewModeAlways;//删除内容的❎
     [searchField setBackgroundColor:[UIColor colorWithHexString:@"#f2f2f2"]];
     //输入框左侧放大镜
