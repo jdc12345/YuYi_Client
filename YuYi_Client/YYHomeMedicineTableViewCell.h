@@ -15,6 +15,11 @@
 @property (nonatomic, strong) UILabel *priceLabel;
 
 
-@property (nonatomic, copy) void(^itemClick)(NSInteger index);
+@property (nonatomic, strong) NSArray *dataSource;
+
+@property (nonatomic, copy) void(^itemClick)(NSString *medicalID);
+
+
+- (void)updateDataList:(NSArray *)dataSource;
 
 @end

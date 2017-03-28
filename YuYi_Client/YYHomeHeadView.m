@@ -28,10 +28,17 @@
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView2;
 
 @property (nonatomic, strong) NSMutableArray *userList;
-@property (nonatomic, copy) NSArray *bloodpressureList;
-@property (nonatomic, copy) NSArray *temperatureList;
+@property (nonatomic, strong) NSMutableArray *bloodpressureList;
+@property (nonatomic, strong) NSMutableArray *temperatureList;
 
 @property (nonatomic, strong) NSArray *listlist;
+
+@property (nonatomic, weak) YYTrendView *bloodpressureTrendView;
+@property (nonatomic, weak) YYTrendView *temperatureTrendView;
+
+@property (nonatomic, weak) UIView *iconBanner;
+//@property (nonatomic, assign) NSInteger userCount;
+
 
 @end
 
@@ -48,7 +55,18 @@
     }
     return _userList;
 }
-
+- (NSMutableArray *)temperatureList{
+    if (_temperatureList == nil) {
+        _temperatureList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _temperatureList;
+}
+- (NSMutableArray *)bloodpressureList{
+    if (_bloodpressureList == nil) {
+        _bloodpressureList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _bloodpressureList;
+}
 - (instancetype)init
 {
     self = [super init];
@@ -84,7 +102,7 @@
     bannerView.backgroundColor = [UIColor whiteColor];
     
     NSArray *butArray = @[@"shopmall_select",@"appointment"];
-    NSArray *labelArray = @[@"医药商城",@"预约挂号"];
+    NSArray *labelArray = @[@"我的药品",@"预约挂号"];
     for (int i = 0; i <2; i++) {
         
         // icon
@@ -124,7 +142,9 @@
     
     // 用户icon banner
     UIView *iconBanner = [[UIView alloc]init];
+    self.iconBanner = iconBanner;
     iconBanner.backgroundColor = [UIColor whiteColor];
+    iconBanner.userInteractionEnabled = YES;
     
     NSArray *iconArray = @[@"LIM_",@"add_normal"];
     NSArray *nameArray = @[@"LIM",@""];
@@ -145,6 +165,12 @@
         // icon
             
         UIImageView *button_banner = [[UIImageView alloc]init];
+        button_banner.userInteractionEnabled = YES;
+        button_banner.tag = 140 +i;
+        
+        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserData:)];
+        
+        [button_banner addGestureRecognizer:tapGest];
         if (i == userCount) {
             button_banner.image = [UIImage  imageNamed:userModel.avatar];
         }else{
@@ -160,7 +186,11 @@
         UILabel *label_banner = [[UILabel alloc]init];
         label_banner.text = userModel.trueName;
         label_banner.font = [UIFont systemFontOfSize:10];
-        label_banner.textColor = [UIColor colorWithHexString:@"25f368"];
+        label_banner.tag = 150+i;
+        if (i != 0) {
+            label_banner.textColor = [UIColor colorWithHexString:@"333333"];
+        }else{
+            label_banner.textColor = [UIColor colorWithHexString:@"25f368"];}
         label_banner.textAlignment = NSTextAlignmentCenter;
         
         //
@@ -331,6 +361,8 @@
     
     [scrollTrendView addSubview:trendView];
     [scrollTrendView addSubview:temperature_TrendView];
+    self.bloodpressureTrendView = trendView;
+    self.temperatureTrendView = temperature_TrendView;
     
     [trendView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(scrollTrendView).with.offset(10 *kiphone6);
@@ -434,7 +466,6 @@
     [[HttpClient defaultClient]requestWithPath:mHomepageImages method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        
         NSArray *array = responseObject[@"result"][@"rows"];
         NSMutableArray *imageList = [[NSMutableArray alloc]initWithCapacity:2];
         for (NSDictionary *dict in array) {
@@ -452,29 +483,61 @@
 }
 
 - (void)httpRequestForUser{
+    
+    // 用户列表
     NSString *tokenStr = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        
         NSLog(@"%@",responseObject);
-        
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.userList addObject:userModel];
         }
         YYHomeUserModel *userModel = self.userList[0];
-        self.bloodpressureList = userModel.bloodpressureList;
+//        self.bloodpressureList = userModel.bloodpressureList;
         self.temperatureList = userModel.temperatureList;
+//
+        self.bloodpressureList = userModel.bloodpressureList;
+        NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
+        NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
+        for (NSDictionary *dict  in userModel.bloodpressureList) {
+            NSString *str_high = dict[@"systolic"];
+            NSString *str_low = dict[@"diastolic"];
+            [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];
+            [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
+        }
+        
+
         [self setViewInHead];
         [self httpRequest];
+        [self.bloodpressureTrendView updateBloodTrendDataList:highBlood lowList:lowBlood];
+        [self.temperatureTrendView updateTempatureTrendDataList:self.temperatureList];
     // [];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);
     }];
 
+}
+- (void)changeUserData:(UITapGestureRecognizer *)tapGest{
+   
+    NSInteger labelTag = (tapGest.view.tag+10);
+    
+    UILabel *label = (UILabel *)[self.iconBanner viewWithTag:labelTag];
+    if(![label.textColor isEqual:[UIColor colorWithHexString:@"25f368"]]){
+//        NSLog(@"%ld  == %ld",self.userList.count -1,labelTag);
+        for (int i = 0; i<self.userList.count -1 ; i++) {
+            UILabel *label2 = (UILabel *)[self.iconBanner viewWithTag:150 +i];
+            if (labelTag == label2.tag) {
+                label2.textColor = [UIColor colorWithHexString:@"25f368"];
+            }
+            else{
+                label2.textColor = [UIColor colorWithHexString:@"333333"];
+            }
+        }
+    }
 }
 /*
 // Only override drawRect: if you perform custom drawing.

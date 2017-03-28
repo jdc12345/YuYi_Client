@@ -33,11 +33,13 @@
 #import <UIImageView+WebCache.h>
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
+#import "SimpleMedicalModel.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSMutableArray *dataHomeSource;
+@property (nonatomic, strong) NSMutableArray *medicalHomeSource;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 
 @property (nonatomic, weak) UIButton *leftBtn;
@@ -81,6 +83,12 @@
     }
     return _dataHomeSource;
 }
+- (NSMutableArray *)medicalHomeSource{
+    if (_medicalHomeSource == nil) {
+        _medicalHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _medicalHomeSource;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,6 +96,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"首页";
     [self httpRequest];
+    [self httpRequestForMedical];
     
     YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
     homeHeadView.bannerClick = ^(BOOL isShopping){
@@ -225,6 +234,8 @@
         YYInfoDetailViewController *infoDetail = [[YYInfoDetailViewController alloc]init];
         infoDetail.info_id = infoModel.info_id;
         [self.navigationController pushViewController:infoDetail animated:YES];
+    }else{
+        
     }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -247,7 +258,7 @@
     if (indexPath.section == 0) {
         return 110 *kiphone6;
     }else{
-        return 166 *kiphone6;
+        return 166 -21*kiphone6;
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -328,13 +339,35 @@
         }
         return homeTableViewCell;
     }else{
+     
         YYHomeMedicineTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeMedicineTableViewCell" forIndexPath:indexPath];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+        
+        if (self.medicalHomeSource.count != 0) {
+       //     NSArray *smallArray;
+            NSMutableArray *bigArray = [[NSMutableArray alloc]initWithCapacity:2];
+            if (indexPath.row == 0) {
+                for(int i = 0 ;i<3 ;i++){
+                    [bigArray addObject:self.medicalHomeSource[i]];
+                }
+        //        smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(0, 2)];
+            }else{
+                for(int i = 3 ;i<6 ;i++){
+                    [bigArray addObject:self.medicalHomeSource[i]];
+                }
+          //      smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(3, 5)];
+            }
+            NSLog(@"small array = %ld", bigArray.count);
+            [homeTableViewCell updateDataList:bigArray];
+        }else{
+            homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+        
+        }
+        
+        
         [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
-        
-        homeTableViewCell.itemClick = ^(NSInteger itemNum){
+        homeTableViewCell.itemClick = ^(NSString *medicalID){
             YYMedicinalDetailVC *medicinaDVC = [[YYMedicinalDetailVC alloc]init];
+            medicinaDVC.id = [medicalID integerValue];
             [self.navigationController pushViewController:medicinaDVC animated:YES];
         };
         return homeTableViewCell;
@@ -359,6 +392,8 @@
         [self.navigationController pushViewController:infoVC animated:YES];
     }else{
         YYAllMedicinalViewController *medicinalVC = [[YYAllMedicinalViewController alloc]init];
+        medicinalVC.id = @"1";
+        medicinalVC.categoryName = @"常用药品";
         [self.navigationController pushViewController:medicinalVC animated:YES];
     }
 }
@@ -396,7 +431,9 @@
 #pragma mark ------------Search----------------------
 
 -(void)searchBtnClick:(UIButton*)sender{
-    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+    YYSearchTableViewController *searchVC = [[YYSearchTableViewController alloc]init];
+    searchVC.searchCayegory = 1;
+    [self.navigationController pushViewController:searchVC animated:true];
 }
 
 
@@ -407,6 +444,7 @@
     [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
         NSArray *rowArray = responseObject[@"rows"];
         for (NSDictionary *dict in rowArray){
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
@@ -430,6 +468,22 @@
             [self.dataHomeSource addObject:homeUser];
         }
      
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+- (void)httpRequestForMedical{
+    NSString *userToken = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:mHomeMedical method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *medicalList = responseObject[@"rows"];
+        for (NSDictionary *dict in medicalList) {
+            SimpleMedicalModel *homeUser = [SimpleMedicalModel mj_objectWithKeyValues:dict];
+            [self.medicalHomeSource addObject:homeUser];
+        }
+        [self.tableView reloadData];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

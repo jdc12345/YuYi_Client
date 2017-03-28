@@ -75,9 +75,9 @@
     [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
-    
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"购物车",@"订单详情"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
-    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"Personal-shopping -icon-",@"order_icon_"],@[@"family-icon--1",@"equipment-icon-"],@[@"goods-icon-",@"Set-icon-"]];
+    // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
+    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"goods-icon-",@"Set-icon-"]];
     
     
 //    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
@@ -205,7 +205,7 @@
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;

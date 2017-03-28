@@ -65,6 +65,8 @@
 //#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/get.do?id="]
 // .意见反馈接口
 #define mFeedBack [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/feedback/save.do?"]
+// 首页药品列表
+#define mHomeMedical [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/getcid1.do?cid1=2&start=0&limit=6"]
 
 // .首页搜索药品接口
 #define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]

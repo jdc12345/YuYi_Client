@@ -249,14 +249,14 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"homeUsers = %@",responseObject);
         NSArray *usersList = responseObject[@"result"];
         for (NSDictionary *dict in usersList) {
             YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.dataSource addObject:homeUser];
-            [self createOtherView];
+            NSLog(@"%@",self.dataSource);
+           
         }
-        [self.tableView reloadData];
+        [self createOtherView];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

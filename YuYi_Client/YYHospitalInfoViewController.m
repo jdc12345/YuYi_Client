@@ -16,6 +16,7 @@
 #import "YYAVViewController.h"
 #import "YYWordsViewController.h"
 #import <RongCallKit/RongCallKit.h>
+#import <UIImageView+WebCache.h>
 
 @interface YYHospitalInfoViewController ()<RCCallSessionDelegate>
 
@@ -114,6 +115,13 @@
         make.bottom.equalTo(lineL.mas_top);
     }];
     
+    if (![self.yyInfomationModel.info_id isEqualToString:@""]) {
+        [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.yyInfomationModel.picture]]];
+        self.infoTextV.text = self.yyInfomationModel.introduction;
+    }
+
+    
+    
 }
 - (void)createIconV{
     UIView *alphaView = [[UIView alloc]init];
@@ -152,6 +160,11 @@
         make.left.equalTo(hospitalLabel.mas_right).with.offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(90 *kiphone6 ,11 *kiphone6));
     }];
+    
+    if (![self.yyInfomationModel.info_id isEqualToString:@""]) {
+        hospitalLabel.text = self.yyInfomationModel.hospitalName;
+        starLabel.text = self.yyInfomationModel.gradeName;
+    }
     
 }
 -(void)buttonClick:(UIButton *)button{

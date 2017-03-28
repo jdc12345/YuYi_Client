@@ -9,6 +9,8 @@
 #import "YYHomeMedicineTableViewCell.h"
 #import <Masonry.h>
 #import "UIColor+Extension.h"
+#import "SimpleMedicalModel.h"
+#import <UIImageView+WebCache.h>
 
 @implementation YYHomeMedicineTableViewCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -45,11 +47,13 @@
         [medicineV addGestureRecognizer:tapGest];
         
         self.iconV = [[UIImageView alloc]init];
+        self.iconV.tag = 130 +i;
         
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
         self.titleLabel.font = [UIFont systemFontOfSize:15];
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
+        self.titleLabel.tag = 140 +i;
         
         self.priceLabel = [[UILabel alloc]init];
         self.priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
@@ -81,6 +85,7 @@
         self.iconV.image = [UIImage imageNamed:@"medicine"];
         self.titleLabel.text = @"999感冒灵";
         self.priceLabel.text = @"¥38";
+        self.priceLabel.hidden = YES;
         
         
         
@@ -95,10 +100,25 @@
 - (void)actionDo:(UITapGestureRecognizer *)tapGest{
     
     UIView *clickView = tapGest.view;
-    self.itemClick(clickView.tag -100);
+    SimpleMedicalModel *medicalModel = self.dataSource[clickView.tag -100];
+    self.itemClick(medicalModel.info_id);
+    
     NSLog(@"click num =  %ld", clickView.tag -100);
 }
-
+- (void)updateDataList:(NSArray *)dataSource{
+    self.dataSource = dataSource;
+    NSLog(@"medical = %ld",dataSource.count);
+    for (int i = 0; i <3; i++) {
+        SimpleMedicalModel *medicalModel = dataSource[i];
+        UIView *medicalView = [self.contentView viewWithTag:100 +i];
+        
+        UIImageView *imageView = [medicalView viewWithTag:130 +i];
+        UILabel *label = [medicalView viewWithTag:140 +i];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,medicalModel.picture]]];
+        label.text = medicalModel.drugsName;
+    }
+}
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
