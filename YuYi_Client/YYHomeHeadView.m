@@ -20,6 +20,7 @@
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
 #import <UIImage+AFNetworking.h>
+#import "YYFamilyAccountViewController.h"
 @interface YYHomeHeadView()<UIScrollViewDelegate, SDCycleScrollViewDelegate>
 @property (nonatomic, assign)CGFloat maxY;
 
@@ -35,8 +36,13 @@
 
 @property (nonatomic, weak) YYTrendView *bloodpressureTrendView;
 @property (nonatomic, weak) YYTrendView *temperatureTrendView;
+@property (nonatomic, weak) UILabel *statusLabel;
 
-@property (nonatomic, weak) UIView *iconBanner;
+@property (nonatomic, strong) UIView *iconBanner;
+
+@property (nonatomic, assign) BOOL isFull;
+@property (nonatomic, strong) NSMutableArray *labelArray;
+
 //@property (nonatomic, assign) NSInteger userCount;
 
 
@@ -67,6 +73,12 @@
     }
     return _bloodpressureList;
 }
+- (NSMutableArray *)labelArray{
+    if (_labelArray == nil) {
+        _labelArray = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _labelArray;
+}
 - (instancetype)init
 {
     self = [super init];
@@ -77,7 +89,7 @@
         
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
-        
+        self.isFull = NO;
         [self httpRequestForUser];
     }
     return self;
@@ -87,12 +99,8 @@
     WS(ws);
     // 图片轮播器
     SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
-//    cycleScrollView2.localizationImagesGroup = @[[UIImage imageNamed:@"carinalau1.jpg"],[UIImage imageNamed:@"carinalau2.jpg"],[UIImage imageNamed:@"carinalau3.jpg"],[UIImage imageNamed:@"carinalau4.jpg"]];
-//    cycleScrollView2.imageURLStringsGroup = []
-//    cycleScrollView2.placeholderImage = [UIImage imageNamed:@"carinalau1.jpg"];
     cycleScrollView2.showPageControl = YES;
     cycleScrollView2.delegate = self;
-    NSLog(@"image list = %@",self.listlist);
     cycleScrollView2.imageURLStringsGroup  = self.listlist;
    
     self.cycleScrollView2 = cycleScrollView2;
@@ -146,14 +154,12 @@
     iconBanner.backgroundColor = [UIColor whiteColor];
     iconBanner.userInteractionEnabled = YES;
     
-    NSArray *iconArray = @[@"LIM_",@"add_normal"];
-    NSArray *nameArray = @[@"LIM",@""];
-    
-    YYHomeUserModel *addModel = [[YYHomeUserModel alloc]init];
-    addModel.avatar = @"add_normal";
-    addModel.trueName = @"";
-    [self.userList addObject:addModel];
-    NSLog(@"userCount = %ld",self.userList.count);
+    if (self.userList.count < 6) {
+        YYHomeUserModel *addModel = [[YYHomeUserModel alloc]init];
+        addModel.avatar = @"add_normal";
+        addModel.trueName = @"";
+        [self.userList addObject:addModel];
+    }
     NSInteger userCount = self.userList.count -1;
     for (int i = 0; i < userCount+1; i++) {
 //        if (i != userCount) {
@@ -171,7 +177,7 @@
         UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserData:)];
         
         [button_banner addGestureRecognizer:tapGest];
-        if (i == userCount) {
+        if (i == userCount && !self.isFull) {
             button_banner.image = [UIImage  imageNamed:userModel.avatar];
         }else{
             [button_banner sd_setImageWithURL:url];
@@ -266,6 +272,7 @@
     statusLabel.textColor = [UIColor colorWithHexString:@"333333"];
     statusLabel.textAlignment = NSTextAlignmentCenter;
     
+    self.statusLabel = statusLabel;
     [infoView addSubview:imageV];
     [infoView addSubview:statusLabel];
     
@@ -291,6 +298,9 @@
         test_banner.font = [UIFont systemFontOfSize:15];
         test_banner.textColor = [UIColor colorWithHexString:@"666666"];
         test_banner.textAlignment = NSTextAlignmentCenter;
+        [self.labelArray addObject:test_banner];
+        
+        
         
         UILabel *label_banner = [[UILabel alloc]init];
         label_banner.text = titleArray[i];
@@ -489,11 +499,17 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
+        [self.userList removeAllObjects];
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.userList addObject:userModel];
+        }
+        if (self.userList.count == 6) {
+            self.isFull = YES;
+        }else{
+            self.isFull = NO;
         }
         YYHomeUserModel *userModel = self.userList[0];
 //        self.bloodpressureList = userModel.bloodpressureList;
@@ -502,17 +518,23 @@
         self.bloodpressureList = userModel.bloodpressureList;
         NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
         NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
+        NSMutableArray *measureDate = [[NSMutableArray alloc]initWithCapacity:2];
         for (NSDictionary *dict  in userModel.bloodpressureList) {
             NSString *str_high = dict[@"systolic"];
             NSString *str_low = dict[@"diastolic"];
+            NSString *str_date = dict[@"createTimeString"];
             [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];
             [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
+            [measureDate addObject:str_date];
         }
         
-
-        [self setViewInHead];
-        [self httpRequest];
-        [self.bloodpressureTrendView updateBloodTrendDataList:highBlood lowList:lowBlood];
+        if (self.bloodpressureTrendView) {
+            [self refreshIconBanner];
+        }else{
+            [self setViewInHead];
+            [self httpRequest];
+        }
+        [self.bloodpressureTrendView updateBloodTrendDataList:highBlood lowList:lowBlood dateList:measureDate];
         [self.temperatureTrendView updateTempatureTrendDataList:self.temperatureList];
     // [];
         
@@ -524,7 +546,9 @@
 - (void)changeUserData:(UITapGestureRecognizer *)tapGest{
    
     NSInteger labelTag = (tapGest.view.tag+10);
-    
+    if(labelTag == 149 +self.userList.count &&!self.isFull){
+        self.addFamily(@"addFamily");
+    }else{
     UILabel *label = (UILabel *)[self.iconBanner viewWithTag:labelTag];
     if(![label.textColor isEqual:[UIColor colorWithHexString:@"25f368"]]){
 //        NSLog(@"%ld  == %ld",self.userList.count -1,labelTag);
@@ -537,7 +561,160 @@
                 label2.textColor = [UIColor colorWithHexString:@"333333"];
             }
         }
+      
+        // 更改数据。http://192.168.1.55:8081/yuyi/homeuser/findOne.do?token=6DD620E22A92AB0AED590DB66F84D064&humeuserId=10
+        YYHomeUserModel *userModel =  self.userList[labelTag - 150];
+        NSString *tokenStr = [CcUserModel defaultClient].userToken;
+        [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&humeuserId=%@",mHomeuserMeasure,tokenStr,userModel.info_id] method:0 parameters:nil prepareExecute:^{
+            
+        } success:^(NSURLSessionDataTask *task, id responseObject) {
+//            NSLog(@"%@",responseObject);
+
+            // 刷新走势图
+            NSDictionary *result = responseObject[@"result"];
+            YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:result];
+            self.temperatureList = userModel.temperatureList;
+            self.bloodpressureList = userModel.bloodpressureList;
+            NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
+            NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
+            NSMutableArray *measureDate = [[NSMutableArray alloc]initWithCapacity:2];
+            for (NSDictionary *dict  in userModel.bloodpressureList) {
+                NSString *str_high = dict[@"systolic"];
+                NSString *str_low = dict[@"diastolic"];
+                NSString *str_date = dict[@"createTimeString"];
+                [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];
+                [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
+                [measureDate addObject:str_date];
+            }
+            [self.bloodpressureTrendView updateBloodTrendDataList:highBlood lowList:lowBlood dateList:measureDate];
+            [self.temperatureTrendView updateTempatureTrendDataList:self.temperatureList];
+            
+            // 刷新显示数据
+            NSMutableArray *lateData = [[NSMutableArray alloc]initWithCapacity:2];
+            
+            
+            NSDictionary* dict_blood =  self.bloodpressureList.lastObject;
+            NSDictionary* dict_temperature =  self.temperatureList.lastObject;
+            
+            BOOL isEmptyMeasure = NO;
+            
+            if (self.bloodpressureList.count != 0) {
+                [lateData addObject:dict_blood[@"systolic"]];
+            }else{
+                [lateData addObject:@"0"];
+                isEmptyMeasure = YES;
+            }
+            if (self.bloodpressureList.count != 0) {
+                [lateData addObject:dict_blood[@"diastolic"]];
+            }else{
+                [lateData addObject:@"0"];
+                isEmptyMeasure = YES;
+            }
+            if (self.temperatureList.count != 0) {
+                [lateData addObject:dict_temperature[@"temperaturet"]];
+            }else{
+                [lateData addObject:@"0"];
+                isEmptyMeasure = YES;
+            }
+            if (isEmptyMeasure) {
+                self.statusLabel.text = @"待测";
+            }else{
+                self.statusLabel.text = @"正常";
+            }
+            for(int i = 0 ; i<3 ;i++){
+               UILabel *label = self.labelArray[i];
+                label.text = [NSString stringWithFormat:@"%@",lateData[i]];
+            }
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            NSLog(@"%@",error);
+        }];
     }
+    }
+}
+- (void)refreshThisView{
+    [self httpRequestForUser];
+}
+- (void)refreshIconBanner{
+    NSArray *subViews = [self.iconBanner subviews];
+
+    for (UIView *view in subViews) {
+        [view removeFromSuperview];
+    }
+    UIView *iconBanner = self.iconBanner;
+//    self.iconBanner = iconBanner;
+//    iconBanner.backgroundColor = [UIColor whiteColor];
+//    iconBanner.userInteractionEnabled = YES;
+    if (self.userList.count < 6) {
+        YYHomeUserModel *addModel = [[YYHomeUserModel alloc]init];
+        addModel.avatar = @"add_normal";
+        addModel.trueName = @"";
+        [self.userList addObject:addModel];
+    }
+
+    NSInteger userCount = self.userList.count -1;
+    for (int i = 0; i < userCount+1; i++) {
+        //        if (i != userCount) {
+        YYHomeUserModel *userModel = self.userList[i];
+        
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel.avatar]];
+        //        UIImage *icon_user = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        
+        // icon
+        
+        UIImageView *button_banner = [[UIImageView alloc]init];
+        button_banner.userInteractionEnabled = YES;
+        button_banner.tag = 140 +i;
+        
+        UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserData:)];
+        
+        [button_banner addGestureRecognizer:tapGest];
+        if (i == userCount && !self.isFull) {
+            button_banner.image = [UIImage  imageNamed:userModel.avatar];
+        }else{
+            [button_banner sd_setImageWithURL:url];
+        }
+        //        UIButton *button_banner = [UIButton buttonWithType:UIButtonTypeCustom];
+        //        [button_banner setBackgroundImage:icon_user forState:UIControlStateNormal];
+        button_banner.layer.cornerRadius = 37/2.0*kiphone6;
+        button_banner.clipsToBounds = YES;
+        
+        
+        // title
+        UILabel *label_banner = [[UILabel alloc]init];
+        label_banner.text = userModel.trueName;
+        label_banner.font = [UIFont systemFontOfSize:10];
+        label_banner.tag = 150+i;
+        if (i != 0) {
+            label_banner.textColor = [UIColor colorWithHexString:@"333333"];
+        }else{
+            label_banner.textColor = [UIColor colorWithHexString:@"25f368"];}
+        label_banner.textAlignment = NSTextAlignmentCenter;
+        
+        //
+        [iconBanner addSubview:button_banner];
+        [iconBanner addSubview:label_banner];
+        
+        //
+        CGFloat x_padding = (20 +37) *kiphone6;                              // 偏移量
+        if ((userCount +1) %2 == 0) {
+            x_padding = kScreenW /2.0 - (37 +10) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
+        }else{
+            x_padding = kScreenW /2.0 - (37 +20) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
+        }
+        
+        [button_banner mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(iconBanner).with.offset(15 *kiphone6);
+            make.left.equalTo(iconBanner).with.offset(x_padding);
+            make.size.mas_equalTo(CGSizeMake(37 *kiphone6, 37 *kiphone6));
+        }];
+        [label_banner mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(button_banner.mas_bottom).with.offset(5 *kiphone6);
+            make.left.equalTo(button_banner);
+            make.size.mas_equalTo(CGSizeMake(37 *kiphone6 , 10));
+        }];
+        
+}
 }
 /*
 // Only override drawRect: if you perform custom drawing.

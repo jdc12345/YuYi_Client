@@ -57,6 +57,8 @@
 
 // .用户挂号接口
 #define mAppointmentCount [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/getcid.do?cid="]
+// .用户挂号列表
+#define mAppointmentList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/datenumber/findList.do?clinicId="]
 // .药品全部分类接口
 //#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"start=0&limit=10&cid1=1"]
 // .获取药品详情接口
@@ -74,6 +76,9 @@
 #define mHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findList.do?token="]
 // 获取家庭成员
 #define mAddHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/save.do?"]
+// 获取7天测量记录
+#define mHomeuserMeasure [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findOne.do?"]
+
 
 // 血压录入
 #define mBloodpressure [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/bloodpressure/save.do"]

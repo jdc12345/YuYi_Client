@@ -34,6 +34,7 @@
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
 #import "SimpleMedicalModel.h"
+#import "YYFamilyAccountViewController.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -43,6 +44,7 @@
 @property (nonatomic, weak) ZYAlertSView *alertView;
 
 @property (nonatomic, weak) UIButton *leftBtn;
+@property (nonatomic, weak) YYHomeHeadView *headView;
 @property (nonatomic, strong) AMapLocationManager *locationManager2;
 
 @end
@@ -118,6 +120,13 @@
         [self.navigationController pushViewController:infoDetail animated:YES];
         
     };
+    homeHeadView.addFamily = ^(NSString *index){
+        YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
+        
+    };
+  
+    self.headView = homeHeadView;
     self.tableView.tableHeaderView = homeHeadView;
     
   
@@ -356,7 +365,6 @@
                 }
           //      smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(3, 5)];
             }
-            NSLog(@"small array = %ld", bigArray.count);
             [homeTableViewCell updateDataList:bigArray];
         }else{
             homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
@@ -444,7 +452,7 @@
     [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+       // NSLog(@"%@",responseObject);
         NSArray *rowArray = responseObject[@"rows"];
         for (NSDictionary *dict in rowArray){
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
@@ -461,7 +469,7 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"homeUsers = %@",responseObject);
+    //    NSLog(@"homeUsers = %@",responseObject);
         NSArray *usersList = responseObject[@"result"];
         for (NSDictionary *dict in usersList) {
             YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
@@ -487,6 +495,14 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+   
+    if (self.dataSource.count != 0) {
+        [self.headView refreshThisView];
+    }
 }
 // 取消吸顶 顶部悬停
 

@@ -387,7 +387,7 @@
 }
 - (void)httpRequest{
     NSLog(@"cid = %@",self.cid);
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mAppointmentCount,self.cid] method:0 parameters:nil prepareExecute:^{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mAppointmentList,self.cid] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);

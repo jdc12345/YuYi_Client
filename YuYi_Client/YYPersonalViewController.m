@@ -173,23 +173,26 @@
         
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            YYShopCartVC *shopVC = [[YYShopCartVC alloc]init];
-            [self.navigationController pushViewController:shopVC animated:YES];
-        }else{
-            YYOrderDetailVC *shopVC = [[YYOrderDetailVC alloc]init];
-            [self.navigationController pushViewController:shopVC animated:YES];
-        }
-        
-    }else if (indexPath.section == 2){
-        if (indexPath.row == 0) {
             YYFamilyAddViewController *familyVC = [[YYFamilyAddViewController alloc]init];
             [self.navigationController pushViewController:familyVC animated:YES];
         }else{
             YYEquipmentViewController *equipmentVC = [[YYEquipmentViewController alloc]init];
             [self.navigationController pushViewController:equipmentVC animated:YES];
         }
+//        if (indexPath.row == 0) {
+//            YYShopCartVC *shopVC = [[YYShopCartVC alloc]init];
+//            [self.navigationController pushViewController:shopVC animated:YES];
+//        }else{
+//            YYOrderDetailVC *shopVC = [[YYOrderDetailVC alloc]init];
+//            [self.navigationController pushViewController:shopVC animated:YES];
+//        }
         
-    }else{
+    }
+//    else if (indexPath.section == 2){
+//
+//        
+//    }
+    else{
         if (indexPath.row == 0) {
             YYAddressEditVC *shopVC = [[YYAddressEditVC alloc]init];
             [self.navigationController pushViewController:shopVC animated:YES];

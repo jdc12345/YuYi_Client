@@ -12,7 +12,8 @@
 
 @property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
 @property (nonatomic, copy) void(^itemClick)(NSString  *index);
-
+@property (nonatomic, copy) void(^addFamily)(NSString  *index);
 - (instancetype)init;
+- (void)refreshThisView;
 
 @end
