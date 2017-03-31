@@ -94,7 +94,14 @@
     //   self.tableView.tableHeaderView = [self personInfomation];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithbackGroundColor:[UIColor colorWithHexString:@"25f368"] title:@"保存" target:self action:@selector(saveInfo)];
     if (self.isFirstLogin) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(saveInfo)];
+      //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:nil target:self action:@selector(backToRootViewController)];
+        UIButton *nagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        nagBtn.frame = CGRectMake(0, 0, 40, 40);
+        nagBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -15, 0, 15);
+        [nagBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+        
+        [nagBtn addTarget:self action:@selector(backToRootViewController) forControlEvents:UIControlEventTouchUpInside];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:nagBtn];
     }
  
     [self tableView];
@@ -492,11 +499,13 @@
  //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             if(self.isFirstLogin){
-                [self dismissViewControllerAnimated:YES completion:^{
-                    
-                }];
+                YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+                [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
+  
             }else{
                 [self.navigationController popViewControllerAnimated:YES];
+                [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
             }
         }];
         
@@ -508,14 +517,19 @@
     }];
 }
 - (void)viewWillDisappear:(BOOL)animated{
-    if (self.isFirstLogin) {
-        YYTabBarController *firstVC = [[YYTabBarController alloc]init];
-        [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
-    }
+  //  if (self.isFirstLogin) {
+ //       YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+//        [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+ //   }
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
 }
 - (void)backToRootViewController{
     YYTabBarController *firstVC = [[YYTabBarController alloc]init];
     [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
 }
 /*
  #pragma mark - Navigation
