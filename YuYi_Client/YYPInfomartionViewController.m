@@ -487,7 +487,13 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:messageStr preferredStyle:UIAlertControllerStyleAlert];
  //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            [self.navigationController popViewControllerAnimated:YES];
+            if(self.isFirstLogin){
+                [self dismissViewControllerAnimated:YES completion:^{
+                    
+                }];
+            }else{
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }];
         
  //       [alert addAction:cancelAction];
