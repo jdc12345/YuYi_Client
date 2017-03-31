@@ -11,5 +11,5 @@
 
 @interface YYPInfomartionViewController : UIViewController
 @property (nonatomic, strong) YYHomeUserModel *personalModel;
-@property (nonatomic, assign) BOOL *isFirstLogin;
+@property (nonatomic, assign) BOOL isFirstLogin;
 @end
