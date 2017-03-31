@@ -73,7 +73,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的";
-    [self httpRequest];
+ //    [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
@@ -265,6 +265,10 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    [self httpRequest];
 }
 /*
 #pragma mark - Navigation

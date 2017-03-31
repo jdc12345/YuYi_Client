@@ -21,6 +21,8 @@
 #import "CcUserModel.h"
 #import "HttpClient.h"
 #import <UIImageView+WebCache.h>
+#import <UIImageView+WebCache.h>
+#import "YYTabBarController.h"
 @interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -276,7 +278,8 @@
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 10, kScreenW, 70 *kiphone6)];
     headerView.backgroundColor = [UIColor whiteColor];
     
-    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LIM_"]];
+    UIImageView *iconV = [[UIImageView alloc]init];
+    [iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
     
@@ -493,6 +496,12 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    if (self.isFirstLogin) {
+        YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+        [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+    }
 }
 
 /*
