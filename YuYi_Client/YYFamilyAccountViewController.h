@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YYHomeUserModel.h"
 @interface YYFamilyAccountViewController : UIViewController
+
+@property (nonatomic, strong) NSString *titleStr;
+@property (nonatomic, strong) YYHomeUserModel *personalModel;
 
 @end

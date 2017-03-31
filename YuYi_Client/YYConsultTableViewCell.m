@@ -23,7 +23,10 @@
     return self;
 }
 - (void)createDetailView:(NSInteger)lineNum{
+    if (!self.iconV) {
+    
     //..邪恶的分割线
+    
     UILabel *lineL = [[UILabel alloc]init];
     lineL.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     
@@ -33,7 +36,7 @@
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
     self.titleLabel.font = [UIFont systemFontOfSize:15];
-    self.titleLabel.text = @"涿州市中医院";
+//    self.titleLabel.text = @"涿州市中医院";
     
     
     self.introduceLabel = [[UILabel alloc]init];
@@ -90,21 +93,24 @@
         make.right.equalTo(self.posLabel.mas_left).offset(-5 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(8 *kiphone6, 12 *kiphone6));
     }];
-    
+    }
 }
-- (void)addStarView{
-    UILabel *starLabel = [[UILabel alloc]init];
-    starLabel.text = @"电话：0312-4433225";
-    starLabel.textColor = [UIColor colorWithHexString:@"666666"];
-    starLabel.font = [UIFont systemFontOfSize:12];
-    
-    [self addSubview:starLabel];
-    
-    [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.titleLabel.mas_bottom).with.offset(12 *kiphone6);
-        make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(200 *kiphone6, 12 *kiphone6));
-    }];
+- (void)addStarView:(NSString *)telePhone{
+    if (!self.doubleLabel) {
+        UILabel *starLabel = [[UILabel alloc]init];
+        starLabel.text = [NSString stringWithFormat:@"电话：%@",telePhone];
+        starLabel.textColor = [UIColor colorWithHexString:@"666666"];
+        starLabel.font = [UIFont systemFontOfSize:12];
+        
+        [self addSubview:starLabel];
+        self.doubleLabel = starLabel;
+        [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.titleLabel.mas_bottom).with.offset(12 *kiphone6);
+            make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);
+            make.size.mas_equalTo(CGSizeMake(200 *kiphone6, 12 *kiphone6));
+        }];
+    }
+
     
     
 }

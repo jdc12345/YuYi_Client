@@ -15,4 +15,5 @@
 @property (nonatomic, copy) NSString *trueName;
 @property (nonatomic, copy) NSString *info_id;
 @property (nonatomic, copy) NSString *clinicId;
+@property (nonatomic, copy) NSString *departmentId;
 @end

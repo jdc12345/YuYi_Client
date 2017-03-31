@@ -39,7 +39,7 @@
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_id forKey:@"provider_id"];
     [[NSUserDefaults standardUserDefaults] setValue:self.provider_uid forKey:@"provider_uid"];
     [[NSUserDefaults standardUserDefaults] setValue:self.userToken forKey:@"userToken"];
-     [[NSUserDefaults standardUserDefaults] setValue:self.userToken forKey:@"telephoneNum"];
+     [[NSUserDefaults standardUserDefaults] setValue:self.telephoneNum forKey:@"telephoneNum"];
 }
 - (void)setUserModelInfo{
     self.avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"avatar"];

@@ -37,6 +37,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *idLabel;
 @property (nonatomic, strong) UIImageView *iconV;
+@property (nonatomic, strong) YYHomeUserModel *personalModel;
 
 @end
 
@@ -155,6 +156,7 @@
 - (void)headViewClick{
     NSLog(@"123");
     YYPInfomartionViewController *pInfoVC = [[YYPInfomartionViewController alloc]init];
+    pInfoVC.personalModel = self.personalModel;
     [self.navigationController pushViewController:pInfoVC animated:YES];
 }
 
@@ -174,6 +176,7 @@
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             YYFamilyAddViewController *familyVC = [[YYFamilyAddViewController alloc]init];
+            familyVC.personalModel = self.personalModel;
             [self.navigationController pushViewController:familyVC animated:YES];
         }else{
             YYEquipmentViewController *equipmentVC = [[YYEquipmentViewController alloc]init];
@@ -248,12 +251,16 @@
         NSDictionary *dict = responseObject[@"result"];
 //        CcUserModel *userMoedel = [CcUserModel mj_objectWithKeyValues:responseObject];
         YYHomeUserModel *userMoedel = [YYHomeUserModel mj_objectWithKeyValues:dict];
-        NSLog(@"%@",userMoedel.trueName);
+        
+        
+        NSLog(@"%@",userMoedel.avatar);
+        
+        
         [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userMoedel.avatar]]];
         
         self.nameLabel.text = userMoedel.trueName;
         self.idLabel.text = [NSString stringWithFormat:@"%@",userMoedel.info_id];
-        
+        self.personalModel = userMoedel;
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         

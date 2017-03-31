@@ -85,7 +85,7 @@
     if (self) {
         NSLog(@"123123123");
         
-        self.backgroundColor = kColor_DefaultGray;
+        self.backgroundColor = [UIColor whiteColor];
         
         self.userInteractionEnabled = YES;
          self.frame = CGRectMake(0, 0, kScreenW, 732 *kiphone6);
@@ -160,8 +160,8 @@
         addModel.trueName = @"";
         [self.userList addObject:addModel];
     }
-    NSInteger userCount = self.userList.count -1;
-    for (int i = 0; i < userCount+1; i++) {
+//    NSInteger userCount = self.userList.count -1;
+    for (int i = 0; i < self.userList.count; i++) {
 //        if (i != userCount) {
             YYHomeUserModel *userModel = self.userList[i];
         
@@ -177,7 +177,7 @@
         UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserData:)];
         
         [button_banner addGestureRecognizer:tapGest];
-        if (i == userCount && !self.isFull) {
+        if (i == self.userList.count -1 && !self.isFull) {
             button_banner.image = [UIImage  imageNamed:userModel.avatar];
         }else{
             [button_banner sd_setImageWithURL:url];
@@ -205,11 +205,12 @@
         
         //
         CGFloat x_padding = (20 +37) *kiphone6;                              // 偏移量
-        if ((userCount +1) %2 == 0) {
-            x_padding = kScreenW /2.0 - (37 +10) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
-        }else{
-            x_padding = kScreenW /2.0 - (37 +20) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
-        }
+//        if ((self.userList.count) %2 == 0) {
+//            x_padding = kScreenW /2.0 - (37 +10) *kiphone6 *(self.userList.count)/2.0 + i *(37 +20) *kiphone6;
+//        }else{
+//            x_padding = kScreenW /2.0 - (37 +20) *kiphone6 *(self.userList.count)/2.0 + i *(37 +20) *kiphone6;
+//        }
+        x_padding = (kScreenW -37*(self.userList.count) -10*(self.userList.count -1))/2.0 +57*(i) -18.5;
         
         [button_banner mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(iconBanner).with.offset(15 *kiphone6);
@@ -697,12 +698,13 @@
         
         //
         CGFloat x_padding = (20 +37) *kiphone6;                              // 偏移量
-        if ((userCount +1) %2 == 0) {
-            x_padding = kScreenW /2.0 - (37 +10) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
-        }else{
-            x_padding = kScreenW /2.0 - (37 +20) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
-        }
-        
+//        if ((userCount +1) %2 == 0) {
+//            x_padding = kScreenW /2.0 - (37 +10) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
+//        }else{
+//            x_padding = kScreenW /2.0 - (37 +20) *kiphone6 *(userCount +1)/2.0 + i *(37 +20) *kiphone6;
+//        }
+        x_padding = (kScreenW -37*(self.userList.count) -10*userCount)/2.0 +57*(i) -18.5;
+        NSLog(@"左侧偏移量%g userCount = %ld",x_padding,self.userList.count);
         [button_banner mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(iconBanner).with.offset(15 *kiphone6);
             make.left.equalTo(iconBanner).with.offset(x_padding);

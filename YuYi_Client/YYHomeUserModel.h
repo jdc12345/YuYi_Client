@@ -20,7 +20,11 @@
 @property (nonatomic, copy) NSString *info_id;
 @property (nonatomic, copy) NSString *role;
 @property (nonatomic, copy) NSString *trueName;
+@property (nonatomic, copy) NSString *idCard;
+@property (nonatomic, copy) NSString *gender;
 @property (nonatomic, copy) NSArray *bloodpressureList;
 @property (nonatomic, copy) NSArray *temperatureList;
+@property (nonatomic, copy) NSString *telephone;
+
 
 @end

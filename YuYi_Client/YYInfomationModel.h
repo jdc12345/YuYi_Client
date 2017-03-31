@@ -23,4 +23,16 @@
 @property (nonatomic, copy) NSString *info_id;
 @property (nonatomic, copy) NSString *picture;
 
+
+// 文章
+@property (nonatomic, copy) NSString *articleText;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *smalltitle;
+@property (nonatomic, copy) NSString *tell;
+
+
+@property (nonatomic, assign) double lat;
+@property (nonatomic, assign) double lng;
+
+
 @end

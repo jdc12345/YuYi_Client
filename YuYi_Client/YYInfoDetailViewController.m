@@ -19,7 +19,8 @@
 @property (nonatomic, strong) UIImageView *imageV;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *starLabel;
-@property (nonatomic, strong) UILabel *introduceLabel;
+@property (nonatomic, strong) UITextView *introduceLabel;
+@property (nonatomic, strong) UILabel *typeLabel;
 
 
 @end
@@ -28,12 +29,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self httpRequest];
-    self.title = @"资讯详情";
-    self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     
     self.infomationS = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH -64)];
     self.infomationS.backgroundColor = [UIColor whiteColor];
+    [self httpRequest];
+    self.title = @"资讯详情";
+    self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.infomationS];
@@ -61,17 +63,24 @@
     subLabel.font = [UIFont systemFontOfSize:15];
     subLabel.textColor = [UIColor colorWithHexString:@"25f368"];
     
-    UILabel *infoLabel = [[UILabel alloc]init];
+//    UILabel *infoLabel = [[UILabel alloc]init];
+//    infoLabel.text = @"涿州市中医院";
+//    infoLabel.font = [UIFont systemFontOfSize:14];
+//    infoLabel.numberOfLines = 0;
+//    infoLabel.textColor = [UIColor colorWithHexString:@"333333"];
+    
+    UITextView *infoLabel = [[UITextView alloc]init];
+    
     infoLabel.text = @"涿州市中医院";
-    infoLabel.font = [UIFont systemFontOfSize:14];
     infoLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    
-    
+    infoLabel.font = [UIFont systemFontOfSize:14];
+    infoLabel.editable = NO;
     
     self.imageV = imageV;
     self.titleLabel = titleLabel;
     self.starLabel = detailLabel;
     self.introduceLabel = infoLabel;
+    self.typeLabel = subLabel;
 //    imageV.backgroundColor = [UIColor cyanColor];
 //    detailLabel.backgroundColor = [UIColor redColor];
 //    subLabel.backgroundColor =[ UIColor yellowColor];
@@ -113,11 +122,14 @@
     [infoLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(subLabel.mas_bottom).with.offset(19 *kiphone6);
         make.left.equalTo(titleLabel.mas_left).with.offset(0);
-        make.size.mas_equalTo(CGSizeMake(kScreenW -40 *kiphone6,14 *kiphone6));
+//        make.bottom.equalTo(ws.infomationS).with.offset(-20);
+//        make.right.equalTo(ws.infomationS).with.offset(-20);
+//        make.width.mas_equalTo(kScreenW -40 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(kScreenW -40 *kiphone6,230 *kiphone6));
     }];
     
     
-    self.infomationS.contentSize = CGSizeMake(kScreenW, CGRectGetMaxY(infoLabel.frame));
+//    self.infomationS.contentSize = CGSizeMake(kScreenW, CGRectGetMaxY(infoLabel.frame));
     
 }
 - (void)didReceiveMemoryWarning {
@@ -133,9 +145,11 @@
         NSLog(@"%@",responseObject);
         [self createSubView];
         [self.imageV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,responseObject[@"picture"]]]];
-        self.titleLabel.text = responseObject[@"hospitalName"];
-        self.starLabel.text = responseObject[@"gradeName"];
-        self.introduceLabel.text = responseObject[@"introduction"];
+        self.titleLabel.text = responseObject[@"title"];
+        self.starLabel.text = responseObject[@"smalltitle"];
+        self.introduceLabel.text = responseObject[@"articleText"];
+        self.typeLabel.text = responseObject[@"type"];
+        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

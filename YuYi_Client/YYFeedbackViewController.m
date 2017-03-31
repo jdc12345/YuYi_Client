@@ -121,9 +121,19 @@
 - (void)sendFeedBack{
     NSString *tokenStr = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@content=%@&token=%@&contact=%@",mFeedBack,self.feedTextView.text,tokenStr,self.phoneTextF.text] method:0 parameters:nil prepareExecute:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"提交成功");
+        NSLog(@"提交成功%@",responseObject);
+
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"反馈意见提交成功" preferredStyle:UIAlertControllerStyleAlert];
+        //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+        //       [alert addAction:cancelAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

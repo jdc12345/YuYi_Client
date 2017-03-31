@@ -35,6 +35,9 @@
 #import "YYHomeUserModel.h"
 #import "SimpleMedicalModel.h"
 #import "YYFamilyAccountViewController.h"
+#import "JPUSHService.h"
+#import "RCUserModel.h"
+#import "RCUserModel.h"
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -97,6 +100,9 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"首页";
+    [self httpRequestRCToken];
+    [JPUSHService setAlias:[CcUserModel defaultClient].telephoneNum callbackSelector:nil object:nil];
+    NSLog(@"phone = %@",[CcUserModel defaultClient].telephoneNum);
     [self httpRequest];
     [self httpRequestForMedical];
     
@@ -212,8 +218,9 @@
                 return;
             }
         }
-        
         NSLog(@"location:%@", location);
+        [CcUserModel defaultClient].loation = location;
+
         
         if (regeocode)
         {
@@ -341,8 +348,8 @@
         if (self.dataSource.count != 0) {
             YYInfomationModel *infoModel = self.dataSource[indexPath.row];
             [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
-            homeTableViewCell.titleLabel.text = infoModel.hospitalName;
-            homeTableViewCell.introduceLabel.text = infoModel.introduction;
+            homeTableViewCell.titleLabel.text = infoModel.title;
+            homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
         }else{
             homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
         }
@@ -452,7 +459,7 @@
     [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-       // NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         NSArray *rowArray = responseObject[@"rows"];
         for (NSDictionary *dict in rowArray){
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
@@ -503,6 +510,23 @@
     if (self.dataSource.count != 0) {
         [self.headView refreshThisView];
     }
+}
+
+
+
+- (void)httpRequestRCToken{
+    CcUserModel *userModel = [CcUserModel defaultClient];
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCtokenUrl,userModel.telephoneNum] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        RCUserModel *userModel_rc = [RCUserModel defaultClient];
+        userModel_rc.token = responseObject[@"token"];
+        userModel_rc.Avatar = responseObject[@"Avatar"];
+        userModel_rc.TrueName = responseObject[@"TrueName"];
+        userModel_rc.info_id = responseObject[@"id"];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 // 取消吸顶 顶部悬停
 

@@ -19,6 +19,11 @@
 #import "YYDataAnalyseViewController.h"
 #import "YYDetailRecardViewController.h"
 #import "YYPInfomartionViewController.h"
+#import <UIImageView+WebCache.h>
+#import "FamilyRecardViewController.h"
+#import "YYRecardViewController.h"
+#import "CcUserModel.h"
+#import "HttpClient.h"
 
 @interface YYPersonalInfoViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -65,7 +70,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人信息";
     self.tableView.tableHeaderView = [self personInfomation];
-
+    
 }
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
@@ -74,10 +79,17 @@
     if (indexPath.row != 2) {
         if (indexPath.row == 0) {
             YYDataAnalyseViewController *dataVC = [[YYDataAnalyseViewController alloc]init];
+            dataVC.userHome_id = self.personalModel.info_id;
             [self.navigationController pushViewController:dataVC animated:YES];
         }else{
-            YYDetailRecardViewController *recardVC = [[YYDetailRecardViewController alloc]init];
-            [self.navigationController pushViewController:recardVC animated:YES];
+            if ([self.type isEqualToString:@"我"]) {
+                YYRecardViewController *recardVC = [[YYRecardViewController alloc]init];
+                [self.navigationController pushViewController:recardVC animated:YES];
+            }else{
+                FamilyRecardViewController *recardVC = [[FamilyRecardViewController alloc]init];
+                recardVC.familyID = self.personalModel.info_id;
+                [self.navigationController pushViewController:recardVC animated:YES];
+            }
         }
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];
@@ -171,6 +183,8 @@
 
 - (void)addFamily{
     YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+    familyAVC.titleStr = @"修改用户信息";
+    familyAVC.personalModel = self.personalModel;
     [self.navigationController pushViewController:familyAVC animated:YES];
 }
 - (UIView *)personInfomation{
@@ -178,27 +192,29 @@
     UIView *personV = [[UIView alloc]initWithFrame:CGRectMake(10, 10, kScreenW -20, 90 *kiphone6)];
     personV.backgroundColor = [UIColor whiteColor];
     
-//    
-//    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headViewClick)];
-//    [personV addGestureRecognizer:tapGest];
-//    
+    //
+    //    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headViewClick)];
+    //    [personV addGestureRecognizer:tapGest];
+    //
     
     UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 108.5)];
     headerView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     [headerView addSubview:personV];
     
-    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LIM_"]];
+    UIImageView *iconV = [[UIImageView alloc]init];//WithImage:[UIImage imageNamed:@"LIM_"]];
+    [iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
+    
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
     //
     UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"李美丽(我)    18岁";
+    nameLabel.text = [NSString stringWithFormat:@"%@    %@岁",self.personalModel.trueName,self.personalModel.age];//@"李美丽(我)    18岁";
     nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
     nameLabel.font = [UIFont systemFontOfSize:14];
     //
     UILabel *idName = [[UILabel alloc]init];
-    idName.text = @"18328887563";
+    idName.text = self.personalModel.info_id;//@"18328887563";
     idName.textColor = [UIColor colorWithHexString:@"333333"];
     idName.font = [UIFont systemFontOfSize:13];
     
@@ -207,11 +223,27 @@
     [btn setImage:[UIImage imageNamed:@"edit"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [btn sizeToFit];
+    
+    
+    UIButton *sureBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
+    sureBtn.layer.cornerRadius = 1.5 *kiphone6;
+    sureBtn.layer.borderWidth = 0.5 *kiphone6;
+    sureBtn.layer.borderColor = [UIColor colorWithHexString:@"e00610"].CGColor;
+    sureBtn.clipsToBounds = YES;
+    [sureBtn setTitle:@"删除" forState:UIControlStateNormal];
+    sureBtn.backgroundColor = [UIColor clearColor];
+    [sureBtn setTitleColor:[UIColor colorWithHexString:@"e00610"] forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    //     [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
+    [sureBtn addTarget:self action:@selector(buttonClick1:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     //
     [personV addSubview:iconV];
     [personV addSubview:nameLabel];
     [personV addSubview:idName];
     [personV addSubview:btn];
+    [self.view addSubview:sureBtn];
     //
     [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(personV).with.offset(0);
@@ -235,22 +267,54 @@
         make.top.equalTo(personV).with.offset(15 *kiphone6);
         make.right.equalTo(personV).with.offset(-10 *kiphone6);
     }];
-    
-    
+    WS(ws);
+    [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(ws.view).with.offset(-9.5 *kiphone6);
+        make.centerX.equalTo(ws.view);
+        make.size.mas_equalTo(CGSizeMake(150 *kiphone6 ,50 *kiphone6));
+    }];
     
     return headerView;
 }
 -(void)searchBtnClick:(UIButton*)sender{
-    [self.navigationController pushViewController:[[YYPInfomartionViewController alloc]init] animated:YES];
+    YYFamilyAccountViewController *changeFamilyInfo = [[YYFamilyAccountViewController alloc]init];
+    changeFamilyInfo.titleStr = @"修改用户信息";
+    changeFamilyInfo.personalModel = self.personalModel;
+    [self.navigationController pushViewController:changeFamilyInfo animated:YES];
+}
+-(void)buttonClick1:(UIButton *)button{
+    // [button setBackgroundColor:[UIColor whiteColor]];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除家庭用户？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self httpRequestRemoveUser];
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)httpRequestRemoveUser{
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&id=%@",mremoveFamily,tokenStr,self.personalModel.info_id] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

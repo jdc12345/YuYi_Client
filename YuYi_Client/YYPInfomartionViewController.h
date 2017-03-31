@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YYHomeUserModel.h"
 
 @interface YYPInfomartionViewController : UIViewController
-
+@property (nonatomic, strong) YYHomeUserModel *personalModel;
 @end

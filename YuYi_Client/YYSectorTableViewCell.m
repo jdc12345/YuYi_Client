@@ -100,6 +100,7 @@
     countLabel.textColor = [UIColor colorWithHexString:@"fefbfb"];
     countLabel.font = [UIFont systemFontOfSize:10];
     countLabel.textAlignment = NSTextAlignmentCenter;
+    self.countLabel = countLabel;
     
     
     [self.appointmentBtn addSubview:texttxet];

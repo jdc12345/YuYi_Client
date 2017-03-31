@@ -36,7 +36,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -72,6 +72,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"家庭用户管理";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     [self httpRequestForUser];
 
@@ -87,7 +88,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
     YYPersonalInfoViewController *personalInfo = [[YYPersonalInfoViewController alloc]init];
+    YYHomeUserModel *userModel = self.userList[indexPath.row];
+    personalInfo.personalModel = userModel;
     personalInfo.titleStr = @"李苗";
+    if (indexPath.row == 0) {
+        personalInfo.type = @"我";
+    }else{
+        personalInfo.type = @"家人";
+    }
     [self.navigationController pushViewController:personalInfo animated:YES];
 
 }
@@ -142,22 +150,31 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        
+        [self.userList removeAllObjects];
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.userList addObject:userModel];
         }
         
-        
+        if (self.tableView) {
+            [self.tableView reloadData];
+        }else{
         UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 0 *kiphone6)];
         headView.backgroundColor = [UIColor clearColor];
-        self.tableView.tableHeaderView = headView;
+            self.tableView.tableHeaderView = headView;}
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);
     }];
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if (self.userList.count != 0) {
+          [self httpRequestForUser];
+    }
+  
 }
 
 /*

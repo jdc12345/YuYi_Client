@@ -13,7 +13,8 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *introduceLabel;
 @property (nonatomic, strong) UILabel *posLabel;
+@property (nonatomic, weak) UILabel *doubleLabel;
 
 - (void)createDetailView:(NSInteger)lineNum;
-- (void)addStarView;
+- (void)addStarView:(NSString *)telePhone;
 @end

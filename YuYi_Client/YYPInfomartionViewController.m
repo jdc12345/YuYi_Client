@@ -20,6 +20,7 @@
 #import "UIBarButtonItem+Helper.h"
 #import "CcUserModel.h"
 #import "HttpClient.h"
+#import <UIImageView+WebCache.h>
 @interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -32,9 +33,11 @@
 @property (nonatomic, weak) UIImageView *womanV;
 
 
-@property (nonatomic,strong) NSString *filePath;
+@property (nonatomic, strong) NSString *filePath;
 @property (nonatomic, weak) UIImageView *userIcon;
-@property (nonatomic,strong) UIImage *chooseImage;
+@property (nonatomic, strong) UIImage *chooseImage;
+@property (nonatomic, weak) YYPInfomationTableViewCell *genderCell;
+
 
 @end
 
@@ -197,7 +200,15 @@
                 
             }
             
+
             UIImageView *imageGreenV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:imageStr[i]]];
+            if ([self.genderCell.seeRecardLabel.text isEqualToString:@"女"]) {
+                if (i == 1) {
+                    imageGreenV.image = [UIImage imageNamed:@"circle-icon-selected-2"];
+                }else{
+                    imageGreenV.image = [UIImage imageNamed:@"circle-icon-uncheck-2"];
+                }
+            }
             imageGreenV.clipsToBounds = YES;
             
             
@@ -307,17 +318,23 @@
     homeTableViewCell.titleLabel.text = self.dataSource[indexPath.row];
     if (indexPath.row ==  0) {
         [homeTableViewCell setType:@"celltextfield"];
-         homeTableViewCell.editInfoText.text = @"18511694068";
+        homeTableViewCell.editInfoText.text = self.personalModel.trueName;//@"18511694068";
          homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  1) {
-        homeTableViewCell.seeRecardLabel.text = @"男";
+        if ([self.personalModel.gender isEqualToString:@"0"]) {
+            homeTableViewCell.seeRecardLabel.text = @"女";
+        }else{
+            homeTableViewCell.seeRecardLabel.text = @"男";
+        }
+        self.genderCell = homeTableViewCell;
+        
     }else if (indexPath.row ==  2) {
         [homeTableViewCell setType:@"celltextfield"];
-        homeTableViewCell.editInfoText.text = @"26";
+        homeTableViewCell.editInfoText.text = self.personalModel.age;//@"26";
          homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  3) {
         [homeTableViewCell setType:@"celltextfield"];
-        homeTableViewCell.editInfoText.text = @"2301221993077220014";
+        homeTableViewCell.editInfoText.text = self.personalModel.idCard;//@"2301221993077220014";
         homeTableViewCell.selectionStyle = UITableViewCellSelectionStyleNone;
     }else if (indexPath.row ==  4) {
         homeTableViewCell.seeRecardLabel.text = @"黑龙江省哈尔滨";
@@ -338,9 +355,11 @@
     if (index == 0) {
         self.manV.image = [UIImage imageNamed:imageStr[0]];
         self.womanV.image = [UIImage imageNamed:imageStr[1]];
+        self.genderCell.seeRecardLabel.text = @"男";
     }else if(index == 1){
         self.manV.image = [UIImage imageNamed:imageStr[1]];
         self.womanV.image = [UIImage imageNamed:imageStr[0]];
+        self.genderCell.seeRecardLabel.text = @"女";
     }
 }
 
@@ -434,9 +453,9 @@
         }else if(i == 1&&![cell.seeRecardLabel.text isEqualToString:@""]){
             NSString *gender;
             if ([cell.seeRecardLabel.text isEqualToString:@"男"]) {
-                gender = @"0";
-            }else{
                 gender = @"1";
+            }else{
+                gender = @"0";
             }
             [dict setObject:gender forKey:@"gender"];
         }else if(i == 2&&![cell.editInfoText.text isEqualToString:@""]){
@@ -456,6 +475,21 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
+        NSString *messageStr;
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            messageStr = @"用户信息保存成功";
+        }else{
+            messageStr = @"用户信息保存失败";
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:messageStr preferredStyle:UIAlertControllerStyleAlert];
+ //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        
+ //       [alert addAction:cancelAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

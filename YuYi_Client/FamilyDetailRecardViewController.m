@@ -1,12 +1,12 @@
 //
-//  YYDetailRecardViewController.m
+//  FamilyDetailRecardViewController.m
 //  YuYi_Client
 //
-//  Created by wylt_ios_1 on 2017/2/24.
+//  Created by wylt_ios_1 on 2017/3/30.
 //  Copyright © 2017年 wylt_ios_1. All rights reserved.
 //
 
-#import "YYDetailRecardViewController.h"
+#import "FamilyDetailRecardViewController.h"
 #import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
 #import <Masonry.h>
@@ -20,15 +20,16 @@
 #import <MJExtension.h>
 
 
-@interface YYDetailRecardViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface FamilyDetailRecardViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, strong) NSArray *iconList;
 @property (nonatomic, strong) RecardDetailModel *dataModel;
+
 @end
 
-@implementation YYDetailRecardViewController
+@implementation FamilyDetailRecardViewController
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
@@ -68,7 +69,7 @@
     //    self.iconList =@[@[@"18511694068",@"男",@"24"],@[@"黑龙江哈尔滨",@"程序员",@"未婚"],@[@"2016-10-23"]];
     
     
-   
+    
     
     // Do any additional setup after loading the view.
 }
@@ -189,7 +190,7 @@
 #pragma mark ------------Http client----------------------
 
 - (void)httpRequest{
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mMedicalDetail,self.recardID] method:0 parameters:nil prepareExecute:^{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mfamilyMedicalDetail,@"10"] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
@@ -197,21 +198,11 @@
         NSDictionary *dict = responseObject;
         self.dataModel = [RecardDetailModel mj_objectWithKeyValues:dict];
         self.tableView.tableFooterView = [self personInfomation];
-//        [self.tableView reloadData];
+        //        [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
 }
 
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

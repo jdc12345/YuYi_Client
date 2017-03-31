@@ -139,9 +139,10 @@
 #pragma mark -
 #pragma mark ------------Http client----------------------
 - (void)httpRequest{
-    [[HttpClient defaultClient]requestWithPath:mHomepageInfo method:0 parameters:nil prepareExecute:^{
+    [[HttpClient defaultClient]requestWithPath:mHospitalInfoList method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
         NSArray *rowArray = responseObject[@"rows"];
         for (NSDictionary *dict in rowArray){
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];

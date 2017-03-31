@@ -11,6 +11,10 @@
 #import "UIColor+Extension.h"
 #import <Masonry.h>
 #import "YYTrendView.h"
+#import "HttpClient.h"
+#import <MJExtension.h>
+#import "CcUserModel.h"
+#import "YYHomeUserModel.h"
 
 @interface YYDataAnalyseViewController ()<UIScrollViewDelegate>
 
@@ -22,10 +26,37 @@
 @property (nonatomic, weak) UIButton *temperBtn;
 @property (nonatomic, weak) UILabel *greenLabel;
 
+
+@property (nonatomic, strong) NSMutableArray *bloodpressureList;
+@property (nonatomic, strong) NSMutableArray *temperatureList;
+
+@property (nonatomic, strong) NSArray *listlist;
+
+@property (nonatomic, weak) YYTrendView *bloodpressureTrendView;
+@property (nonatomic, weak) YYTrendView *temperatureTrendView;
+
+
+@property (nonatomic, weak) UILabel *statusLabel;
+@property (nonatomic, weak) UILabel *statusLabel_temperature;
+@property (nonatomic, weak) UILabel *hihgBloodLabel;
+@property (nonatomic, weak) UILabel *lowBloodLabel;
+@property (nonatomic, weak) UILabel *temperatureLabel;
+
 @end
 
 @implementation YYDataAnalyseViewController
-
+- (NSMutableArray *)temperatureList{
+    if (_temperatureList == nil) {
+        _temperatureList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _temperatureList;
+}
+- (NSMutableArray *)bloodpressureList{
+    if (_bloodpressureList == nil) {
+        _bloodpressureList = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _bloodpressureList;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
@@ -50,6 +81,7 @@
     }];
     [self createTrendView];
     [self createTemperatureTrendView];
+    [self httpRequest];
     // Do any additional setup after loading the view.
 }
 - (void)createSubView{
@@ -131,6 +163,7 @@
     
     [infoView addSubview:imageV];
     [infoView addSubview:statusLabel];
+    self.statusLabel = statusLabel;
     
     [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(infoView).with.offset(26.5 *kiphone6);
@@ -177,7 +210,11 @@
             make.left.equalTo(test_banner);
             make.size.mas_equalTo(CGSizeMake(kLabelW *kiphone6 , 9));
         }];
-        
+        if (i == 0) {
+            self.hihgBloodLabel = test_banner;
+        }else{
+            self.lowBloodLabel = test_banner;
+        }
         
     }
 
@@ -195,7 +232,7 @@
     trendView.backgroundColor = [UIColor colorWithHexString:@"8bfad4"];
     
     [self.bloodView addSubview:trendView];
-    
+    self.bloodpressureTrendView = trendView;
     [trendView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(infoView.mas_bottom).with.offset(0 *kiphone6);
         make.left.equalTo(self.bloodView).with.offset(10 *kiphone6);
@@ -264,7 +301,7 @@
     statusLabel.font = [UIFont systemFontOfSize:9];
     statusLabel.textColor = [UIColor colorWithHexString:@"25f368"];
     statusLabel.textAlignment = NSTextAlignmentCenter;
-    
+    self.statusLabel_temperature = statusLabel;
     [infoView addSubview:imageV];
     [infoView addSubview:statusLabel];
     
@@ -300,7 +337,7 @@
         //
         [infoView addSubview:test_banner];
         [infoView addSubview:label_banner];
-        
+        self.temperatureLabel = test_banner;
         
         
         [test_banner mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -331,6 +368,7 @@
     trendView.backgroundColor = [UIColor colorWithHexString:@"8bfad4"];
     
     [self.temperature addSubview:trendView];
+    self.temperatureTrendView = trendView;
     
     [trendView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(infoView.mas_bottom).with.offset(0 *kiphone6);
@@ -404,6 +442,74 @@
             self.greenLabel.frame = CGRectMake(kScreenW/2.0, 64+42, kScreenW/2.0, 2);
         }];
     }
+}
+- (void)httpRequest{
+    
+    CcUserModel *userModel = [CcUserModel defaultClient];
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&humeuserId=%@",mHomeuserMeasure,userModel.userToken,self.userHome_id] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *result = responseObject[@"result"];
+        YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:result];
+        self.temperatureList = userModel.temperatureList;
+        self.bloodpressureList = userModel.bloodpressureList;
+        NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
+        NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
+        NSMutableArray *measureDate = [[NSMutableArray alloc]initWithCapacity:2];
+        for (NSDictionary *dict  in userModel.bloodpressureList) {
+            NSString *str_high = dict[@"systolic"];
+            NSString *str_low = dict[@"diastolic"];
+            NSString *str_date = dict[@"createTimeString"];
+            [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];
+            [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
+            [measureDate addObject:str_date];
+        }
+        [self.bloodpressureTrendView updateBloodTrendDataList:highBlood lowList:lowBlood dateList:measureDate];
+        [self.temperatureTrendView updateTempatureTrendDataList:self.temperatureList];
+        
+        
+        // 刷新显示数据
+        NSMutableArray *lateData = [[NSMutableArray alloc]initWithCapacity:2];
+        
+        
+        NSDictionary* dict_blood =  self.bloodpressureList.lastObject;
+        NSDictionary* dict_temperature =  self.temperatureList.lastObject;
+        
+        BOOL isEmptyMeasure = NO;
+        
+        if (self.bloodpressureList.count != 0) {
+            [lateData addObject:[NSString stringWithFormat:@"%@",dict_blood[@"systolic"]]];
+        }else{
+            [lateData addObject:@"0"];
+            isEmptyMeasure = YES;
+        }
+        if (self.bloodpressureList.count != 0) {
+            [lateData addObject:[NSString stringWithFormat:@"%@",dict_blood[@"diastolic"]]];
+        }else{
+            [lateData addObject:@"0"];
+            isEmptyMeasure = YES;
+        }
+        if (self.temperatureList.count != 0) {
+            self.statusLabel_temperature.text = @"正常";
+            [lateData addObject:[NSString stringWithFormat:@"%@",dict_temperature[@"temperaturet"]]];
+        }else{
+            [lateData addObject:@"0"];
+            self.statusLabel_temperature.text = @"待测";
+        }
+        
+        
+        self.hihgBloodLabel.text = lateData[0];
+        self.lowBloodLabel.text = lateData[1];
+        self.temperatureLabel.text = lateData[2];
+        if (isEmptyMeasure) {
+            self.statusLabel.text = @"待测";
+        }else{
+            self.statusLabel.text = @"正常";
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 #pragma mark -

@@ -21,6 +21,9 @@
     return self;
 }
 - (void)createDetailView:(NSInteger)lineNum{
+    if (!self.iconV) {
+        
+    
     //..邪恶的分割线
     UILabel *lineL = [[UILabel alloc]init];
     lineL.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
@@ -67,10 +70,13 @@
         make.left.equalTo(self.iconV.mas_right).with.offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(205 *kiphone6, 15 *lineNum));
     }];
-
+    }
     
 }
 - (void)addStarView{
+    if (!self.starLabel) {
+        
+
     UILabel *starLabel = [[UILabel alloc]init];
     starLabel.text = @"";
     starLabel.textColor = [UIColor colorWithHexString:@"686868"];
@@ -83,7 +89,7 @@
         make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(60 , 13 *kiphone6));
     }];
-    
+    }
     
 }
 - (void)setLineNum:(NSInteger)lineNum{

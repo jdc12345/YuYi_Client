@@ -46,6 +46,12 @@
 		165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */; };
 		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
 		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
+		3E091DD61E8B65050084B677 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E091DD11E8B65050084B677 /* NSArray+Log.m */; };
+		3E091DD71E8B65050084B677 /* NSDictionary+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E091DD31E8B65050084B677 /* NSDictionary+Log.m */; };
+		3E091DD81E8B65050084B677 /* NSString+unicode.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E091DD51E8B65050084B677 /* NSString+unicode.m */; };
+		3E0BC53C1E8CDF7E004D413D /* RCUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0BC53B1E8CDF7E004D413D /* RCUserModel.m */; };
+		3E0BC53F1E8CE535004D413D /* FamilyRecardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0BC53E1E8CE535004D413D /* FamilyRecardViewController.m */; };
+		3E0BC5421E8CE593004D413D /* FamilyDetailRecardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E0BC5411E8CE593004D413D /* FamilyDetailRecardViewController.m */; };
 		3E11FCBC1E827B3100CEAE28 /* YYHeadViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E11FCBB1E827B3100CEAE28 /* YYHeadViewModel.m */; };
 		3E144D8F1E8261DA0037F90F /* YYHomeUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E144D8E1E8261DA0037F90F /* YYHomeUserModel.m */; };
 		3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840CD1E569CAB00069568 /* YYNavigationController.m */; };
@@ -153,6 +159,7 @@
 		3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC314D1E84EE6D003C75FD /* RecardModel.m */; };
 		3ED8175C1E8A677800EDAE7B /* AppointmentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED8175B1E8A677800EDAE7B /* AppointmentModel.m */; };
 		3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */; };
+		3EE1AB531E8D197B00CFBFA0 /* NoyficationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1AB521E8D197B00CFBFA0 /* NoyficationModel.m */; };
 		3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */; };
 		3EF16BFF1E89108C00C7F22E /* SimpleMedicalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF16BFE1E89108C00C7F22E /* SimpleMedicalModel.m */; };
 		3EF565601E5693C50045918B /* HttpClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5655F1E5693C50045918B /* HttpClient.m */; };
@@ -276,6 +283,18 @@
 		16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPayOptionView.m; sourceTree = "<group>"; };
 		16E75D021E60117800A71AA5 /* YYPaySuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPaySuccessView.h; sourceTree = "<group>"; };
 		16E75D031E60117800A71AA5 /* YYPaySuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPaySuccessView.m; sourceTree = "<group>"; };
+		3E091DD01E8B65050084B677 /* NSArray+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Log.h"; sourceTree = "<group>"; };
+		3E091DD11E8B65050084B677 /* NSArray+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Log.m"; sourceTree = "<group>"; };
+		3E091DD21E8B65050084B677 /* NSDictionary+Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Log.h"; sourceTree = "<group>"; };
+		3E091DD31E8B65050084B677 /* NSDictionary+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Log.m"; sourceTree = "<group>"; };
+		3E091DD41E8B65050084B677 /* NSString+unicode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+unicode.h"; sourceTree = "<group>"; };
+		3E091DD51E8B65050084B677 /* NSString+unicode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+unicode.m"; sourceTree = "<group>"; };
+		3E0BC53A1E8CDF7E004D413D /* RCUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCUserModel.h; sourceTree = "<group>"; };
+		3E0BC53B1E8CDF7E004D413D /* RCUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCUserModel.m; sourceTree = "<group>"; };
+		3E0BC53D1E8CE535004D413D /* FamilyRecardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyRecardViewController.h; sourceTree = "<group>"; };
+		3E0BC53E1E8CE535004D413D /* FamilyRecardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyRecardViewController.m; sourceTree = "<group>"; };
+		3E0BC5401E8CE593004D413D /* FamilyDetailRecardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FamilyDetailRecardViewController.h; sourceTree = "<group>"; };
+		3E0BC5411E8CE593004D413D /* FamilyDetailRecardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FamilyDetailRecardViewController.m; sourceTree = "<group>"; };
 		3E11FCBA1E827B3100CEAE28 /* YYHeadViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHeadViewModel.h; sourceTree = "<group>"; };
 		3E11FCBB1E827B3100CEAE28 /* YYHeadViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHeadViewModel.m; sourceTree = "<group>"; };
 		3E144D8D1E8261DA0037F90F /* YYHomeUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeUserModel.h; sourceTree = "<group>"; };
@@ -461,6 +480,8 @@
 		3ED8175B1E8A677800EDAE7B /* AppointmentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppointmentModel.m; sourceTree = "<group>"; };
 		3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemberTableViewCell.h; sourceTree = "<group>"; };
 		3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemberTableViewCell.m; sourceTree = "<group>"; };
+		3EE1AB511E8D197B00CFBFA0 /* NoyficationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoyficationModel.h; sourceTree = "<group>"; };
+		3EE1AB521E8D197B00CFBFA0 /* NoyficationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoyficationModel.m; sourceTree = "<group>"; };
 		3EE34CD41E84F84600FEA2FB /* RecardDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecardDetailModel.h; sourceTree = "<group>"; };
 		3EE34CD51E84F84600FEA2FB /* RecardDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecardDetailModel.m; sourceTree = "<group>"; };
 		3EF16BFD1E89108C00C7F22E /* SimpleMedicalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleMedicalModel.h; sourceTree = "<group>"; };
@@ -763,6 +784,12 @@
 			isa = PBXGroup;
 			children = (
 				3EC2BFEE1E6F9BEC00F01795 /* APNs */,
+				3E091DD01E8B65050084B677 /* NSArray+Log.h */,
+				3E091DD11E8B65050084B677 /* NSArray+Log.m */,
+				3E091DD21E8B65050084B677 /* NSDictionary+Log.h */,
+				3E091DD31E8B65050084B677 /* NSDictionary+Log.m */,
+				3E091DD41E8B65050084B677 /* NSString+unicode.h */,
+				3E091DD51E8B65050084B677 /* NSString+unicode.m */,
 				3EFBD65E1E68FDD900B422BD /* CityData.plist */,
 				3EFBD65F1E68FDD900B422BD /* GYZCity.h */,
 				3EFBD6601E68FDD900B422BD /* GYZCity.m */,
@@ -918,8 +945,12 @@
 				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
 				3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */,
 				3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */,
+				3E0BC53D1E8CE535004D413D /* FamilyRecardViewController.h */,
+				3E0BC53E1E8CE535004D413D /* FamilyRecardViewController.m */,
 				3E9643F81E6001B5001B49DE /* YYDetailRecardViewController.h */,
 				3E9643F91E6001B5001B49DE /* YYDetailRecardViewController.m */,
+				3E0BC5401E8CE593004D413D /* FamilyDetailRecardViewController.h */,
+				3E0BC5411E8CE593004D413D /* FamilyDetailRecardViewController.m */,
 				3E9643EF1E5FF2C5001B49DE /* YYPInfomartionViewController.h */,
 				3E9643F01E5FF2C5001B49DE /* YYPInfomartionViewController.m */,
 				3E9643FB1E6019F8001B49DE /* YYSettingViewController.h */,
@@ -1050,6 +1081,8 @@
 			children = (
 				3E74BD591E7FC35400364EC6 /* CcUserModel.h */,
 				3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */,
+				3E0BC53A1E8CDF7E004D413D /* RCUserModel.h */,
+				3E0BC53B1E8CDF7E004D413D /* RCUserModel.m */,
 				3ECC314C1E84EE6D003C75FD /* RecardModel.h */,
 				3ECC314D1E84EE6D003C75FD /* RecardModel.m */,
 				3EE34CD41E84F84600FEA2FB /* RecardDetailModel.h */,
@@ -1135,6 +1168,8 @@
 				3EC2C00C1E6FF32000F01795 /* NotficationViewController.m */,
 				3EC2C00E1E6FF47B00F01795 /* NotficationTableViewCell.h */,
 				3EC2C00F1E6FF47B00F01795 /* NotficationTableViewCell.m */,
+				3EE1AB511E8D197B00CFBFA0 /* NoyficationModel.h */,
+				3EE1AB521E8D197B00CFBFA0 /* NoyficationModel.m */,
 			);
 			name = NotficationPage;
 			sourceTree = "<group>";
@@ -1432,13 +1467,16 @@
 				3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */,
 				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
 				3E9643EE1E5FDD81001B49DE /* YYRecardTableViewCell.m in Sources */,
+				3E0BC53F1E8CE535004D413D /* FamilyRecardViewController.m in Sources */,
 				3E11FCBC1E827B3100CEAE28 /* YYHeadViewModel.m in Sources */,
 				1654BF561E5EDFFB002F1D00 /* YYConfirmVC.m in Sources */,
 				3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */,
 				16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */,
 				3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */,
+				3E091DD81E8B65050084B677 /* NSString+unicode.m in Sources */,
 				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
+				3E0BC53C1E8CDF7E004D413D /* RCUserModel.m in Sources */,
 				16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
@@ -1446,6 +1484,7 @@
 				3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */,
 				1654BF681E5EE25A002F1D00 /* YYBaseViewController.m in Sources */,
 				3EB10BCD1E65598D00F5F9D2 /* YYFeedbackViewController.m in Sources */,
+				3E0BC5421E8CE593004D413D /* FamilyDetailRecardViewController.m in Sources */,
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
@@ -1489,9 +1528,11 @@
 				16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
+				3EE1AB531E8D197B00CFBFA0 /* NoyficationModel.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
 				3ED8175C1E8A677800EDAE7B /* AppointmentModel.m in Sources */,
 				3EE34CD61E84F84600FEA2FB /* RecardDetailModel.m in Sources */,
+				3E091DD71E8B65050084B677 /* NSDictionary+Log.m in Sources */,
 				3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */,
 				3EC2C0101E6FF47B00F01795 /* NotficationTableViewCell.m in Sources */,
 				1654BF531E5EDFE8002F1D00 /* YYMedicinalDetailVC.m in Sources */,
@@ -1525,6 +1566,7 @@
 				3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */,
 				3EFBD6691E68FDD900B422BD /* GYZCity.m in Sources */,
 				16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */,
+				3E091DD61E8B65050084B677 /* NSArray+Log.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
 				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,

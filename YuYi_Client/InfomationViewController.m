@@ -10,6 +10,10 @@
 #import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
 #import "YYInfoDetailViewController.h"
+#import "HttpClient.h"
+#import <MJExtension.h>
+#import "YYInfomationModel.h"
+#import <UIImageView+WebCache.h>
 
 @interface InfomationViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -22,7 +26,7 @@
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.indicatorStyle =
@@ -49,33 +53,40 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"资讯";
-    self.view.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 5 *kiphone6)];
-    headView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = headView;
+    self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+
+    
+    
+    [self httpRequest];
     // Do any additional setup after loading the view.
 }
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     YYInfoDetailViewController *infoDetailVC = [[YYInfoDetailViewController alloc]init];
+     YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+    infoDetailVC.info_id = infoModel.info_id;
     [self.navigationController pushViewController:infoDetailVC animated:YES];
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return 110 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    YYInfomationModel *infoModel = self.dataSource[indexPath.row];
     YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
     [homeTableViewCell createDetailView:3];
-    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
-    homeTableViewCell.backgroundColor = [UIColor cyanColor];
+//    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
+    [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", mPrefixUrl,infoModel.picture]]];
+    homeTableViewCell.titleLabel.text = infoModel.title;
+    homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
+//    homeTableViewCell.backgroundColor = [UIColor cyanColor];
     
     return homeTableViewCell;
     
@@ -84,6 +95,24 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+- (void)httpRequest{
+    [[HttpClient defaultClient]requestWithPath:mHomepageInfoList method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSArray *rowArray = responseObject[@"rows"];
+        for (NSDictionary *dict in rowArray){
+            YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
+            [self.dataSource addObject:infoModel];
+        }
+        UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 5 *kiphone6)];
+        headView.backgroundColor = [UIColor clearColor];
+        self.tableView.tableHeaderView = headView;
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
 }
 
 /*

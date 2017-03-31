@@ -10,4 +10,6 @@
 
 @interface YYDataAnalyseViewController : UIViewController
 
+@property  (nonatomic, strong) NSString *userHome_id;
+
 @end

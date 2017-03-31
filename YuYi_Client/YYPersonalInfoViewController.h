@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YYHomeUserModel.h"
 
 @interface YYPersonalInfoViewController : UIViewController
 
 @property (nonatomic, strong) NSString *titleStr;
+@property (nonatomic, strong) YYHomeUserModel *personalModel;
+@property (nonatomic, strong) NSString *type;
 
 @end
