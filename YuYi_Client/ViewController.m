@@ -24,14 +24,19 @@
 #import "UILabel+Addition.h"
 #import "YYAllMedicinalTitleBtn.h"
 #import "YYMyMedicinalStateVC.h"
+#import "CcUserModel.h"
+#import "YYMedicinalStateModel.h"
 
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
 @property (nonatomic,strong) NSArray<YYCategoryModel *> *categoryArr;
 @property (nonatomic,strong) NSArray *getfirstPageArr;
+@property (nonatomic,strong) NSArray *stateModels;//我的药品状态
 //“全部”按钮
 @property (nonatomic,weak) UIButton *allBtn;
+//“药方时间”
+@property (nonatomic,strong) NSString *data;
 @end
 
 @implementation ViewController
@@ -47,11 +52,40 @@ static NSString* cellid = @"business_cell";
     [self.navigationController.navigationBar setBackIndicatorImage:[UIImage imageNamed:@"back"]];
     [self.navigationController.navigationBar setBackIndicatorTransitionMaskImage:[UIImage imageNamed:@"back"]];
     [self.navigationController.navigationBar setTintColor:[UIColor colorWithHexString:@"333333"]];
-    [self loadData];
+    [self loadMineMedicinalData];
 }
--(void)loadData{
+-(void)loadMineMedicinalData{
     HttpClient *httpManager = [HttpClient defaultClient];
 //    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listTreeDrugs.do"];
+        //取token
+    CcUserModel *userModel = [CcUserModel defaultClient];
+    NSString *userToken = userModel.userToken;
+    NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList.do?token=%@",mPrefixUrl,userToken];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        if ([((NSDictionary*)responseObject)[@"code"] isEqualToString:@"0"]) {
+           NSDictionary *mineMedicineDic = ((NSDictionary*)responseObject)[@"result"];
+           NSString *timeStr = mineMedicineDic[@"createTimeString"];
+            NSRange range = [timeStr rangeOfString:@" "];
+            NSInteger location = range.location;
+            self.data = [timeStr substringToIndex:location];
+            //解析药品状态数据
+           NSArray *mineMedicineArr = mineMedicineDic[@"boilMedicineList"];
+            NSArray *stateModels = [NSArray yy_modelArrayWithClass:[YYMedicinalStateModel class] json:mineMedicineArr];
+            self.stateModels = stateModels;
+            //在药品状态数据请求回来之后再请求其他药品数据
+            [self loadOtherMedicinalDate];
+        }else{
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+}
+
+-(void)loadOtherMedicinalDate{
+    HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:medinicalFirstPage method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
         NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
@@ -77,6 +111,7 @@ static NSString* cellid = @"business_cell";
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         return ;
     }];
+
 }
 -(void)setupUI{
    
@@ -102,15 +137,17 @@ static NSString* cellid = @"business_cell";
         make.bottom.equalTo(medicineState.mas_centerY).offset(-3);
         make.left.equalTo(mImageView.mas_right).offset(10);
     }];
-    UILabel *dateLabel = [UILabel labelWithText:@"2017-3-20" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
+    UILabel *dateLabel = [UILabel labelWithText:self.data andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
     [medicineState addSubview:dateLabel];
+    
     [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(medicineState.mas_centerY).offset(3);
         make.left.equalTo(mImageView.mas_right).offset(10);
     }];
     
     YYAllMedicinalTitleBtn *stateBtn = [[YYAllMedicinalTitleBtn alloc]init];//添加右侧当前状态按钮
-    NSString *stateStr = @"煎药中";
+    YYMedicinalStateModel *stateModel = self.stateModels.lastObject;
+    NSString *stateStr = stateModel.stateText;
     [stateBtn setTitle:[NSString stringWithFormat:@"当前状态：%@",stateStr]  forState:UIControlStateNormal];
     [stateBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
     [stateBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
@@ -254,6 +291,8 @@ static NSString* cellid = @"business_cell";
 //点击当前状态按钮
 -(void)stateBtnClick:(UIButton*)sender{
     YYMyMedicinalStateVC *stateVC = [[YYMyMedicinalStateVC alloc]init];
+    stateVC.data = self.data;
+    stateVC.stateModels = self.stateModels;
     [self.navigationController pushViewController:stateVC animated:true];
 }
 #pragma collectionViewDatasource

@@ -14,6 +14,8 @@
 #import "HttpClient.h"
 #import "YYHTTPSHOPConst.h"
 #import "CcUserModel.h"
+#import "YYPInfomartionViewController.h"
+#import "YYNavigationController.h"
 
 @interface YYLogInVC ()<UITextFieldDelegate>
 @property(nonatomic,weak)UILabel *countdownLabel;
@@ -232,10 +234,18 @@
             userModel.userToken = dic[@"result"];
             userModel.telephoneNum = self.telNumberField.text;
             [userModel saveAllInfo];
-            
             //跳转登录首页
-            YYTabBarController *firstVC = [[YYTabBarController alloc]init];
-            [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+            NSDictionary *personalDic = dic[@"personal"];
+            if ([personalDic[@"trueName"] isEqualToString:@""]) {
+                YYPInfomartionViewController *firstVC = [[YYPInfomartionViewController alloc]init];
+                firstVC.isFirstLogin = true;
+                YYNavigationController *nvc = [[YYNavigationController alloc]initWithRootViewController:firstVC];
+                [self presentViewController:nvc animated:true completion:nil];
+            }else{
+                YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+                [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+            }
+            
         }else{
             if ([dic[@"result"] isEqualToString:@""]) {
                 [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];

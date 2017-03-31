@@ -85,7 +85,7 @@ static NSString *cellId = @"cell_id";
     self.preTexts = @[@"产品名称:",@"药品数量(库存):",@"包装大小:",@"药品商品名:",@"药品通用名:",@"批准文号:",@"生产企业:",@"品牌:",@"药品类型:",@"剂型:",@"产品规格:",@"用法用量:",@"适用症/功能主治:",@"序号:"];
     NSString *pathStr = [NSString string];
     if (self.id != 0) {
-        pathStr = [medinicalDetailPage stringByAppendingString:[NSString stringWithFormat:@"%ld",self.id]];
+        pathStr = [medinicalDetailPage stringByAppendingString:[NSString stringWithFormat:@"%ld",(long)self.id]];
 //        pathStr = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getid.do?id=%ld",self.id];
     }else{
         return;
@@ -95,7 +95,7 @@ static NSString *cellId = @"cell_id";
         YYMedinicalDetailModel *detailModel = [[YYMedinicalDetailModel alloc]init];
         [detailModel setValuesForKeysWithDictionary:(NSDictionary*)responseObject];
         self.detailModel = detailModel;
-        self.detailTexts = @[detailModel.drugsName,[NSString stringWithFormat:@"%ld",detailModel.number],detailModel.packing,detailModel.commodityName,detailModel.drugsCurrencyName,detailModel.approvalNumber,detailModel.businesses,detailModel.brand,detailModel.drugsType,detailModel.dosageForm,detailModel.productSpecification,detailModel.drugsDosage,detailModel.drugsFunction,[NSString stringWithFormat:@"%ld",detailModel.oid]];
+        self.detailTexts = @[detailModel.drugsName,[NSString stringWithFormat:@"%ld",(long)detailModel.number],detailModel.packing,detailModel.commodityName,detailModel.drugsCurrencyName,detailModel.approvalNumber,detailModel.businesses,detailModel.brand,detailModel.drugsType,detailModel.dosageForm,detailModel.productSpecification,detailModel.drugsDosage,detailModel.drugsFunction,[NSString stringWithFormat:@"%ld",(long)detailModel.oid]];
         [self setupUI];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -258,7 +258,7 @@ static NSString *cellId = @"cell_id";
     //priceLabel
     UILabel *priceLabel = [[UILabel alloc]init];
     //价格数字
-    priceLabel.text = [NSString stringWithFormat:@"¥%ld",self.priceNumber];
+    priceLabel.text = [NSString stringWithFormat:@"¥%ld",(long)self.priceNumber];
     priceLabel.font = [UIFont systemFontOfSize:14];
     priceLabel.textColor = [UIColor colorWithHexString:@"e00610"];
     [optionView addSubview:priceLabel];
@@ -389,7 +389,7 @@ static NSString *cellId = @"cell_id";
     NSInteger number = 1;
     self.number = number;
     UILabel *displayNumberLabel = [[UILabel alloc]init];
-    displayNumberLabel.text = [NSString stringWithFormat:@"%ld",self.number] ;
+    displayNumberLabel.text = [NSString stringWithFormat:@"%ld",(long)self.number] ;
     displayNumberLabel.font = [UIFont systemFontOfSize:17];
      self.displayLabel = displayNumberLabel;
     displayNumberLabel.textAlignment = NSTextAlignmentCenter;
@@ -443,14 +443,14 @@ static NSString *cellId = @"cell_id";
 //药品数量加减
 -(void)plus{
     self.number+=1;
-    self.displayLabel.text = [NSString stringWithFormat:@"%ld",self.number];
+    self.displayLabel.text = [NSString stringWithFormat:@"%ld",(long)self.number];
 }
 -(void)minus{
     self.number-=1;
     if (self.number<0) {
         self.number = 0;
     }
-    self.displayLabel.text = [NSString stringWithFormat:@"%ld",self.number];
+    self.displayLabel.text = [NSString stringWithFormat:@"%ld",(long)self.number];
 }
 //选择数量规格
 -(void)numberOptionClick:(UIButton*)sender{
@@ -511,7 +511,7 @@ static NSString *cellId = @"cell_id";
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *view = [[UIView alloc]init];
     UILabel *lable = [[UILabel alloc]init];
-    lable.text = @"商品详情";
+    lable.text = @"药品详情";
     lable.font = [UIFont systemFontOfSize:15];
     [lable sizeToFit];
     lable.textColor = [UIColor colorWithHexString:@"25f368"];

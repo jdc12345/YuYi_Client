@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface YYMyMedicinalStateVC : UIViewController
-
+//“药方时间”
+@property (nonatomic,strong) NSString *data;
+@property(nonatomic,strong)NSArray *stateModels;
 @end

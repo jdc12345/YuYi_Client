@@ -26,13 +26,16 @@ static NSString *cellId = @"cell_id";
     [super viewDidLoad];
     self.title = @"我的药品状态";
     self.view.backgroundColor = [UIColor whiteColor];
-    [self loadData];
+//    [self loadData];
     
 }
--(void)loadData{
-    NSArray *stateArr = @[@{@"time":@"08:10",@"state":@"亲，药品清单已接受，正在配药"},@{@"time":@"08:30",@"state":@"亲，配药已完成，现在准备煎药"},@{@"time":@"9：20",@"state":@"亲，药已经开始煎了，请耐心等待"},@{@"time":@"10：20",@"state":@"亲，药已煎好,快来拿药吧"}];
-    NSArray *models = [NSArray yy_modelArrayWithClass:[YYMedicinalStateModel class] json:stateArr];
-    self.dataArr = models;
+//-(void)loadData{
+//    self.dataArr = self.stateModels;
+//    [self setupUI];
+//}
+-(void)setStateModels:(NSArray *)stateModels{
+    _stateModels = stateModels;
+    self.dataArr = self.stateModels;
     [self setupUI];
 }
 -(void)setupUI{
@@ -58,27 +61,22 @@ static NSString *cellId = @"cell_id";
         make.bottom.equalTo(medicineState.mas_centerY).offset(-3);
         make.left.equalTo(mImageView.mas_right).offset(10);
     }];
-    UILabel *dateLabel = [UILabel labelWithText:@"2017-3-20" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
+    UILabel *dateLabel = [UILabel labelWithText:self.data andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
     [medicineState addSubview:dateLabel];
     [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(medicineState.mas_centerY).offset(3);
         make.left.equalTo(mImageView.mas_right).offset(10);
     }];
-    UILabel *stateTitleLabel = [UILabel labelWithText:@"当前状态:" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];//添加当前状态
-    [medicineState addSubview:stateTitleLabel];
-    [stateTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(medicineState);
-//        make.right.offset(-15);
-        make.left.equalTo(mineStateLabel.mas_right).offset(5);
-    }];
-    UILabel *stateLbel = [UILabel labelWithText:@"" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];
+
+    YYMedicinalStateModel *stateModel = self.stateModels.lastObject;
+    UILabel *stateLbel = [UILabel labelWithText:stateModel.stateText andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:12];
     [medicineState addSubview:stateLbel];
     stateLbel.numberOfLines = 2;
     self.stateLbel = stateLbel;
     [stateLbel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(stateTitleLabel.mas_right).offset(5);
-        make.top.equalTo(stateTitleLabel);
+        make.centerY.equalTo(medicineState);
         make.right.offset(-15);
+        
     }];
     //添加进度条
     UIView *progressBar = [[UIView alloc]init];
@@ -113,8 +111,8 @@ static NSString *cellId = @"cell_id";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYStateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
     YYMedicinalStateModel *model = self.dataArr[indexPath.row];
-    cell.timeLabel.text = model.time;
-    cell.stateLabel.text = model.state;
+    cell.timeLabel.text = model.createTimeString;
+    cell.stateLabel.text = model.stateText;
     if (indexPath.row==self.dataArr.count-2) {
         cell.progressBar.backgroundColor = [UIColor colorWithHexString:@"#25f368"];
         
@@ -122,7 +120,7 @@ static NSString *cellId = @"cell_id";
     if (indexPath.row==self.dataArr.count-1) {
         cell.progressBar.hidden = true;
         cell.iconView.image = [UIImage imageNamed:@"Selected"];
-        self.stateLbel.text = [NSString stringWithFormat:@"当前状态：%@", model.state];
+        self.stateLbel.text = [NSString stringWithFormat:@"当前状态：%@", model.stateText];
     }
     return cell;
 }
