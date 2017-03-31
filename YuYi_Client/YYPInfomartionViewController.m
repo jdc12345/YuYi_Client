@@ -93,6 +93,10 @@
     //    }];
     //   self.tableView.tableHeaderView = [self personInfomation];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithbackGroundColor:[UIColor colorWithHexString:@"25f368"] title:@"保存" target:self action:@selector(saveInfo)];
+    if (self.isFirstLogin) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:UIBarButtonItemStylePlain target:self action:@selector(saveInfo)];
+    }
+ 
     [self tableView];
     
     // Do any additional setup after loading the view.
@@ -509,7 +513,10 @@
         [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
     }
 }
-
+- (void)backToRootViewController{
+    YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+    [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+}
 /*
  #pragma mark - Navigation
  
