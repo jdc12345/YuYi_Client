@@ -22,6 +22,7 @@
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
+#import "YYPInfomartionViewController.h"
 @interface YYFamilyAddViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -140,8 +141,15 @@
 }
 
 - (void)addFamily{
-    YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
-    [self.navigationController pushViewController:familyAVC animated:YES];
+    YYHomeUserModel *userModel = self.userList[0];
+    if ([userModel.age isEqualToString:@""]||[userModel.trueName isEqualToString:@""]||[userModel.gender isEqualToString:@""]) {
+        YYPInfomartionViewController *familyAVC = [[YYPInfomartionViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
+    }else{
+        YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
+    }
+
 }
 
 

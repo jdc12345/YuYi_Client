@@ -310,7 +310,7 @@
     [whiteView addSubview:clickButton];
     
     [sectionName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(whiteView).with.offset(13 *kiphone6);
+        make.top.equalTo(whiteView).with.offset(10 *kiphone6);
         make.left.equalTo(whiteView).with.offset(20 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(64, 14));
     }];

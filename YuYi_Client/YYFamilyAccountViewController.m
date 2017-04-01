@@ -62,7 +62,7 @@
     }];
     
     
-    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cell1"]];
+    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"avatar.jpg"]];
     imageV.layer.cornerRadius = 30 *kiphone6;
     imageV.clipsToBounds = YES;
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserIcon:)];
@@ -245,7 +245,12 @@
         NSLog(@"%@",responseObject);
         NSString *result;
         if ([responseObject[@"code"] isEqualToString:@"0"]) {
-            result = @"添加用户成功";
+            if (self.titleStr) {
+                result = @"修改用户信息成功";
+            }else{
+                result = @"添加用户成功";
+            }
+            
         }else{
             result = responseObject[@"result"];
         }

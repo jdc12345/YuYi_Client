@@ -111,7 +111,7 @@
     
     [personV addSubview:headerView];
     
-    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"LIM_"]];
+    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"avatar.jpg"]];
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
 //

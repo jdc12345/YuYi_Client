@@ -92,7 +92,8 @@
     //        make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
     //    }];
     //   self.tableView.tableHeaderView = [self personInfomation];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithbackGroundColor:[UIColor colorWithHexString:@"25f368"] title:@"保存" target:self action:@selector(saveInfo)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithbackGroundColor:[UIColor colorWithHexString:@"25f368"] title:@"保存" target:self action:@selector(saveInfo)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"保存" normalColor:[UIColor colorWithHexString:@"25f368"] highlightedColor:[UIColor colorWithHexString:@"25f368"] target:self action:@selector(saveInfo)];
     if (self.isFirstLogin) {
       //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"back"] style:nil target:self action:@selector(backToRootViewController)];
         UIButton *nagBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -290,7 +291,12 @@
     headerView.backgroundColor = [UIColor whiteColor];
     
     UIImageView *iconV = [[UIImageView alloc]init];
-    [iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
+    if ([self.personalModel.avatar isEqualToString:@""]) {
+        //avatar.jpg
+        iconV.image = [UIImage imageNamed:@"avatar.jpg"];
+    }else{
+        [iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
+    }
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
     
@@ -455,9 +461,11 @@
 - (void)saveInfo{
     NSLog(@"保存个人信息");
     NSString *userToken = [CcUserModel defaultClient].userToken;
-    
+
+    BOOL isEmpty = NO;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
     for (int i = 0; i<4; i++) {
+
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
         YYPInfomationTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
         // cell.editInfoText.text;
@@ -477,7 +485,19 @@
         }else if(i == 3&&![cell.editInfoText.text isEqualToString:@""]){
             [dict setObject:cell.editInfoText.text forKey:@"idCard"];
         }
+        NSLog(@"cell = ",cell.editInfoText.text);
+        if ([cell.editInfoText.text isEqualToString:@""]) {
+            isEmpty = YES;
+        }
     }
+    if (isEmpty) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"信息填写不完整" preferredStyle:UIAlertControllerStyleAlert];
+        //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) { }];
+        //       [alert addAction:cancelAction];
+        [alert addAction:okAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
     NSLog(@"%@",dict);
     //UIImage图片转成Base64字符串：
     UIImage *originImage = self.userIcon.image;
@@ -515,6 +535,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+    }
 }
 - (void)viewWillDisappear:(BOOL)animated{
   //  if (self.isFirstLogin) {

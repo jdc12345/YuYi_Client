@@ -203,8 +203,12 @@
     [headerView addSubview:personV];
     
     UIImageView *iconV = [[UIImageView alloc]init];//WithImage:[UIImage imageNamed:@"LIM_"]];
+    if ([self.personalModel.avatar isEqualToString:@""]) {
+        // avatar.jpg
+        iconV.image = [UIImage imageNamed:@"avatar.jpg"];
+    }else{
     [iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
-    
+    }
     iconV.layer.cornerRadius = 25;
     iconV.clipsToBounds = YES;
     //
