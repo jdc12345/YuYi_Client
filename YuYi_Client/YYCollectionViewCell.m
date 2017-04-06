@@ -80,6 +80,8 @@
     nameLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     nameLabel.font = [UIFont systemFontOfSize:15];
     nameLabel.text = @"";
+    nameLabel.numberOfLines = 2;
+    nameLabel.textAlignment = NSTextAlignmentCenter;
     [self.contentView addSubview:nameLabel];
     
     
@@ -90,15 +92,16 @@
 //    }];
     [nameLabel mas_makeConstraints:^(MASConstraintMaker* make) {
 //        make.bottom.equalTo(priceLabel.mas_top).offset(-8);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(-20);
         make.centerX.equalTo(self.contentView);
+        make.right.offset(0);
     }];
     [iconView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.bottom.equalTo(nameLabel.mas_top).offset(-10);
         make.centerX.equalTo(self.contentView);
         //        make.width.offset(self.contentView.frame.size.width*0.7);
         //        make.height.offset(self.contentView.frame.size.height*0.7);
-        make.width.height.offset(100);
+        make.width.height.offset(100*kiphone6);
     }];
     self.iconView = iconView;
     self.nameLabel = nameLabel;

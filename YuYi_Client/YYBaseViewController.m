@@ -45,7 +45,9 @@
 //     [self.navigationController popViewControllerAnimated:true];
 //}
 -(void)searching:(id)sender{
-    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+    YYSearchTableViewController *searchVC = [[YYSearchTableViewController alloc]init];
+    searchVC.searchCayegory = 0;
+    [self.navigationController pushViewController:searchVC animated:true];
 }
 //设置导航栏高度适应
 - (void)viewWillAppear:(BOOL)animated {

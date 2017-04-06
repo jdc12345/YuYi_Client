@@ -73,7 +73,7 @@
     [iconView mas_makeConstraints:^(MASConstraintMaker* make) {
         make.left.offset(10);
         make.bottom.equalTo(nameLabel.mas_top).offset(-15);
-        make.height.width.offset(150);
+        make.height.width.offset(150*kiphone6);
     }];
     self.iconView = iconView;
     self.nameLabel = nameLabel;

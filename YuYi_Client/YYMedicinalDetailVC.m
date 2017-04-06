@@ -115,7 +115,7 @@ static NSString *cellId = @"cell_id";
     [headerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(0);
         make.left.right.offset(0);
-        make.height.offset(313);
+        make.height.offset(313*kiphone6);
     }];
     //图片
     UIImageView *imageView = [[UIImageView alloc]init];
@@ -127,7 +127,7 @@ static NSString *cellId = @"cell_id";
     [headerView addSubview:imageView];
     [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.offset(0);
-        make.height.offset(240);
+        make.height.offset(240*kiphone6);
     }];
     //nameLabel
     UILabel *namelabel = [[UILabel alloc]init];
