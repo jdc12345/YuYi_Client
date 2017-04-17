@@ -102,7 +102,7 @@ static NSString* classificationCellid = @"classification_cell";
     // 取消指示器(滚动条)
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    collectionView.pagingEnabled = YES;
+//    collectionView.pagingEnabled = YES;
     
     // 设置背景颜色
     collectionView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
@@ -197,6 +197,7 @@ static NSString* classificationCellid = @"classification_cell";
 }
 //全部分类页面分类按钮点击事件
 -(void)clickClassItem:(UIButton*)sender{
+    [self.lineView removeFromSuperview];
     self.selectionBtn.titleLabel.text = sender.titleLabel.text;
     [self packup:self.button];
 //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag];
@@ -315,7 +316,7 @@ static NSString* classificationCellid = @"classification_cell";
 }
 //分类按钮open点击事件
 -(void)updateDataSource:(UIButton*)sender{
-    
+    [self.lineView removeFromSuperview];
 //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%ld&start=0&limit=10",sender.tag];
     NSString *urlString = [bigCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=10",sender.tag]];
     HttpClient *httpManager = [HttpClient defaultClient];
@@ -333,8 +334,8 @@ static NSString* classificationCellid = @"classification_cell";
 }
 //分类按钮open点击事件
 -(void)doOpen:(UIButton*)sender{
+    [self.lineView removeFromSuperview];
     self.flag = false;
-   
     if (self.flag == false) {
          [sender setImage:[UIImage imageNamed:@"pack_up"] forState:UIControlStateNormal];
          [sender addTarget:self action:@selector(packup:) forControlEvents:UIControlEventTouchUpInside];

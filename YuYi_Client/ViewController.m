@@ -121,7 +121,7 @@ static NSString* cellid = @"business_cell";
     [medicineState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.offset(0);
         make.top.offset(0);
-        make.height.offset(70);
+        make.height.offset(70*kiphone6);
     }];
     [medicineState setBackgroundColor:[UIColor colorWithHexString:@"#f9f9f9"]];
     UIImageView *mImageView = [[UIImageView alloc]init];//添加药品图标
@@ -129,20 +129,20 @@ static NSString* cellid = @"business_cell";
     [medicineState addSubview:mImageView];
     [mImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(medicineState);
-        make.left.offset(20);
+        make.left.offset(20*kiphone6);
     }];
     UILabel *mineStateLabel = [UILabel labelWithText:@"我的药品状态" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态标题
     [medicineState addSubview:mineStateLabel];
     [mineStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(medicineState.mas_centerY).offset(-3);
-        make.left.equalTo(mImageView.mas_right).offset(10);
+        make.bottom.equalTo(medicineState.mas_centerY).offset(-3*kiphone6);
+        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
     }];
     UILabel *dateLabel = [UILabel labelWithText:self.data andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
     [medicineState addSubview:dateLabel];
     
     [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(medicineState.mas_centerY).offset(3);
-        make.left.equalTo(mImageView.mas_right).offset(10);
+        make.top.equalTo(medicineState.mas_centerY).offset(3*kiphone6);
+        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
     }];
     
     YYAllMedicinalTitleBtn *stateBtn = [[YYAllMedicinalTitleBtn alloc]init];//添加右侧当前状态按钮
@@ -155,7 +155,7 @@ static NSString* cellid = @"business_cell";
     [medicineState addSubview:stateBtn];
     [stateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(medicineState);
-        make.right.offset(-20);
+        make.right.offset(-20*kiphone6);
     }];
     stateBtn.tag = 1000;
     //当前按钮点击事件
@@ -164,10 +164,10 @@ static NSString* cellid = @"business_cell";
     searchBar *searchBtn = [[searchBar alloc]init];
     [self.view addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(20);
-        make.right.offset(-20);
+        make.left.offset(20*kiphone6);
+        make.right.offset(-20*kiphone6);
         make.top.equalTo(medicineState.mas_bottom).offset(10);
-        make.height.offset(40);
+        make.height.offset(40*kiphone6);
     }];
     searchBtn.backgroundColor = [UIColor colorWithHexString:@"#f3f3f3"];
     
@@ -181,11 +181,11 @@ static NSString* cellid = @"business_cell";
     [self.view layoutIfNeeded];
     //添加药品分类按钮
     int columnCount=3;
-    //没个格子的宽度和高度
-    CGFloat appW=105.0;
-    CGFloat appH=39.0;
+    //每个格子的宽度和高度
+    CGFloat appW=105.0*kiphone6;
+    CGFloat appH=39.0*kiphone6;
     //计算间隙
-    CGFloat appMargin=(self.view.frame.size.width-20-columnCount*appW)/(columnCount+1);
+    CGFloat appMargin=(self.view.frame.size.width-40*kiphone6-columnCount*appW)/(columnCount-1);
     
     //添加数据源  nameArray.count表示资源个数
     NSMutableArray *nameArray = [NSMutableArray array];
@@ -211,8 +211,8 @@ static NSString* cellid = @"business_cell";
         int colX=i%columnCount;
         int rowY=i/columnCount;
         //计算坐标
-        CGFloat appX=appMargin+colX*(appW+appMargin);
-        CGFloat appY=searchBtn.frame.origin.y+40+10+rowY*(appH+appMargin);
+        CGFloat appX=20*kiphone6+colX*(appW+appMargin);
+        CGFloat appY=searchBtn.frame.origin.y+50*kiphone6+rowY*(appH+appMargin);
         
         btn.frame=CGRectMake(appX, appY, appW, appH);
         
@@ -232,7 +232,7 @@ static NSString* cellid = @"business_cell";
     [sepView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.allBtn.mas_bottom).offset(10);
         make.left.right.offset(0);
-        make.height.offset(10);
+        make.height.offset(10*kiphone6);
     }];
     //添加药品模块
     [self addMedicinals];
@@ -254,7 +254,7 @@ static NSString* cellid = @"business_cell";
     // 取消指示器(滚动条)
     collectionView.showsVerticalScrollIndicator = NO;
     collectionView.showsHorizontalScrollIndicator = NO;
-    collectionView.pagingEnabled = YES;
+//    collectionView.pagingEnabled = YES;
     
     // 设置背景颜色
     collectionView.backgroundColor = [UIColor whiteColor];
@@ -308,7 +308,6 @@ static NSString* cellid = @"business_cell";
 - (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     
-    NSLog(@"cellForItemAtIndexPath");
     YYCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellid forIndexPath:indexPath];
     NSArray *arr = self.getfirstPageArr[indexPath.section];
     

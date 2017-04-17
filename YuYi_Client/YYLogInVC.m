@@ -40,7 +40,7 @@
     [logImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.offset(130);
-        make.width.height.offset(125);
+        make.width.height.offset(125*kiphone6);
     }];
     
     //添加line1
@@ -50,7 +50,7 @@
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(logImageView.mas_bottom).offset(60);
-        make.width.offset(225);
+        make.width.offset(225*kiphone6);
         make.height.offset(0.5);
     }];
     //添加电话imageView图标
@@ -164,7 +164,7 @@
     }
 
     //发送获取验证码请求
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/vcode.do?id=%@",self.telNumberField.text]];
+    NSString *urlString = [NSString stringWithFormat:@"%@/personal/vcode.do?id=%@",mPrefixUrl,self.telNumberField.text];
     HttpClient *httpManager = [HttpClient defaultClient];
     
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -224,7 +224,7 @@
         [self showAlertWithMessage:@"请确认电话号码和验证码是否输入正确"];
         return;
     }
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:[NSString stringWithFormat:@"/personal/login.do?id=%@&vcode=%@",self.telNumberField.text,self.passWordField.text]];
+    NSString *urlString = [NSString stringWithFormat:@"%@/personal/login.do?id=%@&vcode=%@",mPrefixUrl,self.telNumberField.text,self.passWordField.text];
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = (NSDictionary *)responseObject;

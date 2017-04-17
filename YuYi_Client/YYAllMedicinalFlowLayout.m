@@ -19,8 +19,8 @@
     self.itemSize = CGSizeMake(w, h); // cell大小
     self.minimumLineSpacing = 10; // 行间距
     self.minimumInteritemSpacing = 10; // cell间距
-    self.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 40);
-    self.footerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 10);
+    self.headerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 40*kiphone6);
+    self.footerReferenceSize = CGSizeMake(self.collectionView.frame.size.width, 10*kiphone6);
     //    self.scrollDirection = UICollectionViewScrollDirectionHorizontal; // 设置水平滑动
 }
 
