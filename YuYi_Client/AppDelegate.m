@@ -21,8 +21,9 @@
 
 #import "CcUserModel.h"
 #import "YYLogInVC.h"
-@interface AppDelegate ()<JPUSHRegisterDelegate>
-
+#import "YYWordsViewController.h"
+@interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate>
+@property (nonatomic, strong) YYTabBarController *yyTabBar;
 @end
 
 @implementation AppDelegate
@@ -41,6 +42,7 @@
         YYTabBarController *tabbarVC = [[YYTabBarController alloc]init];
         self.window.rootViewController = tabbarVC;
         [self.window makeKeyAndVisible];
+        self.yyTabBar = tabbarVC;
     }else{
         YYLogInVC *logInVC = [[YYLogInVC alloc]init];
         self.window.rootViewController = logInVC;
@@ -78,19 +80,20 @@
     
     [[RCIM sharedRCIM] initWithAppKey:@"25wehl3u2qo7w"];
     
-    // 登陆融云
+//     登陆融云
     
-//    [[RCIM sharedRCIM] connectWithToken:mRCToken     success:^(NSString *userId) {
-//        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
-//    } error:^(RCConnectErrorCode status) {
-//        NSLog(@"登陆的错误码为:%d", status);
-//    } tokenIncorrect:^{
-//        //token过期或者不正确。
-//        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
-//        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
-//        NSLog(@"token错误");
-//    }];
-//    
+    [[RCIM sharedRCIM] connectWithToken:mRCToken     success:^(NSString *userId) {
+        NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+        [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+    } error:^(RCConnectErrorCode status) {
+        NSLog(@"登陆的错误码为:%d", status);
+    } tokenIncorrect:^{
+        //token过期或者不正确。
+        //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+        //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+        NSLog(@"token错误");
+    }];
+    
     
     // 融云控制台输出信息种类
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Error;
@@ -105,6 +108,25 @@
                                                 categories:nil];
         [application registerUserNotificationSettings:settings];
     }
+    
+    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    center.delegate = self;
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        
+        if (granted) {
+            //点击允许
+            NSLog(@"注册通知成功");
+            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                NSLog(@"%@", settings);
+            }];
+        } else {
+            //点击不允许
+            NSLog(@"注册通知失败");
+        }
+    }];
+    //注册推送（同iOS8）
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     
     //////////////////
@@ -195,6 +217,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    application.applicationIconBadgeNumber = 0;
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
@@ -208,6 +231,93 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // register to receive notifications
     [application registerForRemoteNotifications];
 }
+- (void)onRCIMReceiveMessage:(RCMessage *)message
+                        left:(int)left{
+    
+    int unreadMsgCount = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
+                                                                         @(ConversationType_PRIVATE),
+                                                                         @(ConversationType_DISCUSSION),
+                                                                         @(ConversationType_APPSERVICE),
+                                                                         @(ConversationType_PUBLICSERVICE),
+                                                                         @(ConversationType_GROUP)
+                                                                         ]];
+    
+    NSString * unreadNum = [NSString stringWithFormat:@"%d",unreadMsgCount];
+    NSDictionary * dict = @{@"unreadNum":unreadNum};
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageUnreadNum" object:nil userInfo:dict];
+    
+    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+    
+    if (version >= 8.0) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    UIApplication *app = [UIApplication sharedApplication];
+    app.applicationIconBadgeNumber = unreadMsgCount;
+    
+    // 注册通知
+    if ([message.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *testMessage = (RCTextMessage *)message.content;
+        NSLog(@"消息内容：%@", testMessage.content);
+        //        UILocalNotification *locatNotific = [[UILocalNotification alloc]init];
+        //        locatNotific.alertTitle = testMessage.content;
+        //        [[UIApplication sharedApplication] presentLocalNotificationNow:locatNotific];
+    }
+    NSLog(@"还剩余的未接收的消息数：%d", left);
+    
+    
+    
+    
+    
+    
+    
+    // 1.创建本地通知
+    UILocalNotification *localNote = [[UILocalNotification alloc] init];
+    
 
+    localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0];
 
+    localNote.alertBody = @"在干吗?";
+
+    localNote.alertAction = @"解锁";
+
+    localNote.hasAction = NO;
+
+    localNote.alertLaunchImage = @"123Abc";
+    // 2.6.设置alertTitle
+    localNote.alertTitle = @"你有一条新通知";
+    // 2.7.设置有通知时的音效
+    localNote.soundName = @"buyao.wav";
+    // 2.8.设置应用程序图标右上角的数字
+    localNote.applicationIconBadgeNumber = 999;
+    
+    // 2.9.设置额外信息
+    localNote.userInfo = @{@"type" : @1};
+    
+    // 3.调用通知
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+}
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    //点击通知进入应用
+    YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+    //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+    wordVC.conversationType = ConversationType_PRIVATE;
+    //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+    wordVC.targetId = mUserID;
+//    UIViewController *currentVC = [(UINavigationController *)self.window.rootViewController visibleViewController];
+//    if ([currentVC respondsToSelector:@selector(pushViewController: animated:)]) {
+//        [currentVC performSelector:@selector(pushViewController: animated:) withObject:wordVC withObject:@YES];
+//    }
+//    NSLog(@"response:%@", response);
+    
+    
+    self.yyTabBar.selectedIndex = 2;
+    
+    
+    if ([self.yyTabBar.viewControllers.lastObject respondsToSelector:@selector(pushViewController: animated:)]) {
+        [self.yyTabBar.viewControllers.lastObject pushViewController:wordVC animated:YES];
+    }
+    NSLog(@"response:%@", response);
+}
 @end

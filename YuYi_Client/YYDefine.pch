@@ -27,10 +27,10 @@
 
 #pragma mark -
 #pragma mark ---------------Dev - Url------------------
-#define mPrefixUrl @"http://192.168.1.55:8080/yuyi"
+//#define mPrefixUrl @"http://192.168.1.55:8080/yuyi"
 #pragma mark -
 #pragma mark ---------------Dis - Url------------------
-
+#define mPrefixUrl @"http://59.110.169.148:8080"
 // 首页资讯2条数据接口
 #define mHomepageInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findList.do?start=0&limit=2"]
 // 首页资讯列表接口
@@ -133,15 +133,15 @@
 #pragma mark -
 #pragma mark ------------RCLOUD----------------------
 
-#define mRCToken @"VEFVYY49JO7Tue0D8KSQ6YuZqhNeP62jUkZowKgPQxsXdaGtWFcdtK0w42GZ1eo9DEVAb8JzUQGPgDvPV905mQ=="  //123123
-#define mUserID @"789789"
+//#define mRCToken @"VEFVYY49JO7Tue0D8KSQ6YuZqhNeP62jUkZowKgPQxsXdaGtWFcdtK0w42GZ1eo9DEVAb8JzUQGPgDvPV905mQ=="  //123123
+//#define mUserID @"789789"
 
 
 #define mStrAddStr(str1,str2) [NSString stringWithFormat@"%@%@",str1,str2]
 #define mStrAddStr2  [NSString stringWithFormat:@"%@%@",mPrefixUrl,mHomepageImages]
 
-//#define mRCToken @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
-//#define mUserID @"123123"
+#define mRCToken @"nlzn5x5lRXnBeL3b7EIXOouZqhNeP62jUkZowKgPQxsXdaGtWFcdtLKAQcncmcoPxp8xMTYUVkZECKL/n8ZvGg=="//789789
+#define mUserID @"123123"
 
 
 

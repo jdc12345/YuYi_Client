@@ -486,7 +486,7 @@
             [dict setObject:cell.editInfoText.text forKey:@"idCard"];
         }
         NSLog(@"cell = ",cell.editInfoText.text);
-        if ([cell.editInfoText.text isEqualToString:@""]) {
+        if ([cell.editInfoText.text isEqualToString:@""] && i != 1) {
             isEmpty = YES;
         }
     }

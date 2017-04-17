@@ -75,7 +75,9 @@
     // Do any additional setup after loading the view.
 }
 - (void)btnClick{
-    
+    NSMutableString* str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"0312-3850331"];
+    // NSLog(@"str======%@",str);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -77,8 +77,8 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"收货地址",@"设置"]]];
-    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"goods-icon-",@"Set-icon-"]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"设置"]]];
+    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"Set-icon-"]];
     
     
 //    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
@@ -214,7 +214,11 @@
     return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    if (section == 2) {
+        return 1;
+    }else{
+        return 2;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
