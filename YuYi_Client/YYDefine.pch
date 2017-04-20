@@ -8,7 +8,8 @@
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
-
+#ifdef __OBJC__ // 只被object－c文件所引用
+#import <SVProgressHUD.h>
 #pragma mark -
 #pragma mark  ------------Size----------------------
 
@@ -150,5 +151,5 @@
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
-
+#endif
 #endif /* YYDefine.pch_pch */

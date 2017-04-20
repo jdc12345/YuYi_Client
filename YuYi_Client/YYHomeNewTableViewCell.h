@@ -17,4 +17,5 @@
 
 - (void)createDetailView:(NSInteger)lineNum;
 - (void)addStarView;
+
 @end

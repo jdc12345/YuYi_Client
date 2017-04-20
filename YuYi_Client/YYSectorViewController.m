@@ -225,10 +225,21 @@
 
 - (void)back_click{
     if (self.userList.count >0) {
+        NSInteger peopleCount = self.userList.count;        // 人数
         
-        
+        NSInteger rowCount;
+        if (self.userList.count == 6) {
+            rowCount = 3;
+        }else{
+            if ((peopleCount +1)%2 == 0) {
+                rowCount = (peopleCount +1)/2;
+            }else{
+                rowCount = (peopleCount +1)/2 +1;
+            }
+        }
+//        NSLog(@"当前人数%ld, 行数 %ld",self.userList.count, rowCount);
         CGFloat alertW = 335 *kiphone6;
-        CGFloat alertH = 310 *kiphone6;
+        CGFloat alertH = 190 +rowCount*60*kiphone6;
         
         // titleView
         UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, 80 *kiphone6)];
@@ -254,11 +265,18 @@
             make.size.mas_equalTo(CGSizeMake(alertW ,1));
         }];
         // 选项view
-        UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 170 *kiphone6)];
+
+        UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 50 + rowCount *60 *kiphone6)];
         self.selectUser = 0;
         NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
-        NSInteger peopleCount = self.userList.count;        // 人数
-        for (int i = 0; i <= peopleCount ; i++) {
+
+        NSInteger currentCount;
+        if (peopleCount == 6) {
+            currentCount = 6;
+        }else{
+            currentCount = peopleCount +1;
+        }
+        for (int i = 0; i < currentCount ; i++) {
             NSInteger num;
             if (i < peopleCount) {
                 num = i;
@@ -355,9 +373,10 @@
     }
 }
 - (void)alertClick:(UIButton *)sender{
+    NSLog(@"currentTitle %@",sender.currentTitle);
     if ([sender.currentTitle isEqualToString:@"取消"]) {
         [self.alertView dismiss:nil];
-    }else if([sender.currentTitle isEqualToString:@"确认"]){
+    }else if([sender.currentTitle isEqualToString:@"确定"]){
         [self httpRequestForAppointment];
     }else{
         YYHomeUserModel *userModel = self.userList[0];
