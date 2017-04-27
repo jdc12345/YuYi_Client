@@ -45,7 +45,7 @@ static NSString *cellId = @"cell_id";
     [medicineState mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.offset(0);
         make.top.offset(0);
-        make.height.offset(70);
+        make.height.offset(70*kiphone6);
     }];
     [medicineState setBackgroundColor:[UIColor colorWithHexString:@"#f9f9f9"]];
     UIImageView *mImageView = [[UIImageView alloc]init];//添加药品图标
@@ -53,19 +53,19 @@ static NSString *cellId = @"cell_id";
     [medicineState addSubview:mImageView];
     [mImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(medicineState);
-        make.left.offset(20);
+        make.left.offset(20*kiphone6);
     }];
     UILabel *mineStateLabel = [UILabel labelWithText:@"我的药品状态" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态标题
     [medicineState addSubview:mineStateLabel];
     [mineStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(medicineState.mas_centerY).offset(-3);
-        make.left.equalTo(mImageView.mas_right).offset(10);
+        make.bottom.equalTo(medicineState.mas_centerY).offset(-3*kiphone6);
+        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
     }];
     UILabel *dateLabel = [UILabel labelWithText:self.data andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
     [medicineState addSubview:dateLabel];
     [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(medicineState.mas_centerY).offset(3);
-        make.left.equalTo(mImageView.mas_right).offset(10);
+        make.top.equalTo(medicineState.mas_centerY).offset(3*kiphone6);
+        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
     }];
 
     YYMedicinalStateModel *stateModel = self.stateModels.lastObject;
@@ -75,7 +75,7 @@ static NSString *cellId = @"cell_id";
     self.stateLbel = stateLbel;
     [stateLbel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(medicineState);
-        make.right.offset(-15);
+        make.right.offset(-15*kiphone6);
         
     }];
     //添加进度条
@@ -85,7 +85,7 @@ static NSString *cellId = @"cell_id";
     [progressBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(0);
         make.top.equalTo(medicineState.mas_bottom);
-        make.height.offset(2);
+        make.height.offset(2*kiphone6);
         make.width.offset(kScreenW*0.2*self.dataArr.count);
     }];
     //添加状态进度
@@ -96,7 +96,7 @@ static NSString *cellId = @"cell_id";
     stateTableView.rowHeight = UITableViewAutomaticDimension;
     stateTableView.estimatedRowHeight = 100;
     stateTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    stateTableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 15)];
+    stateTableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 15*kiphone6)];
     [stateTableView registerClass:[YYStateTableViewCell class] forCellReuseIdentifier:cellId];
     [stateTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.offset(0);

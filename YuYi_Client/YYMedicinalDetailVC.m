@@ -18,7 +18,6 @@
 #import "UIImageView+WebCache.h"
 #import "YYHTTPSHOPConst.h"
 
-
 static NSString *cellId = @"cell_id";
 @interface YYMedicinalDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 //请求回来的药品详情model
@@ -73,6 +72,7 @@ static NSString *cellId = @"cell_id";
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
 //    self.navigationController.navigationBar.translucent = false;
+    [SVProgressHUD dismiss];
 
 }
 //shoppingcar点击事件
@@ -91,19 +91,23 @@ static NSString *cellId = @"cell_id";
         return;
     }
     HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:pathStr method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [SVProgressHUD show];
+    [httpManager requestWithPath:pathStr method:HttpRequestGet parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         YYMedinicalDetailModel *detailModel = [[YYMedinicalDetailModel alloc]init];
         [detailModel setValuesForKeysWithDictionary:(NSDictionary*)responseObject];
         self.detailModel = detailModel;
         self.detailTexts = @[detailModel.drugsName,[NSString stringWithFormat:@"%ld",(long)detailModel.number],detailModel.packing,detailModel.commodityName,detailModel.drugsCurrencyName,detailModel.approvalNumber,detailModel.businesses,detailModel.brand,detailModel.drugsType,detailModel.dosageForm,detailModel.productSpecification,detailModel.drugsDosage,detailModel.drugsFunction,[NSString stringWithFormat:@"%ld",(long)detailModel.oid]];
+        
         [self setupUI];
 
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         return ;
     }];
 
-    
-    
     self.shopingCarDetails = [NSMutableArray array];
 }
 //UI
@@ -120,7 +124,7 @@ static NSString *cellId = @"cell_id";
     //图片
     UIImageView *imageView = [[UIImageView alloc]init];
     UIImage *image = [UIImage imageNamed:@""];
-    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:self.detailModel.picture];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",mPrefixUrl,self.detailModel.picture];
     [imageView sd_setImageWithURL:[NSURL URLWithString:urlString] placeholderImage:image];
     //记录药品图片
 //    [self.shopingCarDetails addObject:imageView.image];

@@ -19,12 +19,14 @@
 #import "YYMedicinalDetailVC.h"
 #import "YYCategoryModel.h"
 
+#import <MJRefresh.h>
 
 static NSString* allMedicinalCellid = @"allMedicinal_cell";
 static NSString* classificationCellid = @"classification_cell";
+static NSInteger start = 0;//上拉加载起始位置
 @interface YYAllMedicinalViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
-@property (nonatomic,strong) NSArray<YYMedinicalDetailModel *> *categoryArr;
+@property (nonatomic,strong) NSMutableArray<YYMedinicalDetailModel *> *categoryArr;
 @property (nonatomic,strong) NSArray<YYCategoryModel *> *bigCategoryArr;
 //分类按钮图标切换
 @property(nonatomic,assign)BOOL flag;
@@ -50,7 +52,6 @@ static NSString* classificationCellid = @"classification_cell";
 @property(nonatomic,copy)NSString *smallCategoryId;
 
 
-
 @end
 
 @implementation YYAllMedicinalViewController
@@ -68,22 +69,29 @@ static NSString* classificationCellid = @"classification_cell";
 //    self.detailTitles = @[@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"滋补调养",@"女性用药",@"风湿骨病",@"肠胃用药",@"滋补调养",@"女性用药"],@[@"常用",@"肠胃用药",@"滋补调养",@"女性用药"]];
     NSString *urlString = [NSString string];
     if ([self.id isEqualToString:@"106"]) {
-        urlString = allCategoryBtnInfo;
-//         urlString = @"http://192.168.1.55:8080/yuyi/drugs/findall.do?start=0&limit=10";
+        urlString = [NSString stringWithFormat:@"%@/drugs/findall.do?start=0&limit=8",mPrefixUrl];
     }else{
-        urlString = [otherCategoryBtnsInfo stringByAppendingString:[NSString stringWithFormat:@"%@&start=0&limit=10",self.id]];
+        urlString = [otherCategoryBtnsInfo stringByAppendingString:[NSString stringWithFormat:@"%@&start=0&limit=8",self.id]];
 //        urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
     }
+    [SVProgressHUD show];
     HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
-        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        NSArray *tempArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        self.categoryArr = [NSMutableArray arrayWithArray:tempArr];
+        if (self.categoryArr.count>0) {
+            start = self.categoryArr.count+1;
+        }
         [self addAllMedicinalCollectionView];
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         return ;
     }];
-
 }
 //添加全部药品collectionView
 -(void)addAllMedicinalCollectionView{
@@ -93,7 +101,62 @@ static NSString* classificationCellid = @"classification_cell";
     // 创建集合视图
     UICollectionView* collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.collectionView = collectionView;
-    
+    __weak typeof(self) weakSelf = self;
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入 下拉 刷新状态后会自动调用这个block
+        NSString *urlString = [NSString string];
+        if ([weakSelf.id isEqualToString:@"106"]) {
+//            urlString = allCategoryBtnInfo;
+            urlString = [NSString stringWithFormat:@"%@/drugs/findall.do?start=0&limit=8",mPrefixUrl];
+        }else{
+            urlString = [otherCategoryBtnsInfo stringByAppendingString:[NSString stringWithFormat:@"%@&start=0&limit=8",weakSelf.id]];
+            //        urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
+        }
+        HttpClient *httpManager = [HttpClient defaultClient];
+        [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+            NSArray *tempArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+            weakSelf.categoryArr = [NSMutableArray arrayWithArray:tempArr];
+            if (self.categoryArr.count>0) {
+                start = self.categoryArr.count+1;
+            }
+            [weakSelf.collectionView.mj_header endRefreshing];
+            [weakSelf.collectionView reloadData];
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [weakSelf.collectionView.mj_header endRefreshing];
+            return ;
+        }];
+
+    }];
+    //设置上拉加载更多
+    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block
+        NSString *urlString = [NSString string];
+        if ([weakSelf.id isEqualToString:@"106"]) {
+            urlString = [NSString stringWithFormat:@"%@/drugs/findall.do?start=%ld&limit=8",mPrefixUrl,start];
+            //         urlString = @"http://192.168.1.55:8080/yuyi/drugs/findall.do?start=0&limit=10";
+        }else{
+            urlString = [otherCategoryBtnsInfo stringByAppendingString:[NSString stringWithFormat:@"%@&start=%ld&limit=8",weakSelf.id,start]];
+            //        urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%@&start=0&limit=10",self.id];
+        }
+        HttpClient *httpManager = [HttpClient defaultClient];
+        [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+            NSArray *tempArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+            [weakSelf.categoryArr addObjectsFromArray:tempArr];
+            if (weakSelf.categoryArr.count>0) {
+                start = weakSelf.categoryArr.count+1;
+            }
+            [weakSelf.collectionView.mj_footer endRefreshing];
+            [weakSelf.collectionView reloadData];
+            
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+            [weakSelf.collectionView.mj_footer endRefreshing];
+            return ;
+        }];
+    }];
+
     // 注册单元格
     [collectionView registerClass:[YYAllMedicinalCollectionViewCell class] forCellWithReuseIdentifier:allMedicinalCellid];
     [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
@@ -195,27 +258,6 @@ static NSString* classificationCellid = @"classification_cell";
     }
     
 }
-//全部分类页面分类按钮点击事件
--(void)clickClassItem:(UIButton*)sender{
-    [self.lineView removeFromSuperview];
-    self.selectionBtn.titleLabel.text = sender.titleLabel.text;
-    [self packup:self.button];
-//    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag];
-    NSString *urlString = [smallCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=10",sender.tag]];
-    HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
-        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
-        [self.collectionView reloadData];
-        [self.classificationView removeFromSuperview];
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        return ;
-    }];
-    self.categoryName = sender.titleLabel.text;
-
-    NSLog(@"-------此处更改全部药品页面数据源");
-}
 //添加头部试图
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     //判断collectionView
@@ -314,15 +356,22 @@ static NSString* classificationCellid = @"classification_cell";
         }
 }
 }
-//分类按钮open点击事件
+//全部分类页面大类药品组头按钮点击事件
 -(void)updateDataSource:(UIButton*)sender{
     [self.lineView removeFromSuperview];
 //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid1.do?cid1=%ld&start=0&limit=10",sender.tag];
-    NSString *urlString = [bigCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=10",sender.tag]];
+    NSString *urlString = [bigCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=8",sender.tag]];
+    self.id = [NSString stringWithFormat:@"%ld",sender.tag];//把id改为该药品类id，方便刷新
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
-        self.categoryArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        NSArray *tempArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        self.categoryArr = [NSMutableArray arrayWithArray:tempArr];
+        if (self.categoryArr.count>0) {
+            start = self.categoryArr.count+1;
+        }else{
+            start = 0;
+        }
         [self.collectionView reloadData];
         [self.classificationView removeFromSuperview];
         
@@ -332,6 +381,33 @@ static NSString* classificationCellid = @"classification_cell";
     self.categoryName = sender.titleLabel.text;
 
 }
+//全部分类页面小分类按钮点击事件
+-(void)clickClassItem:(UIButton*)sender{
+    [self.lineView removeFromSuperview];
+    self.selectionBtn.titleLabel.text = sender.titleLabel.text;
+    [self packup:self.button];
+    //    NSString *urlString = [NSString stringWithFormat:@"http://192.168.1.55:8080/yuyi/drugs/getcid2.do?cid2=%ld&start=0&limit=10",sender.tag];
+    NSString *urlString = [smallCategoryInfo stringByAppendingString:[NSString stringWithFormat:@"%ld&start=0&limit=8",sender.tag]];
+    self.id = [NSString stringWithFormat:@"%ld",sender.tag];//把id改为该药品类id，方便刷新
+    HttpClient *httpManager = [HttpClient defaultClient];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"rows"];
+        NSArray *tempArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:categoryArr];
+        self.categoryArr = [NSMutableArray arrayWithArray:tempArr];
+        if (self.categoryArr.count>0) {
+            start = self.categoryArr.count+1;
+        }else{
+            start = 0;
+        }
+        [self.collectionView reloadData];
+        [self.classificationView removeFromSuperview];
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        return ;
+    }];
+    self.categoryName = sender.titleLabel.text;
+}
+
 //分类按钮open点击事件
 -(void)doOpen:(UIButton*)sender{
     [self.lineView removeFromSuperview];
@@ -408,6 +484,15 @@ static NSString* classificationCellid = @"classification_cell";
     [self.classificationView removeFromSuperview];
     [self.lineView removeFromSuperview];
 }
-
-
+//懒加载
+-(NSMutableArray<YYMedinicalDetailModel *> *)categoryArr{
+    if (_categoryArr == nil) {
+        _categoryArr = [NSMutableArray array];
+    }
+    return _categoryArr;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [SVProgressHUD dismiss];
+}
 @end
