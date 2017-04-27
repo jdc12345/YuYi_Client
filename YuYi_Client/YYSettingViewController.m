@@ -69,7 +69,19 @@
     
     
     [self tableView];
+    UIButton *sureBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
+    sureBtn.layer.cornerRadius = 1.5 *kiphone6;
+    sureBtn.layer.borderWidth = 0.5 *kiphone6;
+    sureBtn.layer.borderColor = [UIColor colorWithHexString:@"e00610"].CGColor;
+    sureBtn.clipsToBounds = YES;
+    [sureBtn setTitle:@"退出登陆" forState:UIControlStateNormal];
+    sureBtn.backgroundColor = [UIColor clearColor];
+    [sureBtn setTitleColor:[UIColor colorWithHexString:@"e00610"] forState:UIControlStateNormal];
+    [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+    //     [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
+    [sureBtn addTarget:self action:@selector(buttonClick1:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.view addSubview:sureBtn];
     // Do any additional setup after loading the view.
 }
 

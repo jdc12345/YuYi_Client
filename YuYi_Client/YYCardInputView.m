@@ -63,7 +63,11 @@
         make.size.mas_equalTo(CGSizeMake(self.frame.size.width ,13));
     }];
     
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(selectThisView)];
+    [self addGestureRecognizer:tap];
+}
+- (void)selectThisView{
+    [self.dataTextField becomeFirstResponder];
 }
 
 @end

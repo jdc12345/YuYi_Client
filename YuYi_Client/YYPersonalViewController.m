@@ -197,11 +197,12 @@
 //    }
     else{
         if (indexPath.row == 0) {
-            YYAddressEditVC *shopVC = [[YYAddressEditVC alloc]init];
-            [self.navigationController pushViewController:shopVC animated:YES];
-        }else{
+//            YYAddressEditVC *shopVC = [[YYAddressEditVC alloc]init];
+//            [self.navigationController pushViewController:shopVC animated:YES];
             YYSettingViewController *setVC = [[YYSettingViewController alloc]init];
             [self.navigationController pushViewController:setVC animated:YES];
+        }else{
+
         }
         
     }

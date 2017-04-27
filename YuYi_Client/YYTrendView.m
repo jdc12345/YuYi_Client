@@ -413,9 +413,14 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
     [self.values removeAllObjects];
     NSMutableArray *dateDate = [[NSMutableArray alloc]initWithCapacity:2];
     for (NSDictionary *dict  in tempature) {
-        NSString *str = dict[@"temperaturet"];
+        NSString *str = [NSString stringWithFormat:@"%@",dict[@"temperaturet"]];
         NSString *dateStr = dict[@"createTimeString"];
-        CGFloat floa = ([str floatValue] -34) *-0.5;
+        CGFloat floa;
+        if([str isEqualToString:@"<null>"]){
+            str = @"36";
+        }
+        NSLog(@"____________%@",str);
+        floa = ([str floatValue] -34) *-0.5;
         [self.values addObject:[NSNumber numberWithFloat:floa]];
         
         [dateDate addObject:dateStr];

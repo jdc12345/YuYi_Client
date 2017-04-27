@@ -211,7 +211,7 @@
     
     //UIImage图片转成Base64字符串：
     UIImage *originImage = self.iconV.image;
-    NSData *data = UIImageJPEGRepresentation(originImage, 1.0f);
+    NSData *data = UIImageJPEGRepresentation(originImage, 0.2f);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSMutableDictionary *dict = [[NSMutableDictionary alloc]initWithCapacity:2];
     [dict setValue:userToken forKey:@"token"];
@@ -331,7 +331,7 @@
         
         //创建一个选择后图片的小图标放在下方
         //类似微薄选择图后的效果
-        self.userIcon.image = [self.chooseImage  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.iconV.image = [self.chooseImage  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         
     }
     

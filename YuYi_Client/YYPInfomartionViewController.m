@@ -501,7 +501,15 @@
     NSLog(@"%@",dict);
     //UIImage图片转成Base64字符串：
     UIImage *originImage = self.userIcon.image;
-    NSData *data = UIImageJPEGRepresentation(originImage, 1.0f);
+        
+        
+//        UIImage *image = [UIImage imageNamed:@"HD"];
+//        //第一个参数是图片对象，第二个参数是压的系数，其值范围为0~1。
+//        NSData * imageData = UIImageJPEGRepresentation(image, 0.2);
+//        originImage = [UIImage imageWithData:imageData];
+        
+        
+    NSData *data = UIImageJPEGRepresentation(originImage, 0.2f);
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     [dict setValue:userToken forKey:@"token"];
     [dict setValue:encodedImageStr forKey:@"avatar"];

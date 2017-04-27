@@ -18,6 +18,7 @@
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
+#import "YYFamilyAccountViewController.h"
 
 
 @interface YYHandleMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
@@ -66,8 +67,16 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.title = @"手动输入";
-    [self httpRequestForUser];
-   
+    
+    
+
+    
+    
+
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
     
     // Do any additional setup after loading the view.
@@ -163,6 +172,16 @@
     
 }
 #pragma mark -
+#pragma mark ------------TableView Delegate----------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.dataSource.count) {
+        YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
+    }else{
+        self.currentUser = indexPath.row;
+    }
+}
+#pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.dataSource.count +1;
@@ -181,6 +200,7 @@
         homeTableViewCell.titleLabel.text = @"添加其他成员";
         homeTableViewCell.titleLabel.textColor = [UIColor colorWithHexString:@"c7c5c5"];
     }else{
+        homeTableViewCell.titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
         homeTableViewCell.titleLabel.highlightedTextColor = [UIColor whiteColor];
         homeTableViewCell.selectedBackgroundView = [[UIView alloc] initWithFrame:homeTableViewCell.frame];
         homeTableViewCell.selectedBackgroundView.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
@@ -256,10 +276,52 @@
             NSLog(@"%@",self.dataSource);
            
         }
-        [self createOtherView];
+        if (!self.cardView1) {
+            [self createOtherView];
+        }
+        [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
 }
+- (void)reKeyBoard
+{
+//    [self.view endEditing:YES];
+    [self.cardView1.dataTextField resignFirstResponder];
+    [self.cardView2.dataTextField resignFirstResponder];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:YES];
+    [self.cardView1.dataTextField resignFirstResponder];
+    [self.cardView2.dataTextField resignFirstResponder];
+}
 
+-(void)KeyboardWillShow:(NSNotification *)notification
+{
+//    NSLog(@"键盘出现");
+    
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(reKeyBoard)];
+        [self.view addGestureRecognizer:tap];
+//    [self.view endEditing:YES];
+}
+
+-(void)KeyboardWillHide:(NSNotification *)notification
+{
+    for (UIGestureRecognizer *gest in self.view.gestureRecognizers) {
+//        [gest removeTarget:self action:@selector(reKeyBoard)];
+        [self.view removeGestureRecognizer:gest];
+    }
+    
+//    NSLog(@"键盘收起,%@",self.view.gestureRecognizers);
+
+    
+//    [self.view endEditing:YES];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:YES];
+    if (self.dataSource.count != 0) {
+        [self.dataSource removeAllObjects];
+    }
+    [self httpRequestForUser];
+}
 @end
