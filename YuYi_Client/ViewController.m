@@ -27,16 +27,18 @@
 #import "CcUserModel.h"
 #import "YYMedicinalStateModel.h"
 
+
 static NSString* cellid = @"business_cell";
 @interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
 //商城首页药品分类按钮数据
-@property (nonatomic,strong) NSArray<YYCategoryModel *> *categoryArr;
+@property (nonatomic,strong) NSMutableArray<YYCategoryModel *> *categoryArr;
 @property (nonatomic,strong) NSArray *getfirstPageArr;
 @property (nonatomic,strong) NSArray *stateModels;//我的药品状态
 //“全部”按钮
 @property (nonatomic,weak) UIButton *allBtn;
 //“药方时间”
 @property (nonatomic,strong) NSString *data;
+
 @end
 
 @implementation ViewController
@@ -56,12 +58,14 @@ static NSString* cellid = @"business_cell";
 }
 -(void)loadMineMedicinalData{
     HttpClient *httpManager = [HttpClient defaultClient];
-//    NSString *urlString = [API_BASE_URL stringByAppendingPathComponent:@"/category/listTreeDrugs.do"];
         //取token
     CcUserModel *userModel = [CcUserModel defaultClient];
     NSString *userToken = userModel.userToken;
     NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList.do?token=%@",mPrefixUrl,userToken];
-    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+    [SVProgressHUD show];
+    [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
         
         if ([((NSDictionary*)responseObject)[@"code"] isEqualToString:@"0"]) {
            NSDictionary *mineMedicineDic = ((NSDictionary*)responseObject)[@"result"];
@@ -76,10 +80,10 @@ static NSString* cellid = @"business_cell";
             //在药品状态数据请求回来之后再请求其他药品数据
             [self loadOtherMedicinalDate];
         }else{
-            
+            [SVProgressHUD dismiss];
         }
-        
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         return ;
     }];
 }
@@ -87,6 +91,7 @@ static NSString* cellid = @"business_cell";
 -(void)loadOtherMedicinalDate{
     HttpClient *httpManager = [HttpClient defaultClient];
     [httpManager requestWithPath:medinicalFirstPage method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
         NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
         if (getfirstPageArr.count>=6) {
@@ -102,16 +107,18 @@ static NSString* cellid = @"business_cell";
                 [fiveCategory addObject:getArr[i]];
             }
             self.categoryArr = fiveCategory;
+            
             [self setupUI];
         }else{
-            self.categoryArr = getArr;
+            self.categoryArr = [NSMutableArray arrayWithArray:getArr];
+    
             [self setupUI];
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         return ;
     }];
-
 }
 -(void)setupUI{
    
@@ -374,6 +381,7 @@ static NSString* cellid = @"business_cell";
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.translucent = true;
+    [SVProgressHUD dismiss];
 }
 
 @end
