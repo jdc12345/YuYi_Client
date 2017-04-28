@@ -19,6 +19,7 @@
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
+#import "YYFamilyAccountViewController.h"
 
 @interface YYAutoMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIView *memberView;
@@ -160,9 +161,19 @@
     
 }
 #pragma mark -
+#pragma mark ------------TableView Delegate----------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.dataSource.count) {
+        YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
+    }else{
+        self.currentUser = indexPath.row;
+    }
+}
+#pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.dataSource.count;
+    return self.dataSource.count +1;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -172,7 +183,7 @@
 
     YYMemberTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYMemberTableViewCell" forIndexPath:indexPath];
     
-    if (indexPath.row == 3) {
+    if (indexPath.row == self.dataSource.count) {
         homeTableViewCell.iconV.image = [UIImage imageNamed:@"add-1"];
         homeTableViewCell.titleLabel.text = @"添加其他成员";
         homeTableViewCell.titleLabel.textColor = [UIColor colorWithHexString:@"c7c5c5"];
@@ -259,7 +270,10 @@
         for (NSDictionary *dict in usersList) {
             YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
             [self.dataSource addObject:homeUser];
-            [self createOtherView];
+            if (!self.cardView1) {
+                [self createOtherView];
+            }
+            
         }
         [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

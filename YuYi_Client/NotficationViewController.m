@@ -39,7 +39,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -67,9 +67,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"消息";
     [self httpRequest];
+    
 //    self.rowHArray = @[@"130",@"160",@"130"];
 //    self.titleArray = @[@"宇医公告",@"血压测量",@"挂号通知"];
 //    self.contentArray = @[@"更新通知：你已经很久没看我了，最近我又很多好玩的新功能哦，快点来更新吧～",@"测量通知：您当前的测量结果是：高压／109mmHg，低压／74mmHg，血压水平／正常",@"挂号成功：LIM_,2月22日上午，涿州市中医院-呼吸科-李美丽医师，请准时就诊"];

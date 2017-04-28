@@ -132,7 +132,7 @@
     [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(personV).with.offset(10);
         make.left.equalTo(personV).with.offset(25 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(50 *kiphone6, 50 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(50 , 50 ));
     }];
 //
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -138,6 +138,9 @@
   
     
     
+    
+    UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
+//    headTitleView.backgroundColor = [UIColor cyanColor];
     // 左侧地址按钮   测
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -153,7 +156,7 @@
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
-    self.navigationItem.leftBarButtonItem = leftItem;
+//    self.navigationItem.leftBarButtonItem = leftItem;
     self.leftBtn = leftButton;
     
     // 右侧通知按钮
@@ -167,14 +170,14 @@
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
-    self.navigationItem.rightBarButtonItem = rightItem;
+//    self.navigationItem.rightBarButtonItem = rightItem;
     
     [rightButton sizeToFit];
     
     
-    UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
-    searchImageV.image = [UIImage imageNamed:@"search_icon"];
-    
+//    UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
+//    searchImageV.image = [UIImage imageNamed:@"search_icon"];
+//    
     
     
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -188,7 +191,29 @@
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = searchBtn;
+    
+    
+    [headTitleView addSubview:leftButton];
+    [headTitleView addSubview:rightButton];
+    [headTitleView addSubview:searchBtn];
+    
+    
+    WS(ws);
+    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.equalTo(headTitleView);
+        make.size.mas_equalTo(CGSizeMake(240 ,30));
+    }];
+    [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headTitleView).with.offset(5);
+        make.centerY.equalTo(headTitleView);
+        make.size.mas_equalTo(CGSizeMake(50 ,44));
+    }];
+    [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(headTitleView).with.offset(-5);
+        make.centerY.equalTo(headTitleView);
+        make.size.mas_equalTo(CGSizeMake(20 ,20));
+    }];
+    self.navigationItem.titleView = headTitleView;
     
     
     

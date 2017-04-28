@@ -252,7 +252,7 @@
             }
             
         }else{
-            result = responseObject[@"result"];
+            result = responseObject[@"message"];
         }
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:result preferredStyle:UIAlertControllerStyleAlert];
         //       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
