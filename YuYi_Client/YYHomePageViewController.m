@@ -144,7 +144,7 @@
     // 左侧地址按钮   测
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [leftButton setFrame:CGRectMake(0,0,50, 15)];
+    [leftButton setFrame:CGRectMake(0,0,50 *kiphone6, 15)];
     
     [leftButton setTitle:@"北京" forState:UIControlStateNormal];
     
@@ -201,17 +201,17 @@
     WS(ws);
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(240 ,30));
+        make.size.mas_equalTo(CGSizeMake(240 *kiphone6 ,30));
     }];
     [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headTitleView).with.offset(5);
         make.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(50 ,44));
+        make.size.mas_equalTo(CGSizeMake(50 *kiphone6 ,44));
     }];
     [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(headTitleView).with.offset(-5);
         make.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(20 ,20));
+        make.size.mas_equalTo(CGSizeMake(20 *kiphone6,20));
     }];
     self.navigationItem.titleView = headTitleView;
     
