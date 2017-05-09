@@ -114,6 +114,7 @@
 		3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643FF1E601DB8001B49DE /* ZYAlertView.m */; };
 		3E9644031E602D8A001B49DE /* ZYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644021E602D8A001B49DE /* ZYActionSheet.m */; };
 		3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644051E603F1C001B49DE /* ZYLActionSheet.m */; };
+		3E984FBF1EC168AA0094CBE4 /* 启动页.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E984FBE1EC168AA0094CBE4 /* 启动页.png */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -396,6 +397,7 @@
 		3E9644021E602D8A001B49DE /* ZYActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYActionSheet.m; sourceTree = "<group>"; };
 		3E9644041E603F1C001B49DE /* ZYLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLActionSheet.h; sourceTree = "<group>"; };
 		3E9644051E603F1C001B49DE /* ZYLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLActionSheet.m; sourceTree = "<group>"; };
+		3E984FBE1EC168AA0094CBE4 /* 启动页.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "启动页.png"; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -906,6 +908,7 @@
 				3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */,
 				3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */,
 				3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */,
+				3E984FBE1EC168AA0094CBE4 /* 启动页.png */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1385,6 +1388,7 @@
 				3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
 				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
+				3E984FBF1EC168AA0094CBE4 /* 启动页.png in Resources */,
 				165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

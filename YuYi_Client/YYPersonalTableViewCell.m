@@ -49,7 +49,7 @@
     }];
     [self.iconV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).with.offset(25 *kiphone6);
+        make.left.equalTo(self.contentView).with.offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(15 *kiphone6, 15 *kiphone6));
     }];
 
