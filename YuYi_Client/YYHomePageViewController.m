@@ -150,7 +150,7 @@
     
     [leftButton setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     
-    leftButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    leftButton.titleLabel.font = [UIFont systemFontOfSize:15 *kiphone6];
     
     [leftButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
     
