@@ -38,6 +38,7 @@
 #define mHomepageInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findList.do?start=0&limit=20"]
 // 首页融云token接口
 #define mRCtokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/rongyuToken.do?personalid="]
+#define mRCDoctorTokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/doctory.do?cid="]
 // 医院列表接口
 #define mHospitalInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=20"]
 

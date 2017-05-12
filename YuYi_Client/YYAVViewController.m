@@ -22,7 +22,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:mUserID to:@[@""] mediaType:RCCallMediaVideo sessionDelegate:self extra:nil];
+    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:self.toUserID to:@[@""] mediaType:RCCallMediaVideo sessionDelegate:self extra:nil];
     
     
     [[RCCallClient sharedRCCallClient] setDelegate:self];

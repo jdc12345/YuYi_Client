@@ -17,7 +17,7 @@
 #import "YYWordsViewController.h"
 #import <RongCallKit/RongCallKit.h>
 #import <UIImageView+WebCache.h>
-
+#import "HttpClient.h"
 @interface YYHospitalInfoViewController ()<RCCallSessionDelegate>
 
 @property (nonatomic, strong) UIImageView *iconV;
@@ -237,26 +237,42 @@
     NSInteger index = singleTap.view.tag -200;
     [self.alertView dismiss:nil];
     
-    YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
-    //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
-    wordVC.conversationType = ConversationType_PRIVATE;
-    //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
-    wordVC.targetId = mUserID;
-    
-    if (index == 0) {
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//        RCUserModel *userModel_rc = [RCUserModel defaultClient];
+//        userModel_rc.token = responseObject[@"token"];
+//        userModel_rc.Avatar = responseObject[@"Avatar"];
+//        userModel_rc.TrueName = responseObject[@"TrueName"];
+//        userModel_rc.info_id = responseObject[@"id"];
+        
+        YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+        wordVC.conversationType = ConversationType_PRIVATE;
+        //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+        wordVC.targetId = responseObject[@"id"];
+        NSLog(@"医院id =。%@",responseObject[@"id"]);
+        if (index == 0) {
+            
+            wordVC.modalityVC = @"speech";
+            
+            
+        }else if(index == 1){
+            wordVC.modalityVC = @"av";
+            
+            
+        }else{
+            wordVC.modalityVC = @"empty";
+        }
 
-        wordVC.modalityVC = @"speech";
+        [self.navigationController pushViewController:wordVC animated:YES];
+ 
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
 
-    }else if(index == 1){
-        wordVC.modalityVC = @"av";
-
-
-    }else{
-        wordVC.modalityVC = @"empty";
-    }
-    
-    [self.navigationController pushViewController:wordVC animated:YES];
-}
+   }
 
 /////////////////
 - (void)emptyClick{

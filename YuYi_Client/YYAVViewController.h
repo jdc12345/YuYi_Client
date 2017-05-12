@@ -10,5 +10,6 @@
 #import <RongCallKit/RongCallKit.h>
 
 @interface YYAVViewController : RCCallSingleCallViewController
+@property (nonatomic, strong) NSString *toUserID;
 
 @end

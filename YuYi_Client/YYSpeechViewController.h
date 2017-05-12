@@ -10,5 +10,5 @@
 #import <RongCallKit/RongCallKit.h>
 
 @interface YYSpeechViewController : RCCallSingleCallViewController
-
+@property (nonatomic, strong) NSString *toUserID;
 @end

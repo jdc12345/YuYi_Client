@@ -10,5 +10,5 @@
 #import <RongIMKit/RongIMKit.h>
 @interface YYWordsViewController : RCConversationViewController
 @property (nonatomic, strong) NSString *modalityVC;
-
+@property (nonatomic, strong) NSString *toUserID;
 @end
