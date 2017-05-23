@@ -27,11 +27,10 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" normalColor:[UIColor colorWithHexString:@"25f368"] highlightedColor:[UIColor colorWithHexString:@"25f368"] target:self action:@selector(sendFeedBack)];
     
-    
-    
     [self createSubView];
     // Do any additional setup after loading the view.
 }
+
 - (void)createSubView{
     
     UILabel *titleLabel = [[UILabel alloc]init];

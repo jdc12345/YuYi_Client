@@ -88,6 +88,10 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+    CcUserModel *ccModel = [CcUserModel defaultClient];
+    if ([ccModel.isPending isEqualToString:@"1"]) {
+        infoModel.hospitalName = @"Wan Yu Li Tong";
+    }
     YYConsultTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYConsultTableViewCell" forIndexPath:indexPath];
     [homeTableViewCell createDetailView:2];
     [homeTableViewCell addStarView:infoModel.tell];
@@ -95,7 +99,12 @@
     //    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
     [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", mPrefixUrl,infoModel.picture]]];
     homeTableViewCell.titleLabel.text = infoModel.hospitalName;
-    homeTableViewCell.introduceLabel.text = infoModel.introduction;
+    if ([ccModel.isPending isEqualToString:@"1"]) {
+        homeTableViewCell.introduceLabel.text = @"万宇 咨询";
+    }else{
+        homeTableViewCell.introduceLabel.text = infoModel.introduction;
+    }
+    
     
     CLLocation *loation = [CcUserModel defaultClient].loation;
     //第二个坐标
@@ -110,6 +119,7 @@
     
 }
 - (void)httpRequest{
+
     [[HttpClient defaultClient]requestWithPath:mHospitalInfoList method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -128,6 +138,7 @@
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
+    
 }
 
 

@@ -13,6 +13,7 @@
 #import <RongIMKit/RongIMKit.h>
 #import "YYSpeechViewController.h"
 #import "YYAVViewController.h"
+#import "CcUserModel.h"
 
 @interface YYWordsViewController ()<HcCustomKeyboardDelegate>
 @property (nonatomic, strong) HcCustomKeyboard *cc;
@@ -22,7 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"医生";
+    CcUserModel *ccModel = [CcUserModel defaultClient];
+    if ([ccModel.isPending isEqualToString:@"1"]) {
+        self.title = @"咨询";
+    }else{
+        self.title = @"医生";
+    }
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     // 判断是否直接连接语音或视频

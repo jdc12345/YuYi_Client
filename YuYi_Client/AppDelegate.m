@@ -14,8 +14,8 @@
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
-// 如果需要使用idfa功能所需要引入的头文件（可选）
-#import <AdSupport/AdSupport.h>
+//// 如果需要使用idfa功能所需要引入的头文件（可选）
+//#import <AdSupport/AdSupport.h>
 
 #import <RongIMKit/RongIMKit.h>
 
@@ -69,7 +69,7 @@
     
     
     // 如需使用IDFA功能请添加此代码并在初始化方法的advertisingIdentifier参数中填写对应值
-    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+//    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
     // Required
     // init Push
@@ -78,7 +78,7 @@
     [JPUSHService setupWithOption:launchOptions appKey:@"4439dd4f42e0ba09ef4fd4e7"
                           channel:@"App Store"
                  apsForProduction:0
-            advertisingIdentifier:advertisingId];
+            advertisingIdentifier:nil];
     
     [[RCIM sharedRCIM] initWithAppKey:@"25wehl3u2qo7w"];
     

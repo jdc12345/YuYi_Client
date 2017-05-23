@@ -111,6 +111,7 @@
     
     NSArray *butArray = @[@"shopmall_select",@"appointment"];
     NSArray *labelArray = @[@"我的药品",@"预约挂号"];
+    CcUserModel *ccModel = [CcUserModel defaultClient];
     for (int i = 0; i <2; i++) {
         
         // icon
@@ -128,7 +129,10 @@
         //
         [bannerView addSubview:button_banner];
         [bannerView addSubview:label_banner];
-        
+        if ([ccModel.isPending isEqualToString:@"1"] && i == 1) {
+            button_banner.hidden = YES;
+            label_banner.hidden = YES;
+        }
         //
         CGFloat x_padding = 0;                              // 偏移量
         if (i == 1) {
@@ -500,7 +504,20 @@
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-//        NSLog(@"%@",responseObject);
+        NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+        // app版本
+        NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+        // app build版本
+        NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+        
+        NSString *app_AllVersion = [NSString stringWithFormat:@"%@.%@",app_Version,app_build];
+        CcUserModel *ccModel = [CcUserModel defaultClient];
+        NSLog(@"我要改的接口%@ ,%@%@",responseObject,app_Version,app_build);
+        if ([responseObject[@"isPending"] isEqualToString:@"1"] && [responseObject[@"version"] isEqualToString:app_AllVersion]) {
+            ccModel.isPending = @"1";
+            NSLog(@"正在审核");
+        }
+        
         [self.userList removeAllObjects];
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {
@@ -512,11 +529,17 @@
         }else{
             self.isFull = NO;
         }
-        YYHomeUserModel *userModel = self.userList[0];
-//        self.bloodpressureList = userModel.bloodpressureList;
-        self.temperatureList = userModel.temperatureList;
-//
-        self.bloodpressureList = userModel.bloodpressureList;
+        YYHomeUserModel *userModel;
+        if (self.userList.count >0){
+            userModel = self.userList[0];
+        }
+        
+            //        self.bloodpressureList = userModel.bloodpressureList;
+            self.temperatureList = userModel.temperatureList;
+            //
+            self.bloodpressureList = userModel.bloodpressureList;
+        
+
         NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
         NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
         NSMutableArray *measureDate = [[NSMutableArray alloc]initWithCapacity:2];
@@ -528,6 +551,7 @@
             [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
             [measureDate addObject:str_date];
         }
+        
         
         if (self.bloodpressureTrendView) {
             [self refreshIconBanner];

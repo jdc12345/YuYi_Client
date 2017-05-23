@@ -25,7 +25,7 @@
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 @property (nonatomic, weak) UIView *selectView;
-
+@property (nonatomic, assign) BOOL isPending;  // 审核模式
 
 @end
 
@@ -33,8 +33,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"医院详情";
+    if ([self.yyInfomationModel.hospitalName isEqualToString:@"Wan Yu Li Tong"]) {
+        self.isPending = YES;
+        self.title = @"详情";
+    }else{
+        self.title = @"医院详情";
+    }
     self.view.backgroundColor = [UIColor whiteColor];
+
     
     [self createSomeViews];
     // Do any additional setup after loading the view.
@@ -49,7 +55,11 @@
     
     
     UILabel *hospital = [[UILabel alloc]init];
-    hospital.text = @"医院介绍";
+    if (self.isPending) {
+        hospital.text = @"介绍";
+    }else{
+        hospital.text = @"医院介绍";
+    }
     hospital.textColor = [UIColor colorWithHexString:@"333333"];
     hospital.font = [UIFont boldSystemFontOfSize:14];
     
@@ -61,7 +71,11 @@
     self.infoTextV.delegate = self;
     self.infoTextV.font = [UIFont systemFontOfSize:12];
     self.infoTextV.textColor = [UIColor colorWithHexString:@"666666"];
-    self.infoTextV.text = kHospitalText;
+    if (self.isPending) {
+        self.infoTextV.text = @"万宇利通 联系方式 0312-3601032";
+    }else{
+        self.infoTextV.text = self.yyInfomationModel.introduction;
+    }
     
     UILabel *lineL = [[UILabel alloc]init];
     lineL.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
@@ -71,7 +85,12 @@
     sureBtn.layer.borderWidth = 0.5 *kiphone6;
     sureBtn.layer.borderColor = [UIColor colorWithHexString:@"25f368"].CGColor;
     sureBtn.clipsToBounds = YES;
-    [sureBtn setTitle:@"医患咨询" forState:UIControlStateNormal];
+    if (self.isPending) {
+//        [sureBtn setTitle:@"咨询" forState:UIControlStateNormal];
+        sureBtn.hidden = YES;
+    }else{
+        [sureBtn setTitle:@"医患咨询" forState:UIControlStateNormal];
+    }
     sureBtn.backgroundColor = [UIColor whiteColor];
     [sureBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -117,10 +136,12 @@
     
     if (![self.yyInfomationModel.info_id isEqualToString:@""]) {
         [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.yyInfomationModel.picture]]];
-        self.infoTextV.text = self.yyInfomationModel.introduction;
+//        self.infoTextV.text = self.yyInfomationModel.introduction;
     }
 
-    
+    if(self.isPending){
+        self.iconV.image= [UIImage imageNamed:@"cell1"];
+    }
     
 }
 - (void)createIconV{

@@ -29,6 +29,7 @@
 @property (nonatomic,strong) NSArray *userAttentionArr;
 @property (nonatomic,strong) UIImage *imageAfterChoose;
 
+@property (nonatomic, strong) NSString *isPending;
 
 @property (nonatomic, strong) CLLocation *loation;
 

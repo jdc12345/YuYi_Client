@@ -4,6 +4,11 @@
 //
 //  Created by wylt_ios_1 on 2017/2/17.
 //  Copyright © 2017年 wylt_ios_1. All rights reserved.
+
+/**
+ 
+ 
+ */
 //
 
 #import "YYHomePageViewController.h"
@@ -219,7 +224,7 @@
     
     // 首页高德定位
     NSLog(@"首页高德定位");
-    [AMapServices sharedServices].apiKey =@"1ed56a722c410ad36180cd7272d9ae7f";
+    [AMapServices sharedServices].apiKey =@"b9c7a79ba8b553ae7aea093517c62ed0";
     
     
     
@@ -287,7 +292,13 @@
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+    if (section == 0) {
+        return self.dataSource.count;
+    }else{
+        NSLog(@" ========   %ld    %@",self.medicalHomeSource.count,self.medicalHomeSource);
+        return self.medicalHomeSource.count /3;
+    }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 50 *kiphone6;
@@ -498,6 +509,7 @@
 
 - (void)httpRequestForUser{
     NSString *userToken = [CcUserModel defaultClient].userToken;
+    NSLog(@"%@",userToken);
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -517,6 +529,7 @@
     [[HttpClient defaultClient]requestWithPath:mHomeMedical method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"sadasda %@",responseObject);
         NSArray *medicalList = responseObject[@"rows"];
         for (NSDictionary *dict in medicalList) {
             SimpleMedicalModel *homeUser = [SimpleMedicalModel mj_objectWithKeyValues:dict];

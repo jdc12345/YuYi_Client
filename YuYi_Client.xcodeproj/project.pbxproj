@@ -105,6 +105,10 @@
 		3E74BD541E7FA3FC00364EC6 /* YYInfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD531E7FA3FC00364EC6 /* YYInfomationModel.m */; };
 		3E74BD571E7FBECC00364EC6 /* SectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD561E7FBECC00364EC6 /* SectionModel.m */; };
 		3E74BD5B1E7FC35400364EC6 /* CcUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */; };
+		3E94396C1ECADABF001FE471 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94396B1ECADABF001FE471 /* JavaScriptCore.framework */; };
+		3E94396E1ECADB05001FE471 /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94396D1ECADB05001FE471 /* libstdc++.6.0.9.tbd */; };
+		3E94397B1ECADDD4001FE471 /* AMapFoundationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E9439791ECADDD4001FE471 /* AMapFoundationKit.framework */; };
+		3E94397C1ECADDD4001FE471 /* AMapLocationKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94397A1ECADDD4001FE471 /* AMapLocationKit.framework */; };
 		3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */; };
 		3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */; };
 		3E9643EE1E5FDD81001B49DE /* YYRecardTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643ED1E5FDD81001B49DE /* YYRecardTableViewCell.m */; };
@@ -376,6 +380,12 @@
 		3E74BD561E7FBECC00364EC6 /* SectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionModel.m; sourceTree = "<group>"; };
 		3E74BD591E7FC35400364EC6 /* CcUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CcUserModel.h; sourceTree = "<group>"; };
 		3E74BD5A1E7FC35400364EC6 /* CcUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CcUserModel.m; sourceTree = "<group>"; };
+		3E94396B1ECADABF001FE471 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3E94396D1ECADB05001FE471 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		3E94396F1ECADC69001FE471 /* AMapFoundationKit-2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AMapFoundationKit-2.framework"; path = "YuYi_Client/AMapFoundationKit-2.framework"; sourceTree = "<group>"; };
+		3E9439711ECADC73001FE471 /* AMapLocationKit-2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "AMapLocationKit-2.framework"; path = "YuYi_Client/AMapLocationKit-2.framework"; sourceTree = "<group>"; };
+		3E9439791ECADDD4001FE471 /* AMapFoundationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapFoundationKit.framework; sourceTree = "<group>"; };
+		3E94397A1ECADDD4001FE471 /* AMapLocationKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AMapLocationKit.framework; sourceTree = "<group>"; };
 		3E9643E71E5EF328001B49DE /* YYAllMedicinalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYAllMedicinalViewController.m; sourceTree = "<group>"; };
 		3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYRecardViewController.h; sourceTree = "<group>"; };
 		3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYRecardViewController.m; sourceTree = "<group>"; };
@@ -523,24 +533,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EC2C0031E6F9D4000F01795 /* Security.framework in Frameworks */,
+				3E94396E1ECADB05001FE471 /* libstdc++.6.0.9.tbd in Frameworks */,
+				3E5C670E1E763899005EAE19 /* libc++.tbd in Frameworks */,
+				3EC2C0051E6F9D5000F01795 /* libz.tbd in Frameworks */,
+				3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */,
+				3EC2BFFB1E6F9D0000F01795 /* SystemConfiguration.framework in Frameworks */,
+				3E94396C1ECADABF001FE471 /* JavaScriptCore.framework in Frameworks */,
 				3E5C67201E763913005EAE19 /* SafariServices.framework in Frameworks */,
 				3E5C671E1E76390D005EAE19 /* Photos.framework in Frameworks */,
 				3EC2C0011E6F9D3600F01795 /* UIKit.framework in Frameworks */,
-				3EC2BFFB1E6F9D0000F01795 /* SystemConfiguration.framework in Frameworks */,
 				3E5C671C1E7638F1005EAE19 /* QuartzCore.framework in Frameworks */,
 				3E5C671A1E7638E9005EAE19 /* OpenGLES.framework in Frameworks */,
 				3E5C67181E7638DB005EAE19 /* MapKit.framework in Frameworks */,
-				3EC2C0051E6F9D5000F01795 /* libz.tbd in Frameworks */,
 				3E5C67161E7638C8005EAE19 /* libxml2.tbd in Frameworks */,
 				3E5C67141E7638BD005EAE19 /* libstdc++.tbd in Frameworks */,
 				3E5C67121E7638AF005EAE19 /* libsqlite3.tbd in Frameworks */,
 				3E5C67101E7638A2005EAE19 /* libc++abi.tbd in Frameworks */,
-				3E5C670E1E763899005EAE19 /* libc++.tbd in Frameworks */,
 				3E5C670C1E76388C005EAE19 /* ImageIO.framework in Frameworks */,
 				3E5C670A1E763884005EAE19 /* CoreVideo.framework in Frameworks */,
-				3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */,
 				3E5C67081E763876005EAE19 /* CoreMedia.framework in Frameworks */,
 				3E5C67061E76386A005EAE19 /* CoreLocation.framework in Frameworks */,
+				3E94397B1ECADDD4001FE471 /* AMapFoundationKit.framework in Frameworks */,
 				3EC2BFFD1E6F9D0B00F01795 /* CoreGraphics.framework in Frameworks */,
 				3EC2BFF51E6F9CA600F01795 /* CFNetwork.framework in Frameworks */,
 				3E5C67041E763840005EAE19 /* AVFoundation.framework in Frameworks */,
@@ -548,8 +562,8 @@
 				3E5C67001E76382B005EAE19 /* AssetsLibrary.framework in Frameworks */,
 				3EC2C0091E6F9D6E00F01795 /* libresolv.tbd in Frameworks */,
 				3EC2C0071E6F9D6000F01795 /* UserNotifications.framework in Frameworks */,
-				3EC2C0031E6F9D4000F01795 /* Security.framework in Frameworks */,
 				3EC2BFFF1E6F9D1900F01795 /* Foundation.framework in Frameworks */,
+				3E94397C1ECADDD4001FE471 /* AMapLocationKit.framework in Frameworks */,
 				3EC2BFF71E6F9CC000F01795 /* CoreFoundation.framework in Frameworks */,
 				6E3E014AA343E778117EB31D /* libPods-YuYi_Client.a in Frameworks */,
 			);
@@ -1113,6 +1127,8 @@
 		3EAB2B751E2F065800D6795F /* YuYi_Client */ = {
 			isa = PBXGroup;
 			children = (
+				3E9439791ECADDD4001FE471 /* AMapFoundationKit.framework */,
+				3E94397A1ECADDD4001FE471 /* AMapLocationKit.framework */,
 				3EC2BFED1E6F97AF00F01795 /* YuYi_Client.entitlements */,
 				3E1220661E56910600BD5F21 /* Root_Tools */,
 				3E1840D91E56C56200069568 /* Classes */,
@@ -1202,6 +1218,10 @@
 		4BCFE1CDF028F8743BA4C987 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E9439711ECADC73001FE471 /* AMapLocationKit-2.framework */,
+				3E94396F1ECADC69001FE471 /* AMapFoundationKit-2.framework */,
+				3E94396D1ECADB05001FE471 /* libstdc++.6.0.9.tbd */,
+				3E94396B1ECADABF001FE471 /* JavaScriptCore.framework */,
 				3E5C671F1E763913005EAE19 /* SafariServices.framework */,
 				3E5C671D1E76390C005EAE19 /* Photos.framework */,
 				3E5C671B1E7638F1005EAE19 /* QuartzCore.framework */,
@@ -1308,6 +1328,9 @@
 						DevelopmentTeam = HM3WX6CXQ7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -1726,6 +1749,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HM3WX6CXQ7;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1765,6 +1792,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = HM3WX6CXQ7;
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
