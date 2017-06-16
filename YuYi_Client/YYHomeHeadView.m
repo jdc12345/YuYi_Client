@@ -129,7 +129,7 @@
         //
         [bannerView addSubview:button_banner];
         [bannerView addSubview:label_banner];
-        if ([ccModel.isPending isEqualToString:@"1"] && i == 1) {
+        if ([ccModel.isPending isEqualToString:@"1"]) {
             button_banner.hidden = YES;
             label_banner.hidden = YES;
         }

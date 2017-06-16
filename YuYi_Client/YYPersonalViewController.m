@@ -77,9 +77,14 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
+    CcUserModel *model = [CcUserModel defaultClient];
+    if (![model.telephoneNum isEqualToString:@"18511694068"]) {
     self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"设置"]]];
     self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"Set-icon-"]];
-    
+    }else{
+        self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"设置"]]];
+        self.iconList =@[@[@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"Set-icon-"]];
+    }
     
 //    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
 //    headView.backgroundColor = [UIColor whiteColor];
@@ -164,9 +169,9 @@
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
+    CcUserModel *model = [CcUserModel defaultClient];
+    if (indexPath.section == 0 && ![model.telephoneNum isEqualToString:@"18511694068"]) {
+        if (indexPath.row == 0 ) {
             [self.navigationController pushViewController:[[YYRecardViewController alloc]init] animated:YES];
         }else{
             NotficationViewController *shopVC = [[NotficationViewController alloc]init];
@@ -215,11 +220,13 @@
     return 3;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 2) {
-        return 1;
-    }else{
-        return 2;
-    }
+    NSArray *array = self.dataSource[section];
+    return array.count;
+//    if (section == 2) {
+//        return 1;
+//    }else{
+//        return 2;
+//    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     

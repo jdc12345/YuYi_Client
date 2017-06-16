@@ -200,14 +200,21 @@
     
     [headTitleView addSubview:leftButton];
     [headTitleView addSubview:rightButton];
-    [headTitleView addSubview:searchBtn];
+    
+    
+    CcUserModel *model = [CcUserModel defaultClient];
+    if (![model.telephoneNum isEqualToString:@"18511694068"]) {
+        [headTitleView addSubview:searchBtn];
+        [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.centerY.equalTo(headTitleView);
+            make.size.mas_equalTo(CGSizeMake(240 *kiphone6 ,30));
+        }];
+    }
+    
     
     
     WS(ws);
-    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(240 *kiphone6 ,30));
-    }];
+
     [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headTitleView).with.offset(5);
         make.centerY.equalTo(headTitleView);

@@ -8,6 +8,7 @@
 #import "YYMeasureViewController.h"
 #import "YYConsultViewController.h"
 #import "YYPersonalViewController.h"
+#import "CcUserModel.h"
 
 #define kTabbarItemTag 100
 @interface YYTabBarController () <UITabBarControllerDelegate>
@@ -22,10 +23,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    CcUserModel *ccuserModel = [CcUserModel defaultClient];
+    if(![ccuserModel.telephoneNum isEqualToString:@"18511694068"]){
     self.tabBarView = [YYTabBar initWithTabs:4 systemTabBarHeight:self.tabBar.bounds.size.height selected:^(NSUInteger index) {
         self.selectedIndex = index;
     }];
+    }else{
+        self.tabBarView = [YYTabBar initWithTabs:3 systemTabBarHeight:self.tabBar.bounds.size.height selected:^(NSUInteger index) {
+            self.selectedIndex = index;
+        }];
+    }
     [self setupMainContents];
     [self setValue:self.tabBarView forKey:@"tabBar"];
 }
@@ -48,6 +55,11 @@
 }
 
 - (void)setupMainContents {
+    
+    CcUserModel *ccuserModel = [CcUserModel defaultClient];
+    
+    
+
     // 首页
     YYHomePageViewController *homeVC = [[YYHomePageViewController alloc] init];
     [self addChildViewControllerAtIndex:0 childViewController:homeVC title:@"首页" normalImage:@"home_normal" selectedImage:@"home_select"];
@@ -55,14 +67,18 @@
     // 测量
     YYMeasureViewController *measureVC = [[YYMeasureViewController alloc] init];
     [self addChildViewControllerAtIndex:1 childViewController:measureVC title:@"测量" normalImage:@"measure_normal" selectedImage:@"measure_select"];
-    
+    if(![ccuserModel.telephoneNum isEqualToString:@"18511694068"]){
     // 咨询
     YYConsultViewController *consultVC = [[YYConsultViewController alloc] init];
     [self addChildViewControllerAtIndex:2 childViewController:consultVC title:@"咨询" normalImage:@"consult_normal" selectedImage:@"consult_select"];
-    
-    // 我的
-    YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
-    [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
+        // 我的
+        YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
+        [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
+    }else{
+        YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
+        [self addChildViewControllerAtIndex:2 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
+    }
+
 }
 
 /**

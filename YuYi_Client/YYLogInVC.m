@@ -261,7 +261,6 @@
             if ([dic[@"result"] isEqualToString:@""]) {
                 [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];
             }else{
-                
                 [self showAlertWithMessage:@"请确认验证码正确"];
             }
 
