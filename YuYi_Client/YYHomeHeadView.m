@@ -23,7 +23,7 @@
 }
 
 - (void)setViewInHead{
-    SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
+//    SDCycleScrollView *cycleScrollView2 = [[SDCycleScrollView alloc]init];
 //    cycleScrollView2.
 //                                           cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenW, 169/375.0*kScreenW) delegate:self placeholderImage:[UIImage imageNamed:@"place2"]];
 //    
@@ -33,7 +33,7 @@
 //    cycleScrollView2.pageDotColor = [UIColor colorWithHexString:@"#ffffff" alpha:0.3];
 //    // [demoContainerView addSubview:cycleScrollView2];
 //    cycleScrollView2.imageURLStringsGroup = imagesURLStrings;
-    cycleScrollView2.delegate = self;
+//    cycleScrollView2.delegate = self;
 }
 
 /*
