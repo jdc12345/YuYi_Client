@@ -260,15 +260,10 @@
         [lateData addObject:@"0"];
     }
     
-    
-    
-    
-    
-    
+   
     NSArray *testDataArray = lateData;//@[@"129",@"87",@"38℃"];
 
-    
-    
+ 
     CGFloat kLabelW = kScreenW /4.0;
     UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"normal_select"]];
     UILabel *statusLabel = [[UILabel alloc]init];
@@ -292,9 +287,7 @@
         make.size.mas_equalTo(CGSizeMake(kLabelW, 9));
     }];
     
-    
-    
-    
+  
     for (int i = 0; i < 3; i++) {
         
         // data
@@ -397,10 +390,7 @@
     _pageCtrl.currentDotImage = [UIImage imageNamed:@"pageControl-select"];
     _pageCtrl.dotSize = CGSizeMake(15, 5);
     [_pageCtrl addTarget:self action:@selector(pageTurn:) forControlEvents:UIControlEventValueChanged];  //用户点击UIPageControl的响应函数
-    
-    
-    
-    
+  
     //
     [self addSubview:cycleScrollView2];
     [self addSubview:bannerView];

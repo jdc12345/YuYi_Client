@@ -18,20 +18,34 @@
 #import "YYNavigationController.h"
 
 @interface YYLogInVC ()<UITextFieldDelegate>
-@property(nonatomic,weak)UILabel *countdownLabel;
-
 @property(nonatomic,weak)UITextField *telNumberField;
 
 @property(nonatomic,weak)UITextField *passWordField;
-
 @end
 
 @implementation YYLogInVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+    self.title = @"登录";
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"#1ebeec"];
+    //只改变导航栏字体大小颜色
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithHexString:@"#333333"],NSFontAttributeName:[UIFont systemFontOfSize:20]}];
+    [self setBackGroundColorWithImage:[UIImage imageNamed:@"logo_back"]];
     [self setupUI];
+}
+//把控制器背景设为图片
+- (void)setBackGroundColorWithImage:(UIImage *)image
+{
+    UIImage *oldImage = image;
+    
+    UIGraphicsBeginImageContextWithOptions((CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)), NO, 0.0);
+    [oldImage drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:newImage];
 }
 -(void)setupUI{
     //添加log图片
@@ -39,109 +53,119 @@
     [self.view addSubview:logImageView];
     [logImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.offset(130);
-        make.width.height.offset(125*kiphone6);
+        make.top.offset(94);
+        make.width.height.offset(100*kiphone6);
     }];
-    
-    //添加line1
-    UIView *line1 = [[UIView alloc]init];
-    line1.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
-    [self.view addSubview:line1];
-    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+    //添加输入区域背景
+    UIView *inputView = [[UIView alloc]init];
+    inputView.backgroundColor = [UIColor whiteColor];
+    inputView.alpha = 0.9;
+    inputView.layer.masksToBounds = true;
+    inputView.layer.cornerRadius = 8;
+    [self.view addSubview:inputView];
+    [inputView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(logImageView.mas_bottom).offset(60);
-        make.width.offset(225*kiphone6);
-        make.height.offset(0.5);
+        make.top.equalTo(logImageView.mas_bottom).offset(30*kiphone6);
+        make.width.offset(325*kiphone6);
+        make.height.offset(100*kiphone6);
     }];
-    //添加电话imageView图标
-    UIImageView *telImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_phone_icon"]];
-    [self.view addSubview:telImageView];
-    [telImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(line1.mas_left);
-        make.bottom.equalTo(line1.mas_top).offset(-7.5);
-        make.width.height.offset(17);
+    //添加电话label
+    UILabel *telNumLabel = [UILabel labelWithText:@"手机号" andTextColor:[UIColor colorWithHexString:@"#333333"] andFontSize:14];
+    [inputView addSubview:telNumLabel];
+    [telNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(15*kiphone6);
+        make.centerY.equalTo(inputView.mas_top).offset(25*kiphone6);
     }];
+
     //添加电话textField
     UITextField *telNumberField = [[UITextField alloc]init];
     telNumberField.placeholder = @"请输入电话号码";
+    telNumberField.font = [UIFont systemFontOfSize:14];
     telNumberField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
-    [self.view addSubview:telNumberField];
+    [inputView addSubview:telNumberField];
     [telNumberField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(telImageView.mas_right).offset(15);
-        make.bottom.equalTo(line1.mas_top).offset(-7.5);
-        make.width.offset(122);
+        make.left.equalTo(telNumLabel.mas_right).offset(20*kiphone6);
+        make.centerY.equalTo(telNumLabel);
+        make.width.offset(122*kiphone6);
     }];
     self.telNumberField = telNumberField;
     telNumberField.delegate = self;
-    
-    //添加line2
-    UIView *line2 = [[UIView alloc]init];
-    line2.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
-    [self.view addSubview:line2];
-    [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(line1.mas_bottom).offset(40);
-        make.width.offset(225);
-        make.height.offset(1);
+    //添加line1
+    UIView *line1 = [[UIView alloc]init];
+    line1.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [inputView addSubview:line1];
+    [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(inputView);
+        make.left.right.offset(0);
+        make.height.offset(1/[UIScreen mainScreen].scale);
     }];
-    //添加密码imageView图标
-    UIImageView *passWordImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_lock_icon"]];
-    [self.view addSubview:passWordImageView];
-    [passWordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(line2.mas_left);
-        make.bottom.equalTo(line2.mas_top).offset(-7.5);
-        make.width.height.offset(17);
+    //添加验证码label
+    UILabel *codeNumLabel = [UILabel labelWithText:@"验证码" andTextColor:[UIColor colorWithHexString:@"#333333"] andFontSize:14];
+    [inputView addSubview:codeNumLabel];
+    [codeNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(15*kiphone6);
+        make.centerY.equalTo(line1.mas_centerY).offset(25*kiphone6);
     }];
     //添加密码textField
     UITextField *passWordField = [[UITextField alloc]init];
+    passWordField.font = [UIFont systemFontOfSize:14];
     passWordField.placeholder = @"请输入验证码";
     passWordField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
-    [self.view addSubview:passWordField];
+    [inputView addSubview:passWordField];
     [passWordField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(passWordImageView.mas_right).offset(15);
-        make.bottom.equalTo(line2.mas_top).offset(-7.5);
+        make.left.equalTo(codeNumLabel.mas_right).offset(20*kiphone6);
+        make.centerY.equalTo(codeNumLabel);
         make.width.offset(110);
     }];
     self.passWordField = passWordField;
     
     //添加获取验证码Btn
     UIButton *getCodeBtn = [[UIButton alloc]init];
-    [getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [getCodeBtn setTitleColor:[UIColor colorWithHexString:@"f9f9f9"] forState:UIControlStateNormal];
-    getCodeBtn.titleLabel.font = [UIFont systemFontOfSize:9];
-    [getCodeBtn setBackgroundColor:[UIColor colorWithHexString:@"66cc00"]];
-    [self.view addSubview:getCodeBtn];
+    getCodeBtn.layer.masksToBounds = true;
+    getCodeBtn.layer.cornerRadius = 17.5*kiphone6;
+    [getCodeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+    [getCodeBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+    [getCodeBtn setBackgroundColor:[UIColor colorWithHexString:@"#1ebeec"]];
+    getCodeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [inputView addSubview:getCodeBtn];
     [getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(passWordField.mas_right).offset(5);
-        make.bottom.equalTo(line2.mas_top).offset(-7.5);
-        make.width.offset(50);
-        make.height.offset(20);
+        make.right.offset(-15*kiphone6);
+        make.centerY.equalTo(codeNumLabel);
+        make.width.offset(100*kiphone6);
+        make.height.offset(35*kiphone6);
     }];
     //点击事件
     [getCodeBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
-    
-    //添加倒计时Label
-    UILabel *countdownLabel = [UILabel labelWithText:@"59 S" andTextColor:[UIColor redColor] andFontSize:12];
-    countdownLabel.hidden = true;
-    [countdownLabel sizeToFit];
-    [self.view addSubview:countdownLabel];
-    self.countdownLabel = countdownLabel;
-    [countdownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(getCodeBtn.mas_right).offset(5);
-        make.centerY.equalTo(getCodeBtn);
+    //添加确认阅读条款Label---------需要修改添加链接
+    UILabel *readLabel = [UILabel labelWithText:@"我已确认阅读并同意《使用条款和隐私协议》" andTextColor:[UIColor blackColor] andFontSize:12];
+    [self.view addSubview:readLabel];
+    [readLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(inputView.mas_bottom).offset(15*kiphone6);
+        make.centerX.equalTo(self.view).offset(10*kiphone6);
+    }];
+    //添加选择按钮
+    UIButton *selectBtn = [[UIButton alloc]init];
+    [selectBtn setImage:[UIImage imageNamed:@"logo_selected"] forState:UIControlStateNormal];
+    [self.view addSubview:selectBtn];
+    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(inputView.mas_bottom).offset(15*kiphone6);
+        make.centerY.equalTo(readLabel);
+        make.right.equalTo(readLabel.mas_left).offset(-5*kiphone6);
     }];
     //添加登录Btn
     UIButton *logInBtn = [[UIButton alloc]init];
+    logInBtn.layer.masksToBounds = true;
+    logInBtn.layer.cornerRadius = 20;
     [logInBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [logInBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
-    logInBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-    [logInBtn setBackgroundColor:[UIColor colorWithHexString:@"66cc00"]];
+    [logInBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
+    logInBtn.titleLabel.font = [UIFont systemFontOfSize:18];
+    [logInBtn setBackgroundColor:[UIColor colorWithHexString:@"#1ebeec"]];
     [self.view addSubview:logInBtn];
     [logInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(line2);
-        make.top.equalTo(line2.mas_bottom).offset(30);
-        make.width.offset(80);
-        make.height.offset(35);
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(readLabel.mas_bottom).offset(40*kiphone6);
+        make.width.offset(325*kiphone6);
+        make.height.offset(44*kiphone6);
     }];
     //点击事件
     [logInBtn addTarget:self action:@selector(logIn:) forControlEvents:UIControlEventTouchUpInside];
@@ -170,8 +194,6 @@
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *getCodeDic = (NSDictionary*)responseObject;
         if ([getCodeDic[@"code"] isEqualToString:@"0"]) {
-            self.countdownLabel.hidden = false;
-//            self.passWordField.text = getCodeDic[@"result"];
             //倒计时时间
             __block NSInteger timeOut = 59;
             dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -184,12 +206,10 @@
                 if (timeOut <= 0) {
                     dispatch_source_cancel(_timer);
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [button setBackgroundColor:[UIColor colorWithHexString:@"66cc00"]];
-                        
-                        [button setTitle:@"获取验证码" forState:UIControlStateNormal];
+                        [button setBackgroundColor:[UIColor colorWithHexString:@"#1ebeec"]];
+                        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                        [button setTitle:@"发送验证码" forState:UIControlStateNormal];
                         button.userInteractionEnabled = true;
-                        self.countdownLabel.hidden = true;
-                        self.countdownLabel.text = @"59 S";
                     });
                 } else {
                     int allTime = 60;
@@ -197,10 +217,9 @@
                     NSString *timeStr = [NSString stringWithFormat:@"%0.2d", seconds];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [button setBackgroundColor:[UIColor colorWithHexString:@"#cccccc"]];
-                        self.countdownLabel.text = [NSString stringWithFormat:@"%@ S",timeStr];
-                        
+                        [button setTitle:[NSString stringWithFormat:@"%@ S",timeStr] forState:UIControlStateNormal];
+                        [button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                         button.userInteractionEnabled = false;
-                        self.countdownLabel.hidden = false;
                     });
                     timeOut--;
                 }
@@ -210,8 +229,6 @@
         }else{
             [self showAlertWithMessage:@"请确认电话号码正确以及网络是否正常"];
             self.telNumberField.text = nil;
-            self.countdownLabel.hidden = true;
-            
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         return;

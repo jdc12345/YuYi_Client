@@ -16,7 +16,6 @@
 #import <MJRefresh.h>
 #import "YYHomeHeadView.h"
 #import "UIColor+Extension.h"
-#import <Masonry.h>
 #import "YYHomeNewTableViewCell.h"
 #import "YYHomeMedicineTableViewCell.h"
 #import "InfomationViewController.h"
@@ -118,7 +117,6 @@
 
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
 
-
         }else{
             YYAppointmentViewController *appiontmentVC = [[YYAppointmentViewController alloc]init];
             [self.navigationController pushViewController:appiontmentVC animated:YES];
@@ -145,21 +143,26 @@
     
     
     UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
-//    headTitleView.backgroundColor = [UIColor cyanColor];
+    headTitleView.backgroundColor = [UIColor colorWithHexString:@"383a41"];
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"383a41"];
+    self.navigationController.navigationBar.translucent = false;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     // 左侧地址按钮   测
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    [leftButton setFrame:CGRectMake(0,0,50 *kiphone6, 15)];
-    
+    [leftButton setFrame:CGRectMake(0,0,65 *kiphone6, 15)];
+    [leftButton setImage:[UIImage imageNamed:@"firstPage_location"] forState:UIControlStateNormal];
     [leftButton setTitle:@"北京" forState:UIControlStateNormal];
     
-    [leftButton setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+    [leftButton setTitleColor:[UIColor colorWithHexString:@"#dedfe0"] forState:UIControlStateNormal];
     
     leftButton.titleLabel.font = [UIFont systemFontOfSize:15 *kiphone6];
-    
+    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
     [leftButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
 //    self.navigationItem.leftBarButtonItem = leftItem;
     self.leftBtn = leftButton;
@@ -169,11 +172,11 @@
     
     [rightButton setFrame:CGRectMake(0,0,20, 20)];
     
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"notfic_select"] forState:UIControlStateNormal];
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"firstPage_message"] forState:UIControlStateNormal];
     
     [rightButton addTarget:self action:@selector(back_click_right:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
 //    self.navigationItem.rightBarButtonItem = rightItem;
     
@@ -188,7 +191,9 @@
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
     searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
-    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
     [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
     [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -196,7 +201,8 @@
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
     [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    searchBtn.layer.masksToBounds = true;
+    searchBtn.layer.cornerRadius = 15;
     
     [headTitleView addSubview:leftButton];
     [headTitleView addSubview:rightButton];
@@ -206,19 +212,16 @@
     if (![model.telephoneNum isEqualToString:@"18511694068"]) {
         [headTitleView addSubview:searchBtn];
         [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.centerY.equalTo(headTitleView);
-            make.size.mas_equalTo(CGSizeMake(240 *kiphone6 ,30));
+            make.left.offset(65*kiphone6);
+            make.centerY.equalTo(headTitleView);
+            make.size.mas_equalTo(CGSizeMake(250 *kiphone6 ,30));
         }];
     }
-    
-    
-    
-    WS(ws);
 
     [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(headTitleView).with.offset(5);
+        make.left.offset(0);
         make.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(50 *kiphone6 ,44));
+        make.size.mas_equalTo(CGSizeMake(65 *kiphone6 ,44));
     }];
     [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(headTitleView).with.offset(-5);

@@ -24,6 +24,8 @@
 #import "YYWordsViewController.h"
 #import "HttpClient.h"
 #import "RCUserModel.h"
+#import "YYNavigationController.h"
+
 @interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) YYTabBarController *yyTabBar;
 @end
@@ -47,7 +49,8 @@
         self.yyTabBar = tabbarVC;
     }else{
         YYLogInVC *logInVC = [[YYLogInVC alloc]init];
-        self.window.rootViewController = logInVC;
+        YYNavigationController *navigationVc = [[YYNavigationController alloc] initWithRootViewController:logInVC];
+        self.window.rootViewController = navigationVc;
     }
     
     

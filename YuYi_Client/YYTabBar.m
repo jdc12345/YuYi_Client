@@ -55,8 +55,8 @@ static NSUInteger kTag = 1000;
         btn.titleLabelHigh = 8;
         
         /** 设置文字颜色 */
-        [btn setTitleColor:[UIColor colorWithHexString:@"656D78"] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHexString:@"B1B8C3"] forState:UIControlStateSelected];
+        [btn setTitleColor:[UIColor colorWithHexString:@"a6a6a6"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateSelected];
         
         /** 添加事件响应 */
         [btn addTarget:tabBar action:@selector(tabDidSelected:) forControlEvents:UIControlEventTouchUpInside];
@@ -85,9 +85,9 @@ static NSUInteger kTag = 1000;
     [shadowView.layer addSublayer:shadowLayer];
     [tabBar addSubview:shadowView];
      */
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.5)];
-    line.backgroundColor = [UIColor colorWithHexString:@"E6E9ED"];
-    [tabBar addSubview:line];
+//    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0.5)];
+//    line.backgroundColor = [UIColor colorWithHexString:@"E6E9ED"];
+//    [tabBar addSubview:line];
     
     return tabBar;
 }
@@ -96,8 +96,8 @@ static NSUInteger kTag = 1000;
     YYTabBarItem *tabBarItem = self.subviews[index];
     
     [tabBarItem setTitle:title forState:UIControlStateNormal];
-    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
-    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"25f368"] forState:UIControlStateSelected];
+    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"a6a6a6"] forState:UIControlStateNormal];
+    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateSelected];
 
     [tabBarItem setImage:[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
     [tabBarItem setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateSelected];

@@ -62,21 +62,21 @@
 
     // 首页
     YYHomePageViewController *homeVC = [[YYHomePageViewController alloc] init];
-    [self addChildViewControllerAtIndex:0 childViewController:homeVC title:@"首页" normalImage:@"home_normal" selectedImage:@"home_select"];
+    [self addChildViewControllerAtIndex:0 childViewController:homeVC title:@"首页" normalImage:@"firstPage_unhome" selectedImage:@"firstPage_home"];
     
     // 测量
     YYMeasureViewController *measureVC = [[YYMeasureViewController alloc] init];
-    [self addChildViewControllerAtIndex:1 childViewController:measureVC title:@"测量" normalImage:@"measure_normal" selectedImage:@"measure_select"];
+    [self addChildViewControllerAtIndex:1 childViewController:measureVC title:@"测量" normalImage:@"firstPage_unmeasure" selectedImage:@"firstPage_measure"];
     if(![ccuserModel.telephoneNum isEqualToString:@"18511694068"]){
     // 咨询
     YYConsultViewController *consultVC = [[YYConsultViewController alloc] init];
-    [self addChildViewControllerAtIndex:2 childViewController:consultVC title:@"咨询" normalImage:@"consult_normal" selectedImage:@"consult_select"];
+    [self addChildViewControllerAtIndex:2 childViewController:consultVC title:@"咨询" normalImage:@"firstPage_unconsult" selectedImage:@"firstPage_consult"];
         // 我的
         YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
-        [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
+        [self addChildViewControllerAtIndex:3 childViewController:personalVC title:@"我的" normalImage:@"firstPage_unmine" selectedImage:@"firstPage_mine"];
     }else{
         YYPersonalViewController *personalVC = [[YYPersonalViewController alloc] init];
-        [self addChildViewControllerAtIndex:2 childViewController:personalVC title:@"我的" normalImage:@"personal_normal" selectedImage:@"personal_select"];
+        [self addChildViewControllerAtIndex:2 childViewController:personalVC title:@"我的" normalImage:@"firstPage_unmine" selectedImage:@"firstPage_mine"];
     }
 
 }
