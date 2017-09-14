@@ -276,8 +276,8 @@ NSString * const ID = @"cycleCell";
             pageControl.dotColor = self.dotColor;
             
             // ...........
-            pageControl.dotImage = [UIImage imageNamed:@"pageControl-normal"];
-            pageControl.currentDotImage = [UIImage imageNamed:@"pageControl-select"];
+            pageControl.dotImage = [UIImage imageNamed:@"firstPage_unselected"];
+            pageControl.currentDotImage = [UIImage imageNamed:@"firstPage_selected"];
             pageControl.dotSize = CGSizeMake(15, 5);
             
             [self addSubview:pageControl];

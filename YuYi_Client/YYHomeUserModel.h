@@ -22,8 +22,8 @@
 @property (nonatomic, copy) NSString *trueName;
 @property (nonatomic, copy) NSString *idCard;
 @property (nonatomic, copy) NSString *gender;
-@property (nonatomic, copy) NSArray *bloodpressureList;
-@property (nonatomic, copy) NSArray *temperatureList;
+@property (nonatomic, strong) NSArray *bloodpressureList;
+@property (nonatomic, strong) NSArray *temperatureList;
 @property (nonatomic, copy) NSString *telephone;
 
 

@@ -37,18 +37,19 @@ static NSUInteger kTag = 1000;
     tabBar.block = selectedBlock;
     
 //    [tabBar setBackgroundImage:[ImageUtil gradientImageWithColors:[NSArray arrayWithObjects:[UIColor colorWithHexString:@"F3F4F6"],[UIColor colorWithHexString:@"F3F4F6"], nil] withSize:tabBar.frame.size]];
-    [tabBar setShadowImage:[UIImage new]];
+//    [tabBar setShadowImage:[UIImage new]];
     
     /** 获取button的宽度 */
     CGFloat tabBarItemWidth = kScreenW / count ;
     /** 设置背景颜色 */
-    tabBar.backgroundColor = [UIColor clearColor];
+    tabBar.backgroundColor = [UIColor colorWithHexString:@"383a41"];
     
     for (NSUInteger idx = 0; idx < count; idx++) {
         /** 获取btn的X坐标 */
         CGFloat pointX = tabBarItemWidth * idx;
         /** 初始化一个btn */
         YYTabBarItem *btn = [YYTabBarItem buttonWithType:UIButtonTypeCustom];
+        btn.backgroundColor = [UIColor colorWithHexString:@"383a41"];
         /** 设置frame */
         btn.frame = CGRectMake(pointX, 0, tabBarItemWidth, CGRectGetHeight(tabBar.frame));
         btn.kImageScale = 0.72f;
@@ -96,8 +97,8 @@ static NSUInteger kTag = 1000;
     YYTabBarItem *tabBarItem = self.subviews[index];
     
     [tabBarItem setTitle:title forState:UIControlStateNormal];
-    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"a6a6a6"] forState:UIControlStateNormal];
-    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateSelected];
+//    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"a6a6a6"] forState:UIControlStateNormal];
+//    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateSelected];
 
     [tabBarItem setImage:[UIImage imageNamed:normalImage] forState:UIControlStateNormal];
     [tabBarItem setImage:[UIImage imageNamed:selectedImage] forState:UIControlStateSelected];

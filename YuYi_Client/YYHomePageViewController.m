@@ -138,10 +138,6 @@
     self.headView = homeHeadView;
     self.tableView.tableHeaderView = homeHeadView;
     
-  
-    
-    
-    
     UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
     headTitleView.backgroundColor = [UIColor colorWithHexString:@"383a41"];
     //改变整个导航栏+状态栏背景颜色
@@ -180,7 +176,7 @@
     
 //    self.navigationItem.rightBarButtonItem = rightItem;
     
-    [rightButton sizeToFit];
+//    [rightButton sizeToFit];
     
     
 //    UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
@@ -224,7 +220,7 @@
         make.size.mas_equalTo(CGSizeMake(65 *kiphone6 ,44));
     }];
     [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(headTitleView).with.offset(-5);
+        make.right.offset(-5);
         make.centerY.equalTo(headTitleView);
         make.size.mas_equalTo(CGSizeMake(20 *kiphone6,20));
     }];

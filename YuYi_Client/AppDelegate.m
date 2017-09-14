@@ -52,9 +52,7 @@
         YYNavigationController *navigationVc = [[YYNavigationController alloc] initWithRootViewController:logInVC];
         self.window.rootViewController = navigationVc;
     }
-    
-    
-    
+            
     NSLog(@"注册");
     
     
