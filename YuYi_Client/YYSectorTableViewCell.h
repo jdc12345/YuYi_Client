@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppointmentModel.h"
 
 @interface YYSectorTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) UIImageView *iconV;
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *introduceLabel;
 @property (nonatomic, strong) UIButton *appointmentBtn;
 @property (nonatomic, strong) UILabel *countLabel;
-
-
+@property (nonatomic, strong) UILabel *titleLabel;//级别
+@property (nonatomic, strong) AppointmentModel *appointmentModel;
+@property (nonatomic, assign) BOOL isMorning;
 @property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
 @end

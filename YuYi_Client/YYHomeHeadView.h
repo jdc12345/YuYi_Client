@@ -10,7 +10,7 @@
 
 @interface YYHomeHeadView : UIView
 
-@property (nonatomic, copy) void(^bannerClick)(BOOL isShopping);
+@property (nonatomic, copy) void(^bannerClick)(BOOL isOrder);
 @property (nonatomic, copy) void(^itemClick)(NSString  *index);
 @property (nonatomic, copy) void(^addFamily)(NSString  *index);
 - (instancetype)init;

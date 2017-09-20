@@ -7,9 +7,7 @@
 //
 
 #import "YYSectorViewController.h"
-#import <Masonry.h>
 #import "SectorCalendar.h"
-#import "UIColor+Extension.h"
 #import "YYSectorTableViewCell.h"
 #import "ZYAlertSView.h"
 #import "HttpClient.h"
@@ -19,12 +17,16 @@
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
 #import "YYPInfomartionViewController.h"
+#import "UILabel+Addition.h"
+#import "YYFamilyAccountViewController.h"
+
+static NSInteger start = 0;//记录当前显示的那一天
 @interface YYSectorViewController ()<UIScrollViewDelegate,UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *tableDataSource;
-@property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) NSMutableArray *dateList;
+@property (nonatomic, strong) NSMutableArray *tableDataSource;//每一天可预约医生数据
+@property (nonatomic, strong) NSMutableArray *dataSource;//已处理所有可预约的时间(天)集每天的可预约医生集
+@property (nonatomic, strong) NSMutableArray *dateList;//可预约的时间(天)集
 @property (nonatomic, strong) NSMutableArray *userList;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 @property (nonatomic, weak) UIView *selectView;
@@ -33,23 +35,27 @@
 @property (nonatomic, assign) NSInteger selectUser;
 @property (nonatomic, assign) NSInteger selectDoctor;
 
+@property (nonatomic, weak) UILabel *timeLabel;//显示当前时间label
+@property (nonatomic, weak) UIButton *moringBtn;//上午btn
+@property (nonatomic, weak) UIButton *afternoonBtn;//下午btn
+@property (nonatomic, strong) NSArray *labelDateList;//格式化的可预约时间集
 @end
 
 @implementation YYSectorViewController
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH -64) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.indicatorStyle =
-        _tableView.rowHeight = kScreenW *77/320.0 +10;
+//        _tableView.indicatorStyle =
+//        _tableView.rowHeight = kScreenW *77/320.0 +10;
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
         [_tableView registerClass:[YYSectorTableViewCell class] forCellReuseIdentifier:@"YYSectorTableViewCell"];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview:_tableView];
         [self.view sendSubviewToBack:_tableView];
         
@@ -87,15 +93,10 @@
     [self httpRequestForUser];
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    
-    
-    // Do any additional setup after loading the view.
 }
-- (UIScrollView *)updataView{
-    WS(ws);
-    
-    NSArray *dateList = @[@"01/13",@"01/14",@"01/15",@"01/16",@"01/17",@"01/18",@"01/19"];
+//self.tableView.tableHeaderView
+- (UIView *)tableHeaderView{
+    self.labelDateList = @[@"01/13",@"01/14",@"01/15",@"01/16",@"01/17",@"01/18",@"01/19"];
     NSMutableArray *currentDate = [[NSMutableArray alloc]initWithCapacity:2];
     for (NSString *dateStr in self.dateList) {
         NSString *month= [dateStr substringWithRange:NSMakeRange(4,2)];
@@ -103,68 +104,178 @@
         [currentDate addObject:[NSString stringWithFormat:@"%@/%@",month,day]];
     }
     NSLog(@"currentDate = %@",currentDate);
-    dateList = currentDate;
+    self.labelDateList = currentDate;
     
-    UIScrollView *scrollTrendView = [[UIScrollView alloc]init];
-    scrollTrendView.contentSize = CGSizeMake(700 *kiphone6, 60 *kiphone6);
-    scrollTrendView.pagingEnabled = YES;
-    scrollTrendView.showsHorizontalScrollIndicator = NO;
-    scrollTrendView.showsVerticalScrollIndicator = NO;
-    scrollTrendView.bounces = NO;
-    scrollTrendView.delegate = self;
-    scrollTrendView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
-    for (int i = 0; i <7; i++) {
-        SectorCalendar *sectorView = [[SectorCalendar alloc]init];
-        [sectorView setAppointment_date:dateList[i]];
-        sectorView.tag = 120 +i;
-        
-        // block 回调
-        sectorView.timeClick = ^(BOOL isMorning){
-            NSLog(@"%ld,%@",sectorView.tag -120,isMorning?@"上午":@"下午");
-            self.isMorning = isMorning;
-            self.tableDataSource = self.dataSource[sectorView.tag -120];
-            // NSLog(@"%@",self.tableDataSource);
-            [self.tableView reloadData];
-            for (int j = 0; j <7 ;  j++) {
-                SectorCalendar *otherV = (SectorCalendar *)[scrollTrendView viewWithTag:120 +j];
-                if (otherV != sectorView) {
-                    [otherV resumeView];
-                }
-                
-            }
-        };
-        if (i == 0) {
-            // 设置为默认选中状态
-            [sectorView selectInit];
-        }
-        [scrollTrendView addSubview:sectorView];
-        
-        [sectorView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(scrollTrendView).with.offset(0);
-            make.left.equalTo(scrollTrendView).with.offset(i*100*kiphone6);
-            make.size.mas_equalTo(CGSizeMake(100 *kiphone6 ,60 *kiphone6));
-        }];
-    }
-    // [self.view addSubview:scrollTrendView];
-    scrollTrendView.contentOffset = CGPointMake(0, 0);
-    
-    
-    //    [scrollTrendView mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(ws.tableView).with.offset(0);
-    //        make.left.equalTo(ws.tableView).with.offset(0);
-    //        make.size.mas_equalTo(CGSizeMake(kScreenW ,70 *kiphone6));
-    //    }];
-    scrollTrendView.frame = CGRectMake(0, 0, kScreenW, 70*kiphone6);
-    
-    return scrollTrendView;
-    
-}
+    UIView *backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 90*kiphone6)];
+    backView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    //改变日期按钮
+    UIButton *leftBtn = [[UIButton alloc]init];
+    leftBtn.tag = 101;
+    [leftBtn setImage:[UIImage imageNamed:@"left_prior"] forState:UIControlStateNormal];
+    [backView addSubview:leftBtn];
+    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.offset(0);
+        make.width.offset(50*kiphone6);
+        make.height.offset(35*kiphone6);
+    }];
+    UIButton *rightBtn = [[UIButton alloc]init];
+    rightBtn.tag = 102;
+    [rightBtn setImage:[UIImage imageNamed:@"right_next"] forState:UIControlStateNormal];
+    [backView addSubview:rightBtn];
+    [rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.top.offset(0);
+        make.width.offset(50*kiphone6);
+        make.height.offset(35*kiphone6);
+    }];
+    [leftBtn addTarget:self action:@selector(timechange:) forControlEvents:UIControlEventTouchUpInside];
+    [rightBtn addTarget:self action:@selector(timechange:) forControlEvents:UIControlEventTouchUpInside];
+    //日期显示按钮
+    UILabel *timeLabel = [UILabel labelWithText:self.labelDateList[start] andTextColor:[UIColor colorWithHexString:@"1ebeec"] andFontSize:15];
+    self.timeLabel = timeLabel;
+    timeLabel.backgroundColor = [UIColor whiteColor];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    [backView addSubview:timeLabel];
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(leftBtn.mas_right);
+        make.right.equalTo(rightBtn.mas_left);
+        make.top.offset(0);
+        make.height.offset(35*kiphone6);
+    }];
+    //分割线
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+    [backView addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.offset(0);
+        make.top.equalTo(leftBtn.mas_bottom);
+        make.height.offset(1);
+    }];
+    //上下午按钮
+    UIButton *moringBtn = [[UIButton alloc]init];
+    moringBtn.tag = 103;
+    self.moringBtn = moringBtn;
+    moringBtn.backgroundColor = [UIColor whiteColor];
+    [moringBtn setTitle:@"上午" forState:UIControlStateNormal];
+    [moringBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+    [backView addSubview:moringBtn];
+    [moringBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(0);
+        make.top.equalTo(line.mas_bottom);
+        make.width.offset(kScreenW*0.5);
+        make.height.offset(40*kiphone6);
+    }];
+    UIButton *afternoonBtn = [[UIButton alloc]init];
+    afternoonBtn.tag = 104;
+    self.afternoonBtn = afternoonBtn;
+    afternoonBtn.backgroundColor = [UIColor whiteColor];
+    [afternoonBtn setTitle:@"下午" forState:UIControlStateNormal];
+    [afternoonBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+    [backView addSubview:afternoonBtn];
+    [afternoonBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(0);
+        make.top.equalTo(line.mas_bottom);
+        make.left.equalTo(moringBtn.mas_right);
+        make.height.offset(40*kiphone6);
+    }];
+    [moringBtn addTarget:self action:@selector(timeSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [afternoonBtn addTarget:self action:@selector(timeSelect:) forControlEvents:UIControlEventTouchUpInside];
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    return backView;
 }
+//---------------btnclick---------------------
+-(void)timeSelect:(UIButton*)sender{
+    sender.backgroundColor = [UIColor colorWithHexString:@"1ebeec"];
+    [sender setTitleColor:[UIColor colorWithHexString:@"fefdfd"] forState:UIControlStateNormal];
+    if (sender.tag == 103) {
+        self.isMorning = true;
+        [self.afternoonBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.afternoonBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+    }else{
+        self.isMorning = false;
+        [self.moringBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.moringBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
+    }
+}
+-(void)timechange:(UIButton*)sender{
+    if (sender.tag == 101) {
+        if (start > 0) {
+            start -= 1;
+            self.timeLabel.text = self.labelDateList[start];
+        }
+    }else{
+        if (start < 6) {
+            start += 1;
+            self.timeLabel.text = self.labelDateList[start];
+        }
+    }
+}
+//- (UIScrollView *)updataView{
+//    
+//    NSArray *dateList = @[@"01/13",@"01/14",@"01/15",@"01/16",@"01/17",@"01/18",@"01/19"];
+//    NSMutableArray *currentDate = [[NSMutableArray alloc]initWithCapacity:2];
+//    for (NSString *dateStr in self.dateList) {
+//        NSString *month= [dateStr substringWithRange:NSMakeRange(4,2)];
+//        NSString *day= [dateStr substringWithRange:NSMakeRange(6,2)];
+//        [currentDate addObject:[NSString stringWithFormat:@"%@/%@",month,day]];
+//    }
+//    NSLog(@"currentDate = %@",currentDate);
+//    dateList = currentDate;
+//    
+//    UIScrollView *scrollTrendView = [[UIScrollView alloc]init];
+//    scrollTrendView.contentSize = CGSizeMake(700 *kiphone6, 60 *kiphone6);
+//    scrollTrendView.pagingEnabled = YES;
+//    scrollTrendView.showsHorizontalScrollIndicator = NO;
+//    scrollTrendView.showsVerticalScrollIndicator = NO;
+//    scrollTrendView.bounces = NO;
+//    scrollTrendView.delegate = self;
+//    scrollTrendView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+//    
+//    for (int i = 0; i <7; i++) {
+//        SectorCalendar *sectorView = [[SectorCalendar alloc]init];
+//        [sectorView setAppointment_date:dateList[i]];
+//        sectorView.tag = 120 +i;
+//        
+//        // block 回调
+//        sectorView.timeClick = ^(BOOL isMorning){
+//            NSLog(@"%ld,%@",sectorView.tag -120,isMorning?@"上午":@"下午");
+//            self.isMorning = isMorning;
+//            self.tableDataSource = self.dataSource[sectorView.tag -120];
+//            // NSLog(@"%@",self.tableDataSource);
+//            [self.tableView reloadData];
+//            for (int j = 0; j <7 ;  j++) {
+//                SectorCalendar *otherV = (SectorCalendar *)[scrollTrendView viewWithTag:120 +j];
+//                if (otherV != sectorView) {
+//                    [otherV resumeView];
+//                }
+//                
+//            }
+//        };
+//        if (i == 0) {
+//            // 设置为默认选中状态
+//            [sectorView selectInit];
+//        }
+//        [scrollTrendView addSubview:sectorView];
+//        
+//        [sectorView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(scrollTrendView).with.offset(0);
+//            make.left.equalTo(scrollTrendView).with.offset(i*100*kiphone6);
+//            make.size.mas_equalTo(CGSizeMake(100 *kiphone6 ,60 *kiphone6));
+//        }];
+//    }
+//    // [self.view addSubview:scrollTrendView];
+//    scrollTrendView.contentOffset = CGPointMake(0, 0);
+//    
+//    
+//    //    [scrollTrendView mas_makeConstraints:^(MASConstraintMaker *make) {
+//    //        make.top.equalTo(ws.tableView).with.offset(0);
+//    //        make.left.equalTo(ws.tableView).with.offset(0);
+//    //        make.size.mas_equalTo(CGSizeMake(kScreenW ,70 *kiphone6));
+//    //    }];
+//    scrollTrendView.frame = CGRectMake(0, 0, kScreenW, 70*kiphone6);
+//    
+//    return scrollTrendView;
+//    
+//}
 
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
@@ -180,19 +291,22 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 120 *kiphone6;
+    return 188 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     AppointmentModel *appointmentModel = self.tableDataSource[indexPath.row];
     YYSectorTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYSectorTableViewCell" forIndexPath:indexPath];
-    [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,appointmentModel.avatar]]];//[UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
-    homeTableViewCell.titleLabel.text = appointmentModel.trueName;
-    if (self.isMorning) {
-        homeTableViewCell.countLabel.text = [NSString stringWithFormat:@"余号%@",appointmentModel.beforNum];
-    }else{
-        homeTableViewCell.countLabel.text = [NSString stringWithFormat:@"余号%@",appointmentModel.afterNum];
-    }
+    homeTableViewCell.isMorning = self.isMorning;
+    homeTableViewCell.appointmentModel = appointmentModel;
+//    [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,appointmentModel.avatar]]];//[UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
+//    homeTableViewCell.nameLabel.text = appointmentModel.trueName;
+//    homeTableViewCell.titleLabel.text = appointmentModel.title;
+//    if (self.isMorning) {
+//        homeTableViewCell.countLabel.text = [NSString stringWithFormat:@"余号%@",appointmentModel.beforNum];
+//    }else{
+//        homeTableViewCell.countLabel.text = [NSString stringWithFormat:@"余号%@",appointmentModel.afterNum];
+//    }
     homeTableViewCell.bannerClick = ^(BOOL isClick){
         [self appointmentDoctor];
         self.selectDoctor = indexPath.row;
@@ -217,7 +331,7 @@
 - (void)appointmentDoctor{
     YYHomeUserModel *userModel = self.userList[0];
     if ([userModel.age isEqualToString:@""]||[userModel.trueName isEqualToString:@""]||[userModel.gender isEqualToString:@""]) {
-        [self emptyClick];
+        [self emptyClick];//点击挂号但没有完善个人信息
     }else{
         [self back_click];
     }
@@ -243,6 +357,8 @@
         
         // titleView
         UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, alertW, 80 *kiphone6)];
+        titleView.layer.masksToBounds = true;
+        titleView.layer.cornerRadius = 5;
         UILabel *titleLabel = [[UILabel alloc]init];
         titleLabel.text = @"选择挂号人";
         titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
@@ -254,7 +370,6 @@
         [titleView addSubview:titleLabel];
         [titleView addSubview:lineLabel];
         
-        WS(ws);
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(titleView);
             make.size.mas_equalTo(CGSizeMake(120 ,20));
@@ -268,7 +383,7 @@
 
         UIView *selectView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(titleView.frame), alertW, 50 + rowCount *60 *kiphone6)];
         self.selectUser = 0;
-        NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
+//        NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
 
         NSInteger currentCount;
         if (peopleCount == 6) {
@@ -355,7 +470,7 @@
         [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
         [sureBtn addTarget:self action:@selector(alertClick:) forControlEvents:UIControlEventTouchUpInside];
-        sureBtn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
+        sureBtn.backgroundColor = [UIColor colorWithHexString:@"1ebeec"];
         
         [sureView addSubview:sureBtn];
         
@@ -378,7 +493,7 @@
         [self.alertView dismiss:nil];
     }else if([sender.currentTitle isEqualToString:@"确定"]){
         [self httpRequestForAppointment];
-    }else{
+    }else{//完善个人信息
         YYHomeUserModel *userModel = self.userList[0];
         YYPInfomartionViewController *personInfoVC = [[YYPInfomartionViewController alloc]init];
         personInfoVC.personalModel = userModel;
@@ -390,14 +505,17 @@
     NSInteger index = singleTap.view.tag;
     NSLog(@"tag =%ld",index);
     if (index -200 == self.userList.count) {
+        [self.alertView dismiss:nil];
         // 添加按钮
+        YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
+        [self.navigationController pushViewController:familyAVC animated:YES];
     }else{
         self.selectUser = index -200;
         for (int i = 0; i < self.userList.count; i++) {
             if (index == i +200) {
                 singleTap.view.layer.cornerRadius = 1.5;
                 singleTap.view.layer.borderWidth = 0.5;
-                singleTap.view.layer.borderColor = [UIColor colorWithHexString:@"25f368"].CGColor;
+                singleTap.view.layer.borderColor = [UIColor colorWithHexString:@"1ebeec"].CGColor;
             }else{
                 NSInteger tag = i +200;
                 UIView *view = [self.selectView viewWithTag:tag];
@@ -407,7 +525,7 @@
     }
 }
 
-/////////////////
+//点击挂号但没有完善个人信息
 - (void)emptyClick{
     CGFloat alertW = 335 *kiphone6;
     CGFloat alertH = 310 *kiphone6;
@@ -426,7 +544,6 @@
     [titleView addSubview:titleLabel];
     [titleView addSubview:lineLabel];
     
-    WS(ws);
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(titleView);
         make.size.mas_equalTo(CGSizeMake(120 ,20));
@@ -489,6 +606,7 @@
     [alertV show];
     self.alertView = alertV;
 }
+// .用户挂号列表
 - (void)httpRequest{
     NSLog(@"cid = %@",self.cid);
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mAppointmentList,self.cid] method:0 parameters:nil prepareExecute:^{
@@ -498,19 +616,18 @@
         NSArray *dateArray = responseObject[@"result"];
         for (NSDictionary *dict in dateArray) {
             
-            
-            NSArray *dateNumList = dict[@"datenumberList"];
+            NSArray *dateNumList = dict[@"datenumberList"];//未处理可预约的时间(天)集包括每天的可预约医生数据
             NSMutableArray *datebydayList = [[NSMutableArray alloc]initWithCapacity:2];
             for(NSDictionary *dictionary in dateNumList){
                 AppointmentModel *model = [AppointmentModel mj_objectWithKeyValues:dictionary];
                 [datebydayList addObject:model];
             }
-            [self.dateList addObject:dict[@"datastr"]];
-            [self.dataSource addObject:datebydayList];
+            [self.dateList addObject:dict[@"datastr"]];//可预约的时间(天)集
+            [self.dataSource addObject:datebydayList];//已处理所有可预约的时间(天)集每天的可预约医生集
         }
         self.isMorning = YES;
-        self.tableDataSource = self.dataSource[0];
-        self.tableView.tableHeaderView = [self updataView];
+        self.tableDataSource = self.dataSource[0];//可预约第一天医生数据
+        self.tableView.tableHeaderView = [self tableHeaderView];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];
@@ -531,7 +648,19 @@
     }];
     
 }
+//挂号请求
 - (void)httpRequestForAppointment{
+    //获取当前时间
+    NSDate *now = [NSDate date];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSUInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute ;
+    NSDateComponents *dateComponent = [calendar components:unitFlags fromDate:now];
+    NSInteger hour = [dateComponent hour];
+    if (hour > 12 && self.isMorning) {
+        [self.alertView dismiss:nil];
+        [SVProgressHUD showErrorWithStatus:@"请重新选择上下午"];
+        return;
+    }
     NSString *tokenStr = [CcUserModel defaultClient].userToken;
     YYHomeUserModel *userModel = self.userList[self.selectUser];
     AppointmentModel *appointmentModel = self.tableDataSource[self.selectDoctor];

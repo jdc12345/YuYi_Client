@@ -14,8 +14,6 @@
 #define rightCellIdentifier @"rightCellIdentifier"
 
 #import "YYSectionViewController.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 #import "YYSectorViewController.h"
 #import "HttpClient.h"
 #import <MJExtension.h>
@@ -31,7 +29,7 @@
 
 @property (nonatomic, strong) NSMutableArray *rightDataSourceList;
 
-@property (nonatomic, assign) NSInteger sectionCount;
+@property (nonatomic, assign) NSInteger sectionCount;//右侧tab的数据源在左侧tab对应的行
 
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
@@ -56,17 +54,17 @@
     // Do any additional setup after loading the view.
 }
 #pragma mark - tableView 数据源代理方法 -
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    if (tableView == self.leftTableView) return 1;
+    return 1;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if (tableView == self.leftTableView) return self.leftDataSource.count;
     NSArray *current_list = self.rightDataSourceList[self.sectionCount];
     return current_list.count;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    if (tableView == self.leftTableView) return 1;
-    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -82,8 +80,8 @@
         cell.textLabel.font = [UIFont systemFontOfSize:17];
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         cell.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-        cell.textLabel.highlightedTextColor = [UIColor colorWithHexString:@"25f368"];
-        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame] ;
+        cell.textLabel.highlightedTextColor = [UIColor colorWithHexString:@"1dbeec"];//cell选中的文字颜色
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];//cell选中的背景view
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         NSIndexPath*indexPath=[NSIndexPath indexPathForRow:0 inSection:0];
         [self.leftTableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
@@ -111,11 +109,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (tableView == self.leftTableView) {
-        return 60 *kiphone6;
-    }else{
-        return 60 *kiphone6;
-    }
+    return 60 *kiphone6;
 }
 
 #pragma mark - UITableViewDelegate 代理方法 -
@@ -152,7 +146,7 @@
     // 选中 左侧 的 tableView
     if (tableView == self.leftTableView) {
         
-        NSIndexPath *moveToIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+//        NSIndexPath *moveToIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         
         // 将右侧 tableView 移动到指定位置
 //        [self.rightTableView selectRowAtIndexPath:moveToIndexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
@@ -180,15 +174,13 @@
 - (UITableView *)leftTableView {
     
     if (!_leftTableView) {
-        
-        WS(ws);
+
         UITableView *tableView = [[UITableView alloc] init];//WithFrame:CGRectMake(0, 0, leftTableWidth, ScreenHeight)];
         
         [self.view addSubview:tableView];
         
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(ws.view).with.offset(0 *kiphone6);
-            make.left.equalTo(ws.view).with.offset(0 *kiphone6);
+            make.top.left.offset(0);
             make.size.mas_equalTo(CGSizeMake(120 *kiphone6, kScreenH));
         }];
         
@@ -212,15 +204,13 @@
 - (UITableView *)rightTableView {
     
     if (!_rightTableView) {
-        
-        WS(ws);
         UITableView *tableView = [[UITableView alloc] init];//WithFrame:CGRectMake(leftTableWidth, 0, rightTableWidth, ScreenHeight)];
         
         [self.view addSubview:tableView];
         
         [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_leftTableView.mas_top).with.offset(64);
-            make.left.equalTo(_leftTableView.mas_right).with.offset(0 *kiphone6);
+            make.top.equalTo(_leftTableView.mas_top).offset(64);
+            make.left.equalTo(_leftTableView.mas_right);
             make.size.mas_equalTo(CGSizeMake(255 *kiphone6, kScreenH));
         }];
         

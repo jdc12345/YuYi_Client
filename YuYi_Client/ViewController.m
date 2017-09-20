@@ -7,42 +7,59 @@
 //
 
 #import "ViewController.h"
-#import "UIColor+colorValues.h"
-#import "Masonry.h"
-#import "searchBar.h"
-#import "YYflowLay.h"
-#import "YYCollectionViewCell.h"
-#import "headerTitleBtn.h"
-#import "YYAllMedicinalViewController.h"
-#import "YYMedicinalDetailVC.h"
-#import "YYSearchTableViewController.h"
-#import "YYCategoryModel.h"
-#import "YYModel.h"
 #import "HttpClient.h"
-#import "YYMedinicalDetailModel.h"
-#import "YYHTTPSHOPConst.h"
-#import "UILabel+Addition.h"
-#import "YYAllMedicinalTitleBtn.h"
-#import "YYMyMedicinalStateVC.h"
 #import "CcUserModel.h"
 #import "YYMedicinalStateModel.h"
-
+#import "YYMineMedicinalModel.h"
+#import <MJExtension.h>
+#import "UILabel+Addition.h"
+#import "headerTitleBtn.h"
 
 static NSString* cellid = @"business_cell";
-@interface ViewController ()<UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ViewController ()<UITableViewDelegate, UITableViewDataSource>
 //商城首页药品分类按钮数据
-@property (nonatomic,strong) NSMutableArray<YYCategoryModel *> *categoryArr;
-@property (nonatomic,strong) NSArray *getfirstPageArr;
+@property (nonatomic,strong) NSMutableArray *mineMedicineArr;//所有药方
+@property (nonatomic,strong) NSMutableArray *medicinalTitleArr;//药方名字集合
 @property (nonatomic,strong) NSArray *stateModels;//我的药品状态
 //“全部”按钮
 @property (nonatomic,weak) UIButton *allBtn;
 //“药方时间”
 @property (nonatomic,strong) NSString *data;
-
+@property (nonatomic,weak) UILabel *curruntMedicinalLabel;//显示当前药方的label
+@property (nonatomic, strong) UITableView *tableView;//显示药方列表
+@property (nonatomic, strong) UIScrollView *scrollTrendView;//显示药品状态的scrollow
 @end
 
 @implementation ViewController
-
+-(NSMutableArray *)mineMedicineArr{
+    if (_mineMedicineArr == nil) {
+        _mineMedicineArr = [NSMutableArray arrayWithCapacity:2];
+    }
+    return _mineMedicineArr;
+}
+-(NSMutableArray *)medicinalTitleArr{
+    if (_medicinalTitleArr == nil) {
+        _medicinalTitleArr = [NSMutableArray arrayWithCapacity:2];
+    }
+    return _medicinalTitleArr;
+}
+- (UITableView *)tableView{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(10*kiphone6, 80*kiphone6, kScreenW-20*kiphone6, 45*kiphone6*self.mineMedicineArr.count) style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.indicatorStyle =
+        _tableView.rowHeight = kScreenW *77/320.0 +10;
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.showsVerticalScrollIndicator = NO;
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"mineMedicineTVCell"];
+        [self.view addSubview:_tableView];
+        
+    }
+    return _tableView;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的药品";
@@ -61,318 +78,166 @@ static NSString* cellid = @"business_cell";
         //取token
     CcUserModel *userModel = [CcUserModel defaultClient];
     NSString *userToken = userModel.userToken;
-    NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList.do?token=%@",mPrefixUrl,userToken];
+    NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList2.do?token=%@",mPrefixUrl,userToken];
     [SVProgressHUD show];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        if ([((NSDictionary*)responseObject)[@"code"] isEqualToString:@"0"]) {
-           NSDictionary *mineMedicineDic = ((NSDictionary*)responseObject)[@"result"];
-           NSString *timeStr = mineMedicineDic[@"createTimeString"];
-            NSRange range = [timeStr rangeOfString:@" "];
-            NSInteger location = range.location;
-            self.data = [timeStr substringToIndex:location];
-            //解析药品状态数据
-           NSArray *mineMedicineArr = mineMedicineDic[@"boilMedicineList"];
-            NSArray *stateModels = [NSArray yy_modelArrayWithClass:[YYMedicinalStateModel class] json:mineMedicineArr];
-            self.stateModels = stateModels;
-            //在药品状态数据请求回来之后再请求其他药品数据
-            [self loadOtherMedicinalDate];
-        }else{
-            [SVProgressHUD dismiss];
-        }
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [SVProgressHUD dismiss];
-        return ;
-    }];
-}
-
--(void)loadOtherMedicinalDate{
-    HttpClient *httpManager = [HttpClient defaultClient];
-    [httpManager requestWithPath:medinicalFirstPage method:HttpRequestGet parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        [SVProgressHUD dismiss];
-        NSArray *firstPageArr = ((NSDictionary*)responseObject)[@"drugs"];
-        NSArray *getfirstPageArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:firstPageArr];
-        if (getfirstPageArr.count>=6) {
-            NSArray *normalArr = [NSArray arrayWithObjects:getfirstPageArr[0],getfirstPageArr[1],getfirstPageArr[2], nil];
-            NSArray *bellyArr = [NSArray arrayWithObjects:getfirstPageArr[3],getfirstPageArr[4],getfirstPageArr[5], nil];
-            self.getfirstPageArr = [NSArray arrayWithObjects:normalArr,bellyArr, nil];
-        }
-        NSArray *categoryArr = ((NSDictionary*)responseObject)[@"category"];
-        NSArray *getArr = [NSArray yy_modelArrayWithClass:[YYCategoryModel class] json:categoryArr];
-        NSMutableArray *fiveCategory = [NSMutableArray array];
-        if (getArr.count>5) {//判断如果数据源大于5个需要截取前五个
-            for (int i = 0; i < 5; i++) {
-                [fiveCategory addObject:getArr[i]];
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+           NSArray *mineMedicineArr = responseObject[@"result"];
+            for (NSDictionary *dic in mineMedicineArr) {
+                YYMineMedicinalModel *medicinalModel = [YYMineMedicinalModel mj_objectWithKeyValues:dic];
+                [self.mineMedicineArr addObject:medicinalModel];//存所有药方
+                NSMutableArray *stateArr = [NSMutableArray array];
+                for (NSDictionary *dic in medicinalModel.boilMedicineList) {
+                    YYMedicinalStateModel *stateModel = [YYMedicinalStateModel mj_objectWithKeyValues:dic];
+                    [stateArr addObject:stateModel];
+                }
+                medicinalModel.boilMedicineList = [stateArr copy];//每一个药方的状态集
+                NSRange rang = [medicinalModel.createTimeString rangeOfString:@" "];
+                NSInteger location = rang.location;
+                NSString *timeStr = [medicinalModel.createTimeString substringToIndex:location];
+                timeStr = [timeStr stringByReplacingOccurrencesOfString:@"-" withString:@""];
+                NSString *medicinalTitle = [NSString stringWithFormat:@"%@-%@",timeStr,medicinalModel.title];
+                [self.medicinalTitleArr addObject:medicinalTitle];//存所有显示药方名字的字符串集
             }
-            self.categoryArr = fiveCategory;
-            
             [self setupUI];
         }else{
-            self.categoryArr = [NSMutableArray arrayWithArray:getArr];
-    
-            [self setupUI];
+            //加载空页面
         }
-        
+        [SVProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [SVProgressHUD dismiss];
         return ;
     }];
 }
 -(void)setupUI{
-   
-    //添加药品状态栏
-    UIView *medicineState = [[UIView alloc]init];
-    [self.view addSubview:medicineState];
-    [medicineState mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.offset(0);
-        make.top.offset(0);
+    self.view.backgroundColor = [UIColor colorWithHexString:@"474d5b"];
+    //标题背景btn
+    UIButton *backBtn = [[UIButton alloc]init];
+    backBtn.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
+    backBtn.layer.masksToBounds = true;
+    backBtn.layer.cornerRadius = 4;
+    [self.view addSubview:backBtn];
+    [backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.offset(10*kiphone6);
+        make.right.offset(-10*kiphone6);
         make.height.offset(70*kiphone6);
     }];
-    [medicineState setBackgroundColor:[UIColor colorWithHexString:@"#f9f9f9"]];
-    UIImageView *mImageView = [[UIImageView alloc]init];//添加药品图标
-    mImageView.image = [UIImage imageNamed:@"medicinal"];
-    [medicineState addSubview:mImageView];
-    [mImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(medicineState);
-        make.left.offset(20*kiphone6);
+    [backBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *titleLabel = [UILabel labelWithText:self.medicinalTitleArr[0] andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:17];
+    [backBtn addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.offset(0);
+        make.left.offset(15*kiphone6);
     }];
-    UILabel *mineStateLabel = [UILabel labelWithText:@"我的药品状态" andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态标题
-    [medicineState addSubview:mineStateLabel];
-    [mineStateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(medicineState.mas_centerY).offset(-3*kiphone6);
-        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
+    self.curruntMedicinalLabel = titleLabel;
+    //
+    headerTitleBtn *moreBtn = [[headerTitleBtn alloc]init];
+    [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+    moreBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+    [moreBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
+    [moreBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    [backBtn addSubview:moreBtn];
+    [moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.offset(0);
+        make.right.offset(-15*kiphone6);
+        make.width.offset(80*kiphone6);
     }];
-    UILabel *dateLabel = [UILabel labelWithText:self.data andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:13];//添加我的药品状态下时间label
-    [medicineState addSubview:dateLabel];
-    
-    [dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(medicineState.mas_centerY).offset(3*kiphone6);
-        make.left.equalTo(mImageView.mas_right).offset(10*kiphone6);
-    }];
-    
-    YYAllMedicinalTitleBtn *stateBtn = [[YYAllMedicinalTitleBtn alloc]init];//添加右侧当前状态按钮
-    YYMedicinalStateModel *stateModel = self.stateModels.lastObject;
-    NSString *stateStr = stateModel.stateText;
-    [stateBtn setTitle:[NSString stringWithFormat:@"当前状态：%@",stateStr]  forState:UIControlStateNormal];
-    [stateBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-    [stateBtn setTitleColor:[UIColor colorWithHexString:@"333333"] forState:UIControlStateNormal];
-    [stateBtn.titleLabel setFont:[UIFont systemFontOfSize:12]];
-    [medicineState addSubview:stateBtn];
-    [stateBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(medicineState);
-        make.right.offset(-20*kiphone6);
-    }];
-    stateBtn.tag = 1000;
-    //当前按钮点击事件
-    [stateBtn addTarget:self action:@selector(stateBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    //添加搜索框
-    searchBar *searchBtn = [[searchBar alloc]init];
-    [self.view addSubview:searchBtn];
-    [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(20*kiphone6);
-        make.right.offset(-20*kiphone6);
-        make.top.equalTo(medicineState.mas_bottom).offset(10);
-        make.height.offset(40*kiphone6);
-    }];
-    searchBtn.backgroundColor = [UIColor colorWithHexString:@"#f3f3f3"];
-    
-    [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
-    [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    NSDictionary *dict = arr[i];
-    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view layoutIfNeeded];
-    //添加药品分类按钮
-    int columnCount=3;
-    //每个格子的宽度和高度
-    CGFloat appW=105.0*kiphone6;
-    CGFloat appH=39.0*kiphone6;
-    //计算间隙
-    CGFloat appMargin=(self.view.frame.size.width-40*kiphone6-columnCount*appW)/(columnCount-1);
-    
-    //添加数据源  nameArray.count表示资源个数
-    NSMutableArray *nameArray = [NSMutableArray array];
-    [nameArray addObjectsFromArray:self.categoryArr];
-    YYCategoryModel *allModel = [[YYCategoryModel alloc]init];
-    allModel.name = @"全部";
-    allModel.id = @"106";
-    [nameArray addObject:allModel];
-    for (int i=0; i<nameArray.count; i++) {
-        
-        UIButton *btn = [[UIButton alloc]init];
-        [btn.layer setMasksToBounds:YES];
-        [btn.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
-        //边框宽度
-        [btn.layer setBorderWidth:0.8];
-        btn.layer.borderColor=[UIColor colorWithHexString:@"#f3f3f3"].CGColor;
-        YYCategoryModel *model = nameArray[i];
-        [btn setTitle:model.name forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"]
-                  forState:UIControlStateNormal];
-        [btn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        //计算列号和行号
-        int colX=i%columnCount;
-        int rowY=i/columnCount;
-        //计算坐标
-        CGFloat appX=20*kiphone6+colX*(appW+appMargin);
-        CGFloat appY=searchBtn.frame.origin.y+50*kiphone6+rowY*(appH+appMargin);
-        
-        btn.frame=CGRectMake(appX, appY, appW, appH);
-        
-        [self.view addSubview:btn];
-        //添加button的点击事件
-        btn.tag = [model.id intValue];
-        [btn addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
-        if (i==nameArray.count-1) {
-            self.allBtn = btn;
-        }
+    moreBtn.userInteractionEnabled = false;
+    UIScrollView *scrollTrendView = [[UIScrollView alloc]init];
+    YYMineMedicinalModel *medicinalModel = self.mineMedicineArr[0];
+    scrollTrendView.contentSize = CGSizeMake(medicinalModel.boilMedicineList.count*kScreenW, kScreenH-80*kiphone6-64);
+    scrollTrendView.pagingEnabled = YES;
+    scrollTrendView.showsHorizontalScrollIndicator = NO;
+    scrollTrendView.showsVerticalScrollIndicator = NO;
+    scrollTrendView.bounces = NO;
+    scrollTrendView.delegate = self;
+    scrollTrendView.backgroundColor = [UIColor colorWithHexString:@"474d5b"];
+    [self.view addSubview:scrollTrendView];
+    scrollTrendView.contentOffset = CGPointMake(0, 0);
+    scrollTrendView.frame = CGRectMake(0, 80*kiphone6, kScreenW, kScreenH-80*kiphone6-64);
+    self.scrollTrendView = scrollTrendView;
+
+    //药品状态
+    //顶部line
+    UIView *line = [[UIView alloc]initWithFrame:CGRectMake(kScreenW*0.5, 34*kiphone6, kScreenW*3, 2)];
+    line.backgroundColor = [UIColor colorWithHexString:@"1bdeec"];
+    [scrollTrendView addSubview:line];
+    //底部view
+    UIView *bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, 425*kiphone6, kScreenW*4, kScreenH-505*kiphone6-64)];
+    bottomView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
+    [scrollTrendView addSubview:bottomView];
+    NSArray *numbersArr = @[@"step_1",@"step_2",@"step_3",@"step_4"];
+    NSArray *titlesArr = @[@"准备药材中",@"配药已完成",@"中药熬制中",@"中药已熬制完成"];
+    NSArray *picturesArr = @[@"picture1",@"picture2",@"picture3",@"picture4"];
+    NSArray *instructionsArr = @[@"医务人员正在准备药材哦!",@"配药已完成,医务人员正在火速将药品送往熬药处哦!",@"熬制中药需要较长时间,请你耐心等候哦!",@"您的中药已熬好，请尽快到医院取药处取药！取药时间：早9：00~晚18：00"];
+    for (int i = 0; i < 4; i++) {
+        UIImageView *stepView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:numbersArr[i]]];
+        [scrollTrendView addSubview:stepView];
+        stepView.frame = CGRectMake(kScreenW*0.5-15*kiphone6+i*kScreenW, 20*kiphone6, 30*kiphone6, 30*kiphone6);
+        UILabel *steplabel = [UILabel labelWithText:titlesArr[i] andTextColor:[UIColor colorWithHexString:@"1bdeec"] andFontSize:17];
+        [scrollTrendView addSubview:steplabel];
+        [steplabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(stepView.mas_bottom).offset(15*kiphone6);
+            make.centerX.equalTo(stepView);
+        }];
+        UIImageView *picView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:picturesArr[i]]];
+        [scrollTrendView addSubview:picView];
+        picView.frame = CGRectMake(kScreenW*0.5-150*kiphone6+i*kScreenW, 100*kiphone6, 300*kiphone6, 300*kiphone6);
+        //底部label
+        UILabel *instructionLabel = [UILabel labelWithText:instructionsArr[i] andTextColor:[UIColor colorWithHexString:@"333333"] andFontSize:17];
+        instructionLabel.numberOfLines = 0;
+        instructionLabel.textAlignment = NSTextAlignmentCenter;
+        [bottomView addSubview:instructionLabel];
+        [instructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(bottomView.mas_centerY);
+            make.centerX.equalTo(stepView);
+            make.width.offset(300*kiphone6);
+        }];
     }
-
-    //添加分割view
-    UIView *sepView = [[UIView alloc]init];
-    [self.view addSubview:sepView];
-    sepView.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
-    [sepView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.allBtn.mas_bottom).offset(10);
-        make.left.right.offset(0);
-        make.height.offset(10*kiphone6);
-    }];
-    //添加药品模块
-    [self addMedicinals];
-}
-
-//添加药品模块
--(void)addMedicinals{
-    // 创建流水布局
-    YYflowLay* layout = [[YYflowLay alloc] init];
-    
-    // 创建集合视图
-    UICollectionView* collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
-    
-    // 注册单元格
-    [collectionView registerClass:[YYCollectionViewCell class] forCellWithReuseIdentifier:cellid];
-    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header"];
-    [collectionView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer"];
-    
-    // 取消指示器(滚动条)
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.showsHorizontalScrollIndicator = NO;
-//    collectionView.pagingEnabled = YES;
-    
-    // 设置背景颜色
-    collectionView.backgroundColor = [UIColor whiteColor];
-    
-    // 设置数据源
-    collectionView.dataSource = self;
-    collectionView.delegate = self;
-    
-    // 添加视图
-    [self.view addSubview:collectionView];
-    
-    // 设置自动布局
-    [collectionView mas_makeConstraints:^(MASConstraintMaker* make) {
-        make.top.equalTo(self.allBtn.mas_bottom).offset(20);
-        make.left.right.offset(0);
-        make.bottom.offset(0);
-        
-    }];
+    self.tableView.frame = CGRectMake(10*kiphone6, 80*kiphone6, kScreenW-20*kiphone6, 0);
 
 }
-//药品点击事件
--(void)medicinalClick:(UIButton*)btn{
-//    if (btn.tag == 105) {
-    YYAllMedicinalViewController *categoryVC = [[YYAllMedicinalViewController alloc]init];
-    categoryVC.id = [NSString stringWithFormat:@"%ld",(long)btn.tag];
-        [self.navigationController pushViewController:categoryVC animated:true];
-    categoryVC.categoryName = btn.titleLabel.text;
-//    }
+//点击更多事件
+-(void)moreBtnClick:(UIButton*)sender{
+    if (self.tableView.frame.size.height>0) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.tableView.frame = CGRectMake(10*kiphone6, 80*kiphone6, kScreenW-20*kiphone6, 0);
+        }];
+    }else{
+        [UIView animateWithDuration:0.5 animations:^{
+            self.tableView.frame = CGRectMake(10*kiphone6, 80*kiphone6, kScreenW-20*kiphone6, 45*kiphone6*self.mineMedicineArr.count);
+        }];
+    }
 }
-//搜索跳转
--(void)searchBtnClick:(UIButton*)sender{
-    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
-}
-//点击当前状态按钮
--(void)stateBtnClick:(UIButton*)sender{
-    YYMyMedicinalStateVC *stateVC = [[YYMyMedicinalStateVC alloc]init];
-    stateVC.data = self.data;
-    stateVC.stateModels = self.stateModels;
-    [self.navigationController pushViewController:stateVC animated:true];
-}
-#pragma collectionViewDatasource
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return self.getfirstPageArr.count;
-}
-- (NSInteger)collectionView:(UICollectionView*)collectionView numberOfItemsInSection:(NSInteger)section
-{
-    NSArray *arr = (NSArray*)self.getfirstPageArr[section];
-    return arr.count;
-}
-
-- (UICollectionViewCell*)collectionView:(UICollectionView*)collectionView cellForItemAtIndexPath:(NSIndexPath*)indexPath
-{
+#pragma mark -
+#pragma mark ------------TableView DataSource----------------------
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    YYCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellid forIndexPath:indexPath];
-    NSArray *arr = self.getfirstPageArr[indexPath.section];
+    return self.medicinalTitleArr.count;
     
-        cell.model = arr[indexPath.row];
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    return 45 *kiphone6;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mineMedicineTVCell" forIndexPath:indexPath];
+        cell.textLabel.text = self.medicinalTitleArr[indexPath.row];
     
     return cell;
 }
-//
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    //截取分类数组的前两个
-    NSArray *kinds = [NSArray arrayWithObjects:self.categoryArr[0],self.categoryArr[1], nil];
-//    NSArray *kinds = @[@"常用药品",@"滋补调养"];
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
-        UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"header" forIndexPath:indexPath];
-        header.backgroundColor = [UIColor whiteColor];
-        headerTitleBtn *button = [[headerTitleBtn alloc]init];
-        button.frame = header.bounds;
-        YYCategoryModel *categoryModel = kinds[indexPath.section];
-        [button setTitle:categoryModel.name forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
-        [button.titleLabel setFont:[UIFont systemFontOfSize:14]];
-        UIView *line = [[UIView alloc]init];
-        [button addSubview:line];
-        line.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.offset(0);
-            make.height.offset(1);
-        }];
-        
-        button.tag = [categoryModel.id intValue];
-        [button addTarget:self action:@selector(medicinalClick:) forControlEvents:UIControlEventTouchUpInside];
-
-//        button.tag = 1000 + indexPath.section;
-        for (UIView *view in header.subviews) {
-            [view removeFromSuperview];
-        } // 防止复用分区头
-        [header addSubview:button];
-        return header;
-    } else if (kind == UICollectionElementKindSectionFooter) {
-        UICollectionReusableView *footer = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"footer" forIndexPath:indexPath];
-        footer.backgroundColor = [UIColor colorWithHexString:@"#f2f2f2"];
-        return footer;
-    }else{
-        return nil;
-    }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    YYMineMedicinalModel *medicinalModel = self.mineMedicineArr[indexPath.row];
+    _scrollTrendView.contentSize = CGSizeMake(medicinalModel.boilMedicineList.count*kScreenW, kScreenH-80*kiphone6-64);
+    [UIView animateWithDuration:0.5 animations:^{
+        self.tableView.frame = CGRectMake(10*kiphone6, 80*kiphone6, kScreenW-20*kiphone6, 0);
+    }];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:true];
 }
-//点击药品cell
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //传药品的详情
-   YYCollectionViewCell *cell = (YYCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
-    YYMedicinalDetailVC *mdVC = [[YYMedicinalDetailVC alloc]init];
-    mdVC.id = cell.model.id;
-    [self.navigationController pushViewController:mdVC animated:true];
-    
 
-}
 //设置导航栏高度适应
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

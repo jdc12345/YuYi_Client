@@ -7,15 +7,15 @@
 //
 
 #import "YYAppointmentViewController.h"
-#import "UIColor+Extension.h"
-#import "YYHomeNewTableViewCell.h"
-#import <Masonry.h>
+//#import "YYHomeNewTableViewCell.h"
 #import "YYSectionViewController.h"
 #import "YYSearchTableViewController.h"
 #import "HttpClient.h"
 #import <MJExtension.h>
 #import "YYInfomationModel.h"
-#import <UIImageView+WebCache.h>
+//#import <UIImageView+WebCache.h>
+#import "YYAppointmentHospitalTVCell.h"
+
 @interface YYAppointmentViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -28,7 +28,7 @@
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.indicatorStyle =
@@ -37,8 +37,8 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        [_tableView registerClass:[YYHomeNewTableViewCell class] forCellReuseIdentifier:@"YYHomeNewTableViewCell"];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+        [_tableView registerClass:[YYAppointmentHospitalTVCell class] forCellReuseIdentifier:@"YYAppointmentHospitalTVCell"];
+//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview:_tableView];
         [self.view sendSubviewToBack:_tableView];
         
@@ -69,25 +69,24 @@
     
     
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
+//    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
     searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
     searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
     [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
     [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
     //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     //    NSDictionary *dict = arr[i];
-    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
+    [searchBtn setImage:[UIImage imageNamed:@"firstPage_search"] forState:UIControlStateNormal];
+    [searchBtn setTitle:@"搜索所有医院" forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+    searchBtn.layer.masksToBounds = true;
+    searchBtn.layer.cornerRadius = 15*kiphone6;
     [headView addSubview:searchBtn];
     [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(headView).with.offset(20 *kiphone6);
-        make.left.equalTo(headView).with.offset(20 *kiphone6);
+        make.left.top.offset(20 *kiphone6);
         make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
     }];
     self.tableView.tableHeaderView = headView;
-    // Do any additional setup after loading the view.
 }
 
 #pragma mark -
@@ -111,27 +110,16 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110 *kiphone6;
+    return 215 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
-    [homeTableViewCell createDetailView:2];
-    [homeTableViewCell addStarView];
-
+    YYAppointmentHospitalTVCell *hosptalTVCell = [tableView dequeueReusableCellWithIdentifier:@"YYAppointmentHospitalTVCell" forIndexPath:indexPath];
     if (self.dataSource.count != 0) {
         YYInfomationModel *infoModel = self.dataSource[indexPath.row];
-        
-        
-        [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
-        homeTableViewCell.titleLabel.text = infoModel.hospitalName;
-        homeTableViewCell.introduceLabel.text = infoModel.introduction;
-        homeTableViewCell.starLabel.text = infoModel.gradeName;
-    }else{
-        homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+        hosptalTVCell.model = infoModel;
+ 
     }
-    return homeTableViewCell;
-    
-    
+    return hosptalTVCell;
 }
 -(void)searchBtnClick:(UIButton*)sender{
     [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];

@@ -69,6 +69,10 @@
     return [self.viewControllers.lastObject preferredInterfaceOrientationForPresentation];
     
 }
+//改变状态栏样式,如果有导航栏必须在导航栏类重写这个方法
+- (UIViewController *)childViewControllerForStatusBarStyle{
+    return self.topViewController;
+}
 
 /*
 #pragma mark - Navigation

@@ -36,19 +36,16 @@
     self.titleLabel.font = [UIFont systemFontOfSize:15];
     self.titleLabel.text = @"涿州市中医院";
     
-    
     self.introduceLabel = [[UILabel alloc]init];
     self.introduceLabel.numberOfLines = lineNum;
     self.introduceLabel.textColor = [UIColor colorWithHexString:@"888888"];
     self.introduceLabel.font = [UIFont systemFontOfSize:12];
     self.introduceLabel.text = @"";//@"涿州北大医院是集医疗，科研，预防，保健，康复为一体的现代化新型医院，是涿州市民工人的惠民医院。涿州北大医院以服务人民为宗旨";
-    
-    
+        
     [self.contentView addSubview:lineL];
     [self.contentView addSubview:self.iconV];
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.introduceLabel];
-
     
     [lineL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView);
@@ -70,8 +67,7 @@
         make.left.equalTo(self.iconV.mas_right).with.offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(205 *kiphone6, 15 *lineNum));
     }];
-    }
-    
+    }    
 }
 - (void)addStarView{
     if (!self.starLabel) {

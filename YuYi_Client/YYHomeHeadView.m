@@ -581,11 +581,11 @@
 #pragma mark ------------banner button----------------------
 - (void)bannerButtonClick:(UIButton *)sender{
     if (sender.tag == 130) {
-        NSLog(@"医药商场");
-        self.bannerClick(YES);
+        NSLog(@"我的药品");
+        self.bannerClick(NO);
     }else{
         NSLog(@"预约挂号");
-        self.bannerClick(NO);
+        self.bannerClick(YES);
     }
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{

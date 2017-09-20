@@ -38,12 +38,12 @@
     self.cardView.layer.shadowRadius = 1 *kiphone6;
     self.cardView.layer.shadowOffset = CGSizeMake(1, 1);
     self.cardView.layer.shadowOpacity = 1;
-    
+    self.cardView.layer.masksToBounds = true;
+    self.cardView.layer.cornerRadius = 5;
     [self.contentView addSubview:self.cardView];
     
     [self.cardView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(10 *kiphone6);
-        make.left.equalTo(self.contentView).with.offset(10 *kiphone6);
+        make.left.top.offset(10 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(kScreenW - 20 *kiphone6, rowH *kiphone6));
     }];
     

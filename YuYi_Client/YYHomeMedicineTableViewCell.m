@@ -24,9 +24,9 @@
 }
 - (void)createDetailView{
     
-    NSArray *imageList = @[@"medicine",@"medicine",@"medicine"];
-    NSArray *nameList = @[@"999感冒灵",@"999感冒灵",@"999感冒灵"];
-    NSArray *prictList = @[@"38",@"38",@"38"];
+//    NSArray *imageList = @[@"medicine",@"medicine",@"medicine"];
+//    NSArray *nameList = @[@"999感冒灵",@"999感冒灵",@"999感冒灵"];
+//    NSArray *prictList = @[@"38",@"38",@"38"];
     CGFloat buttonW = kScreenW /3.0;
     //..邪恶的分割线
     UILabel *lineL = [[UILabel alloc]init];

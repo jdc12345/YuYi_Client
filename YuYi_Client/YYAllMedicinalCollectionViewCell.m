@@ -7,8 +7,6 @@
 //
 
 #import "YYAllMedicinalCollectionViewCell.h"
-#import "Masonry.h"
-#import "UIColor+colorValues.h"
 #import "UIImageView+WebCache.h"
 #import "YYHTTPSHOPConst.h"
 @interface YYAllMedicinalCollectionViewCell ()
@@ -29,6 +27,7 @@
     }
     return self;
 }
+
 -(void)setModel:(YYMedinicalDetailModel *)model{
     _model = model;
     NSString *urlString = [mPrefixUrl stringByAppendingPathComponent:model.picture];

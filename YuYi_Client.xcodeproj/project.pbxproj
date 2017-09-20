@@ -14,6 +14,7 @@
 		16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */; };
 		16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9D1E7A33F600BCE38D /* YYClassInfo.m */; };
 		16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */; };
+		165204701F7120A70043B80C /* YYMineMedicinalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */; };
 		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
 		165490141E6405640034CB5B /* YYareaBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490131E6405640034CB5B /* YYareaBtn.m */; };
@@ -44,6 +45,7 @@
 		165EB5BA1E8106A800F644F0 /* YYMyMedicinalStateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5B91E8106A800F644F0 /* YYMyMedicinalStateVC.m */; };
 		165EB5BD1E811D6700F644F0 /* YYStateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BC1E811D6700F644F0 /* YYStateTableViewCell.m */; };
 		165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */; };
+		16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */; };
 		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
 		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
 		3E091DD61E8B65050084B677 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E091DD11E8B65050084B677 /* NSArray+Log.m */; };
@@ -222,6 +224,8 @@
 		16443AA11E7A419900BCE38D /* YYMedinicalDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMedinicalDetailModel.h; sourceTree = "<group>"; };
 		16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedinicalDetailModel.m; sourceTree = "<group>"; };
 		16443AA51E7A652600BCE38D /* YYHTTPSHOPConst.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYHTTPSHOPConst.h; sourceTree = "<group>"; };
+		1652046E1F7120A70043B80C /* YYMineMedicinalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMineMedicinalModel.h; sourceTree = "<group>"; };
+		1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMineMedicinalModel.m; sourceTree = "<group>"; };
 		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
 		1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAddressEditVC.m; sourceTree = "<group>"; };
 		1654900F1E63C9BB0034CB5B /* YYAddressEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditView.h; sourceTree = "<group>"; };
@@ -282,6 +286,8 @@
 		165EB5BC1E811D6700F644F0 /* YYStateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStateTableViewCell.m; sourceTree = "<group>"; };
 		165EB5BE1E812C6000F644F0 /* YYMedicinalStateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMedicinalStateModel.h; sourceTree = "<group>"; };
 		165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedicinalStateModel.m; sourceTree = "<group>"; };
+		16BFB2581F6BA915006D6B2A /* YYAppointmentHospitalTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAppointmentHospitalTVCell.h; sourceTree = "<group>"; };
+		16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAppointmentHospitalTVCell.m; sourceTree = "<group>"; };
 		16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
 		16E75CFF1E5FFDE700A71AA5 /* YYPayOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPayOptionView.h; sourceTree = "<group>"; };
 		16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPayOptionView.m; sourceTree = "<group>"; };
@@ -652,8 +658,6 @@
 		1654BF351E5ED20B002F1D00 /* C */ = {
 			isa = PBXGroup;
 			children = (
-				1654BF421E5ED790002F1D00 /* ViewController.h */,
-				1654BF431E5ED790002F1D00 /* ViewController.m */,
 				1654BF511E5EDFE8002F1D00 /* YYMedicinalDetailVC.h */,
 				1654BF521E5EDFE8002F1D00 /* YYMedicinalDetailVC.m */,
 				1654BF541E5EDFFB002F1D00 /* YYConfirmVC.h */,
@@ -677,8 +681,6 @@
 				165490351E66B2A00034CB5B /* YYSearchRecordSingleton.m */,
 				16443A961E7A323700BCE38D /* YYCategoryModel.h */,
 				16443A971E7A323700BCE38D /* YYCategoryModel.m */,
-				165EB5BE1E812C6000F644F0 /* YYMedicinalStateModel.h */,
-				165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -886,7 +888,7 @@
 				3E1E473A1E5BE11B0042934D /* C */,
 				3E1E473B1E5BE14C0042934D /* InformationPage */,
 				3EC2C00A1E6FF2D400F01795 /* NotficationPage */,
-				3E1841001E56D57500069568 /* ShoppingMall */,
+				3E1841001E56D57500069568 /* mineMedicine */,
 				3E1E47401E5BF50D0042934D /* AppointmentPage */,
 			);
 			name = HomePage;
@@ -988,15 +990,21 @@
 			name = PersonalPage;
 			sourceTree = "<group>";
 		};
-		3E1841001E56D57500069568 /* ShoppingMall */ = {
+		3E1841001E56D57500069568 /* mineMedicine */ = {
 			isa = PBXGroup;
 			children = (
+				1654BF421E5ED790002F1D00 /* ViewController.h */,
+				1654BF431E5ED790002F1D00 /* ViewController.m */,
+				1652046E1F7120A70043B80C /* YYMineMedicinalModel.h */,
+				1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */,
+				165EB5BE1E812C6000F644F0 /* YYMedicinalStateModel.h */,
+				165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */,
 				1654BF3E1E5ED572002F1D00 /* tools */,
 				1654BF391E5ED286002F1D00 /* medicinalShop */,
 				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
 				165490191E65593D0034CB5B /* shopCart */,
 			);
-			name = ShoppingMall;
+			name = mineMedicine;
 			sourceTree = "<group>";
 		};
 		3E1E47381E5BE10D0042934D /* M */ = {
@@ -1064,6 +1072,8 @@
 				3E1E474B1E5C291A0042934D /* SectorCalendar.m */,
 				3ECBB45C1E5C600F00BD5BE5 /* YYSectorTableViewCell.h */,
 				3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */,
+				16BFB2581F6BA915006D6B2A /* YYAppointmentHospitalTVCell.h */,
+				16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */,
 			);
 			name = AppointmentPage;
 			sourceTree = "<group>";
@@ -1518,12 +1528,14 @@
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */,
+				16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EC2C00D1E6FF32000F01795 /* NotficationViewController.m in Sources */,
 				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
+				165204701F7120A70043B80C /* YYMineMedicinalModel.m in Sources */,
 				3EFBD66A1E68FDD900B422BD /* GYZChooseCityController.m in Sources */,
 				1654BF4D1E5ED892002F1D00 /* YYflowLay.m in Sources */,
 				1654BF651E5EE18F002F1D00 /* YYClassificationFlowLayout.m in Sources */,

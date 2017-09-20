@@ -15,7 +15,6 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <MJRefresh.h>
 #import "YYHomeHeadView.h"
-#import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
 #import "YYHomeMedicineTableViewCell.h"
 #import "InfomationViewController.h"
@@ -60,7 +59,7 @@
 
 - (UITableView *)tableView{
     if (_tableView == nil) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH-self.tabBarController.tabBar.bounds.size.height) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -111,8 +110,8 @@
     [self httpRequestForMedical];
     
     YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
-    homeHeadView.bannerClick = ^(BOOL isShopping){
-        if (isShopping) {
+    homeHeadView.bannerClick = ^(BOOL isOrder){
+        if (isOrder) {
             NSLog(@"跳转到医药商城");
 
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
@@ -140,10 +139,6 @@
     
     UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
     headTitleView.backgroundColor = [UIColor colorWithHexString:@"383a41"];
-    //改变整个导航栏+状态栏背景颜色
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"383a41"];
-    self.navigationController.navigationBar.translucent = false;
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     // 左侧地址按钮   测
     UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
     
@@ -195,7 +190,7 @@
     //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     //    NSDictionary *dict = arr[i];
     [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    [searchBtn setTitle:@"搜索所有药品" forState:UIControlStateNormal];
+    [searchBtn setTitle:@"搜索医院" forState:UIControlStateNormal];
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     searchBtn.layer.masksToBounds = true;
     searchBtn.layer.cornerRadius = 15;
@@ -270,9 +265,14 @@
         
     }];
     
-    // Do any additional setup after loading the view.
 }
-
+//1.改变状态栏样式,如果有导航栏必须在导航栏类重写这个方法- (UIViewController *)childViewControllerForStatusBarStyle{
+//    return self.topViewController;
+//}
+//2.返回要改变的样式
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -294,43 +294,45 @@
 
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
-}
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    return 2;
+//}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 0) {
-        return self.dataSource.count;
-    }else{
-        NSLog(@" ========   %ld    %@",self.medicalHomeSource.count,self.medicalHomeSource);
-        return self.medicalHomeSource.count /3;
-    }
-    
+//    if (section == 0) {
+//        return self.dataSource.count;
+//    }else{
+//        NSLog(@" ========   %ld    %@",self.medicalHomeSource.count,self.medicalHomeSource);
+//        return self.medicalHomeSource.count /3;
+//    }
+    return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 50 *kiphone6;
+    return 44 *kiphone6;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.0000000001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 110 *kiphone6;
-    }else{
-        return 166 -21*kiphone6;
-    }
+//    if (indexPath.section == 0) {
+//        return 110 *kiphone6;
+//    }else{
+//        return 166 -21*kiphone6;
+//    }
+    return 110 *kiphone6;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *title;
-    if (section == 0) {
-        title =  @"资讯";
-    }else{
-        title = @ "常用药品";
-    }
+//    if (section == 0) {
+//        title =  @"资讯";
+//    }else{
+//        title = @ "常用药品";
+//    }
+    title =  @"资讯";
     UIView *sectionHView = [[UIView alloc]init];
     sectionHView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     
     UIView *whiteView = [[UIView alloc]init];
-    whiteView.backgroundColor = [UIColor whiteColor];
+    whiteView.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
     whiteView.tag = 200 +section;
     
     
@@ -339,7 +341,7 @@
     
     UILabel *sectionName = [[UILabel alloc]init];
     sectionName.text = title;
-    sectionName.textColor = [UIColor colorWithHexString:@"6a6a6a"];
+    sectionName.textColor = [UIColor colorWithHexString:@"666666"];
     sectionName.font = [UIFont systemFontOfSize:14];
     
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -352,84 +354,93 @@
     [whiteView addSubview:clickButton];
     
     [sectionName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(whiteView).with.offset(10 *kiphone6);
-        make.left.equalTo(whiteView).with.offset(20 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64, 14));
+        make.centerY.equalTo(whiteView);
+        make.left.offset(20 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(64, 14));
     }];
     
     [clickButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(whiteView).with.offset(0);
-        make.right.equalTo(whiteView).with.offset(10);
-        make.size.mas_equalTo(CGSizeMake(40 *kiphone6, 40 *kiphone6));
+        make.centerY.equalTo(whiteView);
+        make.right.offset(-15*kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(40 *kiphone6, 40 *kiphone6));
     }];
     
     
     
     [sectionHView addSubview:whiteView];
     [whiteView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(sectionHView).with.offset(10*kiphone6);
-        make.left.equalTo(sectionHView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW, 40*kiphone6));
+        make.top.left.right.bottom.offset(0);
+//        make.size.mas_equalTo(CGSizeMake(kScreenW, 40*kiphone6));
     }];
     // sectionHView.frame = CGRectMake(0, 0, kScreenW, 44 *kiphone6);
     return sectionHView;
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0)];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
-}
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenW, 0)];
+//    view.backgroundColor = [UIColor clearColor];
+//    return view;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section == 0) {
-        
-        YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
-        [homeTableViewCell createDetailView:2];
-        if (self.dataSource.count != 0) {
-            YYInfomationModel *infoModel = self.dataSource[indexPath.row];
-            [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
-            homeTableViewCell.titleLabel.text = infoModel.title;
-            homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
-        }else{
-            homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
-        }
-        return homeTableViewCell;
+//    if (indexPath.section == 0) {
+//        
+//        YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
+//        [homeTableViewCell createDetailView:2];
+//        if (self.dataSource.count != 0) {
+//            YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+//            [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
+//            homeTableViewCell.titleLabel.text = infoModel.title;
+//            homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
+//        }else{
+//            homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+//        }
+//        return homeTableViewCell;
+//    }else{
+//     
+//        YYHomeMedicineTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeMedicineTableViewCell" forIndexPath:indexPath];
+//        
+//        if (self.medicalHomeSource.count != 0) {
+//       //     NSArray *smallArray;
+//            NSMutableArray *bigArray = [[NSMutableArray alloc]initWithCapacity:2];
+//            if (indexPath.row == 0) {
+//                for(int i = 0 ;i<3 ;i++){
+//                    [bigArray addObject:self.medicalHomeSource[i]];
+//                }
+//        //        smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(0, 2)];
+//            }else{
+//                for(int i = 3 ;i<6 ;i++){
+//                    [bigArray addObject:self.medicalHomeSource[i]];
+//                }
+//          //      smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(3, 5)];
+//            }
+//            [homeTableViewCell updateDataList:bigArray];
+//        }else{
+//            homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
+//        
+//        }
+//        
+//        
+//        [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+//        homeTableViewCell.itemClick = ^(NSString *medicalID){
+//            YYMedicinalDetailVC *medicinaDVC = [[YYMedicinalDetailVC alloc]init];
+//            medicinaDVC.id = [medicalID integerValue];
+//            [self.navigationController pushViewController:medicinaDVC animated:YES];
+//        };
+//        return homeTableViewCell;
+//    }
+    YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
+    [homeTableViewCell createDetailView:2];
+    if (self.dataSource.count != 0) {
+        YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+        [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
+        homeTableViewCell.titleLabel.text = infoModel.title;
+        homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
     }else{
-     
-        YYHomeMedicineTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeMedicineTableViewCell" forIndexPath:indexPath];
-        
-        if (self.medicalHomeSource.count != 0) {
-       //     NSArray *smallArray;
-            NSMutableArray *bigArray = [[NSMutableArray alloc]initWithCapacity:2];
-            if (indexPath.row == 0) {
-                for(int i = 0 ;i<3 ;i++){
-                    [bigArray addObject:self.medicalHomeSource[i]];
-                }
-        //        smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(0, 2)];
-            }else{
-                for(int i = 3 ;i<6 ;i++){
-                    [bigArray addObject:self.medicalHomeSource[i]];
-                }
-          //      smallArray = [self.medicalHomeSource subarrayWithRange:NSMakeRange(3, 5)];
-            }
-            [homeTableViewCell updateDataList:bigArray];
-        }else{
-            homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
-        
-        }
-        
-        
-        [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        homeTableViewCell.itemClick = ^(NSString *medicalID){
-            YYMedicinalDetailVC *medicinaDVC = [[YYMedicinalDetailVC alloc]init];
-            medicinaDVC.id = [medicalID integerValue];
-            [self.navigationController pushViewController:medicinaDVC animated:YES];
-        };
-        return homeTableViewCell;
+        homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
     }
-    
+    return homeTableViewCell;
 }
 #pragma mark -
 #pragma mark ------------Cancel-----------------------
@@ -441,18 +452,20 @@
 
 - (void)Actiondo:(UITapGestureRecognizer *)tapNum{
     
-    NSInteger sectionNum = tapNum.view.tag -200;
-    if (sectionNum == 0) {
-        
-
+//    NSInteger sectionNum = tapNum.view.tag -200;
     InfomationViewController *infoVC = [[InfomationViewController alloc]init];
-        [self.navigationController pushViewController:infoVC animated:YES];
-    }else{
-        YYAllMedicinalViewController *medicinalVC = [[YYAllMedicinalViewController alloc]init];
-        medicinalVC.id = @"1";
-        medicinalVC.categoryName = @"常用药品";
-        [self.navigationController pushViewController:medicinalVC animated:YES];
-    }
+    [self.navigationController pushViewController:infoVC animated:YES];
+//    if (sectionNum == 0) {
+//        
+//
+//    InfomationViewController *infoVC = [[InfomationViewController alloc]init];
+//        [self.navigationController pushViewController:infoVC animated:YES];
+//    }else{
+//        YYAllMedicinalViewController *medicinalVC = [[YYAllMedicinalViewController alloc]init];
+//        medicinalVC.id = @"1";
+//        medicinalVC.categoryName = @"常用药品";
+//        [self.navigationController pushViewController:medicinalVC animated:YES];
+//    }
 }
 - (void)back_click:(UIButton *)sender{
     GYZChooseCityController *cityPickerVC = [[GYZChooseCityController alloc] init];
@@ -547,16 +560,23 @@
         
     }];
 }
+#pragma mark ------------view appear----------------------
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:YES];
-   
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = false;
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"383a41"];
     if (self.dataSource.count != 0) {
-        [self.headView refreshThisView];
+        [self.headView refreshThisView];//刷新用户列表和测量数据
     }
 }
-
-
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = true;
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+}
 
 - (void)httpRequestRCToken{
     CcUserModel *userModel = [CcUserModel defaultClient];

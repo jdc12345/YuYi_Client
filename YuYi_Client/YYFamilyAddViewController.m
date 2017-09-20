@@ -77,11 +77,7 @@
     
     [self httpRequestForUser];
 
-    
-    
-    
-    [UIColor colorWithHexString:@"25f368"];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" normalColor:[UIColor colorWithHexString:@"25f368"] highlightedColor:[UIColor colorWithHexString:@"25f368"] target:self action:@selector(addFamily)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" normalColor:[UIColor colorWithHexString:@"1ebeec"] highlightedColor:[UIColor colorWithHexString:@"1ebeec"] target:self action:@selector(addFamily)];
     // Do any additional setup after loading the view.
 }
 #pragma mark -
@@ -110,7 +106,7 @@
     return 70 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
+//    NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
     YYFamilyAddTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYFamilyAddTableViewCell" forIndexPath:indexPath];
 //    if (indexPath.row == 0) {
 //        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
@@ -170,7 +166,8 @@
         }else{
         UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 0 *kiphone6)];
         headView.backgroundColor = [UIColor clearColor];
-            self.tableView.tableHeaderView = headView;}
+            self.tableView.tableHeaderView = headView;
+        }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);

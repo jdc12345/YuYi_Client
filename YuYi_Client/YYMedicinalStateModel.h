@@ -15,4 +15,5 @@
 @interface YYMedicinalStateModel : NSObject
 @property(nonatomic,copy)NSString *createTimeString;
 @property(nonatomic,copy)NSString *stateText;
+@property(nonatomic,copy)NSString *info_id;
 @end

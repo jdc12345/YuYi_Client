@@ -7,9 +7,7 @@
 //
 
 #import "YYPInfomartionViewController.h"
-#import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
-#import <Masonry.h>
 #import "YYSectionViewController.h"
 #import "YYPersonalTableViewCell.h"
 #import "YYRecardTableViewCell.h"
@@ -23,7 +21,7 @@
 #import <UIImageView+WebCache.h>
 #import <UIImageView+WebCache.h>
 #import "YYTabBarController.h"
-@interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate>
+@interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -318,7 +316,6 @@
     
     [headerView addSubview:nameLabel];
     
-    WS(ws);
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView);
         make.right.equalTo(headerView).with.offset(-10 *kiphone6);
@@ -485,7 +482,7 @@
         }else if(i == 3&&![cell.editInfoText.text isEqualToString:@""]){
             [dict setObject:cell.editInfoText.text forKey:@"idCard"];
         }
-        NSLog(@"cell = ",cell.editInfoText.text);
+        NSLog(@"cell = %@",cell.editInfoText.text);
         if ([cell.editInfoText.text isEqualToString:@""] && i != 1) {
             isEmpty = YES;
         }

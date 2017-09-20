@@ -65,7 +65,7 @@ static NSString *dentifier=@"cellforappliancelist";
     searchField.clearButtonMode = UITextFieldViewModeAlways;//删除内容的❎
     [searchField setBackgroundColor:[UIColor colorWithHexString:@"#f2f2f2"]];
     //输入框左侧放大镜
-    UIImage *image = [UIImage imageNamed:@"search_normal"];
+    UIImage *image = [UIImage imageNamed:@"firstPage_search"];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
     [imageView sizeToFit];
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, imageView.frame.size.width+5, imageView.frame.size.height)];

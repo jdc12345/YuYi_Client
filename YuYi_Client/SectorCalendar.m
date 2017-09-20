@@ -125,6 +125,7 @@
         }
     }
 }
+//重置其他日期按钮颜色
 - (void)resumeView{
     self.dateLabel.textColor = [UIColor colorWithHexString:@"6a6a6a"];
     [self.morningBtn setTitleColor:[UIColor colorWithHexString:@"6a6a6a"] forState:UIControlStateNormal];
@@ -134,7 +135,7 @@
     self.morningBtn.selected = NO;
     self.afternoonBtn.selected = NO;
 }
-
+//初始化选中
 - (void)selectInit{
     [self clickAction:self.morningBtn];
 }
