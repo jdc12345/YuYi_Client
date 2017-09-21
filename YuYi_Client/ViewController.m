@@ -86,6 +86,7 @@ static NSString* cellid = @"business_cell";
         
         if ([responseObject[@"code"] isEqualToString:@"0"]) {
            NSArray *mineMedicineArr = responseObject[@"result"];
+            if (mineMedicineArr.count>0) {
             for (NSDictionary *dic in mineMedicineArr) {
                 YYMineMedicinalModel *medicinalModel = [YYMineMedicinalModel mj_objectWithKeyValues:dic];
                 [self.mineMedicineArr addObject:medicinalModel];//存所有药方
@@ -103,13 +104,33 @@ static NSString* cellid = @"business_cell";
                 [self.medicinalTitleArr addObject:medicinalTitle];//存所有显示药方名字的字符串集
             }
             [self setupUI];
+                
         }else{
-            //加载空页面
+            [self loadEmptyView];
+            }
+        }else{
+            [self loadEmptyView];
         }
         [SVProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [SVProgressHUD dismiss];
         return ;
+    }];
+}
+//加载空页面
+-(void)loadEmptyView{
+    
+    UIImageView *emptyView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nothing"]];
+    [self.view addSubview:emptyView];
+    [emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(155*kiphone6);
+        make.centerX.equalTo(self.view);
+    }];
+    UILabel *noticelabel = [UILabel labelWithText:@"这里什么都没有" andTextColor:[UIColor colorWithHexString:@"bababa"] andFontSize:15];
+    [self.view addSubview:noticelabel];
+    [noticelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(emptyView.mas_bottom).offset(30*kiphone6);
+        make.centerX.equalTo(emptyView);
     }];
 }
 -(void)setupUI{

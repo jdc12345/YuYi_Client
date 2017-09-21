@@ -7,13 +7,13 @@
 //
 
 #import "InfomationViewController.h"
-#import "UIColor+Extension.h"
-#import "YYHomeNewTableViewCell.h"
+//#import "YYHomeNewTableViewCell.h"
 #import "YYInfoDetailViewController.h"
 #import "HttpClient.h"
 #import <MJExtension.h>
 #import "YYInfomationModel.h"
 #import <UIImageView+WebCache.h>
+#import "YYInfomationTVCell.h"
 
 @interface InfomationViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -26,7 +26,7 @@
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenW, kScreenH -64) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"ffffff"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.indicatorStyle =
@@ -34,9 +34,7 @@
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
-        //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        [_tableView registerClass:[YYHomeNewTableViewCell class] forCellReuseIdentifier:@"YYHomeNewTableViewCell"];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+        [_tableView registerClass:[YYInfomationTVCell class] forCellReuseIdentifier:@"YYInfomationTVCell"];
         [self.view addSubview:_tableView];
         [self.view sendSubviewToBack:_tableView];
         
@@ -56,10 +54,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
 
-    
-    
     [self httpRequest];
-    // Do any additional setup after loading the view.
 }
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
@@ -77,20 +72,14 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110 *kiphone6;
+    return 185 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYInfomationModel *infoModel = self.dataSource[indexPath.row];
-    YYHomeNewTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYHomeNewTableViewCell" forIndexPath:indexPath];
-    [homeTableViewCell createDetailView:3];
-//    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
-    [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", mPrefixUrl,infoModel.picture]]];
-    homeTableViewCell.titleLabel.text = infoModel.title;
-    homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
-//    homeTableViewCell.backgroundColor = [UIColor cyanColor];
+    YYInfomationTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YYInfomationTVCell" forIndexPath:indexPath];
+    cell.model = infoModel;
     
-    return homeTableViewCell;
-    
+    return cell;    
 }
 
 - (void)didReceiveMemoryWarning {

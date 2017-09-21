@@ -40,7 +40,7 @@
 #import "YYFamilyAccountViewController.h"
 #import "JPUSHService.h"
 #import "RCUserModel.h"
-#import "RCUserModel.h"
+
 @interface YYHomePageViewController ()<UITableViewDataSource, UITableViewDelegate,SDWebImageManagerDelegate,SDWebImageOperation, GYZChooseCityDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -227,9 +227,6 @@
     NSLog(@"首页高德定位");
     [AMapServices sharedServices].apiKey =@"b9c7a79ba8b553ae7aea093517c62ed0";
     
-    
-    
-    
     self.locationManager2 = [[AMapLocationManager alloc]init];
     // 带逆地理信息的一次定位（返回坐标和地址信息）
     [self.locationManager2 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
@@ -298,12 +295,7 @@
 //    return 2;
 //}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    if (section == 0) {
-//        return self.dataSource.count;
-//    }else{
-//        NSLog(@" ========   %ld    %@",self.medicalHomeSource.count,self.medicalHomeSource);
-//        return self.medicalHomeSource.count /3;
-//    }
+
     return self.dataSource.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -313,20 +305,11 @@
     return 0.0000000001;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.section == 0) {
-//        return 110 *kiphone6;
-//    }else{
-//        return 166 -21*kiphone6;
-//    }
+
     return 110 *kiphone6;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     NSString *title;
-//    if (section == 0) {
-//        title =  @"资讯";
-//    }else{
-//        title = @ "常用药品";
-//    }
     title =  @"资讯";
     UIView *sectionHView = [[UIView alloc]init];
     sectionHView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
