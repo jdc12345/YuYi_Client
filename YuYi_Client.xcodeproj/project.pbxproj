@@ -10,6 +10,7 @@
 		161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3821E69170300C359A7 /* YYOrderDetailVC.m */; };
 		161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */; };
 		161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3901E69409200C359A7 /* YYOrderDetailView.m */; };
+		1630DD821F74AA5C00655AFA /* YYCurruntBloodPressureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */; };
 		16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A971E7A323700BCE38D /* YYCategoryModel.m */; };
 		16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */; };
 		16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9D1E7A33F600BCE38D /* YYClassInfo.m */; };
@@ -215,6 +216,8 @@
 		161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYOrderDetailView.xib; sourceTree = "<group>"; };
 		161FA38F1E69409200C359A7 /* YYOrderDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailView.h; sourceTree = "<group>"; };
 		161FA3901E69409200C359A7 /* YYOrderDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailView.m; sourceTree = "<group>"; };
+		1630DD801F74AA5C00655AFA /* YYCurruntBloodPressureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCurruntBloodPressureVC.h; sourceTree = "<group>"; };
+		1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCurruntBloodPressureVC.m; sourceTree = "<group>"; };
 		16443A961E7A323700BCE38D /* YYCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCategoryModel.h; sourceTree = "<group>"; };
 		16443A971E7A323700BCE38D /* YYCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCategoryModel.m; sourceTree = "<group>"; };
 		16443A9A1E7A33F600BCE38D /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
@@ -1194,6 +1197,8 @@
 		3ECBB45F1E5D4F1800BD5BE5 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3E144D8D1E8261DA0037F90F /* YYHomeUserModel.h */,
+				3E144D8E1E8261DA0037F90F /* YYHomeUserModel.m */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -1201,6 +1206,14 @@
 		3ECBB4601E5D56AD00BD5BE5 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */,
+				3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */,
+				3ECBB46D1E5D7CD600BD5BE5 /* YYCardView.h */,
+				3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */,
+				3EBA2D6C1E5E8647005C3448 /* YYCardInputView.h */,
+				3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */,
+				3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */,
+				3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -1210,22 +1223,14 @@
 			children = (
 				3E1840F91E56C8CF00069568 /* YYMeasureViewController.h */,
 				3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */,
-				3ECBB4621E5D57BF00BD5BE5 /* YYMeasureTableViewCell.h */,
-				3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */,
+				1630DD801F74AA5C00655AFA /* YYCurruntBloodPressureVC.h */,
+				1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */,
 				3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */,
 				3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */,
 				3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */,
 				3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */,
-				3E144D8D1E8261DA0037F90F /* YYHomeUserModel.h */,
-				3E144D8E1E8261DA0037F90F /* YYHomeUserModel.m */,
-				3ECBB46D1E5D7CD600BD5BE5 /* YYCardView.h */,
-				3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */,
-				3EBA2D6C1E5E8647005C3448 /* YYCardInputView.h */,
-				3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */,
 				3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */,
 				3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */,
-				3EDBD9CC1E5DB22E008F6D65 /* YYMemberTableViewCell.h */,
-				3EDBD9CD1E5DB22E008F6D65 /* YYMemberTableViewCell.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -1481,6 +1486,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EFBD6551E68324700B422BD /* YYFamilyAddViewController.m in Sources */,
+				1630DD821F74AA5C00655AFA /* YYCurruntBloodPressureVC.m in Sources */,
 				3E74BD5B1E7FC35400364EC6 /* CcUserModel.m in Sources */,
 				3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */,
 				3EFBD6541E68324000B422BD /* YYFamilyAccountViewController.m in Sources */,

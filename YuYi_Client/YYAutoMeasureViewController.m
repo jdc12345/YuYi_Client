@@ -8,18 +8,17 @@
 
 #import "YYAutoMeasureViewController.h"
 #import "YYCardView.h"
-#import "UIColor+Extension.h"
-#import <Masonry.h>
 //#import "YYMeasureTableViewCell.h"
 #import "YYMemberTableViewCell.h"
 #import "HttpClient.h"
 
-#import "HttpClient.h"
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
 #import "YYFamilyAccountViewController.h"
+#import "YYHandleMeasureViewController.h"
+#import "UIBarButtonItem+Helper.h"
 
 @interface YYAutoMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) UIView *memberView;
@@ -65,10 +64,18 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.title = self.navTitle;
     [self httpRequestForUser];
-    
-    
-    
-    // Do any additional setup after loading the view.
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"手动添加" normalColor:[UIColor colorWithHexString:@"#333333"] highlightedColor:[UIColor colorWithHexString:@"#333333"] target:self action:@selector(addHanderInfo:)];
+}
+-(void)addHanderInfo:(UIButton *)button{
+    if ([self.title isEqualToString:@"当前血压"]) {
+        YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
+        autuMVC.navTitle = @"当前血压";
+        [self.navigationController pushViewController:autuMVC animated:YES];
+    }else{
+        YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
+        autuMVC.navTitle = @"当前体温";
+        [self.navigationController pushViewController:autuMVC animated:YES];
+    }
 }
 - (void)createOtherView{
     
@@ -76,17 +83,17 @@
     YYCardView *card = [[YYCardView alloc]initWithFrame:CGRectMake(10 *kiphone6, (64 +10) *kiphone6, kScreenW - 20 *kiphone6, 100 *kiphone6)];
     self.cardView1 = card;
     if ([self.navTitle isEqualToString:@"当前体温"]) {
-        card.titleLabel.text = @"体温";
-        card.dataLabel.text = @"38℃";
+//        card.titleLabel.text = @"体温";
+//        card.dataLabel.text = @"38℃";
     }else{
-        card.titleLabel.text = @"收缩压（高压）";
-        card.dataLabel.text = @"110";
+//        card.titleLabel.text = @"收缩压（高压）";
+//        card.dataLabel.text = @"110";
     }
     
     if ([self.navTitle isEqualToString:@"当前血压"]) {
         YYCardView *cardView = [[YYCardView alloc]initWithFrame:CGRectMake(10 *kiphone6, CGRectGetMaxY(card.frame) +10 *kiphone6, kScreenW - 20 *kiphone6, 100 *kiphone6)];
-        cardView.titleLabel.text = @"舒张压（低压）";
-        cardView.dataLabel.text = @"90";
+//        cardView.titleLabel.text = @"舒张压（低压）";
+//        cardView.dataLabel.text = @"90";
         self.cardView2 = cardView;
         [self.view addSubview:cardView];
         
@@ -99,7 +106,6 @@
         promptLabel.textColor = [UIColor colorWithHexString:@"e80000"];
         promptLabel.font = [UIFont systemFontOfSize:12];
         [self.view addSubview:promptLabel];
-        
         
         cardH = CGRectGetMaxY(card.frame);
 
@@ -133,7 +139,7 @@
     sureBtn.layer.borderWidth = 0.5 *kiphone6;
     sureBtn.layer.borderColor = [UIColor colorWithHexString:@"25f368"].CGColor;
     sureBtn.clipsToBounds = YES;
-    [sureBtn setTitle:@"确认" forState:UIControlStateNormal];
+    [sureBtn setTitle:@"保存" forState:UIControlStateNormal];
     sureBtn.backgroundColor = [UIColor whiteColor];
     [sureBtn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
     [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -232,20 +238,20 @@
     // humeuserId
     NSInteger current = self.currentUser;
     YYHomeUserModel *homeUser = self.dataSource[current];
-    NSLog(@"%@,%@,%@,%@",usertoken,homeUser.info_id,self.cardView1.dataLabel.text,self.cardView2.dataLabel.text);
+//    NSLog(@"%@,%@,%@,%@",usertoken,homeUser.info_id,self.cardView1.dataLabel.text,self.cardView2.dataLabel.text);
     
     if ([self.navTitle isEqualToString:@"当前血压"]) {
         urlStr = mBloodpressure;
         parametersDict = @{@"token":usertoken,
                            @"humeuserId":homeUser.info_id,
-                           @"systolic":self.cardView1.dataLabel.text,
-                           @"diastolic":self.cardView2.dataLabel.text
+//                           @"systolic":self.cardView1.dataLabel.text,
+//                           @"diastolic":self.cardView2.dataLabel.text
                            };
     }else{
         urlStr = mTemperature;
         parametersDict = @{@"token":usertoken,
                            @"humeuserId":homeUser.info_id,
-                           @"temperaturet":self.cardView1.dataLabel.text
+//                           @"temperaturet":self.cardView1.dataLabel.text
                            };
     }
     
@@ -273,7 +279,6 @@
             if (!self.cardView1) {
                 [self createOtherView];
             }
-            
         }
         [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {

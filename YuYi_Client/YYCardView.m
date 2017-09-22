@@ -7,65 +7,90 @@
 //
 
 #import "YYCardView.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 
 @implementation YYCardView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = [UIColor colorWithHexString:@"474d5b"];
         self.frame = frame;
         [self setViewInHead];
-        //        self.userInteractionEnabled = YES;
     }
     return self;
 }
 - (void)setViewInHead{
-    self.layer.borderColor = [UIColor colorWithHexString:@"dcdcdc"].CGColor;
-    self.layer.borderWidth = 0.5 *kiphone6;
+    //高压
+    UITextField *highTextField = [[UITextField alloc]init];
+    highTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    highTextField.textAlignment = NSTextAlignmentCenter;
+    highTextField.textColor = [UIColor colorWithHexString:@"1ebeec"];
+    highTextField.font = [UIFont systemFontOfSize:40];
+//    highTextField.placeholder = @"请输入";
+//    [highTextField setValue:[UIColor colorWithHexString:@"999999"] forKeyPath:@"_placeholderLabel.textColor"];
+//    [highTextField setValue:[UIFont boldSystemFontOfSize:15] forKeyPath:@"_placeholderLabel.font"];
+    //实现了垂直居中
+    NSMutableParagraphStyle *style = [highTextField.defaultTextAttributes[NSParagraphStyleAttributeName] mutableCopy];
     
+    style.minimumLineHeight = highTextField.font.lineHeight - (highTextField.font.lineHeight - [UIFont systemFontOfSize:15.0].lineHeight) / 2.0;
     
-    UILabel *lineLabel = [[UILabel alloc]init];
-    lineLabel.backgroundColor = [UIColor colorWithHexString:@"e2e2e2"];
-    
-    self.titleLabel = [[UILabel alloc]init];
-    self.titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    self.titleLabel.font = [UIFont fontWithName:kPingFang_S size:14];
-    
-    self.dataLabel = [[UILabel alloc]init];
-    self.dataLabel.textColor = [UIColor colorWithHexString:@"e80000"];
-    self.dataLabel.font = [UIFont fontWithName:kPingFang_S size:15];
-    self.dataLabel.textAlignment = NSTextAlignmentCenter;
-    
- 
-    
-    
-    
-    [self addSubview:lineLabel];
-    [self addSubview:self.titleLabel];
-    [self addSubview:self.dataLabel];
-    
-    WS(ws);
-    [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws).with.offset(30 *kiphone6);
-        make.left.equalTo(ws).with.offset(15 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(self.frame.size.width - 15*kiphone6 ,1));
+    highTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入..."attributes:@{NSForegroundColorAttributeName: [UIColor colorWithHexString:@"999999"],NSFontAttributeName : [UIFont systemFontOfSize:15.0],NSParagraphStyleAttributeName : style}];
+    [self addSubview:highTextField];
+    [highTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(38*kiphone6H);
+        make.right.equalTo(self.mas_centerX).offset(-30*kiphone6);
+        
     }];
-    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws).with.offset(7.5 *kiphone6);
-        make.left.equalTo(ws).with.offset(15 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(self.frame.size.width - 15*kiphone6 ,15));
+    self.highPressureField = highTextField;
+    
+    UILabel *highLabel = [[UILabel alloc]init];
+    highLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
+    highLabel.font = [UIFont systemFontOfSize:15];
+    highLabel.text = @"高压/mmHg";
+    [self addSubview:highLabel];
+    [highLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(highTextField);
+        make.top.equalTo(highTextField.mas_bottom).offset(15*kiphone6H);
+    }];
+    //低压
+    UITextField *lowTextField = [[UITextField alloc]init];
+    lowTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    lowTextField.textAlignment = NSTextAlignmentCenter;
+    lowTextField.textColor = [UIColor colorWithHexString:@"1ebeec"];
+    lowTextField.font = [UIFont systemFontOfSize:40];
+    //实现了垂直居中
+    lowTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入..."attributes:@{NSForegroundColorAttributeName: [UIColor colorWithHexString:@"999999"],NSFontAttributeName : [UIFont systemFontOfSize:15.0],NSParagraphStyleAttributeName : style}];
+    [self addSubview:lowTextField];
+    [lowTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(38*kiphone6H);
+        make.left.equalTo(self.mas_centerX).offset(30*kiphone6);
+        
+    }];
+    self.lowPressureField = lowTextField;
+    
+    UILabel *lowLabel = [[UILabel alloc]init];
+    lowLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
+    lowLabel.font = [UIFont systemFontOfSize:15];
+    lowLabel.text = @"低压/mmHg";
+    [self addSubview:lowLabel];
+    [lowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(lowTextField);
+        make.top.equalTo(lowTextField.mas_bottom).offset(15*kiphone6H);
     }];
     
-    [self.dataLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws).with.offset(57.5 *kiphone6);
-        make.centerX.equalTo(ws.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(self.frame.size.width ,15));
+    //结果说明label
+    UILabel *resultLabel = [[UILabel alloc]init];
+    self.resultLabel = resultLabel;
+    resultLabel.text = @"*当前数据为空";
+    self.resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
+    self.resultLabel.font = [UIFont fontWithName:kPingFang_S size:15];
+    self.resultLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:resultLabel];
+    [resultLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.offset(0);
+        make.top.equalTo(lowLabel.mas_bottom).offset(15*kiphone6H);
     }];
-    
-    
+   
 }
 
 /*

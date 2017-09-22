@@ -18,7 +18,7 @@
 #define kScreenW [UIScreen mainScreen].bounds.size.width
 #define kScreenH [UIScreen mainScreen].bounds.size.height
 #define kiphone6 [UIScreen mainScreen].bounds.size.width/375.0
-
+#define kiphone6H [UIScreen mainScreen].bounds.size.height/667.0
 
 #pragma mark --------------Color--------------------
 #define kColor_DefaultGray [UIColor  colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1]

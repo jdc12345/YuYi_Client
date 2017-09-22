@@ -7,17 +7,18 @@
 //
 
 #import "YYMeasureViewController.h"
-#import "UIColor+Extension.h"
 #import "YYMeasureTableViewCell.h"
-#import "FMActionSheet.h"
+//#import "FMActionSheet.h"
 #import "YYAutoMeasureViewController.h"
 #import "YYHandleMeasureViewController.h"
 #import "YYConnectViewController.h"
+#import "YYCurruntBloodPressureVC.h"
+
 @interface YYMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) FMActionSheet *fmActionS;
+//@property (nonatomic, strong) FMActionSheet *fmActionS;
 @property (nonatomic, assign) NSInteger currentRow;
 
 @end
@@ -65,25 +66,35 @@
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    if (indexPath.row != 2) {
-        
-
-    
-    FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
-                                                   buttonTitles:[NSArray arrayWithObjects:@"自动输入",@"手动输入", nil]
-                                              cancelButtonTitle:@"取消"
-                                                       delegate:(id<FMActionSheetDelegate>)self
-                                                        buttonW:kScreenW];
-    sheet.titleFont = [UIFont systemFontOfSize:20];
-    sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
-    sheet.titleColor = [UIColor colorWithHexString:@"666666"];
-    sheet.lineColor = [UIColor colorWithHexString:@"dbdce4"];
-    [sheet show];
-        self.currentRow = indexPath.row;
+    if (indexPath.row == 0) {
+        YYCurruntBloodPressureVC *autuMVC = [[YYCurruntBloodPressureVC alloc]init];
+        autuMVC.navTitle = @"当前血压";
+        [self.navigationController pushViewController:autuMVC animated:YES];
+    }else if (indexPath.row == 1){
+        YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
+        autuMVC.navTitle = @"当前体温";
+        [self.navigationController pushViewController:autuMVC animated:YES];
     }else{
         YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];
         [self.navigationController pushViewController:connectVC animated:YES];
     }
+//    if (indexPath.row != 2) {
+// 
+//    FMActionSheet *sheet = [[FMActionSheet alloc] initWithTitle:@""
+//                                                   buttonTitles:[NSArray arrayWithObjects:@"自动输入",@"手动输入", nil]
+//                                              cancelButtonTitle:@"取消"
+//                                                       delegate:(id<FMActionSheetDelegate>)self
+//                                                        buttonW:kScreenW];
+//    sheet.titleFont = [UIFont systemFontOfSize:20];
+//    sheet.titleBackgroundColor = [UIColor colorWithHexString:@"f4f5f8"];
+//    sheet.titleColor = [UIColor colorWithHexString:@"666666"];
+//    sheet.lineColor = [UIColor colorWithHexString:@"dbdce4"];
+//    [sheet show];
+//        self.currentRow = indexPath.row;
+//    }else{
+//        YYConnectViewController *connectVC = [[YYConnectViewController alloc]init];
+//        [self.navigationController pushViewController:connectVC animated:YES];
+//    }
 }
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
@@ -92,22 +103,24 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110 *kiphone6;
+    return 120 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYMeasureTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYMeasureTableViewCell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mea-bpg-icon-norm-1"]];
+        homeTableViewCell.cardView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"picture-one"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"measure_heater"]];
         homeTableViewCell.titleLabel.text = @"血压计";
         homeTableViewCell.introduceLabel.text = @"血压测量记录";
     
     }else if(indexPath.row == 1){
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mea- therm-icon-norm-2"]];
+        homeTableViewCell.cardView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"picture-two"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"measure_temp"]];
         homeTableViewCell.titleLabel.text = @"体温计";
         homeTableViewCell.introduceLabel.text = @"体温测量记录";
     }else{
         [homeTableViewCell addOtherCell];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"add1_icon_1"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"add_equ"]];
         homeTableViewCell.introduceLabel.text = @"添加其他设备";
         
     }
@@ -116,53 +129,53 @@
     return homeTableViewCell;
     
 }
-#pragma mark - ......::::::: UIActionSheetDelegate :::::::......
-
-- (void)actionSheet:(FMActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSLog(@"clickedButtonAtIndex:%ld",buttonIndex);
-    if (buttonIndex == 0) {
-        if (_currentRow == 0) {
-            YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
-            autuMVC.navTitle = @"当前血压";
-            [self.navigationController pushViewController:autuMVC animated:YES];
-        }else{
-            YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
-            autuMVC.navTitle = @"当前体温";
-            [self.navigationController pushViewController:autuMVC animated:YES];
-        }
-        
-        
-    }else if(buttonIndex == 1){
-        if (_currentRow == 0) {
-            YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
-            autuMVC.navTitle = @"当前血压";
-            [self.navigationController pushViewController:autuMVC animated:YES];
-        }else{
-            YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
-            autuMVC.navTitle = @"当前体温";
-            [self.navigationController pushViewController:autuMVC animated:YES];
-        }
-    }else{
-        
-    }
-    
-}
-
-- (UIFont *)actionSheet:(FMActionSheet *)actionSheet buttonTextFontAtIndex:(NSInteger)bottonIndex {
-    return [UIFont systemFontOfSize:20];
-}
-
-- (UIColor *)actionSheet:(FMActionSheet *)actionSheet buttonTextColorAtIndex:(NSInteger)bottonIndex {
-    if (bottonIndex == 0) {
-        return [UIColor whiteColor];
-    }
-    
-    return [UIColor whiteColor];
-}
-
-- (UIColor *)actionSheet:(FMActionSheet *)actionSheet buttonBackgroundColorAtIndex:(NSInteger)bottonIndex {
-    return [UIColor whiteColor];
-}
+//#pragma mark - ......::::::: UIActionSheetDelegate :::::::......
+//
+//- (void)actionSheet:(FMActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+//    NSLog(@"clickedButtonAtIndex:%ld",buttonIndex);
+//    if (buttonIndex == 0) {
+//        if (_currentRow == 0) {
+//            YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
+//            autuMVC.navTitle = @"当前血压";
+//            [self.navigationController pushViewController:autuMVC animated:YES];
+//        }else{
+//            YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
+//            autuMVC.navTitle = @"当前体温";
+//            [self.navigationController pushViewController:autuMVC animated:YES];
+//        }
+//        
+//        
+//    }else if(buttonIndex == 1){
+//        if (_currentRow == 0) {
+//            YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
+//            autuMVC.navTitle = @"当前血压";
+//            [self.navigationController pushViewController:autuMVC animated:YES];
+//        }else{
+//            YYHandleMeasureViewController *autuMVC = [[YYHandleMeasureViewController alloc]init];
+//            autuMVC.navTitle = @"当前体温";
+//            [self.navigationController pushViewController:autuMVC animated:YES];
+//        }
+//    }else{
+//        
+//    }
+//    
+//}
+//
+//- (UIFont *)actionSheet:(FMActionSheet *)actionSheet buttonTextFontAtIndex:(NSInteger)bottonIndex {
+//    return [UIFont systemFontOfSize:20];
+//}
+//
+//- (UIColor *)actionSheet:(FMActionSheet *)actionSheet buttonTextColorAtIndex:(NSInteger)bottonIndex {
+//    if (bottonIndex == 0) {
+//        return [UIColor whiteColor];
+//    }
+//    
+//    return [UIColor whiteColor];
+//}
+//
+//- (UIColor *)actionSheet:(FMActionSheet *)actionSheet buttonBackgroundColorAtIndex:(NSInteger)bottonIndex {
+//    return [UIColor whiteColor];
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

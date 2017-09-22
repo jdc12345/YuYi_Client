@@ -10,12 +10,15 @@
 
 @interface YYCardView : UIView
 
-@property (nonatomic, strong) NSString *titleStr;
+//@property (nonatomic, strong) NSString *titleStr;
 
-@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, weak) UITextField *highPressureField;
 
-@property (nonatomic, strong) UILabel *dataLabel;
+@property (nonatomic, weak) UITextField *lowPressureField;
 
-@property (nonatomic, strong) UILabel *promptLabel;
+@property (nonatomic, weak) UILabel *highLabel;
 
+@property (nonatomic, weak) UILabel *lowLabel;
+
+@property (nonatomic, weak) UILabel *resultLabel;//结果说明label
 @end

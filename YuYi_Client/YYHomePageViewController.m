@@ -317,8 +317,7 @@
     UIView *whiteView = [[UIView alloc]init];
     whiteView.backgroundColor = [UIColor colorWithHexString:@"f1f1f1"];
     whiteView.tag = 200 +section;
-    
-    
+        
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Actiondo:)];
     [whiteView addGestureRecognizer:tapGesture];
     
@@ -527,7 +526,7 @@
     }];
 }
 - (void)httpRequestForMedical{
-    NSString *userToken = [CcUserModel defaultClient].userToken;
+//    NSString *userToken = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:mHomeMedical method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {

@@ -32,62 +32,51 @@
     [self.contentView addSubview:self.cardView];
     
     [self.cardView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).with.offset(10 *kiphone6);
-        make.left.equalTo(self.contentView).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(kScreenW - 20 *kiphone6, 100 *kiphone6));
+        make.top.offset(15 *kiphone6);
+        make.left.offset(10 *kiphone6);
+        make.right.offset(-10 *kiphone6);
+        make.height.offset(105 *kiphone6);
     }];
     
-    
     self.iconV = [[UIImageView alloc]init];
-    self.iconV.layer.cornerRadius = 25 *kiphone6;
-    self.iconV.clipsToBounds = YES;
+//    self.iconV.layer.cornerRadius = 25 *kiphone6;
+//    self.iconV.clipsToBounds = YES;
     
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.font = [UIFont fontWithName:kPingFang_S size:16];
-    self.titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    
-    
-    
+    self.titleLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
+  
     self.introduceLabel = [[UILabel alloc]init];
     self.introduceLabel.font = [UIFont systemFontOfSize:13];
-    self.introduceLabel.textColor = [UIColor colorWithHexString:@"666666"];
-    
-    
-    
+    self.introduceLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
     
     [self.cardView addSubview:self.iconV];
     [self.cardView  addSubview:self.titleLabel];
     [self.cardView addSubview:self.introduceLabel];
     
-    
     WS(ws);
     [self.iconV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.cardView).with.offset(25 *kiphone6);
-        make.left.equalTo(ws.cardView).with.offset(28 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(50 *kiphone6, 50 *kiphone6));
+        make.centerY.offset(0);
+        make.centerX.equalTo(self.cardView.mas_left).offset(35 *kiphone6);
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.cardView).with.offset(33 *kiphone6);
-        make.left.equalTo(ws.iconV.mas_right).with.offset(20 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64 *kiphone6, 16 *kiphone6));
+        make.bottom.equalTo(ws.cardView.mas_centerY).offset(-2.5 *kiphone6);
+        make.left.equalTo(ws.iconV.mas_right).offset(20 *kiphone6);
     }];
     [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.titleLabel.mas_bottom).with.offset(5 *kiphone6);
-        make.left.equalTo(ws.iconV.mas_right).with.offset(20 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(13 *8 *kiphone6, 13 *kiphone6));
+        make.top.equalTo(ws.cardView.mas_centerY).offset(2.5 *kiphone6);
+        make.left.equalTo(ws.iconV.mas_right).offset(20 *kiphone6);
     }];
     
-    
-
 }
 - (void)addOtherCell{
-    self.iconV.layer.cornerRadius = 0;
+//    self.iconV.layer.cornerRadius = 0;
     WS(ws);
-    [self.introduceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.introduceLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(ws.cardView);
         make.left.equalTo(ws.iconV.mas_right).with.offset(20 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(13 *8 *kiphone6, 13 *kiphone6));
     }];
+    self.introduceLabel.textColor = [UIColor colorWithHexString:@"bdd2e3"];
     self.titleLabel.hidden = YES;
 }
 
