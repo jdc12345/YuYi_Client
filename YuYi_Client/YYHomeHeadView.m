@@ -270,8 +270,7 @@
         }
         button_banner.layer.cornerRadius = 35/2.0*kiphone6;
         button_banner.clipsToBounds = YES;
-        
-        
+                
         // title
         UILabel *label_banner = [[UILabel alloc]init];
         label_banner.text = userModel.trueName;

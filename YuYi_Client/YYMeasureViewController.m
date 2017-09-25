@@ -9,10 +9,11 @@
 #import "YYMeasureViewController.h"
 #import "YYMeasureTableViewCell.h"
 //#import "FMActionSheet.h"
-#import "YYAutoMeasureViewController.h"
-#import "YYHandleMeasureViewController.h"
+//#import "YYAutoMeasureViewController.h"
+//#import "YYHandleMeasureViewController.h"
 #import "YYConnectViewController.h"
 #import "YYCurruntBloodPressureVC.h"
+#import "YYCurruntTemperVC.h"
 
 @interface YYMeasureViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -71,7 +72,7 @@
         autuMVC.navTitle = @"当前血压";
         [self.navigationController pushViewController:autuMVC animated:YES];
     }else if (indexPath.row == 1){
-        YYAutoMeasureViewController *autuMVC = [[YYAutoMeasureViewController alloc]init];
+        YYCurruntTemperVC *autuMVC = [[YYCurruntTemperVC alloc]init];
         autuMVC.navTitle = @"当前体温";
         [self.navigationController pushViewController:autuMVC animated:YES];
     }else{

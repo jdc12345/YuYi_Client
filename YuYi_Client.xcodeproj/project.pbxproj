@@ -47,6 +47,7 @@
 		165EB5BD1E811D6700F644F0 /* YYStateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BC1E811D6700F644F0 /* YYStateTableViewCell.m */; };
 		165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */; };
 		1683B7181F736A14004A21E4 /* YYInfomationTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1683B7171F736A14004A21E4 /* YYInfomationTVCell.m */; };
+		168483681F774FC90015D0F5 /* YYCurruntTemperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */; };
 		16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */; };
 		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
 		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
@@ -292,6 +293,8 @@
 		165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedicinalStateModel.m; sourceTree = "<group>"; };
 		1683B7161F736A14004A21E4 /* YYInfomationTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYInfomationTVCell.h; sourceTree = "<group>"; };
 		1683B7171F736A14004A21E4 /* YYInfomationTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYInfomationTVCell.m; sourceTree = "<group>"; };
+		168483661F774FC90015D0F5 /* YYCurruntTemperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCurruntTemperVC.h; sourceTree = "<group>"; };
+		168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCurruntTemperVC.m; sourceTree = "<group>"; };
 		16BFB2581F6BA915006D6B2A /* YYAppointmentHospitalTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAppointmentHospitalTVCell.h; sourceTree = "<group>"; };
 		16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAppointmentHospitalTVCell.m; sourceTree = "<group>"; };
 		16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
@@ -1225,6 +1228,8 @@
 				3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */,
 				1630DD801F74AA5C00655AFA /* YYCurruntBloodPressureVC.h */,
 				1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */,
+				168483661F774FC90015D0F5 /* YYCurruntTemperVC.h */,
+				168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */,
 				3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */,
 				3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */,
 				3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */,
@@ -1562,6 +1567,7 @@
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
 				16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
+				168483681F774FC90015D0F5 /* YYCurruntTemperVC.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
 				3EE1AB531E8D197B00CFBFA0 /* NoyficationModel.m in Sources */,
 				3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */,
