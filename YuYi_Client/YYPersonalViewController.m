@@ -7,7 +7,6 @@
 //
 
 #import "YYPersonalViewController.h"
-#import "UIColor+Extension.h"
 #import "YYHomeNewTableViewCell.h"
 #import "YYSectionViewController.h"
 #import "YYPersonalTableViewCell.h"
@@ -25,6 +24,8 @@
 #import <UIImageView+WebCache.h>
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
+#import "UILabel+Addition.h"
+
 
 #define myToken @"6DD620E22A92AB0AED590DB66F84D064"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -34,8 +35,8 @@
 @property (nonatomic, strong) NSArray *iconList;
 
 @property (nonatomic, strong) UILabel *nameLabel;
-@property (nonatomic, strong) UILabel *idLabel;
-@property (nonatomic, strong) UIImageView *iconV;
+@property (nonatomic, strong) UIImageView *genderV;//性别
+@property (nonatomic, strong) UIImageView *iconView;//头像
 @property (nonatomic, strong) YYHomeUserModel *personalModel;
 
 @end
@@ -71,18 +72,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的";
  //    [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
     CcUserModel *model = [CcUserModel defaultClient];
     if (![model.telephoneNum isEqualToString:@"18511694068"]) {
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"设置"]]];
-    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"Set-icon-"]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"电子病例",@"消息"],@[@"家庭用户管理",@"用户设备管理",@"设置"]]];
+    self.iconList =@[@[@"Personal-EMR-icon-",@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-",@"Set-icon-"]];
     }else{
-        self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"消息"],@[@"家庭用户管理",@"用户设备管理"],@[@"设置"]]];
-        self.iconList =@[@[@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-"],@[@"Set-icon-"]];
+        self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"消息"],@[@"家庭用户管理",@"用户设备管理",@"设置"]]];
+        self.iconList =@[@[@"Personal-message-icon-"],@[@"family-icon--1",@"equipment-icon-",@"Set-icon-"]];
     }
     
 //    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 70 *kiphone6)];
@@ -102,63 +102,57 @@
 }
 - (UIView *)personInfomation{
     
-    UIView *personV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 90 *kiphone6)];
-    personV.backgroundColor = [UIColor whiteColor];
-    
-    
-    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headViewClick)];
-    [personV addGestureRecognizer:tapGest];
-    
-    
-    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10)];
-    headerView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
-    [personV addSubview:headerView];
-    
-    UIImageView *iconV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"avatar.jpg"]];
-    iconV.layer.cornerRadius = 25;
-    iconV.clipsToBounds = YES;
-//
-    UILabel *nameLabel = [[UILabel alloc]init];
-    nameLabel.text = @"李美丽";
-    nameLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    nameLabel.font = [UIFont systemFontOfSize:14];
-//
-    UILabel *idName = [[UILabel alloc]init];
-    idName.text = @"用户：18328887563";
-    idName.textColor = [UIColor colorWithHexString:@"333333"];
-    idName.font = [UIFont systemFontOfSize:13];
-//
-    [personV addSubview:iconV];
-    [personV addSubview:nameLabel];
-    [personV addSubview:idName];
-//
-    [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(personV).with.offset(10);
-        make.left.equalTo(personV).with.offset(25 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(50 , 50 ));
+    //添加头部视图
+//    UIView *headerView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 310)];
+//    headerView.backgroundColor = [UIColor colorWithHexString:@"#f1f1f1"];
+//    [self.view addSubview:headerView];
+    //添加背景视图
+    UIImageView *backView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 220*kiphone6H)];
+    backView.userInteractionEnabled = true;
+//    [headerView addSubview:backView];
+    UIImage *oldImage = [UIImage imageNamed:@"photo_mine"];
+    backView.image = oldImage;
+    //添加头像
+    UIImageView *iconView = [[UIImageView alloc]init];
+    UIImage *iconImage = [UIImage imageNamed:@"avatar.jpg"];
+    iconView.image = iconImage;
+    [backView addSubview:iconView];
+    [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(backView);
+        make.top.offset(50);
+        make.width.height.offset(79);
     }];
-//
-    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(personV).with.offset(31.5 *kiphone6);
-        make.left.equalTo(iconV.mas_right).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(140 *kiphone6, 14 *kiphone6));
-    }];
-//
-    [idName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
-        make.left.equalTo(nameLabel.mas_left);
-        make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
+    iconView.layer.cornerRadius=79*0.5;//裁成圆角
+    iconView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
+    iconView.layer.borderWidth = 1.5;
+    iconView.layer.borderColor = [UIColor colorWithHexString:@"ffffff"].CGColor;
+//    [iconView addTarget:self action:@selector(pushSettingVC) forControlEvents:UIControlEventTouchUpInside];
+    //    iconView.layer.borderColor = [UIColor colorWithHexString:@"#ffffff"].CGColor;
+    //    iconView.layer.borderWidth = 1.5f;
+    //添加名字
+    UILabel *namelabel = [UILabel labelWithText:@"姓名" andTextColor:[UIColor colorWithHexString:@"#ffffff"] andFontSize:14];
+    [backView addSubview:namelabel];
+    [namelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(iconView);
+        make.top.equalTo(iconView.mas_bottom).offset(10);
     }];
     
-    self.nameLabel = nameLabel;
-    self.idLabel = idName;
-    self.iconV = iconV;
-
-    return personV;
+    self.nameLabel = namelabel;
+    self.iconView = iconView;
+    //添加性别标识
+    UIImageView *imageV = [[UIImageView alloc]init];
+    imageV.image = [UIImage imageNamed:@"woman"];
+    [imageV sizeToFit];
+    [backView addSubview:imageV];
+    
+    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(namelabel);
+        make.left.equalTo(namelabel.mas_right).offset(5);
+    }];
+    self.genderV = imageV;
+    return backView;
 }
 - (void)headViewClick{
-    NSLog(@"123");
     YYPInfomartionViewController *pInfoVC = [[YYPInfomartionViewController alloc]init];
     pInfoVC.personalModel = self.personalModel;
     [self.navigationController pushViewController:pInfoVC animated:YES];
@@ -216,20 +210,15 @@
 #pragma mark -
 #pragma mark ------------TableView DataSource----------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSArray *array = self.dataSource[section];
     return array.count;
-//    if (section == 2) {
-//        return 1;
-//    }else{
-//        return 2;
-//    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 40 *kiphone6;
+    return 46 *kiphone6H;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
@@ -267,10 +256,14 @@
         NSLog(@"%@",userMoedel.avatar);
         
         
-        [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userMoedel.avatar]]];
+        [self.iconView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userMoedel.avatar]]];
         
-        self.nameLabel.text = userMoedel.trueName;
-        self.idLabel.text = [NSString stringWithFormat:@"%@",userMoedel.info_id];
+        self.nameLabel.text = [NSString stringWithFormat:@"%@ %@岁",userMoedel.trueName,userMoedel.age];
+        if ([userMoedel.gender containsString:@"男"]) {
+            [self.genderV setImage:[UIImage imageNamed:@"boy_mine"]];
+        }else{
+            [self.genderV setImage:[UIImage imageNamed:@"boy_mine"]];
+        }
         self.personalModel = userMoedel;
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -278,8 +271,24 @@
     }];
 }
 - (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:YES];
+    [super viewWillAppear:animated];
+    self.automaticallyAdjustsScrollViewInsets = false;
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
+    //去掉导航栏底部的黑线
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
     [self httpRequest];
+}
+//如果仅设置当前页导航透明，需加入下面方法
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{//如果有导航栏必须在导航栏重写- (UIViewController *)childViewControllerForStatusBarStyle{
+    //    return self.topViewController;
+    //}
+    return UIStatusBarStyleLightContent;
 }
 /*
 #pragma mark - Navigation

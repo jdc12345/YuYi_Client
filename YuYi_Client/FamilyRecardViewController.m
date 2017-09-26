@@ -173,7 +173,7 @@
     
     [headerView addSubview:nameLabel];
     
-    WS(ws);
+//    WS(ws);
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(headerView);
         make.left.equalTo(headerView).with.offset(10 *kiphone6);
@@ -186,7 +186,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYRecardTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYRecardTableViewCell" forIndexPath:indexPath];
     RecardModel *recardModel = self.dataSource[indexPath.row];
-    homeTableViewCell.titleLabel.text = [recardModel.createTimeString componentsSeparatedByString:@" "].firstObject;//recardModel.createTimeString;
+//    homeTableViewCell.titleLabel.text = [recardModel.createTimeString componentsSeparatedByString:@" "].firstObject;//recardModel.createTimeString;
     //    homeTableViewCell.iconV.image = [UIImage imageNamed:self.iconList[indexPath.row]];
     
     return homeTableViewCell;

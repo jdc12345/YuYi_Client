@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecardModel.h"
 
 @interface YYRecardTableViewCell : UITableViewCell
-
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UIImageView *nextImageV;
-@property (nonatomic, strong) UILabel *seeRecardLabel;
-
+@property (nonatomic, strong) RecardModel *model;
 @end

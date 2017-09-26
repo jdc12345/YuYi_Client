@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecardModel.h"
 
 @interface YYDetailRecardViewController : UIViewController
-@property (nonatomic, strong) NSString *recardID;
+@property (nonatomic, strong) RecardModel *model;
 @end

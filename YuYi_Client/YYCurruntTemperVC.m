@@ -351,21 +351,17 @@ static float temp = 32.00f;//开始滑动时候温度初始值
     // token
     NSString *usertoken = [CcUserModel defaultClient].userToken;
     // humeuserId
-    NSInteger current = self.currentUser;
-    YYHomeUserModel *homeUser = self.dataSource[current];
-    NSLog(@"%@,%@,%@,%@",usertoken,homeUser.info_id,self.cardView.highPressureField.text,self.cardView.lowPressureField.text);
-    if (self.cardView.highPressureField.text.length == 0) {
-        [SVProgressHUD showInfoWithStatus:@"请输入高压"];
-        return;
-    }
-    if (self.cardView.lowPressureField.text.length == 0) {
-        [SVProgressHUD showInfoWithStatus:@"请输入低压"];
+    YYHomeUserModel *homeUser = self.curruntUserModel;
+    NSRange range = [self.displayLabel.text rangeOfString:@"℃"];
+    NSString *temper = [self.displayLabel.text substringToIndex:range.location];
+    if ([temper isEqualToString:@"0"]) {
+        [SVProgressHUD showInfoWithStatus:@"请输入体温"];
         return;
     }
     urlStr = mTemperature;
     parametersDict = @{@"token":usertoken,
                        @"humeuserId":homeUser.info_id,
-                       //                           @"temperaturet":self.cardView1.dataLabel.text
+                       @"temperaturet":self.displayLabel.text
                        };
     NSLog(@"参数：　%@",parametersDict);
     
@@ -373,6 +369,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
+        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

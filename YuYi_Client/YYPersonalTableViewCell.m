@@ -32,7 +32,7 @@
     
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
-    self.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium"size:14];
+    self.titleLabel.font = [UIFont fontWithName:@"PingFangSC-Medium"size:15];
     self.titleLabel.text = @"李美丽";
     
     
