@@ -7,6 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160888C31F7B31F400B2ADE9 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1608889F1F7B31F400B2ADE9 /* HUPhotoBrowser.m */; };
+		160888C41F7B31F400B2ADE9 /* HUPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888A11F7B31F400B2ADE9 /* HUPhotoBrowserCell.m */; };
+		160888C51F7B31F400B2ADE9 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888A41F7B31F400B2ADE9 /* HUAlbum.m */; };
+		160888C61F7B31F400B2ADE9 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888A61F7B31F400B2ADE9 /* HUAlbumCell.m */; };
+		160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 160888A71F7B31F400B2ADE9 /* HUAlbumCell.xib */; };
+		160888C81F7B31F400B2ADE9 /* HUAlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888A91F7B31F400B2ADE9 /* HUAlbumsViewController.m */; };
+		160888C91F7B31F400B2ADE9 /* HUImagePickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888AB1F7B31F400B2ADE9 /* HUImagePickerCell.m */; };
+		160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 160888AC1F7B31F400B2ADE9 /* HUImagePickerCell.xib */; };
+		160888CB1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888AE1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m */; };
+		160888CC1F7B31F400B2ADE9 /* HUImagePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888B01F7B31F400B2ADE9 /* HUImagePickerViewController.m */; };
+		160888CD1F7B31F400B2ADE9 /* HUPhotoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888B21F7B31F400B2ADE9 /* HUPhotoHelper.m */; };
+		160888CE1F7B31F400B2ADE9 /* pick_checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 160888B31F7B31F400B2ADE9 /* pick_checked@2x.png */; };
+		160888CF1F7B31F400B2ADE9 /* pick_checked@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 160888B41F7B31F400B2ADE9 /* pick_checked@3x.png */; };
+		160888D01F7B31F400B2ADE9 /* HUToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888B61F7B31F400B2ADE9 /* HUToast.m */; };
+		160888D11F7B31F400B2ADE9 /* HUWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888BA1F7B31F400B2ADE9 /* HUWebImageDownloader.m */; };
+		160888D21F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888BC1F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m */; };
+		160888D31F7B31F400B2ADE9 /* UIImage+HUExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888BE1F7B31F400B2ADE9 /* UIImage+HUExtension.m */; };
+		160888D41F7B31F400B2ADE9 /* UIImageView+HUWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888C01F7B31F400B2ADE9 /* UIImageView+HUWebImage.m */; };
+		160888D51F7B31F400B2ADE9 /* UIView+frame.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888C21F7B31F400B2ADE9 /* UIView+frame.m */; };
+		160888D81F7B54E800B2ADE9 /* YYAutoMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888D71F7B54E800B2ADE9 /* YYAutoMeasureViewController.m */; };
+		160888DB1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888DA1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m */; };
+		160888DF1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */; };
 		161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3821E69170300C359A7 /* YYOrderDetailVC.m */; };
 		161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */; };
 		161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3901E69409200C359A7 /* YYOrderDetailView.m */; };
@@ -142,7 +164,6 @@
 		3EB10BC71E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC61E651EB900F5F9D2 /* YYPersonalInfoTableViewCell.m */; };
 		3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */; };
 		3EB10BCD1E65598D00F5F9D2 /* YYFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */; };
-		3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */; };
 		3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */; };
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
 		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
@@ -164,7 +185,6 @@
 		3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB45D1E5C600F00BD5BE5 /* YYSectorTableViewCell.m */; };
 		3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */; };
 		3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */; };
-		3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */; };
 		3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */; };
 		3ECBB4721E5D90CE00BD5BE5 /* YYConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */; };
 		3ECC314E1E84EE6D003C75FD /* RecardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ECC314D1E84EE6D003C75FD /* RecardModel.m */; };
@@ -214,6 +234,48 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1608889D1F7B31F400B2ADE9 /* hu_const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hu_const.h; sourceTree = "<group>"; };
+		1608889E1F7B31F400B2ADE9 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
+		1608889F1F7B31F400B2ADE9 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
+		160888A01F7B31F400B2ADE9 /* HUPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowserCell.h; sourceTree = "<group>"; };
+		160888A11F7B31F400B2ADE9 /* HUPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowserCell.m; sourceTree = "<group>"; };
+		160888A31F7B31F400B2ADE9 /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
+		160888A41F7B31F400B2ADE9 /* HUAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbum.m; sourceTree = "<group>"; };
+		160888A51F7B31F400B2ADE9 /* HUAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumCell.h; sourceTree = "<group>"; };
+		160888A61F7B31F400B2ADE9 /* HUAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumCell.m; sourceTree = "<group>"; };
+		160888A71F7B31F400B2ADE9 /* HUAlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUAlbumCell.xib; sourceTree = "<group>"; };
+		160888A81F7B31F400B2ADE9 /* HUAlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbumsViewController.h; sourceTree = "<group>"; };
+		160888A91F7B31F400B2ADE9 /* HUAlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUAlbumsViewController.m; sourceTree = "<group>"; };
+		160888AA1F7B31F400B2ADE9 /* HUImagePickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerCell.h; sourceTree = "<group>"; };
+		160888AB1F7B31F400B2ADE9 /* HUImagePickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerCell.m; sourceTree = "<group>"; };
+		160888AC1F7B31F400B2ADE9 /* HUImagePickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HUImagePickerCell.xib; sourceTree = "<group>"; };
+		160888AD1F7B31F400B2ADE9 /* HUImagePickerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerRootViewController.h; sourceTree = "<group>"; };
+		160888AE1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerRootViewController.m; sourceTree = "<group>"; };
+		160888AF1F7B31F400B2ADE9 /* HUImagePickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUImagePickerViewController.h; sourceTree = "<group>"; };
+		160888B01F7B31F400B2ADE9 /* HUImagePickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUImagePickerViewController.m; sourceTree = "<group>"; };
+		160888B11F7B31F400B2ADE9 /* HUPhotoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoHelper.h; sourceTree = "<group>"; };
+		160888B21F7B31F400B2ADE9 /* HUPhotoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoHelper.m; sourceTree = "<group>"; };
+		160888B31F7B31F400B2ADE9 /* pick_checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@2x.png"; sourceTree = "<group>"; };
+		160888B41F7B31F400B2ADE9 /* pick_checked@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pick_checked@3x.png"; sourceTree = "<group>"; };
+		160888B51F7B31F400B2ADE9 /* HUToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUToast.h; sourceTree = "<group>"; };
+		160888B61F7B31F400B2ADE9 /* HUToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUToast.m; sourceTree = "<group>"; };
+		160888B81F7B31F400B2ADE9 /* HUWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUWebImage.h; sourceTree = "<group>"; };
+		160888B91F7B31F400B2ADE9 /* HUWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUWebImageDownloader.h; sourceTree = "<group>"; };
+		160888BA1F7B31F400B2ADE9 /* HUWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUWebImageDownloader.m; sourceTree = "<group>"; };
+		160888BB1F7B31F400B2ADE9 /* HUWebImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUWebImageDownloadOperation.h; sourceTree = "<group>"; };
+		160888BC1F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUWebImageDownloadOperation.m; sourceTree = "<group>"; };
+		160888BD1F7B31F400B2ADE9 /* UIImage+HUExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+HUExtension.h"; sourceTree = "<group>"; };
+		160888BE1F7B31F400B2ADE9 /* UIImage+HUExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+HUExtension.m"; sourceTree = "<group>"; };
+		160888BF1F7B31F400B2ADE9 /* UIImageView+HUWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HUWebImage.h"; sourceTree = "<group>"; };
+		160888C01F7B31F400B2ADE9 /* UIImageView+HUWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HUWebImage.m"; sourceTree = "<group>"; };
+		160888C11F7B31F400B2ADE9 /* UIView+frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frame.h"; sourceTree = "<group>"; };
+		160888C21F7B31F400B2ADE9 /* UIView+frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+frame.m"; sourceTree = "<group>"; };
+		160888D61F7B54E800B2ADE9 /* YYAutoMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAutoMeasureViewController.h; sourceTree = "<group>"; };
+		160888D71F7B54E800B2ADE9 /* YYAutoMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAutoMeasureViewController.m; sourceTree = "<group>"; };
+		160888D91F7B54FB00B2ADE9 /* YYHandleMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHandleMeasureViewController.h; sourceTree = "<group>"; };
+		160888DA1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHandleMeasureViewController.m; sourceTree = "<group>"; };
+		160888DD1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalInfoDetailVC.h; sourceTree = "<group>"; };
+		160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalInfoDetailVC.m; sourceTree = "<group>"; };
 		161FA3811E69170300C359A7 /* YYOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailVC.h; sourceTree = "<group>"; };
 		161FA3821E69170300C359A7 /* YYOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailVC.m; sourceTree = "<group>"; };
 		161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYOrderDetailView.xib; sourceTree = "<group>"; };
@@ -463,8 +525,6 @@
 		3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWIFIViewController.m; sourceTree = "<group>"; };
 		3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFeedbackViewController.h; sourceTree = "<group>"; };
 		3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFeedbackViewController.m; sourceTree = "<group>"; };
-		3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHandleMeasureViewController.h; sourceTree = "<group>"; };
-		3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHandleMeasureViewController.m; sourceTree = "<group>"; };
 		3EBA2D691E5E80C8005C3448 /* UIBarButtonItem+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Helper.h"; sourceTree = "<group>"; };
 		3EBA2D6A1E5E80C8005C3448 /* UIBarButtonItem+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Helper.m"; sourceTree = "<group>"; };
 		3EBA2D6C1E5E8647005C3448 /* YYCardInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCardInputView.h; sourceTree = "<group>"; };
@@ -497,8 +557,6 @@
 		3ECBB4631E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMeasureTableViewCell.m; sourceTree = "<group>"; };
 		3ECBB4671E5D739F00BD5BE5 /* FMActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMActionSheet.h; sourceTree = "<group>"; };
 		3ECBB4681E5D739F00BD5BE5 /* FMActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMActionSheet.m; sourceTree = "<group>"; };
-		3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAutoMeasureViewController.h; sourceTree = "<group>"; };
-		3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAutoMeasureViewController.m; sourceTree = "<group>"; };
 		3ECBB46D1E5D7CD600BD5BE5 /* YYCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCardView.h; sourceTree = "<group>"; };
 		3ECBB46E1E5D7CD600BD5BE5 /* YYCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCardView.m; sourceTree = "<group>"; };
 		3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConnectViewController.h; sourceTree = "<group>"; };
@@ -607,6 +665,80 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1608889C1F7B31F400B2ADE9 /* HUPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1608889D1F7B31F400B2ADE9 /* hu_const.h */,
+				1608889E1F7B31F400B2ADE9 /* HUPhotoBrowser.h */,
+				1608889F1F7B31F400B2ADE9 /* HUPhotoBrowser.m */,
+				160888A01F7B31F400B2ADE9 /* HUPhotoBrowserCell.h */,
+				160888A11F7B31F400B2ADE9 /* HUPhotoBrowserCell.m */,
+				160888A21F7B31F400B2ADE9 /* HUPhotoPicker */,
+				160888B51F7B31F400B2ADE9 /* HUToast.h */,
+				160888B61F7B31F400B2ADE9 /* HUToast.m */,
+				160888B71F7B31F400B2ADE9 /* HUWebImageDownloader */,
+				160888C11F7B31F400B2ADE9 /* UIView+frame.h */,
+				160888C21F7B31F400B2ADE9 /* UIView+frame.m */,
+			);
+			path = HUPhotoBrowser;
+			sourceTree = "<group>";
+		};
+		160888A21F7B31F400B2ADE9 /* HUPhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				160888A31F7B31F400B2ADE9 /* HUAlbum.h */,
+				160888A41F7B31F400B2ADE9 /* HUAlbum.m */,
+				160888A51F7B31F400B2ADE9 /* HUAlbumCell.h */,
+				160888A61F7B31F400B2ADE9 /* HUAlbumCell.m */,
+				160888A71F7B31F400B2ADE9 /* HUAlbumCell.xib */,
+				160888A81F7B31F400B2ADE9 /* HUAlbumsViewController.h */,
+				160888A91F7B31F400B2ADE9 /* HUAlbumsViewController.m */,
+				160888AA1F7B31F400B2ADE9 /* HUImagePickerCell.h */,
+				160888AB1F7B31F400B2ADE9 /* HUImagePickerCell.m */,
+				160888AC1F7B31F400B2ADE9 /* HUImagePickerCell.xib */,
+				160888AD1F7B31F400B2ADE9 /* HUImagePickerRootViewController.h */,
+				160888AE1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m */,
+				160888AF1F7B31F400B2ADE9 /* HUImagePickerViewController.h */,
+				160888B01F7B31F400B2ADE9 /* HUImagePickerViewController.m */,
+				160888B11F7B31F400B2ADE9 /* HUPhotoHelper.h */,
+				160888B21F7B31F400B2ADE9 /* HUPhotoHelper.m */,
+				160888B31F7B31F400B2ADE9 /* pick_checked@2x.png */,
+				160888B41F7B31F400B2ADE9 /* pick_checked@3x.png */,
+			);
+			path = HUPhotoPicker;
+			sourceTree = "<group>";
+		};
+		160888B71F7B31F400B2ADE9 /* HUWebImageDownloader */ = {
+			isa = PBXGroup;
+			children = (
+				160888B81F7B31F400B2ADE9 /* HUWebImage.h */,
+				160888B91F7B31F400B2ADE9 /* HUWebImageDownloader.h */,
+				160888BA1F7B31F400B2ADE9 /* HUWebImageDownloader.m */,
+				160888BB1F7B31F400B2ADE9 /* HUWebImageDownloadOperation.h */,
+				160888BC1F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m */,
+				160888BD1F7B31F400B2ADE9 /* UIImage+HUExtension.h */,
+				160888BE1F7B31F400B2ADE9 /* UIImage+HUExtension.m */,
+				160888BF1F7B31F400B2ADE9 /* UIImageView+HUWebImage.h */,
+				160888C01F7B31F400B2ADE9 /* UIImageView+HUWebImage.m */,
+			);
+			path = HUWebImageDownloader;
+			sourceTree = "<group>";
+		};
+		160888DC1F7B553C00B2ADE9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3E1840F61E56C8BF00069568 /* YYPersonalViewController.h */,
+				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
+				3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */,
+				3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */,
+				3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */,
+				3EB10BBF1E6448F300F5F9D2 /* YYFamilyAccountViewController.h */,
+				160888DD1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.h */,
+				160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */,
+			);
+			name = C;
+			sourceTree = "<group>";
+		};
 		16443A991E7A33F600BCE38D /* YYModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -967,12 +1099,10 @@
 		3E1840E01E56C74000069568 /* PersonalPage */ = {
 			isa = PBXGroup;
 			children = (
+				1608889C1F7B31F400B2ADE9 /* HUPhotoBrowser */,
 				3E48A6CB1E839E06009EAE6C /* View */,
 				3E74BD581E7FC31E00364EC6 /* Model */,
-				3E1840F61E56C8BF00069568 /* YYPersonalViewController.h */,
-				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
-				3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */,
-				3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */,
+				160888DC1F7B553C00B2ADE9 /* C */,
 				3E0BC53D1E8CE535004D413D /* FamilyRecardViewController.h */,
 				3E0BC53E1E8CE535004D413D /* FamilyRecardViewController.m */,
 				3E9643F81E6001B5001B49DE /* YYDetailRecardViewController.h */,
@@ -986,8 +1116,6 @@
 				3EB10BB01E63F60400F5F9D2 /* YYEquipmentViewController.h */,
 				3EB10BB11E63F60400F5F9D2 /* YYEquipmentViewController.m */,
 				3EB10BB91E64346900F5F9D2 /* YYFamilyAddViewController.h */,
-				3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */,
-				3EB10BBF1E6448F300F5F9D2 /* YYFamilyAccountViewController.h */,
 				3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */,
 				3EB10BC21E6518A000F5F9D2 /* YYPersonalInfoViewController.h */,
 				3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */,
@@ -1240,10 +1368,10 @@
 				1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */,
 				168483661F774FC90015D0F5 /* YYCurruntTemperVC.h */,
 				168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */,
-				3ECBB46A1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.h */,
-				3ECBB46B1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m */,
-				3EBA2D661E5E7B6F005C3448 /* YYHandleMeasureViewController.h */,
-				3EBA2D671E5E7B6F005C3448 /* YYHandleMeasureViewController.m */,
+				160888D61F7B54E800B2ADE9 /* YYAutoMeasureViewController.h */,
+				160888D71F7B54E800B2ADE9 /* YYAutoMeasureViewController.m */,
+				160888D91F7B54FB00B2ADE9 /* YYHandleMeasureViewController.h */,
+				160888DA1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m */,
 				3ECBB4701E5D90CE00BD5BE5 /* YYConnectViewController.h */,
 				3ECBB4711E5D90CE00BD5BE5 /* YYConnectViewController.m */,
 			);
@@ -1412,13 +1540,17 @@
 				3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */,
 				3E1841591E5AD13200069568 /* cell2.png in Resources */,
 				3E18415E1E5ADD8F00069568 /* medicine.png in Resources */,
+				160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */,
 				3E1841571E5AD0A900069568 /* cell1.png in Resources */,
+				160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */,
 				3E18414A1E5A7BED00069568 /* carinalau2.jpg in Resources */,
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */,
 				3EBD824C1E8E5CA700BDC217 /* avatar.jpg in Resources */,
+				160888CE1F7B31F400B2ADE9 /* pick_checked@2x.png in Resources */,
+				160888CF1F7B31F400B2ADE9 /* pick_checked@3x.png in Resources */,
 				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
 				3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */,
 				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
@@ -1524,6 +1656,7 @@
 				165490251E6560360034CB5B /* UILabel+Addition.m in Sources */,
 				3E1E473E1E5BE1CE0042934D /* InfomationViewController.m in Sources */,
 				3E0BC53C1E8CDF7E004D413D /* RCUserModel.m in Sources */,
+				160888C31F7B31F400B2ADE9 /* HUPhotoBrowser.m in Sources */,
 				16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */,
 				3E1840D81E56AC4E00069568 /* UIColor+Extension.m in Sources */,
 				165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */,
@@ -1536,6 +1669,7 @@
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				160888CB1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m in Sources */,
 				165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */,
 				16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */,
 				1654903D1E67EF470034CB5B /* YYLogInVC.m in Sources */,
@@ -1548,19 +1682,23 @@
 				3E74BD571E7FBECC00364EC6 /* SectionModel.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
 				3E144D8F1E8261DA0037F90F /* YYHomeUserModel.m in Sources */,
+				160888D41F7B31F400B2ADE9 /* UIImageView+HUWebImage.m in Sources */,
 				1654BF631E5EE18F002F1D00 /* YYAllMedicinalFlowLayout.m in Sources */,
 				3EF565601E5693C50045918B /* HttpClient.m in Sources */,
 				165490281E6657AA0034CB5B /* YYShopCartSingleton.m in Sources */,
-				3EBA2D681E5E7B6F005C3448 /* YYHandleMeasureViewController.m in Sources */,
 				3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */,
 				3ECBB4691E5D739F00BD5BE5 /* FMActionSheet.m in Sources */,
 				3EB10BCA1E6538CF00F5F9D2 /* YYWIFIViewController.m in Sources */,
+				160888C41F7B31F400B2ADE9 /* HUPhotoBrowserCell.m in Sources */,
 				16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */,
+				160888D51F7B31F400B2ADE9 /* UIView+frame.m in Sources */,
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EC2C00D1E6FF32000F01795 /* NotficationViewController.m in Sources */,
 				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
+				160888D21F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
+				160888D01F7B31F400B2ADE9 /* HUToast.m in Sources */,
 				3E1E47371E5BDC3F0042934D /* ZYDotView.m in Sources */,
 				165204701F7120A70043B80C /* YYMineMedicinalModel.m in Sources */,
 				3EFBD66A1E68FDD900B422BD /* GYZChooseCityController.m in Sources */,
@@ -1577,6 +1715,7 @@
 				3EB10BB51E63F70800F5F9D2 /* YYEquipmentTableViewCell.m in Sources */,
 				3E1E47461E5C11250042934D /* YYSectionViewController.m in Sources */,
 				16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */,
+				160888D11F7B31F400B2ADE9 /* HUWebImageDownloader.m in Sources */,
 				3ECBB45E1E5C600F00BD5BE5 /* YYSectorTableViewCell.m in Sources */,
 				168483681F774FC90015D0F5 /* YYCurruntTemperVC.m in Sources */,
 				3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */,
@@ -1597,9 +1736,12 @@
 				3E74BD541E7FA3FC00364EC6 /* YYInfomationModel.m in Sources */,
 				3EF16BFF1E89108C00C7F22E /* SimpleMedicalModel.m in Sources */,
 				3EB10BB21E63F60400F5F9D2 /* YYEquipmentViewController.m in Sources */,
+				160888DB1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m in Sources */,
 				3E1E47431E5BF5350042934D /* YYAppointmentViewController.m in Sources */,
+				160888CD1F7B31F400B2ADE9 /* HUPhotoHelper.m in Sources */,
 				3EFBD66C1E68FDD900B422BD /* GYZCityGroupCell.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
+				160888C91F7B31F400B2ADE9 /* HUImagePickerCell.m in Sources */,
 				16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */,
 				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */,
@@ -1611,16 +1753,23 @@
 				1654BF621E5EE18F002F1D00 /* YYAllMedicinalCollectionViewCell.m in Sources */,
 				1654BF501E5ED8D3002F1D00 /* YYCollectionViewCell.m in Sources */,
 				1654902B1E66611D0034CB5B /* YYShopCarTableView.m in Sources */,
+				160888D31F7B31F400B2ADE9 /* UIImage+HUExtension.m in Sources */,
 				3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */,
 				3ECBB46F1E5D7CD600BD5BE5 /* YYCardView.m in Sources */,
+				160888CC1F7B31F400B2ADE9 /* HUImagePickerViewController.m in Sources */,
 				165490181E6416950034CB5B /* UIPlaceholderTextView.m in Sources */,
 				3E1840E91E56C78300069568 /* YYTabBarItem.m in Sources */,
 				3EAB2B781E2F065800D6795F /* main.m in Sources */,
+				160888C61F7B31F400B2ADE9 /* HUAlbumCell.m in Sources */,
+				160888DF1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m in Sources */,
 				3EB10BBE1E643A8300F5F9D2 /* YYFamilyAddTableViewCell.m in Sources */,
 				3EFBD6691E68FDD900B422BD /* GYZCity.m in Sources */,
 				16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */,
 				3E091DD61E8B65050084B677 /* NSArray+Log.m in Sources */,
+				160888D81F7B54E800B2ADE9 /* YYAutoMeasureViewController.m in Sources */,
 				1654BF471E5ED7E9002F1D00 /* searchBar.m in Sources */,
+				160888C51F7B31F400B2ADE9 /* HUAlbum.m in Sources */,
+				160888C81F7B31F400B2ADE9 /* HUAlbumsViewController.m in Sources */,
 				165490221E655B7E0034CB5B /* YYShopCartEmptyView.m in Sources */,
 				1654BF4A1E5ED85E002F1D00 /* headerTitleBtn.m in Sources */,
 				165490361E66B2A00034CB5B /* YYSearchRecordSingleton.m in Sources */,
@@ -1629,7 +1778,6 @@
 				1654BF411E5ED675002F1D00 /* UIColor+colorValues.m in Sources */,
 				3E1840E71E56C78300069568 /* YYTabBarController.m in Sources */,
 				3E1840D01E569CAB00069568 /* YYNavigationController.m in Sources */,
-				3ECBB46C1E5D77AE00BD5BE5 /* YYAutoMeasureViewController.m in Sources */,
 				3EB10BC41E6518A000F5F9D2 /* YYPersonalInfoViewController.m in Sources */,
 				3EDBD9CE1E5DB22E008F6D65 /* YYMemberTableViewCell.m in Sources */,
 			);

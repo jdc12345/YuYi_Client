@@ -86,12 +86,12 @@
     YYPersonalInfoViewController *personalInfo = [[YYPersonalInfoViewController alloc]init];
     YYHomeUserModel *userModel = self.userList[indexPath.row];
     personalInfo.personalModel = userModel;
-    personalInfo.titleStr = @"李苗";
-    if (indexPath.row == 0) {
-        personalInfo.type = @"我";
-    }else{
-        personalInfo.type = @"家人";
-    }
+//    personalInfo.titleStr = @"李苗";
+//    if (indexPath.row == 0) {
+//        personalInfo.type = @"我";
+//    }else{
+//        personalInfo.type = @"家人";
+//    }
     [self.navigationController pushViewController:personalInfo animated:YES];
 
 }
@@ -102,7 +102,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 70 *kiphone6;
+    return 130 *kiphone6H;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
@@ -124,8 +124,9 @@
 //    }
     YYHomeUserModel *userModel = self.userList[indexPath.row];
     [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel.avatar]]];
-    //.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-    homeTableViewCell.titleLabel.text = userModel.trueName;//nameList[indexPath.row];
+    homeTableViewCell.titleLabel.text = [NSString stringWithFormat:@"%@ (%@)",userModel.trueName,userModel.nickName];
+    homeTableViewCell.ageLabel.text = userModel.age;
+    homeTableViewCell.telNumLabel.text = userModel.telephone;
     [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return homeTableViewCell;
     

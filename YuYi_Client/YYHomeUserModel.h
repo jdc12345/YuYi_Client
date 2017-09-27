@@ -14,7 +14,7 @@
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *createTimeString;
 @property (nonatomic, copy) NSString *groupId;
-@property (nonatomic, copy) NSString *nickName;
+@property (nonatomic, copy) NSString *nickName;//身份
 @property (nonatomic, copy) NSString *gradeName;
 @property (nonatomic, copy) NSString *oid;
 @property (nonatomic, copy) NSString *info_id;

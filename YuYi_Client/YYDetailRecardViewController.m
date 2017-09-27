@@ -19,7 +19,7 @@
 #import "YYMedicalRecoderPhotoFlowLayout.h"
 #import "YYMedicalRecoderPhotoDisplayCVCell.h"
 #import <UIImageView+WebCache.h>
-#import <HUPhotoBrowser.h>
+#import "HUPhotoBrowser.h"
 
 static NSString* collectionCellid = @"collection_cell";
 static NSString* photoCellid = @"photo_cell";
@@ -55,6 +55,12 @@ static NSString* photoCellid = @"photo_cell";
         
     }
     return _tableView;
+}
+- (NSMutableArray *)urlStrs{
+    if (_urlStrs == nil) {
+        _urlStrs = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _urlStrs;
 }
 - (NSMutableArray *)dataSource{
     if (_dataSource == nil) {
@@ -236,7 +242,7 @@ static NSString* photoCellid = @"photo_cell";
 {
     YYMedicalRecoderPhotoDisplayCVCell *cell = (YYMedicalRecoderPhotoDisplayCVCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
-//    [HUPhotoBrowser showFromImageView:cell.imageView withURLStrings:self.urlStrs placeholderImage:[UIImage imageNamed:@"icon"] atIndex:indexPath.row dismiss:nil];
+    [HUPhotoBrowser showFromImageView:cell.imageView withURLStrings:self.urlStrs placeholderImage:[UIImage imageNamed:@"icon"] atIndex:indexPath.row dismiss:nil];
     
 }
 

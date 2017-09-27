@@ -16,6 +16,8 @@
 @property (nonatomic, strong) UILabel *introduceLabel;
 @property (nonatomic, strong) UIView *cardView;
 
+@property (nonatomic, strong) UILabel *ageLabel;
+@property (nonatomic, strong) UILabel *telNumLabel;
 - (void)addOtherCell;
 
 
