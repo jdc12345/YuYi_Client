@@ -7,13 +7,11 @@
 //
 
 #import "YYFamilyAccountViewController.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 #import "UIBarButtonItem+Helper.h"
 #import "CcUserModel.h"
 #import "HttpClient.h"
 
-@interface YYFamilyAccountViewController ()<UIImagePickerControllerDelegate>
+@interface YYFamilyAccountViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIView *cardView;
 @property (nonatomic, assign) CGFloat currentH;
@@ -39,14 +37,13 @@
         NSLog(@"设置标题 %@",self.titleStr);
         self.title = self.titleStr;
     }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" normalColor:[UIColor colorWithHexString:@"25f368"] highlightedColor:[UIColor colorWithHexString:@"25f368"] target:self action:@selector(addFamily)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"确定" normalColor:[UIColor colorWithHexString:@"1ebeec"] highlightedColor:[UIColor colorWithHexString:@"1ebeec"] target:self action:@selector(addFamily)];
     [self createSubView];
     // Do any additional setup after loading the view.
 }
 - (void)createSubView{
+    //背景view
     NSArray *titleList  = @[@"家人关系",@"年        龄",@"姓        名",@"手  机  号"];
-    
-    
     
     self.cardView = [[UIView alloc]init];
     self.cardView.backgroundColor = [UIColor whiteColor];
@@ -61,9 +58,9 @@
         make.size.mas_equalTo(CGSizeMake(kScreenW - 20 , 200));
     }];
     
-    
+    //头像
     UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"avatar.jpg"]];
-    imageV.layer.cornerRadius = 30 *kiphone6;
+    imageV.layer.cornerRadius = 50 *kiphone6;
     imageV.clipsToBounds = YES;
     UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(changeUserIcon:)];
     [imageV addGestureRecognizer:tapGest];
@@ -71,6 +68,7 @@
     
     self.iconV = imageV;
     
+    //textfield
     for (int i = 0; i < 4; i++) {
         UITextField *inputText = [[UITextField alloc]init];
         inputText.tag = i +200;
@@ -82,28 +80,23 @@
         titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
         titleLabel.font = [UIFont systemFontOfSize:14];
         
-        
         [self.cardView addSubview:inputText];
         [self.cardView addSubview:titleLabel];
         
-        WS(ws);
         [inputText mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ws.cardView).with.offset(104 *kiphone6);
-            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
-            make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6));
+            make.left.offset(104 *kiphone6);
+            make.top.offset(120*kiphone6H +i *55 *kiphone6H);
+            make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6H));
         }];
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(ws.cardView).with.offset(20 *kiphone6);
+            make.left.offset(20 *kiphone6);
             //            make.top.equalTo(ws.cardView).with.offset(85 +i *55 *kiphone6);
             make.centerY.equalTo(inputText.mas_centerY);
-            make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
+//            make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
         }];
     }
     
-    
-    [self.cardView addSubview:imageV];
-    
-    
+    //性别label
     UILabel *titleLabel = [[UILabel alloc]init];
     titleLabel.text = @"性        别";
     titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
@@ -111,25 +104,23 @@
     
     
     [self.cardView addSubview:titleLabel];
-    
+    [self.cardView addSubview:imageV];
     WS(ws);
 
     [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(ws.cardView).with.offset(20 *kiphone6);
-        make.top.equalTo(ws.cardView).with.offset(85 +4 *55 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
+        make.left.offset(20 *kiphone6);
+        make.top.equalTo(ws.cardView).with.offset(120*kiphone6H +4 *55 *kiphone6);
+//        make.size.mas_equalTo(CGSizeMake(64 ,14 *kiphone6));
     }];
-    
-    
     
     [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(ws.cardView);
-        make.top.equalTo(ws.cardView).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(60 *kiphone6 ,60 *kiphone6));
+        make.centerX.offset(0);
+        make.top.offset(10 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(100 *kiphone6 ,100 *kiphone6));
     }];
     
     
-    UILabel *promtyLabel = [[UILabel alloc]initWithFrame:CGRectMake((104 +130 + 10)*kiphone6, 100 +3 *55 *kiphone6 , 80, 11)];
+    UILabel *promtyLabel = [[UILabel alloc]initWithFrame:CGRectMake((104 +130 + 10)*kiphone6, 140*kiphone6H +3 *55 *kiphone6 , 80, 11)];
     promtyLabel.text = @"选填项";
     promtyLabel.textColor = [UIColor colorWithHexString:@"cccccc"];
     promtyLabel.font = [UIFont systemFontOfSize:11];
@@ -164,20 +155,19 @@
     
     
     [wordsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.cardView).with.offset(104 *kiphone6);
+        make.left.offset(104 *kiphone6);
         make.centerY.equalTo(titleLabel.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(130 *kiphone6 ,30 *kiphone6H));
     }];
     
-    
     [self.cardView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws.view).with.offset(74 );
-        make.left.equalTo(ws.view).with.offset(10);
+        make.top.offset(74 );
+        make.left.offset(10);
         make.bottom.equalTo(wordsLabel.mas_bottom).with.offset(20);
         make.width.mas_equalTo(kScreenW - 20 );
     }];
     
-    if (self.personalModel) {
+    if (self.personalModel) {//编辑页面跳转过来的
         UITextField *textField1 = (UITextField *)[self.cardView viewWithTag:200];
         UITextField *textField2 = (UITextField *)[self.cardView viewWithTag:201];
         UITextField *textField3 = (UITextField *)[self.cardView viewWithTag:202];
@@ -192,9 +182,59 @@
             textField4.text = self.personalModel.telephone;
         }
         [wordsLabel setSelectedSegmentIndex:[self.personalModel.gender integerValue]];
+        
+        //删除按钮
+        UIButton *sureBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
+        sureBtn.layer.cornerRadius = 25 *kiphone6H;
+        sureBtn.layer.borderWidth = 1;
+        sureBtn.layer.borderColor = [UIColor colorWithHexString:@"e00610"].CGColor;
+        sureBtn.clipsToBounds = YES;
+        [sureBtn setTitle:@"删除" forState:UIControlStateNormal];
+        sureBtn.backgroundColor = [UIColor clearColor];
+        [sureBtn setTitleColor:[UIColor colorWithHexString:@"e00610"] forState:UIControlStateNormal];
+        [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        //     [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchDown];
+        [sureBtn addTarget:self action:@selector(buttonClick1:) forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:sureBtn];
+
+        [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.offset(-50 *kiphone6H);
+            make.centerX.offset(0);
+            make.size.mas_equalTo(CGSizeMake(200 *kiphone6 ,50 *kiphone6H));
+        }];
     }
     
 }
+-(void)buttonClick1:(UIButton *)button{
+    // [button setBackgroundColor:[UIColor whiteColor]];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除家庭用户？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self httpRequestRemoveUser];
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:okAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+- (void)httpRequestRemoveUser{
+    [SVProgressHUD show];
+    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&id=%@",mremoveFamily,tokenStr,self.personalModel.info_id] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"%@",responseObject);
+        [self.navigationController popToViewController:self.navigationController.childViewControllers[self.navigationController.childViewControllers.count-3] animated:true];
+//        [self.navigationController popViewControllerAnimated:YES];
+        [SVProgressHUD dismiss];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+        [SVProgressHUD dismiss];
+    }];
+    
+}
+//添加修改信息
 - (void)addFamily{
     NSString *userToken = [CcUserModel defaultClient].userToken;
     
@@ -239,9 +279,11 @@
     [dict setValue:self.personalModel.info_id forKey:@"id"];
 
     NSLog(@"%ld",self.genderSel.selectedSegmentIndex);
+    [SVProgressHUD show];
     [[HttpClient defaultClient]requestWithPath:mAddFamily method:1 parameters:dict prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"%@",responseObject);
         NSString *result;
         if ([responseObject[@"code"] isEqualToString:@"0"]) {
@@ -269,6 +311,7 @@
         [self presentViewController:alert animated:YES completion:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         NSLog(@"%@",error);
+        [SVProgressHUD dismiss];
     }];
 }
 - (void)didReceiveMemoryWarning {
@@ -332,11 +375,9 @@
         //创建一个选择后图片的小图标放在下方
         //类似微薄选择图后的效果
         self.iconV.image = [self.chooseImage  imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        
     }
     
 }
-
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {

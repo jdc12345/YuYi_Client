@@ -7,14 +7,13 @@
 //
 
 #import "YYPersonalInfoDetailVC.h"
-#import "YYAutoMeasureViewController.h"
-#import "YYHandleMeasureViewController.h"
+//#import "YYAutoMeasureViewController.h"
+//#import "YYHandleMeasureViewController.h"
 #import "YYConnectViewController.h"
 #import "UIBarButtonItem+Helper.h"
 #import "YYFamilyAccountViewController.h"
-#import <Masonry.h>
-#import "YYPersonalInfoTableViewCell.h"
-#import "YYDataAnalyseViewController.h"
+//#import "YYPersonalInfoTableViewCell.h"
+//#import "YYDataAnalyseViewController.h"
 #import "YYDetailRecardViewController.h"
 #import "YYPInfomartionViewController.h"
 #import <UIImageView+WebCache.h>
@@ -22,13 +21,17 @@
 #import "YYRecardViewController.h"
 #import "CcUserModel.h"
 #import "HttpClient.h"
+#import <MJExtension.h>
+#import "YYDataAnalysisTVCell.h"
+#import "YYRecoderAnalysisTVCell.h"
 
 @interface YYPersonalInfoDetailVC ()<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataSource;
-//@property (nonatomic, strong) FMActionSheet *fmActionS;
+@property (nonatomic, strong) UITableView *tableView;//整个tableview
+@property (nonatomic, strong) NSMutableArray *dataSource;//整个tableview数据
 @property (nonatomic, assign) NSInteger currentRow;
-
+@property (nonatomic, strong) NSMutableArray *recoderData;//病历记录数据
+@property (nonatomic, assign) BOOL dataAnalysisOpen;//数据分析是否打开
+@property (nonatomic, assign) BOOL recoderisOpen;//病历记录是否打开
 @end
 
 @implementation YYPersonalInfoDetailVC
@@ -45,8 +48,8 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
-        [_tableView registerClass:[YYPersonalInfoTableViewCell class] forCellReuseIdentifier:@"YYPersonalInfoTableViewCell"];
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
+        [_tableView registerClass:[YYDataAnalysisTVCell class] forCellReuseIdentifier:@"YYDataAnalysisTVCell"];
+        [_tableView registerClass:[YYRecoderAnalysisTVCell class] forCellReuseIdentifier:@"YYRecoderAnalysisTVCell"];
         [self.view addSubview:_tableView];
         [self.view sendSubviewToBack:_tableView];
         
@@ -60,14 +63,39 @@
     }
     return _dataSource;
 }
-
+- (NSMutableArray *)recoderData{
+    if (_recoderData == nil) {
+        _recoderData = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _recoderData;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"个人信息";
+    self.dataAnalysisOpen = true;
+    self.recoderisOpen = false;
     self.tableView.tableHeaderView = [self personInfomation];
-    
+    [self httpRequestForRecoder];//请求病历记录数据
 }
+//请求病历记录数据
+- (void)httpRequestForRecoder{
+    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mMedicalToken,[CcUserModel defaultClient].userToken] method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSArray *rowArray = responseObject[@"result"];
+        NSLog(@"%@",responseObject);
+        for (NSDictionary *dict in rowArray) {
+            
+            RecardModel *recardModel = [RecardModel mj_objectWithKeyValues:dict];
+            [self.recoderData addObject:recardModel];
+        }
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
+
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -98,34 +126,110 @@
     return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 60 *kiphone6;
-}
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSArray *nameList = @[@"我的数据分析",@"我的病历档案",@"刘德华（爷爷）"];
-    YYPersonalInfoTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYPersonalInfoTableViewCell" forIndexPath:indexPath];
-    if (indexPath.row == 0) {
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+    if (section == 0) {//数据分析
         
+        return self.dataAnalysisOpen?1:0;
         
-    }else if(indexPath.row == 1){
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell2"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+    }else{//病历记录
         
-    }else{
-        //        [homeTableViewCell addOtherCell];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
+        return self.recoderisOpen?1:0;
         
     }
-    homeTableViewCell.backgroundColor = [UIColor blackColor];
-    [homeTableViewCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    return homeTableViewCell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {//数据分析
+
+        return 370*kiphone6H;
+    }else{//病历记录
+
+        if (self.recoderData.count>0) {//有记录
+            return 85 *kiphone6H *self.recoderData.count+10*kiphone6H;
+        }else{//没有记录
+            return 300;//空页面
+        }
+    }
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {//数据分析cell
+        YYDataAnalysisTVCell *cell = [tableView dequeueReusableCellWithIdentifier:@"YYDataAnalysisTVCell" forIndexPath:indexPath];
+        cell.personalModel = self.personalModel;
+        return cell;
+    }else{//病历记录cell
+        YYRecoderAnalysisTVCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYRecoderAnalysisTVCell" forIndexPath:indexPath];
+        homeTableViewCell.recoderData = self.recoderData;
+        WS(ws);
+        homeTableViewCell.recoderCellClick = ^(RecardModel *recardModel) {
+            YYDetailRecardViewController *detailRecardVC = [[YYDetailRecardViewController alloc]init];
+            detailRecardVC.model = recardModel;
+            [ws.navigationController pushViewController:detailRecardVC animated:YES];
+            [ws.tableView deselectRowAtIndexPath:indexPath animated:YES];
+        };
+        return homeTableViewCell;
+    }
+   
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50*kiphone6H;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 50*kiphone6H)];
+    headerView.backgroundColor = [UIColor whiteColor];
+    //titleLabel
+    UILabel *titleLabel = [[UILabel  alloc]init];
+    titleLabel.textColor = [UIColor colorWithHexString:@"333333"];
+    titleLabel.font = [UIFont systemFontOfSize:15];
+    if (section == 0) {
+        headerView.tag = 101;
+        titleLabel.text = @"我的数据分析";
+    }else{
+        headerView.tag = 102;
+        titleLabel.text = @"我的病历档案";
+    }
+    [headerView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.offset(0);
+        make.centerX.offset(-10);
+    }];
+    //图标
+    UIImageView *imageV = [[UIImageView alloc]init];
+    if (section == 0) {
+        if (self.dataAnalysisOpen) {
+            imageV.image = [UIImage imageNamed:@"open"];
+        }else{
+            imageV.image = [UIImage imageNamed:@"pack_up"];
+        }
+        
+    }else{
+        if (self.recoderisOpen) {
+            imageV.image = [UIImage imageNamed:@"open"];
+        }else{
+            imageV.image = [UIImage imageNamed:@"pack_up"];
+        }
+    }
+    [headerView addSubview:imageV];
+    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(titleLabel.mas_right).offset(10);
+        make.centerY.offset(0);
+    }];
+    UITapGestureRecognizer *tapGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(headerViewClick:)];
+    [headerView addGestureRecognizer:tapGest];
+    return headerView;
     
+}
+//组头点击事件
+-(void)headerViewClick:(UITapGestureRecognizer*)tap{
+    UIView *headerView = tap.view;
+    if (headerView.tag == 101) {//第一组的组头
+        self.dataAnalysisOpen = !self.dataAnalysisOpen;
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationFade];
+    }else{//第二组的组头
+        self.recoderisOpen = !self.recoderisOpen;
+        [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationFade];
+        if (self.recoderisOpen) {
+            [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1] atScrollPosition:UITableViewScrollPositionBottom animated:true];
+        }
+        
+    }
 }
 //#pragma mark - ......::::::: UIActionSheetDelegate :::::::......
 //
@@ -249,26 +353,24 @@
 //    [self.view addSubview:sureBtn];
     //
     [iconV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(personV).with.offset(0);
-        make.left.equalTo(personV).with.offset(25 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(50 *kiphone6, 50 *kiphone6));
+        make.centerY.offset(0);
+        make.left.offset(10 *kiphone6);
+        make.size.mas_equalTo(CGSizeMake(120 *kiphone6, 120 *kiphone6));
     }];
     //
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(personV).with.offset(24 *kiphone6);
-        make.left.equalTo(iconV.mas_right).with.offset(10 *kiphone6);
-        make.size.mas_equalTo(CGSizeMake(140 *kiphone6, 14 *kiphone6));
+        make.bottom.equalTo(personV.mas_centerY).offset(-7.5 *kiphone6H);
+        make.left.equalTo(iconV.mas_right).offset(10 *kiphone6);
     }];
     //
     [idName mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(nameLabel.mas_bottom).with.offset(10 *kiphone6);
+        make.top.equalTo(nameLabel.mas_bottom).offset(15 *kiphone6H);
         make.left.equalTo(nameLabel.mas_left);
-        make.size.mas_equalTo(CGSizeMake(260 *kiphone6, 13 *kiphone6));
     }];
     
     [editBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(personV).with.offset(15 *kiphone6);
-        make.right.equalTo(personV).with.offset(-10 *kiphone6);
+        make.top.equalTo(iconV);
+        make.right.offset(-10 *kiphone6);
     }];
     
 //    [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -285,31 +387,31 @@
     changeFamilyInfo.personalModel = self.personalModel;
     [self.navigationController pushViewController:changeFamilyInfo animated:YES];
 }
--(void)buttonClick1:(UIButton *)button{
-    // [button setBackgroundColor:[UIColor whiteColor]];
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除家庭用户？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self httpRequestRemoveUser];
-    }];
-    
-    [alert addAction:cancelAction];
-    [alert addAction:okAction];
-    [self presentViewController:alert animated:YES completion:nil];
-}
-- (void)httpRequestRemoveUser{
-    NSString *tokenStr = [CcUserModel defaultClient].userToken;
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&id=%@",mremoveFamily,tokenStr,self.personalModel.info_id] method:0 parameters:nil prepareExecute:^{
-        
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
-    }];
-    
-}
+//-(void)buttonClick1:(UIButton *)button{
+//    // [button setBackgroundColor:[UIColor whiteColor]];
+//    
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"确认删除家庭用户？" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+//        [self httpRequestRemoveUser];
+//    }];
+//    
+//    [alert addAction:cancelAction];
+//    [alert addAction:okAction];
+//    [self presentViewController:alert animated:YES completion:nil];
+//}
+//- (void)httpRequestRemoveUser{
+//    NSString *tokenStr = [CcUserModel defaultClient].userToken;
+//    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@&id=%@",mremoveFamily,tokenStr,self.personalModel.info_id] method:0 parameters:nil prepareExecute:^{
+//        
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSLog(@"%@",responseObject);
+//        [self.navigationController popViewControllerAnimated:YES];
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
+//    
+//}
 /*
  #pragma mark - Navigation
  

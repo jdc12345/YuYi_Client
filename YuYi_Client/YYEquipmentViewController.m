@@ -7,7 +7,6 @@
 //
 
 #import "YYEquipmentViewController.h"
-#import "UIColor+Extension.h"
 #import "YYEquipmentTableViewCell.h"
 #import "FMActionSheet.h"
 #import "YYAutoMeasureViewController.h"
@@ -31,7 +30,7 @@
 - (UITableView *)tableView{
     if (_tableView == nil) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, kScreenH) style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.indicatorStyle =
@@ -60,10 +59,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"设备管理";
-    UIView *headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10 *kiphone6)];
-    headView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = headView;
-    // Do any additional setup after loading the view.
+    [self tableView];
+
 }
 #pragma mark -
 #pragma mark ------------TableView Delegate----------------------
@@ -85,23 +82,23 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 75 *kiphone6;
+    return 120 *kiphone6;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYEquipmentTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYEquipmentTableViewCell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mea-bpg-icon-norm-1"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mine_equ_Sphygmomanometer"]];
         homeTableViewCell.titleLabel.text = @"血压计";
         homeTableViewCell.introduceLabel.text = @"设备没有连接";
         [homeTableViewCell connectEquipment];
         
     }else if(indexPath.row == 1){
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mea- therm-icon-norm-2"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mine_equ_thermometer"]];
         homeTableViewCell.titleLabel.text = @"体温计";
         homeTableViewCell.introduceLabel.text = @"设备已连接";
     }else{
         [homeTableViewCell addOtherCell];
-        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"add1_icon_1"]];
+        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"mine_equ_add"]];
         homeTableViewCell.introduceLabel.text = @"添加其他设备";
         
     }

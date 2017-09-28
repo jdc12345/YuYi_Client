@@ -26,7 +26,6 @@
 #import "YYHomeUserModel.h"
 #import "UILabel+Addition.h"
 
-
 #define myToken @"6DD620E22A92AB0AED590DB66F84D064"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
 
@@ -163,48 +162,38 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CcUserModel *model = [CcUserModel defaultClient];
-    if (indexPath.section == 0 && ![model.telephoneNum isEqualToString:@"18511694068"]) {
-        if (indexPath.row == 0 ) {
+    if (indexPath.section == 0){
+        if (indexPath.row == 0 && ![model.telephoneNum isEqualToString:@"18511694068"]) {
             [self.navigationController pushViewController:[[YYRecardViewController alloc]init] animated:YES];
         }else{
             NotficationViewController *shopVC = [[NotficationViewController alloc]init];
             [self.navigationController pushViewController:shopVC animated:YES];
         }
-        
     }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
-            YYFamilyAddViewController *familyVC = [[YYFamilyAddViewController alloc]init];
-            familyVC.personalModel = self.personalModel;
-            [self.navigationController pushViewController:familyVC animated:YES];
-        }else{
-            YYEquipmentViewController *equipmentVC = [[YYEquipmentViewController alloc]init];
-            [self.navigationController pushViewController:equipmentVC animated:YES];
+        switch (indexPath.row) {
+            case 0:
+            {
+                YYFamilyAddViewController *familyVC = [[YYFamilyAddViewController alloc]init];
+                familyVC.personalModel = self.personalModel;
+                [self.navigationController pushViewController:familyVC animated:YES];
+            }
+                break;
+            case 1:
+            {
+                YYEquipmentViewController *equipmentVC = [[YYEquipmentViewController alloc]init];
+                [self.navigationController pushViewController:equipmentVC animated:YES];
+            }
+                break;
+            case 2:
+            {
+                YYSettingViewController *setVC = [[YYSettingViewController alloc]init];
+                [self.navigationController pushViewController:setVC animated:YES];
+            }
+                break;
+            default:
+                break;
         }
-//        if (indexPath.row == 0) {
-//            YYShopCartVC *shopVC = [[YYShopCartVC alloc]init];
-//            [self.navigationController pushViewController:shopVC animated:YES];
-//        }else{
-//            YYOrderDetailVC *shopVC = [[YYOrderDetailVC alloc]init];
-//            [self.navigationController pushViewController:shopVC animated:YES];
-//        }
-        
     }
-//    else if (indexPath.section == 2){
-//
-//        
-//    }
-    else{
-        if (indexPath.row == 0) {
-//            YYAddressEditVC *shopVC = [[YYAddressEditVC alloc]init];
-//            [self.navigationController pushViewController:shopVC animated:YES];
-            YYSettingViewController *setVC = [[YYSettingViewController alloc]init];
-            [self.navigationController pushViewController:setVC animated:YES];
-        }else{
-
-        }
-        
-    }
-    
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -

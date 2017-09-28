@@ -8,9 +8,9 @@
 
 #import "YYFamilyAddViewController.h"
 #import "YYMeasureTableViewCell.h"
-#import "FMActionSheet.h"
-#import "YYAutoMeasureViewController.h"
-#import "YYHandleMeasureViewController.h"
+//#import "FMActionSheet.h"
+//#import "YYAutoMeasureViewController.h"
+//#import "YYHandleMeasureViewController.h"
 #import "YYConnectViewController.h"
 #import "YYFamilyAddTableViewCell.h"
 #import "UIBarButtonItem+Helper.h"
@@ -22,11 +22,13 @@
 #import <MJExtension.h>
 #import <UIImageView+WebCache.h>
 #import "YYPInfomartionViewController.h"
+#import "YYPersonalInfoDetailVC.h"
+
 @interface YYFamilyAddViewController ()<UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) FMActionSheet *fmActionS;
+//@property (nonatomic, strong) FMActionSheet *fmActionS;
 @property (nonatomic, assign) NSInteger currentRow;
 @property (nonatomic, strong) NSMutableArray *userList;
 
@@ -83,7 +85,7 @@
 #pragma mark ------------TableView Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
-    YYPersonalInfoViewController *personalInfo = [[YYPersonalInfoViewController alloc]init];
+    YYPersonalInfoDetailVC *personalInfo = [[YYPersonalInfoDetailVC alloc]init];
     YYHomeUserModel *userModel = self.userList[indexPath.row];
     personalInfo.personalModel = userModel;
 //    personalInfo.titleStr = @"李苗";
@@ -107,21 +109,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    NSArray *nameList = @[@"李苗（我）",@"李美丽（妈妈）",@"刘德华（爷爷）"];
     YYFamilyAddTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYFamilyAddTableViewCell" forIndexPath:indexPath];
-//    if (indexPath.row == 0) {
-//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-//
-//        
-//    }else if(indexPath.row == 1){
-//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell2"]];
-//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-//
-//    }else{
-////        [homeTableViewCell addOtherCell];
-//        homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell1"]];
-//        homeTableViewCell.titleLabel.text = nameList[indexPath.row];
-//        
-//    }
     YYHomeUserModel *userModel = self.userList[indexPath.row];
     [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel.avatar]]];
     homeTableViewCell.titleLabel.text = [NSString stringWithFormat:@"%@ (%@)",userModel.trueName,userModel.nickName];
@@ -135,13 +122,13 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//添加家庭成员
 - (void)addFamily{
-    YYHomeUserModel *userModel = self.userList[0];
-    if ([userModel.age isEqualToString:@""]||[userModel.trueName isEqualToString:@""]||[userModel.gender isEqualToString:@""]) {
+    YYHomeUserModel *userModel = self.userList[0];//自己
+    if ([userModel.age isEqualToString:@""]||[userModel.trueName isEqualToString:@""]||[userModel.gender isEqualToString:@""]) {//自己信息不全，跳转填写个人信息
         YYPInfomartionViewController *familyAVC = [[YYPInfomartionViewController alloc]init];
         [self.navigationController pushViewController:familyAVC animated:YES];
-    }else{
+    }else{//添加其他家庭成员
         YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
         [self.navigationController pushViewController:familyAVC animated:YES];
     }

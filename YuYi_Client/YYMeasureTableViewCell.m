@@ -7,8 +7,6 @@
 //
 
 #import "YYMeasureTableViewCell.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 
 @implementation YYMeasureTableViewCell
 
@@ -25,7 +23,7 @@
     self.cardView = [[UIView alloc]init];
     self.cardView.backgroundColor = [UIColor whiteColor];
     self.cardView.layer.shadowColor = [UIColor colorWithHexString:@"d5d5d5"].CGColor;
-    self.cardView.layer.shadowRadius = 1 *kiphone6;
+    self.cardView.layer.shadowRadius = 1 ;
     self.cardView.layer.shadowOffset = CGSizeMake(1, 1);
     self.cardView.layer.shadowOpacity = 1;
     

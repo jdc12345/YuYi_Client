@@ -29,10 +29,14 @@
 		160888D81F7B54E800B2ADE9 /* YYAutoMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888D71F7B54E800B2ADE9 /* YYAutoMeasureViewController.m */; };
 		160888DB1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888DA1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m */; };
 		160888DF1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */; };
+		160888E21F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 160888E11F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.m */; };
 		161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3821E69170300C359A7 /* YYOrderDetailVC.m */; };
 		161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */; };
 		161FA3911E69409200C359A7 /* YYOrderDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 161FA3901E69409200C359A7 /* YYOrderDetailView.m */; };
 		1630DD821F74AA5C00655AFA /* YYCurruntBloodPressureVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */; };
+		1642A8A21F7C888800069891 /* YYRecoderAnalysisTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642A8A11F7C888800069891 /* YYRecoderAnalysisTVCell.m */; };
+		1642A8A51F7D002400069891 /* YYSetTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642A8A41F7D002400069891 /* YYSetTVCell.m */; };
+		1642A8A81F7D052D00069891 /* YYBindingTelNumVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1642A8A71F7D052D00069891 /* YYBindingTelNumVC.m */; };
 		16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A971E7A323700BCE38D /* YYCategoryModel.m */; };
 		16443A9F1E7A33F600BCE38D /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9B1E7A33F600BCE38D /* NSObject+YYModel.m */; };
 		16443AA01E7A33F600BCE38D /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443A9D1E7A33F600BCE38D /* YYClassInfo.m */; };
@@ -276,6 +280,8 @@
 		160888DA1F7B54FB00B2ADE9 /* YYHandleMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHandleMeasureViewController.m; sourceTree = "<group>"; };
 		160888DD1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalInfoDetailVC.h; sourceTree = "<group>"; };
 		160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalInfoDetailVC.m; sourceTree = "<group>"; };
+		160888E01F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDataAnalysisTVCell.h; sourceTree = "<group>"; };
+		160888E11F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYDataAnalysisTVCell.m; sourceTree = "<group>"; };
 		161FA3811E69170300C359A7 /* YYOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYOrderDetailVC.h; sourceTree = "<group>"; };
 		161FA3821E69170300C359A7 /* YYOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailVC.m; sourceTree = "<group>"; };
 		161FA38D1E693F7B00C359A7 /* YYOrderDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YYOrderDetailView.xib; sourceTree = "<group>"; };
@@ -283,6 +289,12 @@
 		161FA3901E69409200C359A7 /* YYOrderDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYOrderDetailView.m; sourceTree = "<group>"; };
 		1630DD801F74AA5C00655AFA /* YYCurruntBloodPressureVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCurruntBloodPressureVC.h; sourceTree = "<group>"; };
 		1630DD811F74AA5C00655AFA /* YYCurruntBloodPressureVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCurruntBloodPressureVC.m; sourceTree = "<group>"; };
+		1642A8A01F7C888800069891 /* YYRecoderAnalysisTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYRecoderAnalysisTVCell.h; sourceTree = "<group>"; };
+		1642A8A11F7C888800069891 /* YYRecoderAnalysisTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYRecoderAnalysisTVCell.m; sourceTree = "<group>"; };
+		1642A8A31F7D002400069891 /* YYSetTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSetTVCell.h; sourceTree = "<group>"; };
+		1642A8A41F7D002400069891 /* YYSetTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSetTVCell.m; sourceTree = "<group>"; };
+		1642A8A61F7D052D00069891 /* YYBindingTelNumVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYBindingTelNumVC.h; sourceTree = "<group>"; };
+		1642A8A71F7D052D00069891 /* YYBindingTelNumVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYBindingTelNumVC.m; sourceTree = "<group>"; };
 		16443A961E7A323700BCE38D /* YYCategoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCategoryModel.h; sourceTree = "<group>"; };
 		16443A971E7A323700BCE38D /* YYCategoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCategoryModel.m; sourceTree = "<group>"; };
 		16443A9A1E7A33F600BCE38D /* NSObject+YYModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+YYModel.h"; sourceTree = "<group>"; };
@@ -731,10 +743,26 @@
 				3E1840F71E56C8BF00069568 /* YYPersonalViewController.m */,
 				3E9643E91E5FD69D001B49DE /* YYRecardViewController.h */,
 				3E9643EA1E5FD69D001B49DE /* YYRecardViewController.m */,
+				3EB10BB91E64346900F5F9D2 /* YYFamilyAddViewController.h */,
 				3EB10BBA1E64346900F5F9D2 /* YYFamilyAddViewController.m */,
-				3EB10BBF1E6448F300F5F9D2 /* YYFamilyAccountViewController.h */,
 				160888DD1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.h */,
 				160888DE1F7B57A800B2ADE9 /* YYPersonalInfoDetailVC.m */,
+				3E9643EF1E5FF2C5001B49DE /* YYPInfomartionViewController.h */,
+				3E9643F01E5FF2C5001B49DE /* YYPInfomartionViewController.m */,
+				3EB10BBF1E6448F300F5F9D2 /* YYFamilyAccountViewController.h */,
+				3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */,
+				3EB10BB01E63F60400F5F9D2 /* YYEquipmentViewController.h */,
+				3EB10BB11E63F60400F5F9D2 /* YYEquipmentViewController.m */,
+				3E9643FB1E6019F8001B49DE /* YYSettingViewController.h */,
+				3E9643FC1E6019F8001B49DE /* YYSettingViewController.m */,
+				3EFBD62F1E66AF6000B422BD /* YYAboutUSViewController.h */,
+				3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */,
+				3EFBD6321E66B55A00B422BD /* YYContactViewController.h */,
+				3EFBD6331E66B55A00B422BD /* YYContactViewController.m */,
+				3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */,
+				3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */,
+				1642A8A61F7D052D00069891 /* YYBindingTelNumVC.h */,
+				1642A8A71F7D052D00069891 /* YYBindingTelNumVC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -1109,26 +1137,12 @@
 				3E9643F91E6001B5001B49DE /* YYDetailRecardViewController.m */,
 				3E0BC5401E8CE593004D413D /* FamilyDetailRecardViewController.h */,
 				3E0BC5411E8CE593004D413D /* FamilyDetailRecardViewController.m */,
-				3E9643EF1E5FF2C5001B49DE /* YYPInfomartionViewController.h */,
-				3E9643F01E5FF2C5001B49DE /* YYPInfomartionViewController.m */,
-				3E9643FB1E6019F8001B49DE /* YYSettingViewController.h */,
-				3E9643FC1E6019F8001B49DE /* YYSettingViewController.m */,
-				3EB10BB01E63F60400F5F9D2 /* YYEquipmentViewController.h */,
-				3EB10BB11E63F60400F5F9D2 /* YYEquipmentViewController.m */,
-				3EB10BB91E64346900F5F9D2 /* YYFamilyAddViewController.h */,
-				3EB10BC01E6448F300F5F9D2 /* YYFamilyAccountViewController.m */,
 				3EB10BC21E6518A000F5F9D2 /* YYPersonalInfoViewController.h */,
 				3EB10BC31E6518A000F5F9D2 /* YYPersonalInfoViewController.m */,
 				3EB10BC81E6538CF00F5F9D2 /* YYWIFIViewController.h */,
 				3EB10BC91E6538CF00F5F9D2 /* YYWIFIViewController.m */,
-				3EB10BCB1E65598D00F5F9D2 /* YYFeedbackViewController.h */,
-				3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */,
 				3EFBD62C1E6656C200B422BD /* YYDataAnalyseViewController.h */,
 				3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */,
-				3EFBD62F1E66AF6000B422BD /* YYAboutUSViewController.h */,
-				3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */,
-				3EFBD6321E66B55A00B422BD /* YYContactViewController.h */,
-				3EFBD6331E66B55A00B422BD /* YYContactViewController.m */,
 			);
 			name = PersonalPage;
 			sourceTree = "<group>";
@@ -1242,6 +1256,12 @@
 				164477A71F7A4E1300424CEC /* YYMedicalRecoderPhotoFlowLayout.m */,
 				164477A91F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.h */,
 				164477AA1F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.m */,
+				160888E01F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.h */,
+				160888E11F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.m */,
+				1642A8A01F7C888800069891 /* YYRecoderAnalysisTVCell.h */,
+				1642A8A11F7C888800069891 /* YYRecoderAnalysisTVCell.m */,
+				1642A8A31F7D002400069891 /* YYSetTVCell.h */,
+				1642A8A41F7D002400069891 /* YYSetTVCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1645,6 +1665,7 @@
 				3E9643F41E5FF9F8001B49DE /* YYPInfomationTableViewCell.m in Sources */,
 				3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */,
 				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
+				1642A8A51F7D002400069891 /* YYSetTVCell.m in Sources */,
 				3E9643EE1E5FDD81001B49DE /* YYRecardTableViewCell.m in Sources */,
 				3E0BC53F1E8CE535004D413D /* FamilyRecardViewController.m in Sources */,
 				3E11FCBC1E827B3100CEAE28 /* YYHeadViewModel.m in Sources */,
@@ -1678,6 +1699,7 @@
 				161FA3831E69170300C359A7 /* YYOrderDetailVC.m in Sources */,
 				1654BF441E5ED790002F1D00 /* ViewController.m in Sources */,
 				3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */,
+				1642A8A21F7C888800069891 /* YYRecoderAnalysisTVCell.m in Sources */,
 				3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */,
 				3E74BD571E7FBECC00364EC6 /* SectionModel.m in Sources */,
 				3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */,
@@ -1695,6 +1717,7 @@
 				3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */,
 				3EC2C00D1E6FF32000F01795 /* NotficationViewController.m in Sources */,
 				1654902F1E6665580034CB5B /* YYShopCarTableViewCell.m in Sources */,
+				1642A8A81F7D052D00069891 /* YYBindingTelNumVC.m in Sources */,
 				3EBA2D6B1E5E80C8005C3448 /* UIBarButtonItem+Helper.m in Sources */,
 				160888D21F7B31F400B2ADE9 /* HUWebImageDownloadOperation.m in Sources */,
 				1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */,
@@ -1742,6 +1765,7 @@
 				3EFBD66C1E68FDD900B422BD /* GYZCityGroupCell.m in Sources */,
 				3E1840E81E56C78300069568 /* YYTabBar.m in Sources */,
 				160888C91F7B31F400B2ADE9 /* HUImagePickerCell.m in Sources */,
+				160888E21F7BA56B00B2ADE9 /* YYDataAnalysisTVCell.m in Sources */,
 				16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */,
 				3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */,
 				3E9643EB1E5FD69D001B49DE /* YYRecardViewController.m in Sources */,

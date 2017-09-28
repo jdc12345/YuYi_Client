@@ -8,8 +8,6 @@
 
 #import "YYHomeHeadView.h"
 #import <SDCycleScrollView.h>
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 #import "YYTrendView.h"
 #import "ZYPageControl.h"
 #import "HttpClient.h"
@@ -83,12 +81,11 @@
 {
     self = [super init];
     if (self) {
-        NSLog(@"123123123");
         
         self.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         
         self.userInteractionEnabled = YES;
-         self.frame = CGRectMake(0, 0, kScreenW, 740 *kiphone6);
+         self.frame = CGRectMake(0, 0, kScreenW, 750 *kiphone6H);
         self.isFull = NO;
         [self httpRequestForUser];
     }
@@ -151,9 +148,9 @@
             NSString *str_high = dict[@"systolic"];
             NSString *str_low = dict[@"diastolic"];
             NSString *str_date = dict[@"createTimeString"];
-            [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];
-            [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];
-            [measureDate addObject:str_date];
+            [highBlood addObject:[NSNumber numberWithFloat:[str_high floatValue]]];//高压数据集
+            [lowBlood addObject:[NSNumber numberWithFloat:[str_low floatValue]]];//低压数据集
+            [measureDate addObject:str_date];//日期数据集
         }
         
         if (self.bloodpressureTrendView) {//页面重新出现时候
@@ -541,7 +538,7 @@
         make.size.mas_equalTo(CGSizeMake(kScreenW, 300 *kiphone6));
     }];
     [infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(scrollTrendView.mas_bottom).with.offset(0);
+        make.top.equalTo(scrollTrendView.mas_bottom);
         make.left.equalTo(ws).with.offset(0);
         make.size.mas_equalTo(CGSizeMake(kScreenW, 70 *kiphone6));
     }];

@@ -145,7 +145,6 @@
             [self tableView];
         }
         
-//        [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
     }];

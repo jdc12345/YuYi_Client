@@ -55,7 +55,7 @@
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"拨打" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor colorWithHexString:@"25f368"];
+    btn.backgroundColor = [UIColor colorWithHexString:@"1ebeec"];
     btn.titleLabel.font = [UIFont systemFontOfSize:18];
     btn.layer.cornerRadius = 2.5;
     btn.clipsToBounds = YES;
