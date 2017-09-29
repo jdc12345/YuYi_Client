@@ -7,8 +7,6 @@
 //
 
 #import "YYLogInVC.h"
-#import "UIColor+colorValues.h"
-#import <Masonry.h>
 #import "UILabel+Addition.h"
 #import "YYTabBarController.h"
 #import "HttpClient.h"
@@ -81,6 +79,7 @@
     UITextField *telNumberField = [[UITextField alloc]init];
     telNumberField.placeholder = @"请输入电话号码";
     telNumberField.font = [UIFont systemFontOfSize:14];
+    telNumberField.textColor = [UIColor colorWithHexString:@"333333"];
     telNumberField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
     [inputView addSubview:telNumberField];
     [telNumberField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -109,6 +108,7 @@
     //添加密码textField
     UITextField *passWordField = [[UITextField alloc]init];
     passWordField.font = [UIFont systemFontOfSize:14];
+    passWordField.textColor = [UIColor colorWithHexString:@"333333"];
     passWordField.placeholder = @"请输入验证码";
     passWordField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
     [inputView addSubview:passWordField];
@@ -254,6 +254,7 @@
     }
     NSString *urlString = [NSString stringWithFormat:@"%@/personal/login.do?id=%@&vcode=%@",mPrefixUrl,self.telNumberField.text,self.passWordField.text];
     HttpClient *httpManager = [HttpClient defaultClient];
+        [SVProgressHUD show];
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[@"code"] isEqualToString:@"0"]) {
@@ -284,7 +285,9 @@
             self.passWordField.text = nil;
             
         }
+        [SVProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
         return ;
     }];
     }
