@@ -40,7 +40,7 @@ static NSString *dentifier=@"cellforappliancelist";
     //取消按钮
     UIButton *btn = [[UIButton alloc]init];
     [btn setTitle:@"取消" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor colorWithHexString:@"25f368"] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(back:) forControlEvents:UIControlEventTouchUpInside];
     [headerView addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {

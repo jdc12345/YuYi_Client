@@ -122,7 +122,10 @@
     return hosptalTVCell;
 }
 -(void)searchBtnClick:(UIButton*)sender{
-    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
+    YYSearchTableViewController *searchVC = [[YYSearchTableViewController alloc]init];
+    searchVC.searchCayegory = 1;
+    [self.navigationController pushViewController:searchVC animated:true];
+//    [self.navigationController pushViewController:[[YYSearchTableViewController alloc]init] animated:true];
 }
 #pragma mark -
 #pragma mark ------------Http client----------------------

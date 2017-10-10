@@ -451,8 +451,8 @@
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *result = responseObject[@"result"];
         YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:result];
-        self.temperatureList = userModel.temperatureList;
-        self.bloodpressureList = userModel.bloodpressureList;
+        self.temperatureList = [userModel.temperatureList mutableCopy];
+        self.bloodpressureList = [userModel.bloodpressureList mutableCopy];
         NSMutableArray *highBlood = [[NSMutableArray alloc]initWithCapacity:2];
         NSMutableArray *lowBlood = [[NSMutableArray alloc]initWithCapacity:2];
         NSMutableArray *measureDate = [[NSMutableArray alloc]initWithCapacity:2];

@@ -112,7 +112,7 @@
     YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
     homeHeadView.bannerClick = ^(BOOL isOrder){
         if (isOrder) {
-            NSLog(@"跳转到医药商城");
+            NSLog(@"跳转到我的药品");
 
             [self.navigationController pushViewController:[[ViewController alloc]init] animated:true];
 

@@ -25,6 +25,7 @@
 #import "CcUserModel.h"
 #import "YYHomeUserModel.h"
 #import "UILabel+Addition.h"
+#import "YYPersonalDetailInfoVC.h"
 
 #define myToken @"6DD620E22A92AB0AED590DB66F84D064"
 @interface YYPersonalViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -36,7 +37,7 @@
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UIImageView *genderV;//性别
 @property (nonatomic, strong) UIImageView *iconView;//头像
-@property (nonatomic, strong) YYHomeUserModel *personalModel;
+@property (nonatomic, strong) YYHomeUserModel *personalModel;//用户个人信息
 
 @end
 
@@ -125,9 +126,10 @@
     iconView.layer.masksToBounds=YES;//隐藏裁剪掉的部分
     iconView.layer.borderWidth = 1.5;
     iconView.layer.borderColor = [UIColor colorWithHexString:@"ffffff"].CGColor;
-//    [iconView addTarget:self action:@selector(pushSettingVC) forControlEvents:UIControlEventTouchUpInside];
-    //    iconView.layer.borderColor = [UIColor colorWithHexString:@"#ffffff"].CGColor;
-    //    iconView.layer.borderWidth = 1.5f;
+    iconView.userInteractionEnabled = true;
+    UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
+    //将手势添加至需要相应的view中
+    [iconView addGestureRecognizer:tapGesture];
     //添加名字
     UILabel *namelabel = [UILabel labelWithText:@"姓名" andTextColor:[UIColor colorWithHexString:@"#ffffff"] andFontSize:14];
     [backView addSubview:namelabel];
@@ -156,7 +158,14 @@
     pInfoVC.personalModel = self.personalModel;
     [self.navigationController pushViewController:pInfoVC animated:YES];
 }
-
+//执行手势触发的方法：
+- (void)event:(UITapGestureRecognizer *)gesture
+{
+    YYPersonalDetailInfoVC *pvc = [[YYPersonalDetailInfoVC alloc]init];
+    pvc.personalModel = self.personalModel;
+    [self.navigationController pushViewController:pvc animated:true];
+    
+}
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

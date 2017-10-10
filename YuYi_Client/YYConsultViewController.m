@@ -7,8 +7,6 @@
 //
 
 #import "YYConsultViewController.h"
-#import "UIColor+Extension.h"
-#import <Masonry.h>
 #import "YYHospitalInfoViewController.h"
 #import "YYConsultTableViewCell.h"
 #import "HttpClient.h"
@@ -84,7 +82,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 80 *kiphone6;
+    return 80 *kiphone6H;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     YYInfomationModel *infoModel = self.dataSource[indexPath.row];
@@ -95,14 +93,12 @@
     YYConsultTableViewCell *homeTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"YYConsultTableViewCell" forIndexPath:indexPath];
     [homeTableViewCell createDetailView:2];
     [homeTableViewCell addStarView:infoModel.tell];
-    
-    //    homeTableViewCell.iconV.image = [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",(indexPath.row)%2 +1]];
     [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", mPrefixUrl,infoModel.picture]]];
     homeTableViewCell.titleLabel.text = infoModel.hospitalName;
     if ([ccModel.isPending isEqualToString:@"1"]) {
         homeTableViewCell.introduceLabel.text = @"万宇 咨询";
     }else{
-        homeTableViewCell.introduceLabel.text = infoModel.introduction;
+        homeTableViewCell.introduceLabel.text = [NSString stringWithFormat:@"地址：%@",infoModel.address];
     }
     
     
@@ -131,7 +127,7 @@
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
             [self.dataSource addObject:infoModel];
         }
-        UIView *headV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10 *kiphone6)];
+        UIView *headV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenW, 10 *kiphone6H)];
         headV.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
         self.tableView.tableHeaderView = headV;
         [self.tableView reloadData];

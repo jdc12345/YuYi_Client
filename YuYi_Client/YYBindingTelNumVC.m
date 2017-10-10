@@ -140,33 +140,6 @@
         make.centerY.equalTo(passWordField);
     }];
     
-    
-//    //添加选择按钮
-//    UIButton *selectBtn = [[UIButton alloc]init];
-//    [selectBtn setImage:[UIImage imageNamed:@"logo_selected"] forState:UIControlStateNormal];
-//    [self.view addSubview:selectBtn];
-//    [selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(inputView.mas_bottom).offset(15*kiphone6);
-//        make.centerY.equalTo(curruntTelNumLabel);
-//        make.right.equalTo(curruntTelNumLabel.mas_left).offset(-5*kiphone6);
-//    }];
-//    //添加登录Btn
-//    UIButton *logInBtn = [[UIButton alloc]init];
-//    logInBtn.layer.masksToBounds = true;
-//    logInBtn.layer.cornerRadius = 20;
-//    [logInBtn setTitle:@"登录" forState:UIControlStateNormal];
-//    [logInBtn setTitleColor:[UIColor colorWithHexString:@"#ffffff"] forState:UIControlStateNormal];
-//    logInBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-//    [logInBtn setBackgroundColor:[UIColor colorWithHexString:@"#1ebeec"]];
-//    [self.view addSubview:logInBtn];
-//    [logInBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.view);
-//        make.top.equalTo(curruntTelNumLabel.mas_bottom).offset(40*kiphone6);
-//        make.width.offset(325*kiphone6);
-//        make.height.offset(44*kiphone6);
-//    }];
-//    //点击事件
-//    [logInBtn addTarget:self action:@selector(logIn:) forControlEvents:UIControlEventTouchUpInside];
     UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
     //将手势添加至需要相应的view中
     [self.view addGestureRecognizer:tapGesture];

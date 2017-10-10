@@ -10,6 +10,7 @@
 #import "UIBarButtonItem+Helper.h"
 #import "CcUserModel.h"
 #import "HttpClient.h"
+#import <UIImageView+WebCache.h>
 
 @interface YYFamilyAccountViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
@@ -67,13 +68,15 @@
     imageV.userInteractionEnabled = YES;
     
     self.iconV = imageV;
-    
+
     //textfield
     for (int i = 0; i < 4; i++) {
         UITextField *inputText = [[UITextField alloc]init];
         inputText.tag = i +200;
         inputText.layer.borderColor = [UIColor colorWithHexString:@"f2f2f2"].CGColor;
         inputText.layer.borderWidth = 0.5;
+        inputText.textColor = [UIColor colorWithHexString:@"333333"];
+        inputText.font = [UIFont systemFontOfSize:14];
         
         UILabel *titleLabel = [[UILabel alloc]init];
         titleLabel.text = titleList[i];
@@ -182,6 +185,12 @@
             textField4.text = self.personalModel.telephone;
         }
         [wordsLabel setSelectedSegmentIndex:[self.personalModel.gender integerValue]];
+        
+        //添加头像
+        if (![self.personalModel.avatar isEqualToString:@""]) {
+              [self.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.personalModel.avatar]]];
+                
+            }
         
         //删除按钮
         UIButton *sureBtn = [UIButton  buttonWithType:UIButtonTypeCustom];

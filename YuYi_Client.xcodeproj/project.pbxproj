@@ -43,6 +43,8 @@
 		16443AA31E7A419900BCE38D /* YYMedinicalDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 16443AA21E7A419900BCE38D /* YYMedinicalDetailModel.m */; };
 		164477A81F7A4E1300424CEC /* YYMedicalRecoderPhotoFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 164477A71F7A4E1300424CEC /* YYMedicalRecoderPhotoFlowLayout.m */; };
 		164477AB1F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 164477AA1F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.m */; };
+		164E8E401F7E2ECD008C7447 /* YYPersonalDetailInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E8E3F1F7E2ECD008C7447 /* YYPersonalDetailInfoVC.m */; };
+		164E8E431F7E4A26008C7447 /* YYChangePersonInfoTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 164E8E421F7E4A26008C7447 /* YYChangePersonInfoTVCell.m */; };
 		165204701F7120A70043B80C /* YYMineMedicinalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */; };
 		1654900E1E63C3A40034CB5B /* YYAddressEditVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */; };
 		165490111E63C9BB0034CB5B /* YYAddressEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 165490101E63C9BB0034CB5B /* YYAddressEditView.m */; };
@@ -105,10 +107,7 @@
 		3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841501E5AA9FF00069568 /* YYTrendView.m */; };
 		3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */; };
 		3E1841571E5AD0A900069568 /* cell1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841561E5AD0A900069568 /* cell1.png */; };
-		3E1841591E5AD13200069568 /* cell2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841581E5AD13200069568 /* cell2.png */; };
 		3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */; };
-		3E18415E1E5ADD8F00069568 /* medicine.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E18415D1E5ADD8F00069568 /* medicine.png */; };
-		3E1E47281E5AF2130042934D /* search_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1E47271E5AF2130042934D /* search_icon.png */; };
 		3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */; };
 		3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47301E5BDC3F0042934D /* ZYAbstractDotView.m */; };
 		3E1E47361E5BDC3F0042934D /* ZYAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47321E5BDC3F0042934D /* ZYAnimatedDotView.m */; };
@@ -309,6 +308,10 @@
 		164477A71F7A4E1300424CEC /* YYMedicalRecoderPhotoFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedicalRecoderPhotoFlowLayout.m; sourceTree = "<group>"; };
 		164477A91F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMedicalRecoderPhotoDisplayCVCell.h; sourceTree = "<group>"; };
 		164477AA1F7A4F8200424CEC /* YYMedicalRecoderPhotoDisplayCVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMedicalRecoderPhotoDisplayCVCell.m; sourceTree = "<group>"; };
+		164E8E3E1F7E2ECD008C7447 /* YYPersonalDetailInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalDetailInfoVC.h; sourceTree = "<group>"; };
+		164E8E3F1F7E2ECD008C7447 /* YYPersonalDetailInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPersonalDetailInfoVC.m; sourceTree = "<group>"; };
+		164E8E411F7E4A26008C7447 /* YYChangePersonInfoTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYChangePersonInfoTVCell.h; sourceTree = "<group>"; };
+		164E8E421F7E4A26008C7447 /* YYChangePersonInfoTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYChangePersonInfoTVCell.m; sourceTree = "<group>"; };
 		1652046E1F7120A70043B80C /* YYMineMedicinalModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMineMedicinalModel.h; sourceTree = "<group>"; };
 		1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMineMedicinalModel.m; sourceTree = "<group>"; };
 		1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAddressEditVC.h; sourceTree = "<group>"; };
@@ -429,11 +432,8 @@
 		3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeNewTableViewCell.h; sourceTree = "<group>"; };
 		3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeNewTableViewCell.m; sourceTree = "<group>"; };
 		3E1841561E5AD0A900069568 /* cell1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell1.png; sourceTree = "<group>"; };
-		3E1841581E5AD13200069568 /* cell2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell2.png; sourceTree = "<group>"; };
 		3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeMedicineTableViewCell.h; sourceTree = "<group>"; };
 		3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeMedicineTableViewCell.m; sourceTree = "<group>"; };
-		3E18415D1E5ADD8F00069568 /* medicine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = medicine.png; sourceTree = "<group>"; };
-		3E1E47271E5AF2130042934D /* search_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = search_icon.png; sourceTree = "<group>"; };
 		3E1E472C1E5BD6FE0042934D /* ZYPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPageControl.h; sourceTree = "<group>"; };
 		3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPageControl.m; sourceTree = "<group>"; };
 		3E1E472F1E5BDC3F0042934D /* ZYAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYAbstractDotView.h; path = "＃颜色转换/ZYAbstractDotView.h"; sourceTree = "<group>"; };
@@ -763,6 +763,8 @@
 				3EB10BCC1E65598D00F5F9D2 /* YYFeedbackViewController.m */,
 				1642A8A61F7D052D00069891 /* YYBindingTelNumVC.h */,
 				1642A8A71F7D052D00069891 /* YYBindingTelNumVC.m */,
+				164E8E3E1F7E2ECD008C7447 /* YYPersonalDetailInfoVC.h */,
+				164E8E3F1F7E2ECD008C7447 /* YYPersonalDetailInfoVC.m */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -839,8 +841,6 @@
 				1654BF551E5EDFFB002F1D00 /* YYConfirmVC.m */,
 				1654900C1E63C3A40034CB5B /* YYAddressEditVC.h */,
 				1654900D1E63C3A40034CB5B /* YYAddressEditVC.m */,
-				165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */,
-				165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */,
 				161FA3811E69170300C359A7 /* YYOrderDetailVC.h */,
 				161FA3821E69170300C359A7 /* YYOrderDetailVC.m */,
 				165EB5B81E8106A800F644F0 /* YYMyMedicinalStateVC.h */,
@@ -1084,9 +1084,6 @@
 				3E1841481E5A7BED00069568 /* carinalau4.jpg */,
 				3E18414D1E5A937E00069568 /* LIM_.png */,
 				3E1841561E5AD0A900069568 /* cell1.png */,
-				3E1841581E5AD13200069568 /* cell2.png */,
-				3E18415D1E5ADD8F00069568 /* medicine.png */,
-				3E1E47271E5AF2130042934D /* search_icon.png */,
 				3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */,
 				3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */,
 				3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */,
@@ -1156,6 +1153,8 @@
 				1652046F1F7120A70043B80C /* YYMineMedicinalModel.m */,
 				165EB5BE1E812C6000F644F0 /* YYMedicinalStateModel.h */,
 				165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */,
+				165490311E66A6AC0034CB5B /* YYSearchTableViewController.h */,
+				165490321E66A6AC0034CB5B /* YYSearchTableViewController.m */,
 				1654BF3E1E5ED572002F1D00 /* tools */,
 				1654BF391E5ED286002F1D00 /* medicinalShop */,
 				1654BF3A1E5ED313002F1D00 /* allMedicinal */,
@@ -1262,6 +1261,8 @@
 				1642A8A11F7C888800069891 /* YYRecoderAnalysisTVCell.m */,
 				1642A8A31F7D002400069891 /* YYSetTVCell.h */,
 				1642A8A41F7D002400069891 /* YYSetTVCell.m */,
+				164E8E411F7E4A26008C7447 /* YYChangePersonInfoTVCell.h */,
+				164E8E421F7E4A26008C7447 /* YYChangePersonInfoTVCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1556,10 +1557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E1E47281E5AF2130042934D /* search_icon.png in Resources */,
 				3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */,
-				3E1841591E5AD13200069568 /* cell2.png in Resources */,
-				3E18415E1E5ADD8F00069568 /* medicine.png in Resources */,
 				160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */,
 				3E1841571E5AD0A900069568 /* cell1.png in Resources */,
 				160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */,
@@ -1662,6 +1660,7 @@
 				3EFBD6511E68321800B422BD /* YYDataAnalyseViewController.m in Sources */,
 				3EFBD64F1E6831FC00B422BD /* YYPersonalTableViewCell.m in Sources */,
 				3EFBD6501E68320700B422BD /* HcCustomKeyboard.m in Sources */,
+				164E8E431F7E4A26008C7447 /* YYChangePersonInfoTVCell.m in Sources */,
 				3E9643F41E5FF9F8001B49DE /* YYPInfomationTableViewCell.m in Sources */,
 				3E9643E81E5EF328001B49DE /* YYAllMedicinalViewController.m in Sources */,
 				3E1E474C1E5C291A0042934D /* SectorCalendar.m in Sources */,
@@ -1690,6 +1689,7 @@
 				3EB10BAF1E63CD9100F5F9D2 /* YYInfoDetailViewController.m in Sources */,
 				3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */,
 				3ECBB4641E5D57BF00BD5BE5 /* YYMeasureTableViewCell.m in Sources */,
+				164E8E401F7E2ECD008C7447 /* YYPersonalDetailInfoVC.m in Sources */,
 				160888CB1F7B31F400B2ADE9 /* HUImagePickerRootViewController.m in Sources */,
 				165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */,
 				16443A981E7A323700BCE38D /* YYCategoryModel.m in Sources */,

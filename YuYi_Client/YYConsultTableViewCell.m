@@ -41,11 +41,11 @@
     
     self.introduceLabel = [[UILabel alloc]init];
     self.introduceLabel.numberOfLines = 1;
-    self.introduceLabel.textColor = [UIColor colorWithHexString:@"888888"];
+    self.introduceLabel.textColor = [UIColor colorWithHexString:@"666666"];
     self.introduceLabel.font = [UIFont systemFontOfSize:12];
     self.introduceLabel.text = @"地址：河北省涿州市范阳中路12号";
     
-    UIImageView *posImageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"consult-location-icon-1"]];
+    UIImageView *posImageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"consult_address_location"]];
     // [posImageV sizeToFit];
     
     self.posLabel = [[UILabel alloc]init];
@@ -105,9 +105,9 @@
         [self addSubview:starLabel];
         self.doubleLabel = starLabel;
         [starLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.titleLabel.mas_bottom).with.offset(12 *kiphone6);
-            make.left.equalTo(self.titleLabel.mas_left).with.offset(0 *kiphone6);
-            make.size.mas_equalTo(CGSizeMake(200 *kiphone6, 12 *kiphone6));
+            make.top.equalTo(self.titleLabel.mas_bottom).offset(10 *kiphone6H);
+            make.left.equalTo(self.titleLabel.mas_left);
+//            make.size.mas_equalTo(CGSizeMake(200 *kiphone6, 12 *kiphone6));
         }];
     }
 
