@@ -80,11 +80,11 @@
                           channel:@"App Store"
                  apsForProduction:0
             advertisingIdentifier:nil];
-    
+//r---------- 1 融云初始化 ----------
     [[RCIM sharedRCIM] initWithAppKey:@"25wehl3u2qo7w"];
     
-//     登陆融云
-
+//r---------- 2 登陆融云 ----------
+        //r---------- 2.1 向服务区请求用户信息 ----------
         [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCtokenUrl,userModel.telephoneNum] method:0 parameters:nil prepareExecute:^{
             
         } success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -94,12 +94,15 @@
             userModel_rc.TrueName = responseObject[@"TrueName"];
             userModel_rc.info_id = responseObject[@"id"];
             
-            
+            //r---------- 2.2 用服务区请求的用户信息登录融云 ----------
             [[RCIM sharedRCIM] connectWithToken:userModel_rc.token     success:^(NSString *userId) {
                 NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+                
+               [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:userModel_rc.TrueName portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel_rc.Avatar]];
+                
                 [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
             } error:^(RCConnectErrorCode status) {
-                NSLog(@"登陆的错误码为:%d", status);
+                NSLog(@"登陆的错误码为:%ld", (long)status);
             } tokenIncorrect:^{
                 //token过期或者不正确。
                 //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
@@ -118,7 +121,8 @@
     
     // 融云控制台输出信息种类
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Error;
-    //////////////////
+    
+    //r---------- 3 向用户请求允许推送 ----------
     if ([application
          respondsToSelector:@selector(registerUserNotificationSettings:)]) {
         //注册推送, 用于iOS8以及iOS8之后的系统
@@ -174,10 +178,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                                              withString:@""];
     token = [token stringByReplacingOccurrencesOfString:@" "
                                              withString:@""];
+    //r---------- 4 上传设备token给融云，用以APNs远程推送 ----------
     [[RCIMClient sharedRCIMClient] setDeviceToken:token];
     
 }
-
+//r---------- 5 注册推送失败原因 ----------
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     //Optional
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
@@ -254,6 +259,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // register to receive notifications
     [application registerForRemoteNotifications];
 }
+#pragma mark- RCIMReceiveMessageDelegate
+//r---------- 6 收到消息，left剩余条数 ----------
 - (void)onRCIMReceiveMessage:(RCMessage *)message
                         left:(int)left{
     
@@ -267,7 +274,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSString * unreadNum = [NSString stringWithFormat:@"%d",unreadMsgCount];
     NSDictionary * dict = @{@"unreadNum":unreadNum};
-    
+
+    //r---------- 6.1 发送未读信息通知 ----------
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageUnreadNum" object:nil userInfo:dict];
     
     float version = [[[UIDevice currentDevice] systemVersion] floatValue];
@@ -277,12 +285,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     UIApplication *app = [UIApplication sharedApplication];
+    //r---------- 6.2 显示未读信息数 ----------
     app.applicationIconBadgeNumber = unreadMsgCount;
     
+    //消息内容
+    NSString *messageContent = @"";
     // 注册通知
     if ([message.content isMemberOfClass:[RCTextMessage class]]) {
         RCTextMessage *testMessage = (RCTextMessage *)message.content;
         NSLog(@"消息内容：%@", testMessage.content);
+        messageContent = testMessage.content;
         //        UILocalNotification *locatNotific = [[UILocalNotification alloc]init];
         //        locatNotific.alertTitle = testMessage.content;
         //        [[UIApplication sharedApplication] presentLocalNotificationNow:locatNotific];
@@ -294,14 +306,13 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     
     
-    
-    // 1.创建本地通知
+    //r---------- 6.3 创建本地通知，当app还未被系统杀死时候推送的是本地通知 ----------
     UILocalNotification *localNote = [[UILocalNotification alloc] init];
     
 
     localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0];
 
-    localNote.alertBody = @"在干吗?";
+    localNote.alertBody = messageContent;
 
     localNote.alertAction = @"解锁";
 
@@ -309,32 +320,40 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
     localNote.alertLaunchImage = @"123Abc";
     // 2.6.设置alertTitle
-    localNote.alertTitle = @"你有一条新通知";
+    localNote.alertTitle = @"你有一条新消息";
     // 2.7.设置有通知时的音效
     localNote.soundName = @"buyao.wav";
     // 2.8.设置应用程序图标右上角的数字
-    localNote.applicationIconBadgeNumber = 999;
+    localNote.applicationIconBadgeNumber = unreadMsgCount;
     
-    // 2.9.设置额外信息
-    localNote.userInfo = @{@"type" : @1};
+    // 2.9.设置额外信息（通话人的id）
+    localNote.userInfo = @{@"targetId" : message.targetId};
     
     // 3.调用通知
     [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
 }
+// ---------------------通知的点击事件-------------------
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     //点击通知进入应用
     YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
     //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
     wordVC.conversationType = ConversationType_PRIVATE;
     //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
-    wordVC.targetId = mUserID;
+    UNNotification *notification = response.notification;
+    UNNotificationRequest *request = notification.request;
+    //将显示在通知上的内容
+    UNNotificationContent *content = request.content;
+    //用户信息，本地通知传过来了通话人的id(targetId)
+    NSDictionary *userInfo = content.userInfo;
+    NSLog(@"----------------%@",userInfo);
+    wordVC.targetId = userInfo[@"targetId"];
 //    UIViewController *currentVC = [(UINavigationController *)self.window.rootViewController visibleViewController];
 //    if ([currentVC respondsToSelector:@selector(pushViewController: animated:)]) {
 //        [currentVC performSelector:@selector(pushViewController: animated:) withObject:wordVC withObject:@YES];
 //    }
 //    NSLog(@"response:%@", response);
     
-    
+    //已经获得了通话人的id，需要处理跳转逻辑
     self.yyTabBar.selectedIndex = 2;
     
     

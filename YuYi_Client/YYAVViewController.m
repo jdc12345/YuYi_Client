@@ -22,12 +22,16 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:self.toUserID to:@[@""] mediaType:RCCallMediaVideo sessionDelegate:self extra:nil];
+//    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:self.toUserID to:@[@""] mediaType:RCCallMediaVideo sessionDelegate:self extra:nil];
     
     
     [[RCCallClient sharedRCCallClient] setDelegate:self];
     
     [[RCCallClient sharedRCCallClient] isAudioCallEnabled:ConversationType_PRIVATE];
+    self.remoteNameLabel.text = @"医生";
+    [self.hangupButton setTitle:@"挂断" forState:UIControlStateNormal];
+    [self.acceptButton setTitle:@"接听" forState:UIControlStateNormal];
+
     
 //    [self createSubView];
     // Do any additional setup after loading the view.

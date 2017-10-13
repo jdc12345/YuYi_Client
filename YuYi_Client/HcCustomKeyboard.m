@@ -79,7 +79,7 @@ static HcCustomKeyboard *customKeyboard = nil;
     _label = [[UILabel alloc]initWithFrame:CGRectMake(3, 4 +5, kScreenW - 40, 20)];
     _label.numberOfLines = 0;
      // _label.enabled = NO;
-    _label.text = @"把病状和医生了了吧";
+    _label.text = @"把病状和医生聊聊吧";
     _label.font =  [UIFont systemFontOfSize:17];
     _label.textColor = [UIColor colorWithHexString:@"#cccccc"];
     [self.mTextView addSubview:_label];

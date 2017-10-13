@@ -7,8 +7,6 @@
 //
 
 #import "YYWordsViewController.h"
-#import "UIColor+Extension.h"
-#import <Masonry.h>
 #import "HcCustomKeyboard.h"
 #import <RongIMKit/RongIMKit.h>
 #import "YYSpeechViewController.h"
@@ -33,13 +31,13 @@
     
     // 判断是否直接连接语音或视频
     if ([self.modalityVC isEqualToString:@"speech"]) {
-                YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:mUserID mediaType:RCCallMediaAudio];
+                YYSpeechViewController *speechVC = [[YYSpeechViewController alloc]initWithOutgoingCall:self.targetId?self.targetId:mUserID mediaType:RCCallMediaAudio];
         speechVC.toUserID = self.targetId;
                 [self presentViewController:speechVC animated:YES completion:^{
                     
                 }];
     }else if([self.modalityVC isEqualToString:@"av"]){
-                YYAVViewController *avVC = [[YYAVViewController alloc]initWithOutgoingCall:mUserID mediaType:RCCallMediaVideo];
+        YYAVViewController *avVC = [[YYAVViewController alloc]initWithOutgoingCall:self.targetId?self.targetId:mUserID mediaType:RCCallMediaVideo];
         avVC.toUserID = self.targetId;
         [self presentViewController:avVC animated:YES completion:^{
             

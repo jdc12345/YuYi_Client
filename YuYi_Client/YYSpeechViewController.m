@@ -23,13 +23,15 @@
     [super viewDidLoad];
     self.title = @"医生";
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:self.toUserID to:@[@""] mediaType:RCCallMediaAudio sessionDelegate:self extra:nil];
+//    RCCallSession *callSession = [[RCCallClient sharedRCCallClient]startCall:ConversationType_PRIVATE targetId:self.toUserID to:@[@""] mediaType:RCCallMediaAudio sessionDelegate:self extra:nil];
     
     
     [[RCCallClient sharedRCCallClient] setDelegate:self];
     
     [[RCCallClient sharedRCCallClient] isAudioCallEnabled:ConversationType_PRIVATE];
-    
+    self.remoteNameLabel.text = @"医生";
+    [self.hangupButton setTitle:@"挂断" forState:UIControlStateNormal];
+    [self.acceptButton setTitle:@"接听" forState:UIControlStateNormal];
 //    
 //    _actionWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //    _actionWindow.windowLevel       = UIWindowLevelStatusBar;

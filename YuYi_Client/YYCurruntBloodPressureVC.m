@@ -57,22 +57,29 @@
 }
 //请求用户数据
 - (void)httpRequestForUser{
+    [SVProgressHUD show];
     NSString *userToken = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"homeUsers = %@",responseObject);
-        NSArray *usersList = responseObject[@"result"];
-        for (NSDictionary *dict in usersList) {
-            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
-            [self.dataSource addObject:homeUser];
-            if (!self.cardView) {
-                [self createOtherView];
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            NSArray *usersList = responseObject[@"result"];
+            for (NSDictionary *dict in usersList) {
+                YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
+                [self.dataSource addObject:homeUser];
+                if (!self.cardView) {
+                    [self createOtherView];
+                }
             }
+            [self.tableView reloadData];
+        }else{
+            [SVProgressHUD showInfoWithStatus:responseObject[@"message"]];
         }
-        [self.tableView reloadData];
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD dismiss];
     }];
 }
 //布局头部cardview

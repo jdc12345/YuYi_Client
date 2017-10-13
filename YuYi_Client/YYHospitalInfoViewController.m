@@ -17,15 +17,15 @@
 #import <UIImageView+WebCache.h>
 #import "HttpClient.h"
 
-@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate>
+@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate,RCIMUserInfoDataSource>
 
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UITextView *infoTextV;
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, weak) ZYAlertSView *alertView;
-@property (nonatomic, weak) UIView *selectView;
+@property (nonatomic, weak) UIView *backClearView;
 @property (nonatomic, assign) BOOL isPending;  // 审核模式
-
+@property (nonatomic, strong) RCUserInfo *userInfo;//后台返回的医院医生信息
 @end
 
 @implementation YYHospitalInfoViewController
@@ -193,6 +193,18 @@
         make.top.left.bottom.right.offset(0);
     }];
     backClearView.userInteractionEnabled = YES;
+    self.backClearView = backClearView;
+    //叉号
+    UIImage *image = [UIImage imageNamed:@"consult_close"];
+    UIImageView *closeView = [[UIImageView alloc]init];
+    closeView.image = image;
+    [backClearView addSubview:closeView];
+    [closeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-10*kiphone6);
+        make.top.offset(34*kiphone6);
+        make.height.offset(image.size.height);
+        make.width.offset(image.size.width);
+    }];
     //添加tap手势：
     UITapGestureRecognizer *tapGesture=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
     //将手势添加至需要相应的view中
@@ -321,7 +333,9 @@
 - (void)tapaClick:(UITapGestureRecognizer *)tapGesture{
     UITapGestureRecognizer *singleTap = (UITapGestureRecognizer *)tapGesture;
     NSInteger index = singleTap.view.tag -200;
-    [self.alertView dismiss:nil];
+    [self.backClearView removeFromSuperview];
+    
+    [[RCIM sharedRCIM] setUserInfoDataSource:self];
     
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id] method:0 parameters:nil prepareExecute:^{
         
@@ -332,26 +346,32 @@
 //        userModel_rc.TrueName = responseObject[@"TrueName"];
 //        userModel_rc.info_id = responseObject[@"id"];
         
-        YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
-        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
-        wordVC.conversationType = ConversationType_PRIVATE;
-        //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
-        wordVC.targetId = responseObject[@"id"];
-        NSLog(@"医院id =。%@",responseObject[@"id"]);
-        if (index == 0) {
-            
-            wordVC.modalityVC = @"speech";
-            
-            
-        }else if(index == 1){
-            wordVC.modalityVC = @"av";
-            
-            
+        //把后台返回的医院医生信息赋值，以便在融云通过用户回调方法(RCIMUserInfoDataSource)去取医生信息，进而显示在接通前的界面
+        self.userInfo = [[RCUserInfo alloc]initWithUserId:responseObject[@"id"] name:@"医生" portrait:@"http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4"];
+        
+        
+        if (!responseObject[@"id"]) {
+            [SVProgressHUD showInfoWithStatus:@"该医院暂未开放该功能"];
         }else{
-            wordVC.modalityVC = @"empty";
+            YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+            //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+            wordVC.conversationType = ConversationType_PRIVATE;
+            //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+            wordVC.targetId = responseObject[@"id"];
+            NSLog(@"医院id =。%@",responseObject[@"id"]);
+            if (index == 0) {
+                
+                wordVC.modalityVC = @"speech";
+                
+                
+            }else if(index == 1){
+                wordVC.modalityVC = @"av";
+                                
+            }else{
+                wordVC.modalityVC = @"empty";
+            }
+            [self.navigationController pushViewController:wordVC animated:YES];
         }
-
-        [self.navigationController pushViewController:wordVC animated:YES];
  
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -364,9 +384,28 @@
 {
     //移除view
     [gesture.view removeFromSuperview];
-//    [self.optionView removeFromSuperview];
-//    [self.buyBtn removeFromSuperview];
+
 }
+/**
+ 
+ *此方法中要提供给融云用户的信息，建议缓存到本地，然后改方法每次从您的缓存返回
+ 
+ */
+
+#pragma mark - RCIMUserInfoDataSource
+
+- (void)getUserInfoWithUserId:(NSString *)userId completion:(void(^)(RCUserInfo* userInfo))completion
+{
+    
+    return completion(self.userInfo);
+        
+}
+
+-(void)getUserInfoWithUserId:(NSString *)userId n:(void (^)(RCUserInfo *))completion
+{
+   return completion(self.userInfo);
+}
+
 /////////////////
 - (void)emptyClick{
     CGFloat alertW = 335 *kiphone6;
@@ -454,6 +493,10 @@
 //    [button setBackgroundColor:[UIColor whiteColor]];
 //    
 //}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.backClearView removeFromSuperview];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

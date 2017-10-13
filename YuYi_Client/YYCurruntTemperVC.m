@@ -67,11 +67,15 @@ static float temp = 32.00f;//开始滑动时候温度初始值
 }
 //请求用户数据
 - (void)httpRequestForUser{
+    [SVProgressHUD show];
     NSString *userToken = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"homeUsers = %@",responseObject);
+        if ([responseObject[@"code"] isEqualToString:@"0"]) {
+            
         NSArray *usersList = responseObject[@"result"];
         for (NSDictionary *dict in usersList) {
             YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
@@ -95,8 +99,11 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         }
         [self setUpUI];
         [self.tableView reloadData];
+        }else{
+            [SVProgressHUD showInfoWithStatus:responseObject[@"message"]];
+        }
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+       [SVProgressHUD dismiss]; 
     }];
 }
 
