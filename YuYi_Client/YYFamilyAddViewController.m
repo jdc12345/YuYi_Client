@@ -124,6 +124,7 @@
 }
 //添加家庭成员
 - (void)addFamily{
+    if (self.userList.count>0) {
     YYHomeUserModel *userModel = self.userList[0];//自己
     if ([userModel.age isEqualToString:@""]||[userModel.trueName isEqualToString:@""]||[userModel.gender isEqualToString:@""]) {//自己信息不全，跳转填写个人信息
         YYPInfomartionViewController *familyAVC = [[YYPInfomartionViewController alloc]init];
@@ -132,7 +133,8 @@
         YYFamilyAccountViewController *familyAVC = [[YYFamilyAccountViewController alloc]init];
         [self.navigationController pushViewController:familyAVC animated:YES];
     }
-
+        
+    }
 }
 
 
@@ -157,6 +159,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后再试"];
         NSLog(@"%@",error);
     }];
     

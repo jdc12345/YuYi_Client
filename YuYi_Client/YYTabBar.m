@@ -95,7 +95,7 @@ static NSUInteger kTag = 1000;
 
 - (void)setTabAtIndex:(NSInteger)index title:(NSString *)title normalImage:(NSString *)normalImage selectedImage:(NSString *)selectedImage {
     YYTabBarItem *tabBarItem = self.subviews[index];
-    
+
     [tabBarItem setTitle:title forState:UIControlStateNormal];
 //    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"a6a6a6"] forState:UIControlStateNormal];
 //    [tabBarItem setTitleColor:[UIColor colorWithHexString:@"1ebeec"] forState:UIControlStateSelected];

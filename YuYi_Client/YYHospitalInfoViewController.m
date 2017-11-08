@@ -334,7 +334,9 @@
     UITapGestureRecognizer *singleTap = (UITapGestureRecognizer *)tapGesture;
     NSInteger index = singleTap.view.tag -200;
     [self.backClearView removeFromSuperview];
-    
+    //    是否在发送的所有消息中携带当前登录的用户信息
+    [[RCIM sharedRCIM] setEnableMessageAttachUserInfo:true];
+
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id] method:0 parameters:nil prepareExecute:^{
@@ -401,7 +403,7 @@
         
 }
 
--(void)getUserInfoWithUserId:(NSString *)userId n:(void (^)(RCUserInfo *))completion
+- (void)getUserInfoWithUserId:(NSString *)userId n:(void (^)(RCUserInfo *))completion
 {
    return completion(self.userInfo);
 }

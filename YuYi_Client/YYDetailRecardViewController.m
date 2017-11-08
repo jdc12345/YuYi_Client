@@ -8,7 +8,7 @@
 
 #import "YYDetailRecardViewController.h"
 #import "YYHomeNewTableViewCell.h"
-#import "YYSectionViewController.h"
+//#import "YYSectionViewController.h"
 #import "YYPersonalTableViewCell.h"
 #import "YYRecardTableViewCell.h"
 #import "YYPInfomationTableViewCell.h"

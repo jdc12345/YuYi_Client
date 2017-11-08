@@ -13,7 +13,8 @@
 #import "YYAVViewController.h"
 #import "CcUserModel.h"
 
-@interface YYWordsViewController ()<HcCustomKeyboardDelegate>
+@interface YYWordsViewController ()
+//-<HcCustomKeyboardDelegate>
 @property (nonatomic, strong) HcCustomKeyboard *cc;
 @end
 

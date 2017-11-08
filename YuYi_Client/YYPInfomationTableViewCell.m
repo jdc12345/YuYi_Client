@@ -7,9 +7,6 @@
 //
 
 #import "YYPInfomationTableViewCell.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
-
 
 @implementation YYPInfomationTableViewCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

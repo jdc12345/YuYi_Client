@@ -12,5 +12,5 @@
 //- (void)createViewAboveTabbarView;
 ////移除消息
 //- (void)removeAllNotiMsg;
-
+- (void)switchTab:(NSUInteger)index;
 @end

@@ -86,7 +86,7 @@
     
     // TrendView
     UIScrollView *scrollTrendView = [[UIScrollView alloc]init];
-    scrollTrendView.contentSize = CGSizeMake(kScreenW *2, 290 *kiphone6);
+    scrollTrendView.contentSize = CGSizeMake(kScreenW *2, 280 *kiphone6H);
     scrollTrendView.backgroundColor = [UIColor whiteColor];
     scrollTrendView.pagingEnabled = YES;
     scrollTrendView.showsHorizontalScrollIndicator = NO;
@@ -106,12 +106,12 @@
     
     [trendView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.offset(0);
-        make.size.mas_equalTo(CGSizeMake(kScreenW, 290 *kiphone6H));
+        make.size.mas_equalTo(CGSizeMake(kScreenW, 280 *kiphone6H));
     }];
     [temperature_TrendView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.offset(0);
         make.left.offset(kScreenW);
-        make.size.mas_equalTo(CGSizeMake(kScreenW, 290 *kiphone6H));
+        make.size.mas_equalTo(CGSizeMake(kScreenW, 280 *kiphone6H));
     }];
     [self.contentView addSubview:infoView];
     [self.contentView addSubview:scrollTrendView];

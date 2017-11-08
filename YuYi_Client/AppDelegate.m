@@ -25,6 +25,7 @@
 #import "HttpClient.h"
 #import "RCUserModel.h"
 #import "YYNavigationController.h"
+#import "YYTabBarItem.h"
 
 @interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) YYTabBarController *yyTabBar;
@@ -114,43 +115,66 @@
             NSLog(@"%@",error);
         }];
 
-    
-    
-
-    
-    
+   
     // 融云控制台输出信息种类
     [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Error;
     
-    //r---------- 3 向用户请求允许推送 ----------
-    if ([application
-         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
-        //注册推送, 用于iOS8以及iOS8之后的系统
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings
-                                                settingsForTypes:(UIUserNotificationTypeBadge |
-                                                                  UIUserNotificationTypeSound |
-                                                                  UIUserNotificationTypeAlert)
-                                                categories:nil];
-        [application registerUserNotificationSettings:settings];
+//    //r---------- 3 向用户请求允许推送 ----------
+//    if ([application
+//         respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        //注册推送, 用于iOS8以及iOS8之后的系统
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings
+//                                                settingsForTypes:(UIUserNotificationTypeBadge |
+//                                                                  UIUserNotificationTypeSound |
+//                                                                  UIUserNotificationTypeAlert)
+//                                                categories:nil];
+//        [application registerUserNotificationSettings:settings];
+//    }
+//    
+//    
+//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+//    center.delegate = self;
+//    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+//        
+//        if (granted) {
+//            //点击允许
+//            NSLog(@"注册通知成功");
+//            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+//                NSLog(@"%@", settings);
+//            }];
+//        } else {
+//            //点击不允许
+//            NSLog(@"注册通知失败");
+//        }
+//    }];
+
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
+        //iOS10特有
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        // 必须写代理，不然无法监听通知的接收与点击
+        center.delegate = self;
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                // 点击允许
+                NSLog(@"注册成功");
+                [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
+                    NSLog(@"%@", settings);
+                }];
+            } else {
+                // 点击不允许
+                NSLog(@"注册失败");
+            }
+        }];
+    }else if ([[UIDevice currentDevice].systemVersion floatValue] >8.0){
+        //iOS8 - iOS10
+        [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil]];
+        
+    }else if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
+        //iOS8系统以下
+//        [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound];
     }
     
-    
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    center.delegate = self;
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        
-        if (granted) {
-            //点击允许
-            NSLog(@"注册通知成功");
-            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-                NSLog(@"%@", settings);
-            }];
-        } else {
-            //点击不允许
-            NSLog(@"注册通知失败");
-        }
-    }];
-    //注册推送（同iOS8）
+     // 注册获得device Token
     [[UIApplication sharedApplication] registerForRemoteNotifications];
     
     
@@ -189,7 +213,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 #pragma mark- JPUSHRegisterDelegate
 
-// iOS 10 Support
+// 收到通知 iOS 10 Support 
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
     // Required
     NSDictionary * userInfo = notification.request.content.userInfo;
@@ -199,14 +223,14 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
 }
 
-// iOS 10 Support
+// iOS 10 Support 收到的远程通知
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         [JPUSHService handleRemoteNotification:userInfo];
     }
-    completionHandler();  // 系统要求执行这个方法
+    completionHandler(UNNotificationPresentationOptionAlert);  // 系统要求执行这个方法
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -301,11 +325,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     NSLog(@"还剩余的未接收的消息数：%d", left);
     
-    
-    
-    
-    
-    
+ 
     //r---------- 6.3 创建本地通知，当app还未被系统杀死时候推送的是本地通知 ----------
     UILocalNotification *localNote = [[UILocalNotification alloc] init];
     
@@ -354,12 +374,18 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //    NSLog(@"response:%@", response);
     
     //已经获得了通话人的id，需要处理跳转逻辑
-    self.yyTabBar.selectedIndex = 2;
-    
-    
+    YYTabBarController *tabbarVC = (YYTabBarController *)self.window.rootViewController;
+    [tabbarVC switchTab:2];
     if ([self.yyTabBar.viewControllers.lastObject respondsToSelector:@selector(pushViewController: animated:)]) {
+        
         [self.yyTabBar.viewControllers.lastObject pushViewController:wordVC animated:YES];
     }
     NSLog(@"response:%@", response);
+}
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    //应用在前台收到通知
+    NSLog(@"========%@", notification);
+    //如果需要在应用在前台也展示通知
+    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert);
 }
 @end
