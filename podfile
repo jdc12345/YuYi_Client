@@ -11,7 +11,7 @@ pod 'RongCloudIM/IMLib', '~> 2.8.3'
 pod 'RongCloudIM/IMKit', '~> 2.8.3'
 pod 'RongCloudIM/CallLib', '~> 2.8.3'
 pod 'RongCloudIM/CallKit', '~> 2.8.3'
-pod 'JPush', '3.0.2'
+pod 'JPush', '3.0.7'
 pod 'SVProgressHUD'
 end
 

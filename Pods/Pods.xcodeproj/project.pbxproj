@@ -284,6 +284,7 @@
 
 /* Begin PBXFileReference section */
 		003A5483D4E12FC5C0CE2261738C3C12 /* UIScrollView+MJRefresh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIScrollView+MJRefresh.h"; path = "MJRefresh/UIScrollView+MJRefresh.h"; sourceTree = "<group>"; };
+		009616CDC40F2E350DAF62CD9C942B39 /* libjpush-ios-3.0.7.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjpush-ios-3.0.7.a"; sourceTree = "<group>"; };
 		01723E77B88BDD224EBE661038D5DDEB /* SVProgressHUD-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SVProgressHUD-dummy.m"; sourceTree = "<group>"; };
 		018F44ED3B5EA0CC15CF4415B4A8C022 /* NSImage+WebCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSImage+WebCache.h"; path = "SDWebImage/NSImage+WebCache.h"; sourceTree = "<group>"; };
 		01ECA66FAC1DD224B0A0975A6D111C7C /* UIView+MJExtension.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIView+MJExtension.h"; path = "MJRefresh/UIView+MJExtension.h"; sourceTree = "<group>"; };
@@ -313,7 +314,6 @@
 		16ADB0BA464C45FC8562F5AB46945723 /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLConnectionOperation.h; path = AFNetworking/AFURLConnectionOperation.h; sourceTree = "<group>"; };
 		19BA59CAE83C5BEF05A535FBD7FB041F /* MJProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJProperty.h; path = MJExtension/MJProperty.h; sourceTree = "<group>"; };
 		1E1BAA07A38189FBAAC14A3F5148101A /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFURLRequestSerialization.h; path = AFNetworking/AFURLRequestSerialization.h; sourceTree = "<group>"; };
-		1FA5E9A34CA4AFED94299B7036C02BE6 /* libjpush-ios-3.0.2.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; path = "libjpush-ios-3.0.2.a"; sourceTree = "<group>"; };
 		20E95FDDF13816DBC7A66A26DB3D7EDA /* TAAnimatedDotView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = TAAnimatedDotView.m; path = SDCycleScrollView/Lib/SDCycleScrollView/PageControl/TAAnimatedDotView.m; sourceTree = "<group>"; };
 		226C0A418F312EFB10CE5A100C8EDB97 /* MASUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MASUtilities.h; path = Masonry/MASUtilities.h; sourceTree = "<group>"; };
 		23B5FE166B3D12FA8200000AB840E630 /* UIImageView+HighlightedWebCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+HighlightedWebCache.m"; path = "SDWebImage/UIImageView+HighlightedWebCache.m"; sourceTree = "<group>"; };
@@ -627,7 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				EFD765AF9FA8358701F89078CB9D5532 /* JPUSHService.h */,
-				DBCBD718C81E55132553C2EC67B70878 /* Frameworks */,
+				6D928FE2AB84046B14E9AC07E2BBF657 /* Frameworks */,
 			);
 			name = JPush;
 			path = JPush;
@@ -805,6 +805,14 @@
 				D13701335C60511D5515E4BBCE28F798 /* MJRefresh.bundle */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		6D928FE2AB84046B14E9AC07E2BBF657 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				009616CDC40F2E350DAF62CD9C942B39 /* libjpush-ios-3.0.7.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		6E793574B318AB61528EF4256C5610FC /* Frameworks */ = {
@@ -1110,14 +1118,6 @@
 			);
 			name = Masonry;
 			path = Masonry;
-			sourceTree = "<group>";
-		};
-		DBCBD718C81E55132553C2EC67B70878 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1FA5E9A34CA4AFED94299B7036C02BE6 /* libjpush-ios-3.0.2.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E7CB91D78EEA0F39AE39F334DABEC426 /* MJExtension */ = {
