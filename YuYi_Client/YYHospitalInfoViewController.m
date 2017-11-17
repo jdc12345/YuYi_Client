@@ -179,7 +179,7 @@
     
     if (![self.yyInfomationModel.info_id isEqualToString:@""]) {
         hospitalLabel.text = self.yyInfomationModel.hospitalName;
-        starLabel.text = self.yyInfomationModel.gradeName;
+        starLabel.text = self.yyInfomationModel.grade;
     }
     
 }

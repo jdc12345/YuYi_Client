@@ -34,18 +34,25 @@
 #pragma mark -
 #pragma mark ---------------Dis - Url------------------
 //#define mPrefixUrl @"http://59.110.169.148:8080"
+#define mDefineToken [CcUserModel defaultClient].userToken
 // 首页资讯2条数据接口
-#define mHomepageInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findList.do?start=0&limit=2"]
+//参数：       参数名        参数类型    备注
+//Publishchannel      Integer      发布渠道1=宇医2=宇医医生
+//time        Integer      发布时间1升序2降序    
+#define mHomepageInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/doctorlyinformation/findPagePersonal.do?start=0&limit=2&Publishchannel=1"]
 // 首页资讯列表接口
-#define mHomepageInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findList.do?start=0&limit=20"]
+#define mHomepageInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/doctorlyinformation/findPagePersonal.do?start=0&limit=10&Publishchannel=1"]
+//#define mHomepageInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findList.do?start=0&limit=20"]
 // 首页融云token接口
 #define mRCtokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/rongyuToken.do?personalid="]
+//根据融云返回id查询用户信息
+#define mRCUserInfoUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findMyUserInfo.do?token="]
 #define mRCDoctorTokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/doctory.do?cid="]
 // 医院列表接口
-#define mHospitalInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=20"]
+#define mHospitalInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=10"]
 
 // 首页资讯详情数据接口
-#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/getid.do?id="]
+#define mHomepageInfoDetail [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/doctorlyinformation/getIdPersonal.do?id="]
 // 首页用户列表和测量数据
 #define mUserAndMeasureInfo [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findListHome.do?"]
 
@@ -87,8 +94,8 @@
 // 首页药品列表
 #define mHomeMedical [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/drugs/findList.do?start=0&limit=6&cid=11"]
 
-// .首页搜索药品接口
-#define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/article/findall.do"]
+// .首页轮播器接口
+#define mHomepageImages [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/doctorlyinformation/findall.do"]
 // 获取家庭成员
 #define mHomeusers [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findList.do?token="]
 // 获取家庭成员

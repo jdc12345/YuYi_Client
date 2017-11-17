@@ -18,7 +18,6 @@
 //#import <AdSupport/AdSupport.h>
 
 #import <RongIMKit/RongIMKit.h>
-
 #import "CcUserModel.h"
 #import "YYLogInVC.h"
 #import "YYWordsViewController.h"
@@ -27,7 +26,7 @@
 #import "YYNavigationController.h"
 #import "YYTabBarItem.h"
 
-@interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate>
+@interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate, RCIMUserInfoDataSource>
 @property (nonatomic, strong) YYTabBarController *yyTabBar;
 @end
 
@@ -55,7 +54,6 @@
     }
             
     NSLog(@"注册");
-    
     
     //Required
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -102,6 +100,11 @@
                [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:userModel_rc.TrueName portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel_rc.Avatar]];
                 
                 [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+                [[RCIM sharedRCIM] setUserInfoDataSource:self];
+                //            是否关闭所有的本地通知，默认值是NO
+                [RCIM sharedRCIM].disableMessageNotificaiton = false;
+                //            是否将用户信息和群组信息在本地持久化存储，默认值为NO
+                [[RCIM sharedRCIM]setEnablePersistentUserInfoCache:YES];
             } error:^(RCConnectErrorCode status) {
                 NSLog(@"登陆的错误码为:%ld", (long)status);
             } tokenIncorrect:^{
@@ -130,23 +133,7 @@
 //                                                categories:nil];
 //        [application registerUserNotificationSettings:settings];
 //    }
-//    
-//    
-//    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-//    center.delegate = self;
-//    [center requestAuthorizationWithOptions:(UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-//        
-//        if (granted) {
-//            //点击允许
-//            NSLog(@"注册通知成功");
-//            [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
-//                NSLog(@"%@", settings);
-//            }];
-//        } else {
-//            //点击不允许
-//            NSLog(@"注册通知失败");
-//        }
-//    }];
+//
 
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
         //iOS10特有
@@ -165,9 +152,13 @@
                 NSLog(@"注册失败");
             }
         }];
-    }else if ([[UIDevice currentDevice].systemVersion floatValue] >8.0){
+    }else if (10 > [[UIDevice currentDevice].systemVersion floatValue] >= 8.0){
         //iOS8 - iOS10
+        if ([application
+             respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+
         [application registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeSound | UIUserNotificationTypeBadge categories:nil]];
+        }
         
     }else if ([[UIDevice currentDevice].systemVersion floatValue] < 8.0) {
         //iOS8系统以下
@@ -182,8 +173,35 @@
     // Override point for customization after application launch.
     return YES;
 }
-
-
+# pragma mark - RCIMUserInfoDataSource SDK需要通过您实现的用户信息提供者，获取用户信息并显示
+-(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    NSString *getUserInfoUrl = [NSString stringWithFormat:@"%@%@&personalId=%@",mRCUserInfoUrl,mDefineToken,userId];
+    [[HttpClient defaultClient] requestWithPath:getUserInfoUrl method:0 parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dic = responseObject;
+//        YYHomeUserModel *modle = [YYHomeUserModel mj_objectWithKeyValues:dic];
+        
+        RCUserInfo *userModel_rc = [[RCUserInfo alloc]initWithUserId:userId name:dic[@"trueName"] portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,dic[@"avatar"]]];
+        return completion(userModel_rc);
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+    
+}
+//更新pod前
+- (void)getUserInfoWithUserId:(NSString *)userId n:(void (^)(RCUserInfo *))completion {
+    NSString *getUserInfoUrl = [NSString stringWithFormat:@"%@%@&personalId=%@",mRCUserInfoUrl,mDefineToken,userId];
+    [[HttpClient defaultClient] requestWithPath:getUserInfoUrl method:0 parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSDictionary *dic = responseObject;
+        //        YYHomeUserModel *modle = [YYHomeUserModel mj_objectWithKeyValues:dic];
+        
+        RCUserInfo *userModel_rc = [[RCUserInfo alloc]initWithUserId:userId name:dic[@"trueName"] portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,dic[@"avatar"]]];
+        return completion(userModel_rc);
+        
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    }];
+}
 #pragma mark -
 #pragma mark ------------JPUSH----------------------
 - (void)application:(UIApplication *)application
@@ -211,42 +229,48 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //Optional
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
-#pragma mark- JPUSHRegisterDelegate
+#pragma mark- JPUSHRegisterDelegate(APNs通知)// 2.1.9版新增JPUSHRegisterDelegate,需实现以下两个方法
 
-// 收到通知 iOS 10 Support 
+// iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
-    // Required
+    // Required // APNs内容为userInfo
     NSDictionary * userInfo = notification.request.content.userInfo;
-    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]])
+    {//远程推送
         [JPUSHService handleRemoteNotification:userInfo];
+        NSLog(@"%@",userInfo);
+    }else {
+        // 本地通知
     }
     completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有Badge、Sound、Alert三种类型可以选择设置
 }
 
-// iOS 10 Support 收到的远程通知
+// iOS 10 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
-    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {//远程推送
         [JPUSHService handleRemoteNotification:userInfo];
+    }else {
+        // 本地通知
     }
-    completionHandler(UNNotificationPresentationOptionAlert);  // 系统要求执行这个方法
+    completionHandler();  // 系统要求执行这个方法
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    // Required, iOS 7 Support
+    // 基于iOS 7 及以上的系统版本，如果是使用 iOS 7 的 Remote Notification 特性那么处理函数需要使用
     [JPUSHService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    // Required,For systems with less than or equal to iOS6
-    [JPUSHService handleRemoteNotification:userInfo];
-    
-    NSLog(@"%@",userInfo);
-}
+//    获取自定义消息推送内容(JPUSH)2.实现回调通知，获取通知内容
+//- (void)networkDidReceiveMessage:(NSNotification *)notification {
+//    NSDictionary * userInfo = [notification userInfo];
+//    NSString *content = [userInfo valueForKey:@"content"];
+//    NSDictionary *extras = [userInfo valueForKey:@"extras"];
+//    NSString *customizeField1 = [extras valueForKey:@"customizeField1"]; //服务端传递的Extras附加字段，key是自己定义的
+//
+//}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -295,62 +319,76 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
                                                                          @(ConversationType_PUBLICSERVICE),
                                                                          @(ConversationType_GROUP)
                                                                          ]];
-    
-    NSString * unreadNum = [NSString stringWithFormat:@"%d",unreadMsgCount];
-    NSDictionary * dict = @{@"unreadNum":unreadNum};
-
-    //r---------- 6.1 发送未读信息通知 ----------
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageUnreadNum" object:nil userInfo:dict];
-    
-    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
-    
-    if (version >= 8.0) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }
     UIApplication *app = [UIApplication sharedApplication];
     //r---------- 6.2 显示未读信息数 ----------
-    app.applicationIconBadgeNumber = unreadMsgCount;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        app.applicationIconBadgeNumber = unreadMsgCount;
+    });
     
-    //消息内容
-    NSString *messageContent = @"";
-    // 注册通知
-    if ([message.content isMemberOfClass:[RCTextMessage class]]) {
-        RCTextMessage *testMessage = (RCTextMessage *)message.content;
-        NSLog(@"消息内容：%@", testMessage.content);
-        messageContent = testMessage.content;
-        //        UILocalNotification *locatNotific = [[UILocalNotification alloc]init];
-        //        locatNotific.alertTitle = testMessage.content;
-        //        [[UIApplication sharedApplication] presentLocalNotificationNow:locatNotific];
-    }
-    NSLog(@"还剩余的未接收的消息数：%d", left);
+//    NSString * unreadNum = [NSString stringWithFormat:@"%d",unreadMsgCount];
+//    NSDictionary * dict = @{@"unreadNum":unreadNum};
+//
+//    //r---------- 6.1 发送未读信息通知 ----------
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"MessageUnreadNum" object:nil userInfo:dict];
+//
+//    float version = [[[UIDevice currentDevice] systemVersion] floatValue];
+//
+//    if (version >= 8.0) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+//    }
+//    UIApplication *app = [UIApplication sharedApplication];
+//    //r---------- 6.2 显示未读信息数 ----------
+//    app.applicationIconBadgeNumber = unreadMsgCount;
+//
+//    //消息内容
+//    NSString *messageContent = @"";
+//    // 注册通知
+//    if ([message.content isMemberOfClass:[RCTextMessage class]]) {
+//        RCTextMessage *testMessage = (RCTextMessage *)message.content;
+//        NSLog(@"消息内容：%@", testMessage.content);
+//        messageContent = testMessage.content;
+//        //        UILocalNotification *locatNotific = [[UILocalNotification alloc]init];
+//        //        locatNotific.alertTitle = testMessage.content;
+//        //        [[UIApplication sharedApplication] presentLocalNotificationNow:locatNotific];
+//    }
+//    NSLog(@"还剩余的未接收的消息数：%d", left);
+//
+//
+//    //r---------- 6.3 创建本地通知，当app还未被系统杀死时候推送的是本地通知 ----------
+//    UILocalNotification *localNote = [[UILocalNotification alloc] init];
+//
+//
+//    localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0];
+//
+//    localNote.alertBody = messageContent;
+//
+//    localNote.alertAction = @"解锁";
+//
+//    localNote.hasAction = NO;
+//
+//    localNote.alertLaunchImage = @"123Abc";
+//    // 2.6.设置alertTitle
+//    localNote.alertTitle = @"你有一条新消息";
+//    // 2.7.设置有通知时的音效
+//    localNote.soundName = @"buyao.wav";
+//    // 2.8.设置应用程序图标右上角的数字
+//    localNote.applicationIconBadgeNumber = unreadMsgCount;
+//
+//    // 2.9.设置额外信息（通话人的id）
+//    localNote.userInfo = @{@"targetId" : message.targetId};
+//
+//    // 3.调用通知
+//    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+}
+//当App处于后台时，接收到消息并弹出本地通知的回调方法
+-(BOOL)onRCIMCustomLocalNotification:(RCMessage *)message withSenderName:(NSString *)senderName{
     
- 
-    //r---------- 6.3 创建本地通知，当app还未被系统杀死时候推送的是本地通知 ----------
-    UILocalNotification *localNote = [[UILocalNotification alloc] init];
-    
-
-    localNote.fireDate = [NSDate dateWithTimeIntervalSinceNow:3.0];
-
-    localNote.alertBody = messageContent;
-
-    localNote.alertAction = @"解锁";
-
-    localNote.hasAction = NO;
-
-    localNote.alertLaunchImage = @"123Abc";
-    // 2.6.设置alertTitle
-    localNote.alertTitle = @"你有一条新消息";
-    // 2.7.设置有通知时的音效
-    localNote.soundName = @"buyao.wav";
-    // 2.8.设置应用程序图标右上角的数字
-    localNote.applicationIconBadgeNumber = unreadMsgCount;
-    
-    // 2.9.设置额外信息（通话人的id）
-    localNote.userInfo = @{@"targetId" : message.targetId};
-    
-    // 3.调用通知
-    [[UIApplication sharedApplication] scheduleLocalNotification:localNote];
+    return NO;
+}
+//当App处于前台时，接收到消息并播放提示音的回调方法
+-(BOOL)onRCIMCustomAlertSound:(RCMessage *)message{
+    return NO;
 }
 // ---------------------通知的点击事件-------------------
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
@@ -366,7 +404,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //用户信息，本地通知传过来了通话人的id(targetId)
     NSDictionary *userInfo = content.userInfo;
     NSLog(@"----------------%@",userInfo);
-    wordVC.targetId = userInfo[@"targetId"];
+    wordVC.targetId = userInfo[@"fId"];
 //    UIViewController *currentVC = [(UINavigationController *)self.window.rootViewController visibleViewController];
 //    if ([currentVC respondsToSelector:@selector(pushViewController: animated:)]) {
 //        [currentVC performSelector:@selector(pushViewController: animated:) withObject:wordVC withObject:@YES];
@@ -382,10 +420,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     }
     NSLog(@"response:%@", response);
 }
-- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    //应用在前台收到通知
-    NSLog(@"========%@", notification);
-    //如果需要在应用在前台也展示通知
-    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert);
-}
+//- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+//    //应用在前台收到通知
+//    NSLog(@"========%@", notification);
+//    //如果需要在应用在前台也展示通知
+//    completionHandler(UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionSound|UNNotificationPresentationOptionAlert);
+//}
+
+
 @end

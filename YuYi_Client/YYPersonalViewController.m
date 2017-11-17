@@ -74,7 +74,7 @@
     [super viewDidLoad];
  //    [self httpRequest];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
-    
+   
     // ,@[@"购物车",@"订单详情"] ,@[@"Personal-shopping -icon-",@"order_icon_"]
     CcUserModel *model = [CcUserModel defaultClient];
     if (![model.telephoneNum isEqualToString:@"18511694068"]) {
@@ -95,7 +95,12 @@
 //        make.size.mas_equalTo(CGSizeMake((kScreenW -40*kiphone6), 30 *kiphone6));
 //    }];
     self.tableView.tableHeaderView = [self personInfomation];
-    
+    if (@available(iOS 11.0, *)) {
+        //iOS 11
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else{//不是iOS 11
+        self.automaticallyAdjustsScrollViewInsets = false;
+    }
    // [self tableView];
     
     // Do any additional setup after loading the view.

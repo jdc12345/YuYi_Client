@@ -139,10 +139,12 @@
 
 
 - (void)httpRequestForUser{
+    [SVProgressHUD show];
     NSString *tokenStr = [CcUserModel defaultClient].userToken;
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mUserAndMeasureInfo,tokenStr] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         [self.userList removeAllObjects];
         NSArray *result = responseObject[@"result"];
         for (NSDictionary *dict in result) {

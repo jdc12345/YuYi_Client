@@ -8,9 +8,7 @@
 
 #import "YYHandleMeasureViewController.h"
 #import "YYCardInputView.h"
-#import "UIColor+Extension.h"
 #import "UIBarButtonItem+Helper.h"
-#import <Masonry.h>
 #import "YYMemberTableViewCell.h"
 
 #import "HttpClient.h"
@@ -26,8 +24,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 @property (nonatomic, assign) NSInteger currentUser;
-
-
 
 @property (nonatomic, weak) YYCardInputView *cardView1;
 @property (nonatomic, weak) YYCardInputView *cardView2;
@@ -67,13 +63,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.title = @"手动输入";
-    
-    
-
-    
-    
-
-    
+   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(KeyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -140,8 +130,8 @@
     lineL.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
     
     UIButton *sureBtn = [UIButton  buttonWithType:UIButtonTypeCustom];
-    sureBtn.layer.cornerRadius = 1.5 *kiphone6;
-    sureBtn.layer.borderWidth = 1 *kiphone6;
+    sureBtn.layer.cornerRadius = 1.5;
+    sureBtn.layer.borderWidth = 1;
     sureBtn.layer.borderColor = [UIColor colorWithHexString:@"25f368"].CGColor;
     sureBtn.clipsToBounds = YES;
     [sureBtn setTitle:@"确认" forState:UIControlStateNormal];
@@ -156,7 +146,6 @@
     [self.memberView addSubview:sureBtn];
     [self.memberView addSubview:lineL];
     
-    
     WS(ws);
     [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(ws.memberView).with.offset(-9.5 *kiphone6);
@@ -166,7 +155,7 @@
     [lineL mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(ws.memberView).with.offset(-49 *kiphone6);
         make.centerX.equalTo(ws.memberView);
-        make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,1 *kiphone6));
+        make.size.mas_equalTo(CGSizeMake(kScreenW *kiphone6 ,1));
     }];
     [self tableView];
     
@@ -220,7 +209,6 @@
 -(void)buttonClick1:(UIButton *)button{
     [button setBackgroundColor:[UIColor whiteColor]];
     [self httpRequest];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -252,8 +240,6 @@
                            @"temperaturet":self.cardView1.dataTextField.text
                            };
     }
-    
-
     NSLog(@"参数：　%@",parametersDict);
     
     [[HttpClient defaultClient]requestWithPath:urlStr method:1 parameters:parametersDict prepareExecute:^{

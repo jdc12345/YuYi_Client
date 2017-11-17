@@ -43,12 +43,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"涿州市中医院";
-    self.leftDataSource = [[NSMutableArray alloc]initWithArray:@[@"内科",@"外科",@"妇产科",@"儿科",@"眼科",@"耳鼻喉科",@"口腔科",@"中医科"]];
-    self.rightDataSourceList = [[NSMutableArray alloc]initWithArray:@[@[@"呼吸内科门诊",@"消化内科门诊",@"心脑血管内科门诊",@"肾内科门诊",@"神经内科内科门诊",@"感染内科门诊",@"普内科门诊"],@[@"呼吸外科",@"消化外科",@"心脑血管外科",@"肾外科",@"神经外科",@"感染外科",@"普外科"],@[@"呼吸妇产科",@"消化妇产科",@"心脑血管妇产科",@"肾妇产科",@"神经妇产科",@"感染妇产科",@"普妇产科"],@[@"呼吸儿科",@"消化儿科",@"心脑血管儿科",@"肾儿科",@"神经儿科",@"感染儿科",@"普儿科"],@[@"呼吸眼科",@"消化眼科",@"心脑血管眼科",@"肾眼科",@"神经眼科",@"感染眼科",@"普眼科"],@[@"呼吸耳鼻喉科",@"消化耳鼻喉科",@"心脑血管耳鼻喉科",@"肾耳鼻喉科",@"神经耳鼻喉科",@"感染内耳鼻喉科",@"普耳鼻喉科"],@[@"呼吸口腔科",@"消化口腔科",@"心脑血管口腔科",@"肾口腔科",@"神经口腔科",@"感染口腔科",@"普口腔科"],@[@"呼吸中医科",@"消化中医科",@"心脑血管中医科",@"肾中医科",@"神经中医科",@"感染中医科",@"普中医科"]]];
+//    self.leftDataSource = [[NSMutableArray alloc]initWithArray:@[@"内科",@"外科",@"妇产科",@"儿科",@"眼科",@"耳鼻喉科",@"口腔科",@"中医科"]];
+//    self.rightDataSourceList = [[NSMutableArray alloc]initWithArray:@[@[@"呼吸内科门诊",@"消化内科门诊",@"心脑血管内科门诊",@"肾内科门诊",@"神经内科内科门诊",@"感染内科门诊",@"普内科门诊"],@[@"呼吸外科",@"消化外科",@"心脑血管外科",@"肾外科",@"神经外科",@"感染外科",@"普外科"],@[@"呼吸妇产科",@"消化妇产科",@"心脑血管妇产科",@"肾妇产科",@"神经妇产科",@"感染妇产科",@"普妇产科"],@[@"呼吸儿科",@"消化儿科",@"心脑血管儿科",@"肾儿科",@"神经儿科",@"感染儿科",@"普儿科"],@[@"呼吸眼科",@"消化眼科",@"心脑血管眼科",@"肾眼科",@"神经眼科",@"感染眼科",@"普眼科"],@[@"呼吸耳鼻喉科",@"消化耳鼻喉科",@"心脑血管耳鼻喉科",@"肾耳鼻喉科",@"神经耳鼻喉科",@"感染内耳鼻喉科",@"普耳鼻喉科"],@[@"呼吸口腔科",@"消化口腔科",@"心脑血管口腔科",@"肾口腔科",@"神经口腔科",@"感染口腔科",@"普口腔科"],@[@"呼吸中医科",@"消化中医科",@"心脑血管中医科",@"肾中医科",@"神经中医科",@"感染中医科",@"普中医科"]]];
+    self.leftDataSource = [NSMutableArray array];
+    self.rightDataSourceList = [NSMutableArray array];
     [self httpRequest];
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.leftTableView];
-    [self.view addSubview:self.rightTableView];
+//    [self.view addSubview:self.leftTableView];
+//    [self.view addSubview:self.rightTableView];
     
 
     // Do any additional setup after loading the view.
@@ -236,9 +238,11 @@
 #pragma mark -
 #pragma mark ------------Http client----------------------
 - (void)httpRequest{
+    [SVProgressHUD show];
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHospitalClass,self.info_id] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"%@",responseObject);
         [self.leftDataSource removeAllObjects];
         [self.rightDataSourceList removeAllObjects];
@@ -260,7 +264,7 @@
         
     
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+       [SVProgressHUD dismiss];
     }];
 }
 /*

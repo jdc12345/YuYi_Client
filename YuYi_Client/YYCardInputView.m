@@ -7,8 +7,6 @@
 //
 
 #import "YYCardInputView.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
 
 @implementation YYCardInputView
 
@@ -39,21 +37,20 @@
     self.dataTextField.placeholder = @"请输入......";
     self.dataTextField.textColor = [UIColor colorWithHexString:@"25f368"];
     self.dataTextField.font = [UIFont systemFontOfSize:13];
-    
-    
+        
     [self addSubview:lineLabel];
     [self addSubview:self.titleLabel];
     [self addSubview:self.dataTextField];
     
     WS(ws);
     [lineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws).with.offset(30 *kiphone6);
-        make.left.equalTo(ws).with.offset(15 *kiphone6);
+        make.top.equalTo(ws).offset(30 *kiphone6);
+        make.left.equalTo(ws).offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(self.frame.size.width - 15*kiphone6 ,1));
     }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(ws).with.offset(7.5 *kiphone6);
-        make.left.equalTo(ws).with.offset(15 *kiphone6);
+        make.top.equalTo(ws).offset(7.5 *kiphone6);
+        make.left.equalTo(ws).offset(15 *kiphone6);
         make.size.mas_equalTo(CGSizeMake(self.frame.size.width - 15*kiphone6 ,15));
     }];
     

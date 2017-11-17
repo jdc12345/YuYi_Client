@@ -80,9 +80,11 @@
 }
 //请求病历记录数据
 - (void)httpRequestForRecoder{
+    [SVProgressHUD show];
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@token=%@",mMedicalToken,[CcUserModel defaultClient].userToken] method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSArray *rowArray = responseObject[@"result"];
         NSLog(@"%@",responseObject);
         for (NSDictionary *dict in rowArray) {
@@ -92,7 +94,7 @@
         }
         
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+      [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后再试"];
     }];
 }
 

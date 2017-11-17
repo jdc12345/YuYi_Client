@@ -19,8 +19,8 @@
 #import "CcUserModel.h"
 #import "HttpClient.h"
 #import <UIImageView+WebCache.h>
-#import <UIImageView+WebCache.h>
 #import "YYTabBarController.h"
+
 @interface YYPInfomartionViewController ()<UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -510,9 +510,11 @@
     NSString *encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     [dict setValue:userToken forKey:@"token"];
     [dict setValue:encodedImageStr forKey:@"avatar"];
+    [SVProgressHUD show];
     [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@",mChangeInfo] method:1 parameters:dict prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
+        [SVProgressHUD dismiss];
         NSLog(@"%@",responseObject);
         NSString *messageStr;
         if ([responseObject[@"code"] isEqualToString:@"0"]) {
@@ -538,16 +540,16 @@
         [alert addAction:okAction];
         [self presentViewController:alert animated:YES completion:nil];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:@"网络请求失败，请稍后再试"];
     }];
     }
 }
-- (void)viewWillDisappear:(BOOL)animated{
-  //  if (self.isFirstLogin) {
- //       YYTabBarController *firstVC = [[YYTabBarController alloc]init];
-//        [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
- //   }
-}
+//- (void)viewWillDisappear:(BOOL)animated{
+//  //  if (self.isFirstLogin) {
+// //       YYTabBarController *firstVC = [[YYTabBarController alloc]init];
+////        [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
+// //   }
+//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘

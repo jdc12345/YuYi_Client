@@ -18,16 +18,17 @@
 
 @property (nonatomic, copy) NSString *introduction;
 @property (nonatomic, copy) NSString *hospitalName;
-@property (nonatomic, copy) NSString *gradeName;
+//@property (nonatomic, copy) NSString *gradeName;
+@property (nonatomic, copy) NSString *grade;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *info_id;
 @property (nonatomic, copy) NSString *picture;
-
+@property (nonatomic, copy) NSString *content;//正文
 
 // 文章
 @property (nonatomic, copy) NSString *articleText;
 @property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *smalltitle;
+@property (nonatomic, copy) NSString *smallTitle;
 @property (nonatomic, copy) NSString *tell;
 
 

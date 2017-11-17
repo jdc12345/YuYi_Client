@@ -16,6 +16,7 @@
 #import "YYMedicinalDetailVC.h"
 #import "YYHospitalInfoViewController.h"
 #import "YYInfomationModel.h"
+#import <MJExtension.h>
 
 static NSString *dentifier=@"cellforappliancelist";
 @interface YYSearchTableViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
@@ -279,11 +280,15 @@ static NSString *dentifier=@"cellforappliancelist";
         NSArray *responseArr = responseDic[@"result"];
         NSArray *resultArr = [NSArray array];
         if (self.searchCayegory==1) {
-            resultArr = [NSArray yy_modelArrayWithClass:[YYInfomationModel class] json:responseArr];
+            for (NSDictionary *dict in responseArr){
+                YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
+                [self.searchingList addObject:infoModel];
+            }
+//            resultArr = [NSArray yy_modelArrayWithClass:[YYInfomationModel class] json:responseArr];
         }else if (self.searchCayegory==0){
             resultArr = [NSArray yy_modelArrayWithClass:[YYMedinicalDetailModel class] json:responseArr];
         }
-        self.searchingList = [NSMutableArray arrayWithArray:resultArr];
+//        self.searchingList = [NSMutableArray arrayWithArray:resultArr];
         if (self.searchingList.count==0) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"什么也没有,请重新搜索" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:nil];

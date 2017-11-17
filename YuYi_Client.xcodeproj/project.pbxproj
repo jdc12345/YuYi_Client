@@ -99,14 +99,8 @@
 		3E1840FB1E56C8CF00069568 /* YYMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FA1E56C8CF00069568 /* YYMeasureViewController.m */; };
 		3E1840FF1E56D01100069568 /* YYConsultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1840FE1E56D01100069568 /* YYConsultViewController.m */; };
 		3E1841441E56E6D000069568 /* YYHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841431E56E6D000069568 /* YYHomeHeadView.m */; };
-		3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841451E5A7BED00069568 /* carinalau1.jpg */; };
-		3E18414A1E5A7BED00069568 /* carinalau2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841461E5A7BED00069568 /* carinalau2.jpg */; };
-		3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841471E5A7BED00069568 /* carinalau3.jpg */; };
-		3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841481E5A7BED00069568 /* carinalau4.jpg */; };
-		3E18414E1E5A937E00069568 /* LIM_.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E18414D1E5A937E00069568 /* LIM_.png */; };
 		3E1841511E5AA9FF00069568 /* YYTrendView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841501E5AA9FF00069568 /* YYTrendView.m */; };
 		3E1841551E5ACEFB00069568 /* YYHomeNewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */; };
-		3E1841571E5AD0A900069568 /* cell1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E1841561E5AD0A900069568 /* cell1.png */; };
 		3E18415C1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */; };
 		3E1E472E1E5BD6FE0042934D /* ZYPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E472D1E5BD6FE0042934D /* ZYPageControl.m */; };
 		3E1E47351E5BDC3F0042934D /* ZYAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1E47301E5BDC3F0042934D /* ZYAbstractDotView.m */; };
@@ -171,7 +165,6 @@
 		3EBA2D6E1E5E8647005C3448 /* YYCardInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D6D1E5E8647005C3448 /* YYCardInputView.m */; };
 		3EBA2D711E5E9ECC005C3448 /* YYHospitalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D701E5E9ECC005C3448 /* YYHospitalInfoViewController.m */; };
 		3EBA2D741E5EB7C3005C3448 /* YYConsultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */; };
-		3EBD824C1E8E5CA700BDC217 /* avatar.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EBD824B1E8E5CA700BDC217 /* avatar.jpg */; };
 		3EC2BFF51E6F9CA600F01795 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF41E6F9CA600F01795 /* CFNetwork.framework */; };
 		3EC2BFF71E6F9CC000F01795 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF61E6F9CC000F01795 /* CoreFoundation.framework */; };
 		3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EC2BFF81E6F9CC900F01795 /* CoreTelephony.framework */; };
@@ -200,10 +193,7 @@
 		3EFBD6311E66AF6000B422BD /* YYAboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6301E66AF6000B422BD /* YYAboutUSViewController.m */; };
 		3EFBD6371E67A8F900B422BD /* YYSpeechViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */; };
 		3EFBD63A1E67B85100B422BD /* YYAVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6391E67B85100B422BD /* YYAVViewController.m */; };
-		3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */; };
-		3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */; };
 		3EFBD6411E67BAEA00B422BD /* YYWordsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */; };
-		3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */; };
 		3EFBD64F1E6831FC00B422BD /* YYPersonalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */; };
 		3EFBD6501E68320700B422BD /* HcCustomKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */; };
 		3EFBD6511E68321800B422BD /* YYDataAnalyseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFBD62D1E6656C200B422BD /* YYDataAnalyseViewController.m */; };
@@ -422,16 +412,10 @@
 		3E1840FE1E56D01100069568 /* YYConsultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultViewController.m; sourceTree = "<group>"; };
 		3E1841421E56E6D000069568 /* YYHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeHeadView.h; sourceTree = "<group>"; };
 		3E1841431E56E6D000069568 /* YYHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeHeadView.m; sourceTree = "<group>"; };
-		3E1841451E5A7BED00069568 /* carinalau1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau1.jpg; sourceTree = "<group>"; };
-		3E1841461E5A7BED00069568 /* carinalau2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau2.jpg; sourceTree = "<group>"; };
-		3E1841471E5A7BED00069568 /* carinalau3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau3.jpg; sourceTree = "<group>"; };
-		3E1841481E5A7BED00069568 /* carinalau4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = carinalau4.jpg; sourceTree = "<group>"; };
-		3E18414D1E5A937E00069568 /* LIM_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LIM_.png; sourceTree = "<group>"; };
 		3E18414F1E5AA9FF00069568 /* YYTrendView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYTrendView.h; sourceTree = "<group>"; };
 		3E1841501E5AA9FF00069568 /* YYTrendView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYTrendView.m; sourceTree = "<group>"; };
 		3E1841531E5ACEFB00069568 /* YYHomeNewTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeNewTableViewCell.h; sourceTree = "<group>"; };
 		3E1841541E5ACEFB00069568 /* YYHomeNewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeNewTableViewCell.m; sourceTree = "<group>"; };
-		3E1841561E5AD0A900069568 /* cell1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell1.png; sourceTree = "<group>"; };
 		3E18415A1E5ADB0100069568 /* YYHomeMedicineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYHomeMedicineTableViewCell.h; sourceTree = "<group>"; };
 		3E18415B1E5ADB0100069568 /* YYHomeMedicineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYHomeMedicineTableViewCell.m; sourceTree = "<group>"; };
 		3E1E472C1E5BD6FE0042934D /* ZYPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPageControl.h; sourceTree = "<group>"; };
@@ -546,7 +530,6 @@
 		3EBA2D721E5EB7C3005C3448 /* YYConsultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYConsultTableViewCell.h; sourceTree = "<group>"; };
 		3EBA2D731E5EB7C3005C3448 /* YYConsultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYConsultTableViewCell.m; sourceTree = "<group>"; };
 		3EBA2D751E5ED8EE005C3448 /* YYPersonalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPersonalTableViewCell.h; sourceTree = "<group>"; };
-		3EBD824B1E8E5CA700BDC217 /* avatar.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = avatar.jpg; sourceTree = "<group>"; };
 		3EC2BFED1E6F97AF00F01795 /* YuYi_Client.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YuYi_Client.entitlements; sourceTree = "<group>"; };
 		3EC2BFF41E6F9CA600F01795 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		3EC2BFF61E6F9CC000F01795 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -597,13 +580,10 @@
 		3EFBD6361E67A8F900B422BD /* YYSpeechViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSpeechViewController.m; sourceTree = "<group>"; };
 		3EFBD6381E67B85100B422BD /* YYAVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAVViewController.h; sourceTree = "<group>"; };
 		3EFBD6391E67B85100B422BD /* YYAVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAVViewController.m; sourceTree = "<group>"; };
-		3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 001f3a978ff3154e897f16.jpg; sourceTree = "<group>"; };
-		3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 07ecfad393d14033924f2fcc18ff6af9_th.jpg; sourceTree = "<group>"; };
 		3EFBD63F1E67BAEA00B422BD /* YYWordsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWordsViewController.h; sourceTree = "<group>"; };
 		3EFBD6401E67BAEA00B422BD /* YYWordsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWordsViewController.m; sourceTree = "<group>"; };
 		3EFBD6431E67BD2600B422BD /* HcCustomKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HcCustomKeyboard.h; sourceTree = "<group>"; };
 		3EFBD6441E67BD2600B422BD /* HcCustomKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HcCustomKeyboard.m; sourceTree = "<group>"; };
-		3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-03-02 上午10.55.18.png"; sourceTree = "<group>"; };
 		3EFBD65E1E68FDD900B422BD /* CityData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CityData.plist; sourceTree = "<group>"; };
 		3EFBD65F1E68FDD900B422BD /* GYZCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GYZCity.h; sourceTree = "<group>"; };
 		3EFBD6601E68FDD900B422BD /* GYZCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GYZCity.m; sourceTree = "<group>"; };
@@ -1079,16 +1059,6 @@
 				3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */,
 				3EAB2B871E2F065800D6795F /* Info.plist */,
 				3E1840FC1E56C8EF00069568 /* YYDefine.pch */,
-				3EBD824B1E8E5CA700BDC217 /* avatar.jpg */,
-				3E1841451E5A7BED00069568 /* carinalau1.jpg */,
-				3E1841461E5A7BED00069568 /* carinalau2.jpg */,
-				3E1841471E5A7BED00069568 /* carinalau3.jpg */,
-				3E1841481E5A7BED00069568 /* carinalau4.jpg */,
-				3E18414D1E5A937E00069568 /* LIM_.png */,
-				3E1841561E5AD0A900069568 /* cell1.png */,
-				3EFBD63B1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg */,
-				3EFBD63C1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg */,
-				3EFBD6461E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png */,
 				3E984FBE1EC168AA0094CBE4 /* 启动页.png */,
 			);
 			name = Other;
@@ -1557,25 +1527,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EFBD63E1E67B98E00B422BD /* 07ecfad393d14033924f2fcc18ff6af9_th.jpg in Resources */,
 				160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */,
-				3E1841571E5AD0A900069568 /* cell1.png in Resources */,
 				160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */,
-				3E18414A1E5A7BED00069568 /* carinalau2.jpg in Resources */,
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
-				3E1841491E5A7BED00069568 /* carinalau1.jpg in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */,
-				3EBD824C1E8E5CA700BDC217 /* avatar.jpg in Resources */,
 				160888CE1F7B31F400B2ADE9 /* pick_checked@2x.png in Resources */,
 				160888CF1F7B31F400B2ADE9 /* pick_checked@3x.png in Resources */,
-				3E18414E1E5A937E00069568 /* LIM_.png in Resources */,
 				3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */,
-				3E18414C1E5A7BED00069568 /* carinalau4.jpg in Resources */,
-				3EFBD6471E67C15A00B422BD /* 屏幕快照 2017-03-02 上午10.55.18.png in Resources */,
-				3EFBD63D1E67B98E00B422BD /* 001f3a978ff3154e897f16.jpg in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
-				3E18414B1E5A7BED00069568 /* carinalau3.jpg in Resources */,
 				3E984FBF1EC168AA0094CBE4 /* 启动页.png in Resources */,
 				165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */,
 			);

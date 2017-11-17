@@ -133,7 +133,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.centerX.offset(0);
         make.top.offset(30*kiphone6H);
     }];
-    //显示体温label
+    //显示体温结果总结label
     
     NSString *result = @"*当前数据为空";
     UILabel *resultLabel = [UILabel labelWithText:result andTextColor:[UIColor colorWithHexString:@"1ebeec"] andFontSize:15];
@@ -368,7 +368,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
     urlStr = mTemperature;
     parametersDict = @{@"token":usertoken,
                        @"humeuserId":homeUser.info_id,
-                       @"temperaturet":self.displayLabel.text
+                       @"temperaturet":temper
                        };
     NSLog(@"参数：　%@",parametersDict);
     
@@ -378,7 +378,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         NSLog(@"%@",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
     }];
 }
 #pragma mark ------------view appear----------------------

@@ -28,7 +28,7 @@
     NSString *urlString = [mPrefixUrl stringByAppendingPathComponent:model.picture];
     
     [self.iconView sd_setImageWithURL:[NSURL URLWithString:urlString]];
-    self.gradeLabel.text = [NSString stringWithFormat:@"%@",model.gradeName];
+    self.gradeLabel.text = model.grade;
     self.nameLabel.text = [NSString stringWithFormat:@"%@",model.hospitalName];
 }
 // 初始化控件

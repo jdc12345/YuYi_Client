@@ -7,8 +7,6 @@
 //
 
 #import "YYInfoDetailViewController.h"
-#import "UIColor+Extension.h"
-#import <Masonry.h>
 #import "HttpClient.h"
 #import <UIImageView+WebCache.h>
 
@@ -83,9 +81,9 @@
     
     [self.imageV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.dic[@"picture"]]]];
     self.titleLabel.text = self.dic[@"title"];
-    self.starLabel.text = self.dic[@"smalltitle"];
-    self.introduceLabel.text = self.dic[@"articleText"];
-    self.typeLabel.text = self.dic[@"type"];
+    self.starLabel.text = self.dic[@"smallTitle"];
+    self.introduceLabel.text = self.dic[@"content"];
+//    self.typeLabel.text = self.dic[@"type"];
     
     [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.infomationS).with.offset(0);
@@ -169,7 +167,7 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
-        self.dic = (NSDictionary*)responseObject;
+        self.dic = (NSDictionary*)responseObject[@"result"];
         [self createSubView];
 //        [self.imageV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,responseObject[@"picture"]]]];
 //        self.titleLabel.text = responseObject[@"title"];

@@ -52,6 +52,7 @@
 @property (nonatomic, weak) UIButton *leftBtn;
 @property (nonatomic, weak) YYHomeHeadView *headView;
 @property (nonatomic, strong) AMapLocationManager *locationManager2;
+@property (nonatomic, weak) UIView *titleView;//导航栏view
 
 @end
 
@@ -136,131 +137,13 @@
   
     self.headView = homeHeadView;
     self.tableView.tableHeaderView = homeHeadView;
-    
-    UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
-    headTitleView.backgroundColor = [UIColor colorWithHexString:@"383a41"];
-    // 左侧地址按钮   测
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [leftButton setFrame:CGRectMake(0,0,65 *kiphone6, 15)];
-    [leftButton setImage:[UIImage imageNamed:@"firstPage_location"] forState:UIControlStateNormal];
-    [leftButton setTitle:@"北京" forState:UIControlStateNormal];
-    
-    [leftButton setTitleColor:[UIColor colorWithHexString:@"#dedfe0"] forState:UIControlStateNormal];
-    
-    leftButton.titleLabel.font = [UIFont systemFontOfSize:15 *kiphone6];
-    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
-    leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
-    [leftButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    
-//    self.navigationItem.leftBarButtonItem = leftItem;
-    self.leftBtn = leftButton;
-    
-    // 右侧通知按钮
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    [rightButton setFrame:CGRectMake(0,0,20, 20)];
-    
-    [rightButton setBackgroundImage:[UIImage imageNamed:@"firstPage_message"] forState:UIControlStateNormal];
-    
-    [rightButton addTarget:self action:@selector(back_click_right:) forControlEvents:UIControlEventTouchUpInside];
-    
-//    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-    
-//    self.navigationItem.rightBarButtonItem = rightItem;
-    
-//    [rightButton sizeToFit];
-    
-    
-//    UIImageView *searchImageV = [[UIImageView alloc]initWithFrame:CGRectMake(20, 20, 300, 26)];
-//    searchImageV.image = [UIImage imageNamed:@"search_icon"];
-//    
-    
-    
-    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
-    searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
-    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-    [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
-    [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
-    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    NSDictionary *dict = arr[i];
-    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
-    [searchBtn setTitle:@"搜索医院" forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    searchBtn.layer.masksToBounds = true;
-    searchBtn.layer.cornerRadius = 15;
-    
-    [headTitleView addSubview:leftButton];
-    [headTitleView addSubview:rightButton];
-    
-    
-    CcUserModel *model = [CcUserModel defaultClient];
-    if (![model.telephoneNum isEqualToString:@"18511694068"]) {
-        [headTitleView addSubview:searchBtn];
-        [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.offset(65*kiphone6);
-            make.centerY.equalTo(headTitleView);
-            make.size.mas_equalTo(CGSizeMake(250 *kiphone6 ,30));
-        }];
+    if (@available(iOS 11.0, *)) {
+       //iOS 11的barTitleView设置从viewWillappear走，因为是直接添加在bar上的需要移除
+        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }else{//不是iOS 11
+        [self setNavigationBarTitleView];
     }
-
-    [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(0);
-        make.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(65 *kiphone6 ,44));
-    }];
-    [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.offset(-5);
-        make.centerY.equalTo(headTitleView);
-        make.size.mas_equalTo(CGSizeMake(20 *kiphone6,20));
-    }];
-    self.navigationItem.titleView = headTitleView;
-    
-    
-    
-    // 首页高德定位
-    NSLog(@"首页高德定位");
-    [AMapServices sharedServices].apiKey =@"b9c7a79ba8b553ae7aea093517c62ed0";
-    
-    self.locationManager2 = [[AMapLocationManager alloc]init];
-    // 带逆地理信息的一次定位（返回坐标和地址信息）
-    [self.locationManager2 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
-    //   定位超时时间，最低2s，此处设置为2s
-    self.locationManager2.locationTimeout =2;
-    //   逆地理请求超时时间，最低2s，此处设置为2s
-    self.locationManager2.reGeocodeTimeout = 2;
-    
-    [self.locationManager2 requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
-        
-        if (error)
-        {
-            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-            
-            if (error.code == AMapLocationErrorLocateFailed)
-            {
-                return;
-            }
-        }
-        NSLog(@"location:%@", location);
-        [CcUserModel defaultClient].loation = location;
-
-        
-        if (regeocode)
-        {
-            NSLog(@"reGeocode:%@", regeocode.district);
-            if(!regeocode.district){
-                [leftButton setTitle:@"无定位" forState:UIControlStateNormal];
-            }else{
-             [leftButton setTitle:regeocode.district forState:UIControlStateNormal];
-            }
-        }
-        
-    }];
+   
     
 }
 //1.改变状态栏样式,如果有导航栏必须在导航栏类重写这个方法- (UIViewController *)childViewControllerForStatusBarStyle{
@@ -418,7 +301,7 @@
         YYInfomationModel *infoModel = self.dataSource[indexPath.row];
         [homeTableViewCell.iconV sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,infoModel.picture]]];
         homeTableViewCell.titleLabel.text = infoModel.title;
-        homeTableViewCell.introduceLabel.text = infoModel.smalltitle;
+        homeTableViewCell.introduceLabel.text = infoModel.smallTitle;
     }else{
         homeTableViewCell.iconV.image =  [UIImage imageNamed:[NSString stringWithFormat:@"cell%ld",indexPath.row +1]];
     }
@@ -542,23 +425,6 @@
         
     }];
 }
-#pragma mark ------------view appear----------------------
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBar.translucent = false;
-    //改变整个导航栏+状态栏背景颜色
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"383a41"];
-    if (self.dataSource.count != 0) {
-        [self.headView refreshThisView];//刷新用户列表和测量数据
-    }
-}
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.navigationController.navigationBar.translucent = true;
-    //改变整个导航栏+状态栏背景颜色
-    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-}
 
 - (void)httpRequestRCToken{
     CcUserModel *userModel = [CcUserModel defaultClient];
@@ -574,8 +440,159 @@
         NSLog(@"%@",error);
     }];
 }
-// 取消吸顶 顶部悬停
+//添加导航栏view
+-(void)setNavigationBarTitleView{
+    UIView *headTitleView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, kScreenW, 44)];
+    headTitleView.backgroundColor = [UIColor colorWithHexString:@"383a41"];
+    // 左侧地址按钮   测
+    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [leftButton setFrame:CGRectMake(0,0,65 *kiphone6, 15)];
+    [leftButton setImage:[UIImage imageNamed:@"firstPage_location"] forState:UIControlStateNormal];
+    [leftButton setTitle:@"北京" forState:UIControlStateNormal];
+    
+    [leftButton setTitleColor:[UIColor colorWithHexString:@"#dedfe0"] forState:UIControlStateNormal];
+    
+    leftButton.titleLabel.font = [UIFont systemFontOfSize:15 *kiphone6];
+    leftButton.imageEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);
+    leftButton.titleEdgeInsets = UIEdgeInsetsMake(0, -5, 0, 0);
+    [leftButton addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.leftBtn = leftButton;
+    
+    // 右侧通知按钮
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    [rightButton setFrame:CGRectMake(0,0,20, 20)];
+    
+    [rightButton setBackgroundImage:[UIImage imageNamed:@"firstPage_message"] forState:UIControlStateNormal];
+    
+    [rightButton addTarget:self action:@selector(back_click_right:) forControlEvents:UIControlEventTouchUpInside];
+    //
+    
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    searchBtn.frame = CGRectMake(0, 0, 260 *kiphone6, 26);
+    searchBtn.backgroundColor = [UIColor colorWithHexString:@"e5e4e4"];
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    searchBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+    [searchBtn setTitleColor:[UIColor colorWithHexString:@"aaa9a9"] forState:UIControlStateNormal];
+    [searchBtn.titleLabel setFont:[UIFont systemFontOfSize:14]];
+    //    [button addTarget:self action:@selector(childButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    //    NSDictionary *dict = arr[i];
+    [searchBtn setImage:[UIImage imageNamed:@"search"] forState:UIControlStateNormal];
+    [searchBtn setTitle:@"搜索医院" forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    searchBtn.layer.masksToBounds = true;
+    searchBtn.layer.cornerRadius = 15;
+    
+    [headTitleView addSubview:leftButton];
+    [headTitleView addSubview:rightButton];
+    
+    [leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(5);
+        make.centerY.equalTo(headTitleView);
+        make.size.mas_equalTo(CGSizeMake(65 *kiphone6 ,44));
+    }];
+    [rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-5);
+        make.centerY.equalTo(headTitleView);
+        make.size.mas_equalTo(CGSizeMake(20 *kiphone6,20));
+    }];
+    //审核时候不显示搜索医院功能
+    CcUserModel *model = [CcUserModel defaultClient];
+    if (![model.telephoneNum isEqualToString:@"18511694068"]) {
+        [headTitleView addSubview:searchBtn];
+        [searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(leftButton.mas_right).offset(5);
+            make.centerY.equalTo(headTitleView);
+            make.size.mas_equalTo(CGSizeMake(250 *kiphone6 ,30));
+        }];
+    }else{
+        UILabel *titleLabel = [[UILabel alloc]init];
+        titleLabel.text = @"首页";
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.textColor = [UIColor whiteColor];
+        [headTitleView addSubview:titleLabel];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.centerY.equalTo(headTitleView);
+//            make.size.mas_equalTo(CGSizeMake(250 *kiphone6 ,30));
+        }];
+    }
+    
+    if (@available(iOS 11.0, *)) {
+        self.titleView = headTitleView;
+        [self.navigationController.navigationBar addSubview:headTitleView];
+        [headTitleView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.offset(0);
+        }];
+    } else {
+        // Fallback on earlier versions
+        self.navigationItem.titleView = headTitleView;
+    }
+    
+    // 首页高德定位
+    NSLog(@"首页高德定位");
+    [AMapServices sharedServices].apiKey =@"b9c7a79ba8b553ae7aea093517c62ed0";
+    
+    self.locationManager2 = [[AMapLocationManager alloc]init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.locationManager2 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，最低2s，此处设置为2s
+    self.locationManager2.locationTimeout =2;
+    //   逆地理请求超时时间，最低2s，此处设置为2s
+    self.locationManager2.reGeocodeTimeout = 2;
+    
+    [self.locationManager2 requestLocationWithReGeocode:YES completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+        
+        if (error)
+        {
+            NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+            
+            if (error.code == AMapLocationErrorLocateFailed)
+            {
+                return;
+            }
+        }
+        NSLog(@"location:%@", location);
+        [CcUserModel defaultClient].loation = location;
+        
+        
+        if (regeocode)
+        {
+            NSLog(@"reGeocode:%@", regeocode.district);
+            if(!regeocode.district){
+                [leftButton setTitle:@"无定位" forState:UIControlStateNormal];
+            }else{
+                [leftButton setTitle:regeocode.district forState:UIControlStateNormal];
+            }
+        }
+        
+    }];
+}
+#pragma mark ------------view appear----------------------
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.translucent = false;
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"383a41"];
+    if (@available(iOS 11.0, *)) {
+        [self setNavigationBarTitleView];
+    }
+    if (self.dataSource.count != 0) {
+        [self.headView refreshThisView];//刷新用户列表和测量数据
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.navigationController.navigationBar.translucent = true;
+    //改变整个导航栏+状态栏背景颜色
+    self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+    if (@available(iOS 11.0, *)) {
+        [self.titleView removeFromSuperview];
+    }
+}
 /*
  #pragma mark - Navigation
  

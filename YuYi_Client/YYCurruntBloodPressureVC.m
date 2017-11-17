@@ -322,8 +322,9 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
+        [SVProgressHUD showInfoWithStatus:@"保存成功"];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [SVProgressHUD showInfoWithStatus:@"保存失败"];
     }];
 }
 #pragma mark ------------view appear----------------------
