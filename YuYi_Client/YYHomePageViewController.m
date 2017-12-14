@@ -45,8 +45,8 @@
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
-@property (nonatomic, strong) NSMutableArray *dataHomeSource;
-@property (nonatomic, strong) NSMutableArray *medicalHomeSource;
+//@property (nonatomic, strong) NSMutableArray *dataHomeSource;
+//@property (nonatomic, strong) NSMutableArray *medicalHomeSource;
 @property (nonatomic, weak) ZYAlertSView *alertView;
 
 @property (nonatomic, weak) UIButton *leftBtn;
@@ -74,7 +74,7 @@
         [_tableView registerClass:[YYHomeMedicineTableViewCell class] forCellReuseIdentifier:@"YYHomeMedicineTableViewCell"];
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         [self.view addSubview:_tableView];
-        [self.view sendSubviewToBack:_tableView];
+//        [self.view sendSubviewToBack:_tableView];
         
     }
     return _tableView;
@@ -86,18 +86,18 @@
     return _dataSource;
 }
 
-- (NSMutableArray *)dataHomeSource{
-    if (_dataHomeSource == nil) {
-        _dataHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
-    }
-    return _dataHomeSource;
-}
-- (NSMutableArray *)medicalHomeSource{
-    if (_medicalHomeSource == nil) {
-        _medicalHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
-    }
-    return _medicalHomeSource;
-}
+//- (NSMutableArray *)dataHomeSource{
+//    if (_dataHomeSource == nil) {
+//        _dataHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
+//    }
+//    return _dataHomeSource;
+//}
+//- (NSMutableArray *)medicalHomeSource{
+//    if (_medicalHomeSource == nil) {
+//        _medicalHomeSource = [[NSMutableArray alloc]initWithCapacity:2];
+//    }
+//    return _medicalHomeSource;
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -108,7 +108,7 @@
     [JPUSHService setAlias:[CcUserModel defaultClient].telephoneNum callbackSelector:nil object:nil];
     NSLog(@"phone = %@",[CcUserModel defaultClient].telephoneNum);
     [self httpRequest];
-    [self httpRequestForMedical];
+//    [self httpRequestForMedical];
     
     YYHomeHeadView *homeHeadView = [[YYHomeHeadView alloc]init];
     homeHeadView.bannerClick = ^(BOOL isOrder){
@@ -387,44 +387,64 @@
         }
         [self.tableView reloadData];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+        [self loadEmptyView];
     }];
 }
-
-- (void)httpRequestForUser{
-    NSString *userToken = [CcUserModel defaultClient].userToken;
-    NSLog(@"%@",userToken);
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
-        
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-    //    NSLog(@"homeUsers = %@",responseObject);
-        NSArray *usersList = responseObject[@"result"];
-        for (NSDictionary *dict in usersList) {
-            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
-            [self.dataHomeSource addObject:homeUser];
-        }
-     
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+//加载网络请求错误页面
+-(void)loadEmptyView{
+    
+    UIImageView *emptyView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nothing"]];
+    [self.view addSubview:emptyView];
+    [self.view sendSubviewToBack:emptyView];
+    [emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.offset(155*kiphone6);
+        make.centerX.equalTo(self.view);
+    }];
+    UILabel *noticelabel = [[UILabel alloc]init];
+    noticelabel.textColor = [UIColor colorWithHexString:@"bababa"];
+    noticelabel.font = [UIFont systemFontOfSize:15];
+    noticelabel.text = @"网络请求出错了";
+    [self.view addSubview:noticelabel];
+    [self.view sendSubviewToBack:noticelabel];
+    [noticelabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(emptyView.mas_bottom).offset(30*kiphone6);
+        make.centerX.equalTo(emptyView);
     }];
 }
-- (void)httpRequestForMedical{
+//- (void)httpRequestForUser{
 //    NSString *userToken = [CcUserModel defaultClient].userToken;
-    [[HttpClient defaultClient]requestWithPath:mHomeMedical method:0 parameters:nil prepareExecute:^{
-        
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"sadasda %@",responseObject);
-        NSArray *medicalList = responseObject[@"rows"];
-        for (NSDictionary *dict in medicalList) {
-            SimpleMedicalModel *homeUser = [SimpleMedicalModel mj_objectWithKeyValues:dict];
-            [self.medicalHomeSource addObject:homeUser];
-        }
-        [self.tableView reloadData];
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
-    }];
-}
+//    NSLog(@"%@",userToken);
+//    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mHomeusers,userToken] method:0 parameters:nil prepareExecute:^{
+//
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//    //    NSLog(@"homeUsers = %@",responseObject);
+//        NSArray *usersList = responseObject[@"result"];
+//        for (NSDictionary *dict in usersList) {
+//            YYHomeUserModel *homeUser = [YYHomeUserModel mj_objectWithKeyValues:dict];
+//            [self.dataHomeSource addObject:homeUser];
+//        }
+//
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//
+//    }];
+//}
+//- (void)httpRequestForMedical{
+////    NSString *userToken = [CcUserModel defaultClient].userToken;
+//    [[HttpClient defaultClient]requestWithPath:mHomeMedical method:0 parameters:nil prepareExecute:^{
+//
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+//        NSLog(@"sadasda %@",responseObject);
+//        NSArray *medicalList = responseObject[@"rows"];
+//        for (NSDictionary *dict in medicalList) {
+//            SimpleMedicalModel *homeUser = [SimpleMedicalModel mj_objectWithKeyValues:dict];
+//            [self.medicalHomeSource addObject:homeUser];
+//        }
+//        [self.tableView reloadData];
+//
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//
+//    }];
+//}
 
 - (void)httpRequestRCToken{
     CcUserModel *userModel = [CcUserModel defaultClient];

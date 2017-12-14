@@ -26,6 +26,15 @@
 #import "YYNavigationController.h"
 #import "YYTabBarItem.h"
 
+#ifdef DEBUG // 开发
+
+static BOOL const isProduction = FALSE; // 极光FALSE为开发环境
+
+#else // 生产
+
+static BOOL const isProduction = TRUE; // 极光TRUE为生产环境
+
+#endif
 @interface AppDelegate ()<JPUSHRegisterDelegate,RCIMReceiveMessageDelegate,UNUserNotificationCenterDelegate, RCIMUserInfoDataSource>
 @property (nonatomic, strong) YYTabBarController *yyTabBar;
 @end
@@ -75,9 +84,18 @@
     // init Push
     // notice: 2.1.5版本的SDK新增的注册方法，改成可上报IDFA，如果没有使用IDFA直接传nil
     // 如需继续使用pushConfig.plist文件声明appKey等配置内容，请依旧使用[JPUSHService setupWithOption:launchOptions]方式初始化。
+    /*
+     *  launchingOption 启动参数.
+     *  appKey 一个JPush 应用必须的,唯一的标识.
+     *  channel 发布渠道. 可选.
+     *  isProduction 是否生产环境. 如果为开发状态,设置为 NO; 如果为生产状态,应改为 YES.
+     *  advertisingIdentifier 广告标识符（IDFA） 如果不需要使用IDFA，传nil.
+     * 此接口必须在 App 启动时调用, 否则 JPush SDK 将无法正常工作.
+     */
+    // 注册极光推送
     [JPUSHService setupWithOption:launchOptions appKey:@"4439dd4f42e0ba09ef4fd4e7"
                           channel:@"App Store"
-                 apsForProduction:0
+                 apsForProduction:isProduction
             advertisingIdentifier:nil];
 //r---------- 1 融云初始化 ----------
     [[RCIM sharedRCIM] initWithAppKey:@"25wehl3u2qo7w"];
@@ -135,6 +153,7 @@
 //    }
 //
 
+    // 注册apns通知
     if ([[UIDevice currentDevice].systemVersion floatValue] >= 10.0) {
         //iOS10特有
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
@@ -152,7 +171,7 @@
                 NSLog(@"注册失败");
             }
         }];
-    }else if (10 > [[UIDevice currentDevice].systemVersion floatValue] >= 8.0){
+    }else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0){
         //iOS8 - iOS10
         if ([application
              respondsToSelector:@selector(registerUserNotificationSettings:)]) {
@@ -167,7 +186,9 @@
     
      // 注册获得device Token
     [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+//    极光自定义通知：获取iOS的推送内容需要在delegate类中1.注册通知并2.实现回调方法 networkDidReceiveMessage:
+//    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+//    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
     
     //////////////////
     // Override point for customization after application launch.
@@ -175,6 +196,7 @@
 }
 # pragma mark - RCIMUserInfoDataSource SDK需要通过您实现的用户信息提供者，获取用户信息并显示
 -(void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *))completion{
+    //这个url是医生端的不能用，不起作用
     NSString *getUserInfoUrl = [NSString stringWithFormat:@"%@%@&personalId=%@",mRCUserInfoUrl,mDefineToken,userId];
     [[HttpClient defaultClient] requestWithPath:getUserInfoUrl method:0 parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = responseObject;
@@ -190,6 +212,7 @@
 }
 //更新pod前
 - (void)getUserInfoWithUserId:(NSString *)userId n:(void (^)(RCUserInfo *))completion {
+    //这个url是医生端的不能用，不起作用
     NSString *getUserInfoUrl = [NSString stringWithFormat:@"%@%@&personalId=%@",mRCUserInfoUrl,mDefineToken,userId];
     [[HttpClient defaultClient] requestWithPath:getUserInfoUrl method:0 parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = responseObject;
@@ -392,6 +415,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 // ---------------------通知的点击事件-------------------
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+    [self.yyTabBar switchTab:3];
+    
+//    YYChatListViewController *chatList = [[YYChatListViewController alloc]init];
+//    if ([self.yyTabBar.viewControllers.lastObject respondsToSelector:@selector(pushViewController: animated:)]) {
+//        [self.yyTabBar.viewControllers.lastObject pushViewController:chatList animated:YES];
+//    }
     //点击通知进入应用
     YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
     //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
@@ -404,21 +433,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     //用户信息，本地通知传过来了通话人的id(targetId)
     NSDictionary *userInfo = content.userInfo;
     NSLog(@"----------------%@",userInfo);
-    wordVC.targetId = userInfo[@"fId"];
+    NSDictionary *rc = userInfo[@"rc"];
+    wordVC.targetId = rc[@"fId"];
 //    UIViewController *currentVC = [(UINavigationController *)self.window.rootViewController visibleViewController];
 //    if ([currentVC respondsToSelector:@selector(pushViewController: animated:)]) {
 //        [currentVC performSelector:@selector(pushViewController: animated:) withObject:wordVC withObject:@YES];
 //    }
 //    NSLog(@"response:%@", response);
-    
-    //已经获得了通话人的id，需要处理跳转逻辑
-    YYTabBarController *tabbarVC = (YYTabBarController *)self.window.rootViewController;
-    [tabbarVC switchTab:2];
-    if ([self.yyTabBar.viewControllers.lastObject respondsToSelector:@selector(pushViewController: animated:)]) {
-        
-        [self.yyTabBar.viewControllers.lastObject pushViewController:wordVC animated:YES];
-    }
-    NSLog(@"response:%@", response);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        //已经获得了通话人的id，需要处理跳转逻辑
+        YYTabBarController *tabbarVC = (YYTabBarController *)self.window.rootViewController;
+        [tabbarVC switchTab:2];
+        if ([self.yyTabBar.viewControllers.lastObject respondsToSelector:@selector(pushViewController: animated:)]) {
+            
+            [self.yyTabBar.viewControllers.lastObject pushViewController:wordVC animated:YES];
+        }
+        NSLog(@"response:%@", response);
+    });
 }
 //- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
 //    //应用在前台收到通知

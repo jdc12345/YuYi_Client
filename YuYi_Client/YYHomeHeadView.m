@@ -646,7 +646,6 @@
             
         } success:^(NSURLSessionDataTask *task, id responseObject) {
 //            NSLog(@"%@",responseObject);
-
             // 刷新走势图
             NSDictionary *result = responseObject[@"result"];
             YYHomeUserModel *userModel = [YYHomeUserModel mj_objectWithKeyValues:result];

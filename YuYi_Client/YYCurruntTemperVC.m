@@ -378,7 +378,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         NSLog(@"%@",responseObject);
         [SVProgressHUD showSuccessWithStatus:@"保存成功"];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        [SVProgressHUD showSuccessWithStatus:@"保存失败"];
+        [SVProgressHUD showInfoWithStatus:@"保存失败"];
     }];
 }
 #pragma mark ------------view appear----------------------

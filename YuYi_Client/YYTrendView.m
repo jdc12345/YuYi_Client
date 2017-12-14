@@ -18,7 +18,7 @@
 #define kXScale  47.0 *kiphone6
 #define kYScale  60.0 *kiphone6
 #import "YYTrendView.h"
-#import "UIColor+Extension.h"
+//#import "UIColor+Extension.h"
 @interface YYTrendView ()
 @property (nonatomic, strong)   dispatch_source_t timer;
 
@@ -174,14 +174,20 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         //y轴
         [self zydrawAtPoint:point(0, -i *0.5) withStr:self.temperatureY[i-1]];//[NSString stringWithFormat:@"%d", 20 +(i *20 )]];
     }
-    //画高压标识
-    if (self.valuesforBlood.count>0) {
+    
+    if (self.valuesforBlood.count>0) {//画高压标识
         NSString *str = @"高压";
         [str drawAtPoint:CGPointMake(kScreenW-40, 15) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"1dbeec"]}];
         CGContextAddArc(ctx, kScreenW-53, 21, 4, 0, M_PI * 2, 0);
         CGPathMoveToPoint(path, NULL, kScreenW-75, 21);
         CGPathAddLineToPoint(path, NULL, kScreenW-56, 21);
         
+    }else if (self.values.count > 0){//画体温标识
+        NSString *str = @"体温";
+        [str drawAtPoint:CGPointMake(kScreenW-40, 15) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"1dbeec"]}];
+        CGContextAddArc(ctx, kScreenW-53, 21, 4, 0, M_PI * 2, 0);
+        CGPathMoveToPoint(path, NULL, kScreenW-75, 21);
+        CGPathAddLineToPoint(path, NULL, kScreenW-56, 21);
     }
     //    --------------------高压线-------------------------
     if ([self.values count] == 0) {
@@ -229,7 +235,6 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         }
         // 3.显示所绘制的东西   FillPath实心
         CGContextFillPath(ctx);
-        //        CGContextStrokePath(ctx);
     }
    
     //    --------------------低压线-------------------------
@@ -247,13 +252,11 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         CGAffineTransformMakeScaleTranslate(kXScale, kYScale,
                                             xOffset, yOffset);
         //画低压标识
-        if (self.valuesforBlood.count>0) {
             NSString *strL = @"低压";
             [strL drawAtPoint:CGPointMake(kScreenW-40, 37) withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10], NSForegroundColorAttributeName:[UIColor colorWithHexString:@"7ed66b"]}];
             CGPathMoveToPoint(path, NULL, kScreenW-75, 43);
             CGPathAddLineToPoint(path, NULL, kScreenW-56, 43);
             CGContextAddArc(ctx, kScreenW-53, 43, 4, 0, M_PI * 2, 0);
-        }
         // 画线 以及写数值
         [[UIColor colorWithHexString:@"7ed66b"] set];//设置颜色
         CGFloat y = [[self.valuesforBlood objectAtIndex:0] floatValue];
@@ -263,9 +266,7 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         for (NSUInteger x = 1; x < [self.valuesforBlood count]; ++x) {
             y = [[self.valuesforBlood objectAtIndex:x] floatValue];
             CGPathAddLineToPoint(path, &transform, x+1, y);
-            
         }
-        
         // 画点。
         CGContextAddPath(ctx, path);
         CGPathRelease(path);
@@ -342,7 +343,6 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
 }
 // 体温走势图
 - (void)updateTempatureTrendDataList:(NSArray *)tempature{
-    NSLog(@"刷新数据 123123");
     [self.values removeAllObjects];
     NSMutableArray *dateDate = [[NSMutableArray alloc]initWithCapacity:2];
     for (NSDictionary *dict  in tempature) {
@@ -352,7 +352,6 @@ CGAffineTransformMakeScaleTranslate(CGFloat sx, CGFloat sy,
         if([str isEqualToString:@"<null>"]){
             str = @"36";
         }
-        NSLog(@"____________%@",str);
         floa = ([str floatValue] -34) *-0.5;
         [self.values addObject:[NSNumber numberWithFloat:floa]];
         

@@ -165,7 +165,7 @@
     sureBtn.layer.cornerRadius = 3;
     sureBtn.layer.masksToBounds = true;
     [sureBtn setTitle:@"保存" forState:UIControlStateNormal];
-    sureBtn.backgroundColor = [UIColor colorWithHexString:@"1ebeec"];
+//    sureBtn.backgroundColor = [UIColor colorWithHexString:@"1ebeec"];
     [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
     [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -177,6 +177,14 @@
         make.right.offset(-10*kiphone6);
         make.height.offset(44*kiphone6H);
     }];
+    //渐变色
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = @[(__bridge id)[UIColor colorWithHexString:@"2feaeb"].CGColor, (__bridge id)[UIColor colorWithHexString:@"1ebeec"].CGColor];
+    gradientLayer.locations = @[@0.3, @1.0];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(0, 1.0);
+    gradientLayer.frame = CGRectMake(0, 0, kScreenW-20*kiphone6, 44 *kiphone6H);
+    [sureBtn.layer insertSublayer:gradientLayer atIndex:0];
     
 }
 #pragma - UItextdelegate
@@ -322,7 +330,7 @@
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"%@",responseObject);
-        [SVProgressHUD showInfoWithStatus:@"保存成功"];
+        [SVProgressHUD showSuccessWithStatus:@"保存成功"];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [SVProgressHUD showInfoWithStatus:@"保存失败"];
     }];

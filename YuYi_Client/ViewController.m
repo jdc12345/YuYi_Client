@@ -76,9 +76,9 @@ static NSString* cellid = @"business_cell";
 -(void)loadMineMedicinalData{
     HttpClient *httpManager = [HttpClient defaultClient];
         //取token
-    CcUserModel *userModel = [CcUserModel defaultClient];
-    NSString *userToken = userModel.userToken;
-    NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList2.do?token=%@",mPrefixUrl,userToken];
+//    CcUserModel *userModel = [CcUserModel defaultClient];
+//    NSString *userToken = userModel.userToken;
+    NSString *urlString = [NSString stringWithFormat:@"%@/prescription/findList2.do?token=%@",mPrefixUrl,mDefineToken];
     [SVProgressHUD show];
     [httpManager requestWithPath:urlString method:HttpRequestGet parameters:nil prepareExecute:^{
         
