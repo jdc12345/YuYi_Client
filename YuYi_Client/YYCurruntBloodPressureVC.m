@@ -19,7 +19,11 @@
 #import "UIBarButtonItem+Helper.h"
 #import "UILabel+Addition.h"
 
-@interface YYCurruntBloodPressureVC ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
+@interface YYCurruntBloodPressureVC ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,HealthMeasureApiDelegate>
+{
+    HealthMeasureApi *_healthMeaApi;
+    
+}
 @property (nonatomic, strong) UIView *memberView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -46,8 +50,75 @@
     if ([self.title isEqualToString:@"当前血压"]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"手动输入" normalColor:[UIColor colorWithHexString:@"#333333"] highlightedColor:[UIColor colorWithHexString:@"#333333"] target:self action:@selector(addHanderInfo:)];
     }
+    //测量血压仪
+    /**
+     BTTYPEBLOODPRE,//血压计
+     BTTYPEBLOODSUGER,//血糖仪
+     BTTYPEHUMANSCALE, //人体秤
+     BTTYPEFATSCALE, //脂肪秤
+     BTTYPEURICACID,//尿酸
+     BTTYPECHOL,//血脂
+     BTTYPETPT,//额温
+     BTTYPEALL   //所有设备
+     **/
+    
+    //        if ((_type == BTTYPEHUMANSCALE)||(_type == BTTYPEFATSCALE)) {//测量体重需要的参数
+    //            [JkezApiInit setApiUserDataWithHeight:195 sex:0 age:27];
+    //        }
+    _type = BTTYPEBLOODPRE;
+    _healthMeaApi = [HealthMeasureApi healthMeasureWithType:_type];
+    _healthMeaApi.healthMeasureDelegate = self;
+}
+//设备名称
+-(void)healthMeasureBlueToothState:(BTSTATE)state {
+    NSLog(@"MeasureDemostate %d",state);
     
 }
+
+//获取蓝牙设备名称
+-(void)healthMeasureBlueToothName:(NSString *)name Mac:(NSString *)mac {
+    NSLog(@"MeasureDemoBTName: %@",name);
+    //    _contentLable.text = name;
+}
+
+//连接成功
+-(void)healthMeasureConnectSuccess {
+    NSLog(@"MeasureDemoSuccess");
+    //    _contentLable.text = @"连接成功";
+    //    count = 0;
+}
+
+//监听设备断开
+-(void)healthMeasureDisconnect {
+    //    _contentLable.text = @"设备已经断开";
+    //    count = 0;
+}
+
+//返回有效值
+-(void)healthMeasureWithType:(BTMEASURETYTE)type state:(HEALTHMEAUSRESTATE)state data:(id)data {
+    NSLog(@"MeasureDemo:state: %d,type:%d",state,type);
+    
+    if (type == BTTYPEBLOODPRE) {
+        BpApiData *bpdata  = (BpApiData *)data;
+        
+        if (MEASURING == state) {
+            NSLog(@"正在测量中");
+            _cardView.resultLabel.text = [NSString stringWithFormat:@"正在测量中:%d",bpdata.pressure];
+        }else if (NOMAL == state) {
+            NSLog(@"测量结束");
+            _cardView.highPressureField.text = [NSString stringWithFormat:@"%d",bpdata.pcp];
+            _cardView.lowPressureField.text = [NSString stringWithFormat:@"%d",bpdata.pdp];
+            _cardView.resultLabel.text = [NSString stringWithFormat:@"收缩压:%d 舒张压:%d 心率:%d ",bpdata.pcp,bpdata.pdp,bpdata.pm];//(单位)收缩压和舒张压:mmHg  心率:bmp
+        }else {
+            NSLog(@"测量结束");
+                _cardView.resultLabel.text = [NSString stringWithFormat:@"异常:%@",bpdata.err];
+        }
+    }
+}
+
+//-------------------------华丽的分割线----------------------------------
+
+
 //手动输入点击事件
 -(void)addHanderInfo:(UIButton *)button{
     YYCurruntBloodPressureVC *autuMVC = [[YYCurruntBloodPressureVC alloc]init];
@@ -89,36 +160,36 @@
     self.cardView = cardView;
     
     if ([self.title isEqualToString:@"当前血压"]) {
-        NSString *highStr = @"141";
-        NSString *lowStr = @"80";
-        cardView.highPressureField.text = highStr;
-        cardView.lowPressureField.text = lowStr;
-//        NSInteger maxP = [dict_blood[@"systolic"] integerValue];//高压
-//        NSInteger minP = [dict_blood[@"diastolic"] integerValue];//低压
-//        NSInteger temp = [dict_temperature[@"temperaturet"] integerValue];//体温
-//        if (temp>36&&temp<37.3&&maxP>90&&maxP<140&&minP>60&&minP<90){//正常
-//            self.imageV.image = [UIImage imageNamed:@"data_normal"];
-//        }else{//异常
-//            self.imageV.image = [UIImage imageNamed:@"data_abnormal"];
+//        NSString *highStr = @"";
+//        NSString *lowStr = @"";
+//        cardView.highPressureField.text = highStr;
+//        cardView.lowPressureField.text = lowStr;
+////        NSInteger maxP = [dict_blood[@"systolic"] integerValue];//高压
+////        NSInteger minP = [dict_blood[@"diastolic"] integerValue];//低压
+////        NSInteger temp = [dict_temperature[@"temperaturet"] integerValue];//体温
+////        if (temp>36&&temp<37.3&&maxP>90&&maxP<140&&minP>60&&minP<90){//正常
+////            self.imageV.image = [UIImage imageNamed:@"data_normal"];
+////        }else{//异常
+////            self.imageV.image = [UIImage imageNamed:@"data_abnormal"];
+////        }
+//        NSInteger maxP = [highStr integerValue];//高压
+//        NSInteger minP = [lowStr integerValue];//低压
+//        if (maxP>90&&maxP<140&&minP>60&&minP<90){//正常
+//            cardView.resultLabel.text = @"*当前血压正常";
+//            cardView.resultLabel.textColor = [UIColor colorWithHexString:@"56f29f"];
+//        }else if (maxP<90){//高压偏低
+//            cardView.resultLabel.text = @"*当前血压高压偏低";
+//            cardView.resultLabel.textColor = [UIColor redColor];
+//        }else if (minP<60){//低压偏低
+//            cardView.resultLabel.text = @"*当前血压低压偏低";
+//            cardView.resultLabel.textColor = [UIColor redColor];
+//        }else if (maxP>140){//高压偏高
+//            cardView.resultLabel.text = @"*当前血压高压偏高";
+//            cardView.resultLabel.textColor = [UIColor redColor];
+//        }else if (minP>90){//低压偏高
+//            cardView.resultLabel.text = @"*当前血压低压偏高";
+//            cardView.resultLabel.textColor = [UIColor redColor];
 //        }
-        NSInteger maxP = [highStr integerValue];//高压
-        NSInteger minP = [lowStr integerValue];//低压
-        if (maxP>90&&maxP<140&&minP>60&&minP<90){//正常
-            cardView.resultLabel.text = @"*当前血压正常";
-            cardView.resultLabel.textColor = [UIColor colorWithHexString:@"56f29f"];
-        }else if (maxP<90){//高压偏低
-            cardView.resultLabel.text = @"*当前血压高压偏低";
-            cardView.resultLabel.textColor = [UIColor redColor];
-        }else if (minP<60){//低压偏低
-            cardView.resultLabel.text = @"*当前血压低压偏低";
-            cardView.resultLabel.textColor = [UIColor redColor];
-        }else if (maxP>140){//高压偏高
-            cardView.resultLabel.text = @"*当前血压高压偏高";
-            cardView.resultLabel.textColor = [UIColor redColor];
-        }else if (minP>90){//低压偏高
-            cardView.resultLabel.text = @"*当前血压低压偏高";
-            cardView.resultLabel.textColor = [UIColor redColor];
-        }
     }else{//手动输入(在代理方法中监听血压数值来改变文字颜色)
         cardView.highPressureField.delegate = self;
         cardView.lowPressureField.delegate = self;
@@ -345,7 +416,14 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.translucent = true;
-    
+    [_healthMeaApi disconnect];
 }
-
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    BOOL success = [_healthMeaApi connectWithDelegate:self];
+    if (!success) {
+        NSLog(@"请检查APPKEY");
+        [SVProgressHUD showWithStatus:@"设备连接失败，请重试"];
+    }
+}
 @end

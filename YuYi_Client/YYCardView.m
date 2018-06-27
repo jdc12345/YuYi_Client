@@ -81,7 +81,7 @@
     //结果说明label
     UILabel *resultLabel = [[UILabel alloc]init];
     self.resultLabel = resultLabel;
-    resultLabel.text = @"*当前数据为空";
+    resultLabel.text = @"等待测量";
     self.resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
     self.resultLabel.font = [UIFont fontWithName:kPingFang_S size:15];
     self.resultLabel.textAlignment = NSTextAlignmentCenter;

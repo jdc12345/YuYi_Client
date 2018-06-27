@@ -26,6 +26,9 @@
 #import "YYNavigationController.h"
 #import "YYTabBarItem.h"
 
+// 引入测量温度计血压仪功能所需头文件
+#import "JkezApi.h"
+
 #ifdef DEBUG // 开发
 
 static BOOL const isProduction = FALSE; // 极光FALSE为开发环境
@@ -61,7 +64,11 @@ static BOOL const isProduction = TRUE; // 极光TRUE为生产环境
         YYNavigationController *navigationVc = [[YYNavigationController alloc] initWithRootViewController:logInVC];
         self.window.rootViewController = navigationVc;
     }
-            
+    
+    //测试血压仪，温度计注册登录·
+    [JkezApiInit jkezApiInitWithAppKey:@"0F95B7ECA0059051A0FEE883140CDC07" comark:@"wanyult"];
+    
+    
     NSLog(@"注册");
     
 //  -------------- 初始化APNs

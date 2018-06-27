@@ -23,7 +23,11 @@ static float transY = 0.f;//滑块移动总值
 
 static float temp = 32.00f;//开始滑动时候温度初始值
 
-@interface YYCurruntTemperVC ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate>
+@interface YYCurruntTemperVC ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,HealthMeasureApiDelegate>
+{
+    HealthMeasureApi *_healthMeaApi;//api实例
+    
+}
 @property (nonatomic, strong) UIView *memberView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -57,7 +61,68 @@ static float temp = 32.00f;//开始滑动时候温度初始值
     if ([self.title isEqualToString:@"当前体温"]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"手动输入" normalColor:[UIColor colorWithHexString:@"#333333"] highlightedColor:[UIColor colorWithHexString:@"#333333"] target:self action:@selector(addHanderInfo:)];
     }
+    //测量血压仪和温度计
+    //测量血压仪
+    /**
+     BTTYPEBLOODPRE,//血压计
+     BTTYPEBLOODSUGER,//血糖仪
+     BTTYPEHUMANSCALE, //人体秤
+     BTTYPEFATSCALE, //脂肪秤
+     BTTYPEURICACID,//尿酸
+     BTTYPECHOL,//血脂
+     BTTYPETPT,//额温
+     BTTYPEALL   //所有设备
+     **/
+    
+    //        if ((_type == BTTYPEHUMANSCALE)||(_type == BTTYPEFATSCALE)) {//测量体重需要的参数
+    //            [JkezApiInit setApiUserDataWithHeight:195 sex:0 age:27];
+    //        }
+    _type = BTTYPETPT;//额温
+    _healthMeaApi = [HealthMeasureApi healthMeasureWithType:_type];
+    _healthMeaApi.healthMeasureDelegate = self;
 }
+//设备名称
+-(void)healthMeasureBlueToothState:(BTSTATE)state {
+    NSLog(@"MeasureDemostate %d",state);
+    
+}
+
+//获取蓝牙设备名称
+-(void)healthMeasureBlueToothName:(NSString *)name Mac:(NSString *)mac {
+    NSLog(@"MeasureDemoBTName: %@",name);
+    //    _contentLable.text = name;
+}
+
+//连接成功
+-(void)healthMeasureConnectSuccess {
+    NSLog(@"MeasureDemoSuccess");
+    self.resultLabel.text = @"设备连接成功，请开始测量";
+}
+
+//监听设备断开
+-(void)healthMeasureDisconnect {
+    //    _contentLable.text = @"设备已经断开";
+    //    count = 0;
+}
+
+//返回有效值
+-(void)healthMeasureWithType:(BTMEASURETYTE)type state:(HEALTHMEAUSRESTATE)state data:(id)data {
+    NSLog(@"MeasureDemo:state: %d,type:%d",state,type);
+    
+    if(type == BTTYPETPT) {
+        TptApiData *tptdata = (TptApiData *)data;
+        if (NOMAL == state) {//体温计直接获取到数据
+            self.displayLabel.text = [NSString stringWithFormat:@"%.1f ℃",tptdata.temperature];
+            self.resultLabel.text = [NSString stringWithFormat:@"体温:%.1f ℃",tptdata.temperature];
+        }else if(ERROR == state) {
+            self.displayLabel.text = @"";
+            self.resultLabel.text = [NSString stringWithFormat:@"异常:%@",tptdata.err];
+        }
+    }
+}
+
+//-------------------------华丽的分割线----------------------------------
+
 //手动输入点击事件
 -(void)addHanderInfo:(UIButton *)button{
     YYCurruntTemperVC *autuMVC = [[YYCurruntTemperVC alloc]init];
@@ -121,18 +186,13 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.top.offset(30*kiphone6H);
     }];
     //显示体温label
-    NSString *curruntTemper;
-    if ([self.title isEqualToString:@"当前体温"]) {
-        curruntTemper = @"43.1";
-    }else{
-        curruntTemper = @"0";
-    }
-    UILabel *displayLabel = [UILabel labelWithText:[NSString stringWithFormat:@"%@℃",curruntTemper] andTextColor:[UIColor colorWithHexString:@"1ebeec"] andFontSize:40];
+    UILabel *displayLabel = [UILabel labelWithText:@"等待连接设备，请按下设备启动按钮" andTextColor:[UIColor colorWithHexString:@"1ebeec"] andFontSize:40];
     [self.view addSubview:displayLabel];
     [displayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.offset(0);
         make.top.offset(30*kiphone6H);
     }];
+    
     //显示体温结果总结label
     
     NSString *result = @"*当前数据为空";
@@ -142,28 +202,37 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.centerX.offset(0);
         make.top.equalTo(displayLabel.mas_bottom);
     }];
-    float tempC = [curruntTemper floatValue];//体温
-    if (tempC == 0) {
-        resultLabel.text = @"*当前数据为空";
-        displayLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
-        resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
-    }else if (tempC > 32 && tempC < 36){
-        resultLabel.text = @"*当前体温过低,请查看测量部位";
-        displayLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
-        resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
-    }else if (tempC >= 36 && tempC < 37){
-        resultLabel.text = @"*当前体温正常";
-        displayLabel.textColor = [UIColor colorWithHexString:@"f654f5"];
-        resultLabel.textColor = [UIColor colorWithHexString:@"f654f5"];
-    }else if (tempC >= 37 && tempC <= 42){
-        resultLabel.text = @"*当前体温过高,请尽快就医";
-        displayLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
-        resultLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+    NSString *curruntTemper;
+    if ([self.title isEqualToString:@"当前体温"]) {
+        curruntTemper = @"";
+        displayLabel.text = @"等待测量";
+        resultLabel.text = @"等待连接设备，请按下设备启动按钮";
     }else{
-        resultLabel.text = @"*体温测量结果不符合实际，请重新测量";
-        displayLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
-        resultLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+        curruntTemper = @"0";
+        displayLabel.text = @"等待输入";
     }
+    float tempC = [curruntTemper floatValue];//体温
+//    if (tempC == 0) {
+//        resultLabel.text = @"*当前数据为空";
+//        displayLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
+//        resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
+//    }else if (tempC > 32 && tempC < 36){
+//        resultLabel.text = @"*当前体温过低,请查看测量部位";
+//        displayLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
+//        resultLabel.textColor = [UIColor colorWithHexString:@"1ebeec"];
+//    }else if (tempC >= 36 && tempC < 37){
+//        resultLabel.text = @"*当前体温正常";
+//        displayLabel.textColor = [UIColor colorWithHexString:@"f654f5"];
+//        resultLabel.textColor = [UIColor colorWithHexString:@"f654f5"];
+//    }else if (tempC >= 37 && tempC <= 42){
+//        resultLabel.text = @"*当前体温过高,请尽快就医";
+//        displayLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+//        resultLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+//    }else{
+//        resultLabel.text = @"*体温测量结果不符合实际，请重新测量";
+//        displayLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+//        resultLabel.textColor = [UIColor colorWithHexString:@"f6547a"];
+//    }
     self.displayLabel = displayLabel;
     self.resultLabel = resultLabel;
     //温度计
@@ -391,7 +460,15 @@ static float temp = 32.00f;//开始滑动时候温度初始值
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.navigationController.navigationBar.translucent = true;
-    
+    [_healthMeaApi disconnect];
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    BOOL success = [_healthMeaApi connectWithDelegate:self];
+    if (!success) {
+        NSLog(@"请检查APPKEY");
+        [SVProgressHUD showWithStatus:@"设备连接失败，请重试"];
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

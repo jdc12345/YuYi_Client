@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JkezApi.h"
 
 @interface YYCurruntBloodPressureVC : UIViewController
 @property (nonatomic, strong) NSString *navTitle;
+//测量类型
+@property(nonatomic,assign) BTMEASURETYTE type;
 @end

@@ -80,6 +80,15 @@
 		168483681F774FC90015D0F5 /* YYCurruntTemperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */; };
 		169257ED201B1AC00060368A /* 启动页@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 169257EC201B1AC00060368A /* 启动页@3x.png */; };
 		16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */; };
+		16E25B9520E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B8620E3351E00491AB1 /* libZrqDrawEcgSDK.a */; };
+		16E25B9620E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B8620E3351E00491AB1 /* libZrqDrawEcgSDK.a */; };
+		16E25B9720E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B8620E3351E00491AB1 /* libZrqDrawEcgSDK.a */; };
+		16E25B9820E3351F00491AB1 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16E25B8720E3351E00491AB1 /* resource.bundle */; };
+		16E25B9920E3351F00491AB1 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16E25B8720E3351E00491AB1 /* resource.bundle */; };
+		16E25B9A20E3351F00491AB1 /* resource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 16E25B8720E3351E00491AB1 /* resource.bundle */; };
+		16E25B9B20E3351F00491AB1 /* libJkezApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B9220E3351E00491AB1 /* libJkezApi.a */; };
+		16E25B9C20E3351F00491AB1 /* libJkezApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B9220E3351E00491AB1 /* libJkezApi.a */; };
+		16E25B9D20E3351F00491AB1 /* libJkezApi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 16E25B9220E3351E00491AB1 /* libJkezApi.a */; };
 		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
 		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
 		3E091DD61E8B65050084B677 /* NSArray+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E091DD11E8B65050084B677 /* NSArray+Log.m */; };
@@ -371,6 +380,31 @@
 		169257EC201B1AC00060368A /* 启动页@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "启动页@3x.png"; sourceTree = "<group>"; };
 		16BFB2581F6BA915006D6B2A /* YYAppointmentHospitalTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAppointmentHospitalTVCell.h; sourceTree = "<group>"; };
 		16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAppointmentHospitalTVCell.m; sourceTree = "<group>"; };
+		16E25B7B20E3351E00491AB1 /* BoApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoApiData.h; sourceTree = "<group>"; };
+		16E25B7C20E3351E00491AB1 /* BpApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BpApiData.h; sourceTree = "<group>"; };
+		16E25B7D20E3351E00491AB1 /* BsApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BsApiData.h; sourceTree = "<group>"; };
+		16E25B7E20E3351E00491AB1 /* BTPar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTPar.h; sourceTree = "<group>"; };
+		16E25B7F20E3351E00491AB1 /* CholApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CholApiData.h; sourceTree = "<group>"; };
+		16E25B8120E3351E00491AB1 /* ECGData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGData.h; sourceTree = "<group>"; };
+		16E25B8220E3351E00491AB1 /* ECGHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGHelper.h; sourceTree = "<group>"; };
+		16E25B8320E3351E00491AB1 /* ECGPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECGPlayerView.h; sourceTree = "<group>"; };
+		16E25B8420E3351E00491AB1 /* FCFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCFileManager.h; sourceTree = "<group>"; };
+		16E25B8520E3351E00491AB1 /* LeadPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeadPlayer.h; sourceTree = "<group>"; };
+		16E25B8620E3351E00491AB1 /* libZrqDrawEcgSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libZrqDrawEcgSDK.a; sourceTree = "<group>"; };
+		16E25B8720E3351E00491AB1 /* resource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = resource.bundle; sourceTree = "<group>"; };
+		16E25B8820E3351E00491AB1 /* ZRQBluetooth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRQBluetooth.h; sourceTree = "<group>"; };
+		16E25B8920E3351E00491AB1 /* ZRQECGAnalysis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZRQECGAnalysis.h; sourceTree = "<group>"; };
+		16E25B8A20E3351E00491AB1 /* FatApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FatApiData.h; sourceTree = "<group>"; };
+		16E25B8B20E3351E00491AB1 /* HealthMeasureApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthMeasureApi.h; sourceTree = "<group>"; };
+		16E25B8C20E3351E00491AB1 /* HealthMeasureState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthMeasureState.h; sourceTree = "<group>"; };
+		16E25B8D20E3351E00491AB1 /* HealthMeasureType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthMeasureType.h; sourceTree = "<group>"; };
+		16E25B8E20E3351E00491AB1 /* HumanApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HumanApiData.h; sourceTree = "<group>"; };
+		16E25B8F20E3351E00491AB1 /* JkezApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JkezApi.h; sourceTree = "<group>"; };
+		16E25B9020E3351E00491AB1 /* JkezApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JkezApiData.h; sourceTree = "<group>"; };
+		16E25B9120E3351E00491AB1 /* JkezApiInit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JkezApiInit.h; sourceTree = "<group>"; };
+		16E25B9220E3351E00491AB1 /* libJkezApi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libJkezApi.a; sourceTree = "<group>"; };
+		16E25B9320E3351E00491AB1 /* TptApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TptApiData.h; sourceTree = "<group>"; };
+		16E25B9420E3351E00491AB1 /* UaApiData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UaApiData.h; sourceTree = "<group>"; };
 		16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
 		16E75CFF1E5FFDE700A71AA5 /* YYPayOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPayOptionView.h; sourceTree = "<group>"; };
 		16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPayOptionView.m; sourceTree = "<group>"; };
@@ -606,6 +640,7 @@
 			files = (
 				3EC2C0031E6F9D4000F01795 /* Security.framework in Frameworks */,
 				3E94396E1ECADB05001FE471 /* libstdc++.6.0.9.tbd in Frameworks */,
+				16E25B9B20E3351F00491AB1 /* libJkezApi.a in Frameworks */,
 				3E5C670E1E763899005EAE19 /* libc++.tbd in Frameworks */,
 				3EC2C0051E6F9D5000F01795 /* libz.tbd in Frameworks */,
 				3EC2BFF91E6F9CC900F01795 /* CoreTelephony.framework in Frameworks */,
@@ -620,6 +655,7 @@
 				3E5C67161E7638C8005EAE19 /* libxml2.tbd in Frameworks */,
 				3E5C67141E7638BD005EAE19 /* libstdc++.tbd in Frameworks */,
 				3E5C67121E7638AF005EAE19 /* libsqlite3.tbd in Frameworks */,
+				16E25B9520E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */,
 				3E5C67101E7638A2005EAE19 /* libc++abi.tbd in Frameworks */,
 				3E5C670C1E76388C005EAE19 /* ImageIO.framework in Frameworks */,
 				3E5C670A1E763884005EAE19 /* CoreVideo.framework in Frameworks */,
@@ -644,6 +680,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16E25B9C20E3351F00491AB1 /* libJkezApi.a in Frameworks */,
+				16E25B9620E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +689,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16E25B9D20E3351F00491AB1 /* libJkezApi.a in Frameworks */,
+				16E25B9720E3351F00491AB1 /* libZrqDrawEcgSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -940,6 +980,46 @@
 			name = tools;
 			sourceTree = "<group>";
 		};
+		16E25B7A20E3351E00491AB1 /* JkezApi */ = {
+			isa = PBXGroup;
+			children = (
+				16E25B7B20E3351E00491AB1 /* BoApiData.h */,
+				16E25B7C20E3351E00491AB1 /* BpApiData.h */,
+				16E25B7D20E3351E00491AB1 /* BsApiData.h */,
+				16E25B7E20E3351E00491AB1 /* BTPar.h */,
+				16E25B7F20E3351E00491AB1 /* CholApiData.h */,
+				16E25B8020E3351E00491AB1 /* Ecg */,
+				16E25B8A20E3351E00491AB1 /* FatApiData.h */,
+				16E25B8B20E3351E00491AB1 /* HealthMeasureApi.h */,
+				16E25B8C20E3351E00491AB1 /* HealthMeasureState.h */,
+				16E25B8D20E3351E00491AB1 /* HealthMeasureType.h */,
+				16E25B8E20E3351E00491AB1 /* HumanApiData.h */,
+				16E25B8F20E3351E00491AB1 /* JkezApi.h */,
+				16E25B9020E3351E00491AB1 /* JkezApiData.h */,
+				16E25B9120E3351E00491AB1 /* JkezApiInit.h */,
+				16E25B9220E3351E00491AB1 /* libJkezApi.a */,
+				16E25B9320E3351E00491AB1 /* TptApiData.h */,
+				16E25B9420E3351E00491AB1 /* UaApiData.h */,
+			);
+			path = JkezApi;
+			sourceTree = "<group>";
+		};
+		16E25B8020E3351E00491AB1 /* Ecg */ = {
+			isa = PBXGroup;
+			children = (
+				16E25B8120E3351E00491AB1 /* ECGData.h */,
+				16E25B8220E3351E00491AB1 /* ECGHelper.h */,
+				16E25B8320E3351E00491AB1 /* ECGPlayerView.h */,
+				16E25B8420E3351E00491AB1 /* FCFileManager.h */,
+				16E25B8520E3351E00491AB1 /* LeadPlayer.h */,
+				16E25B8620E3351E00491AB1 /* libZrqDrawEcgSDK.a */,
+				16E25B8720E3351E00491AB1 /* resource.bundle */,
+				16E25B8820E3351E00491AB1 /* ZRQBluetooth.h */,
+				16E25B8920E3351E00491AB1 /* ZRQECGAnalysis.h */,
+			);
+			path = Ecg;
+			sourceTree = "<group>";
+		};
 		376989C8F18E57266BCAFC54 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1067,6 +1147,7 @@
 		3E1840DE1E56C70B00069568 /* MeasurePage */ = {
 			isa = PBXGroup;
 			children = (
+				16E25B7A20E3351E00491AB1 /* JkezApi */,
 				3ECBB4611E5D56B100BD5BE5 /* C */,
 				3ECBB4601E5D56AD00BD5BE5 /* V */,
 				3ECBB45F1E5D4F1800BD5BE5 /* M */,
@@ -1530,6 +1611,7 @@
 				160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */,
 				160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */,
 				169257ED201B1AC00060368A /* 启动页@3x.png in Resources */,
+				16E25B9820E3351F00491AB1 /* resource.bundle in Resources */,
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */,
@@ -1545,6 +1627,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16E25B9920E3351F00491AB1 /* resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1552,6 +1635,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				16E25B9A20E3351F00491AB1 /* resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1957,6 +2041,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YuYi_Client",
 					"\"$(SRCROOT)/YuYi_Client/Lib\"",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2000,6 +2086,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/YuYi_Client",
 					"\"$(SRCROOT)/YuYi_Client/Lib\"",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-Client";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2016,6 +2104,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YuYi_ClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-ClientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YuYi_Client.app/YuYi_Client";
@@ -2028,6 +2121,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = YuYi_ClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-ClientTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YuYi_Client.app/YuYi_Client";
@@ -2039,6 +2137,11 @@
 			buildSettings = {
 				INFOPLIST_FILE = YuYi_ClientUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-ClientUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = YuYi_Client;
@@ -2050,6 +2153,11 @@
 			buildSettings = {
 				INFOPLIST_FILE = YuYi_ClientUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi/Ecg",
+					"$(PROJECT_DIR)/YuYi_Client/JkezApi",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.technology.YuYi-ClientUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = YuYi_Client;

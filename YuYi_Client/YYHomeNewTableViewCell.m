@@ -7,8 +7,8 @@
 //
 
 #import "YYHomeNewTableViewCell.h"
-#import <Masonry.h>
-#import "UIColor+Extension.h"
+//#import <Masonry.h>
+//#import "UIColor+Extension.h"
 
 @implementation YYHomeNewTableViewCell
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
