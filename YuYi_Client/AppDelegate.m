@@ -64,7 +64,7 @@ static BOOL const isProduction = TRUE; // 极光TRUE为生产环境
             
     NSLog(@"注册");
     
-    //Required
+//  -------------- 初始化APNs
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
     JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
     entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
@@ -76,7 +76,7 @@ static BOOL const isProduction = TRUE; // 极光TRUE为生产环境
     [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     
     
-    
+//   -------------- 初始化JPush
     // 如需使用IDFA功能请添加此代码并在初始化方法的advertisingIdentifier参数中填写对应值
 //    NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
     
@@ -227,6 +227,7 @@ static BOOL const isProduction = TRUE; // 极光TRUE为生产环境
 }
 #pragma mark -
 #pragma mark ------------JPUSH----------------------
+//注册APNs成功并上报DeviceToken
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     

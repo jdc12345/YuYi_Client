@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "AFNetworking.h"
 //HTTP REQUEST METHOD TYPE
 typedef NS_ENUM(NSInteger, HttpRequestType) {
     HttpRequestGet,
@@ -22,6 +22,7 @@ typedef NS_ENUM(NSInteger, HttpRequestType) {
 typedef void(^PrepareExecuteBlock)(void);
 
 @interface HttpClient : NSObject
+@property(nonatomic,strong) AFHTTPSessionManager *manager;
 - (void)cancelHttpRequest;
 
 + (HttpClient *)defaultClient;

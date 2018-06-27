@@ -7,13 +7,13 @@
 //
 
 #import "HttpClient.h"
-#import "AFNetworking.h"
+
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 // #import "Reachability.h"
 
 @interface HttpClient()
-@property(nonatomic,strong) AFHTTPSessionManager *manager;
+
 @property(nonatomic,assign) BOOL isConnect;
 @end
 
@@ -24,7 +24,6 @@
         self.manager = [AFHTTPSessionManager manager];
         //请求参数序列化类型
         self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-        
         //响应结果序列化类型
         self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
         self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html", @"text/json", @"text/javascript",@"text/plain",@"image/gif", nil];

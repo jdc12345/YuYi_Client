@@ -78,6 +78,7 @@
 		165EB5C01E812C6000F644F0 /* YYMedicinalStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 165EB5BF1E812C6000F644F0 /* YYMedicinalStateModel.m */; };
 		1683B7181F736A14004A21E4 /* YYInfomationTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1683B7171F736A14004A21E4 /* YYInfomationTVCell.m */; };
 		168483681F774FC90015D0F5 /* YYCurruntTemperVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */; };
+		169257ED201B1AC00060368A /* 启动页@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 169257EC201B1AC00060368A /* 启动页@3x.png */; };
 		16BFB25A1F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */; };
 		16E75D011E5FFDE700A71AA5 /* YYPayOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D001E5FFDE700A71AA5 /* YYPayOptionView.m */; };
 		16E75D041E60117800A71AA5 /* YYPaySuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 16E75D031E60117800A71AA5 /* YYPaySuccessView.m */; };
@@ -144,7 +145,6 @@
 		3E9644001E601DB8001B49DE /* ZYAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9643FF1E601DB8001B49DE /* ZYAlertView.m */; };
 		3E9644031E602D8A001B49DE /* ZYActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644021E602D8A001B49DE /* ZYActionSheet.m */; };
 		3E9644061E603F1C001B49DE /* ZYLActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9644051E603F1C001B49DE /* ZYLActionSheet.m */; };
-		3E984FBF1EC168AA0094CBE4 /* 启动页.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E984FBE1EC168AA0094CBE4 /* 启动页.png */; };
 		3EAB2B781E2F065800D6795F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B771E2F065800D6795F /* main.m */; };
 		3EAB2B7B1E2F065800D6795F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7A1E2F065800D6795F /* AppDelegate.m */; };
 		3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EAB2B7F1E2F065800D6795F /* Main.storyboard */; };
@@ -368,6 +368,7 @@
 		1683B7171F736A14004A21E4 /* YYInfomationTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYInfomationTVCell.m; sourceTree = "<group>"; };
 		168483661F774FC90015D0F5 /* YYCurruntTemperVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCurruntTemperVC.h; sourceTree = "<group>"; };
 		168483671F774FC90015D0F5 /* YYCurruntTemperVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCurruntTemperVC.m; sourceTree = "<group>"; };
+		169257EC201B1AC00060368A /* 启动页@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "启动页@3x.png"; sourceTree = "<group>"; };
 		16BFB2581F6BA915006D6B2A /* YYAppointmentHospitalTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAppointmentHospitalTVCell.h; sourceTree = "<group>"; };
 		16BFB2591F6BA915006D6B2A /* YYAppointmentHospitalTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAppointmentHospitalTVCell.m; sourceTree = "<group>"; };
 		16E75CFD1E5FBE4000A71AA5 /* YYPersonalTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYPersonalTableViewCell.m; sourceTree = "<group>"; };
@@ -484,7 +485,6 @@
 		3E9644021E602D8A001B49DE /* ZYActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYActionSheet.m; sourceTree = "<group>"; };
 		3E9644041E603F1C001B49DE /* ZYLActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLActionSheet.h; sourceTree = "<group>"; };
 		3E9644051E603F1C001B49DE /* ZYLActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLActionSheet.m; sourceTree = "<group>"; };
-		3E984FBE1EC168AA0094CBE4 /* 启动页.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "启动页.png"; sourceTree = "<group>"; };
 		3EAB2B731E2F065800D6795F /* YuYi_Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YuYi_Client.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EAB2B771E2F065800D6795F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3EAB2B791E2F065800D6795F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1059,7 +1059,7 @@
 				3EAB2B841E2F065800D6795F /* LaunchScreen.storyboard */,
 				3EAB2B871E2F065800D6795F /* Info.plist */,
 				3E1840FC1E56C8EF00069568 /* YYDefine.pch */,
-				3E984FBE1EC168AA0094CBE4 /* 启动页.png */,
+				169257EC201B1AC00060368A /* 启动页@3x.png */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -1483,7 +1483,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
-								enabled = 0;
+								enabled = 1;
 							};
 							com.apple.Push = {
 								enabled = 1;
@@ -1529,6 +1529,7 @@
 			files = (
 				160888C71F7B31F400B2ADE9 /* HUAlbumCell.xib in Resources */,
 				160888CA1F7B31F400B2ADE9 /* HUImagePickerCell.xib in Resources */,
+				169257ED201B1AC00060368A /* 启动页@3x.png in Resources */,
 				3EAB2B861E2F065800D6795F /* LaunchScreen.storyboard in Resources */,
 				3EAB2B831E2F065800D6795F /* Assets.xcassets in Resources */,
 				161FA38E1E693F7B00C359A7 /* YYOrderDetailView.xib in Resources */,
@@ -1536,7 +1537,6 @@
 				160888CF1F7B31F400B2ADE9 /* pick_checked@3x.png in Resources */,
 				3EFBD6681E68FDD900B422BD /* CityData.plist in Resources */,
 				3EAB2B811E2F065800D6795F /* Main.storyboard in Resources */,
-				3E984FBF1EC168AA0094CBE4 /* 启动页.png in Resources */,
 				165490301E6665580034CB5B /* YYShopCarTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

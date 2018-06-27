@@ -14,11 +14,16 @@
 #import "CcUserModel.h"
 #import "YYPInfomartionViewController.h"
 #import "YYNavigationController.h"
+#import <UIImageView+WebCache.h>
 
 @interface YYLogInVC ()<UITextFieldDelegate>
 @property(nonatomic,weak)UITextField *telNumberField;
 
 @property(nonatomic,weak)UITextField *passWordField;
+@property(nonatomic,weak)UITextField *imageCodeField;//显示输入图片验证码的field
+@property(nonatomic,weak)UIImageView *codeImageView;//动态码图片view
+@property(nonatomic,copy)NSString *curTime;//当前时间毫秒
+//@property(nonatomic,strong)NSHTTPCookie *DynamicCodeCookie;//动态码cookie
 @end
 
 @implementation YYLogInVC
@@ -65,7 +70,7 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(logImageView.mas_bottom).offset(30*kiphone6);
         make.width.offset(325*kiphone6);
-        make.height.offset(100*kiphone6);
+        make.height.offset(150*kiphone6);
     }];
     //添加电话label
     UILabel *telNumLabel = [UILabel labelWithText:@"手机号" andTextColor:[UIColor colorWithHexString:@"#333333"] andFontSize:14];
@@ -94,7 +99,69 @@
     line1.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
     [inputView addSubview:line1];
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(inputView);
+        make.top.offset(50*kiphone6);
+        make.left.right.offset(0);
+        make.height.offset(1/[UIScreen mainScreen].scale);
+    }];
+    //添加图片验证码label
+    UILabel *imageCodeLabel = [UILabel labelWithText:@"随机码" andTextColor:[UIColor colorWithHexString:@"#333333"] andFontSize:14];
+    [inputView addSubview:imageCodeLabel];
+    [imageCodeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(15*kiphone6);
+        make.centerY.equalTo(line1.mas_bottom).offset(24*kiphone6);
+    }];
+    
+    //添加图片验证码textField
+    UITextField *imageCodeField = [[UITextField alloc]init];
+    imageCodeField.placeholder = @"请输入随机码";
+    imageCodeField.font = [UIFont systemFontOfSize:14];
+    imageCodeField.textColor = [UIColor colorWithHexString:@"333333"];
+    imageCodeField.keyboardType = UIKeyboardTypeNumberPad;//设置键盘的样式
+    [inputView addSubview:imageCodeField];
+    [imageCodeField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(imageCodeLabel.mas_right).offset(20*kiphone6);
+        make.centerY.equalTo(imageCodeLabel);
+        make.width.offset(110);
+    }];
+    self.imageCodeField = imageCodeField;
+    imageCodeField.delegate = self;
+    //添加显示图片验证码的imageView
+    UIImageView *codeImageView = [[UIImageView alloc]init];
+    [inputView addSubview:codeImageView];
+    [codeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-15*kiphone6);
+        make.centerY.equalTo(imageCodeField);
+        make.width.offset(100*kiphone6);
+        make.height.offset(35*kiphone6);
+    }];
+    self.codeImageView = codeImageView;
+    codeImageView.userInteractionEnabled = true;
+    //添加点击更换图片事件
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(singleTapAction:)];
+    [codeImageView addGestureRecognizer:tap];
+    
+    //显示请求回来的图片
+    //参数：当前时间毫秒
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    self.curTime = curTime;
+    //动态码图片url
+    NSString *codeUrlStr = [NSString stringWithFormat:@"%@/personal/imgcode.do?ts=%@",mPrefixUrl,curTime];
+    [codeImageView sd_setImageWithURL:[NSURL URLWithString:codeUrlStr] placeholderImage:nil options:SDWebImageHandleCookies];
+//    [codeImageView sd_setImageWithURL:[NSURL URLWithString:codeUrlStr] placeholderImage:nil options:SDWebImageHandleCookies progress:nil completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//        NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:codeUrlStr]];
+//        NSDictionary* requestFields = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+//        [[NSUserDefaults standardUserDefaults] setObject:[requestFields objectForKey:@"Cookie"] forKey:@"DynamicCodeCookie"];
+//        NSLog(@"----->%@",cookies.description);
+//    }];
+
+    //添加line2
+    UIView *line2 = [[UIView alloc]init];
+    line2.backgroundColor = [UIColor colorWithHexString:@"cccccc"];
+    [inputView addSubview:line2];
+    [line2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(line1.mas_bottom).offset(49*kiphone6);
         make.left.right.offset(0);
         make.height.offset(1/[UIScreen mainScreen].scale);
     }];
@@ -103,7 +170,7 @@
     [inputView addSubview:codeNumLabel];
     [codeNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(15*kiphone6);
-        make.centerY.equalTo(line1.mas_centerY).offset(25*kiphone6);
+        make.centerY.equalTo(line2.mas_centerY).offset(25*kiphone6);
     }];
     //添加密码textField
     UITextField *passWordField = [[UITextField alloc]init];
@@ -178,21 +245,42 @@
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];//取消键盘
     
-    
-    
+}
+//动态码图片点击刷新事件
+-(void)singleTapAction:(UITapGestureRecognizer *)gesture
+{
+    //显示请求回来的图片
+    //参数：当前时间毫秒
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    self.curTime = curTime;
+    //动态码图片url
+    NSString *codeUrlStr = [NSString stringWithFormat:@"%@/personal/imgcode.do?ts=%@",mPrefixUrl,curTime];
+    [self.codeImageView sd_setImageWithURL:[NSURL URLWithString:codeUrlStr] placeholderImage:nil options:SDWebImageHandleCookies];
+   
 }
 -(void)buttonClick:(UIButton *)button{
     if (![self valiMobile:self.telNumberField.text]) {
         [self showAlertWithMessage:@"请确认电话号码是否输入正确"];
         return;
     }
+    if (self.imageCodeField.text.length == 0) {
+        [self showAlertWithMessage:@"请输入动态验证码"];
+        return;
+    }
 
     //发送获取验证码请求
-    NSString *urlString = [NSString stringWithFormat:@"%@/personal/vcode.do?id=%@",mPrefixUrl,self.telNumberField.text];
+    NSString *urlString = [NSString stringWithFormat:@"%@/personal/vcode.do?id=%@&ts=%@&imgcode=%@",mPrefixUrl,self.telNumberField.text,self.curTime,self.imageCodeField.text];
     HttpClient *httpManager = [HttpClient defaultClient];
-    
+//    [httpManager.manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"DynamicCodeCookie"] forHTTPHeaderField:@"Cookie"];//设置之前动态码请求返回的cookie到手机 验证码请求中，以便获取手机验证码
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *getCodeDic = (NSDictionary*)responseObject;
+        
+//        NSDictionary *fields= [responseObject allHeaderFields];
+//        NSArray *cookies=[NSHTTPCookie cookiesWithResponseHeaderFields:fields forURL:[NSURL URLWithString:urlString]];
+//        NSDictionary* requestFields = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+//        [[NSUserDefaults standardUserDefaults] setObject:[requestFields objectForKey:@"Cookie"] forKey:@"telphoneCodeCookie"];//获取返回手机验证码cookie
         if ([getCodeDic[@"code"] isEqualToString:@"0"]) {
             //倒计时时间
             __block NSInteger timeOut = 59;
@@ -252,9 +340,14 @@
         [self showAlertWithMessage:@"请确认电话号码和验证码是否输入正确"];
         return;
     }
+    //cookie
+//        NSArray *allCookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        
+        
     NSString *urlString = [NSString stringWithFormat:@"%@/personal/login.do?id=%@&vcode=%@",mPrefixUrl,self.telNumberField.text,self.passWordField.text];
     HttpClient *httpManager = [HttpClient defaultClient];
-        [SVProgressHUD show];
+//    [httpManager.manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"telphoneCodeCookie"] forHTTPHeaderField:@"Cookie"];//设置之前手机验证码请求返回的cookie并设置到登录请求中，以便服务器确认登录
+    [SVProgressHUD show];
     [httpManager requestWithPath:urlString method:HttpRequestPost parameters:nil prepareExecute:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSDictionary *dic = (NSDictionary *)responseObject;
         if ([dic[@"code"] isEqualToString:@"0"]) {
