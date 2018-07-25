@@ -30,6 +30,7 @@
 
 @property (nonatomic, weak) YYCardView *cardView;//头部cardview
 @property (nonatomic, assign) NSInteger currentUser;
+@property (nonatomic, assign) NSInteger state;//手机蓝牙状态
 
 @end
 
@@ -69,13 +70,13 @@
     _healthMeaApi = [HealthMeasureApi healthMeasureWithType:_type];
     _healthMeaApi.healthMeasureDelegate = self;
 }
-//设备名称
+//手机蓝牙状态
 -(void)healthMeasureBlueToothState:(BTSTATE)state {
     NSLog(@"MeasureDemostate %d",state);
-    
+    _state = state;
 }
 
-//获取蓝牙设备名称
+//获取测量设备蓝牙设备名称
 -(void)healthMeasureBlueToothName:(NSString *)name Mac:(NSString *)mac {
     NSLog(@"MeasureDemoBTName: %@",name);
     //    _contentLable.text = name;
@@ -84,14 +85,13 @@
 //连接成功
 -(void)healthMeasureConnectSuccess {
     NSLog(@"MeasureDemoSuccess");
-    //    _contentLable.text = @"连接成功";
-    //    count = 0;
+    _cardView.resultLabel.text = [NSString stringWithFormat:@"设备连接成功"];    
 }
 
 //监听设备断开
 -(void)healthMeasureDisconnect {
-    //    _contentLable.text = @"设备已经断开";
-    //    count = 0;
+    _cardView.resultLabel.text = [NSString stringWithFormat:@"设备已经断开连接"];
+    
 }
 
 //返回有效值
@@ -113,7 +113,7 @@
             NSLog(@"测量结束");
                 _cardView.resultLabel.text = [NSString stringWithFormat:@"异常:%@",bpdata.err];
         }
-    }
+    } 
 }
 
 //-------------------------华丽的分割线----------------------------------
@@ -256,7 +256,28 @@
     gradientLayer.endPoint = CGPointMake(0, 1.0);
     gradientLayer.frame = CGRectMake(0, 0, kScreenW-20*kiphone6, 44 *kiphone6H);
     [sureBtn.layer insertSublayer:gradientLayer atIndex:0];
-    
+    //根据手机蓝牙状态提示用户
+    switch (_state) {
+        case BTSTATEUNSUPPORTED:
+            [SVProgressHUD showInfoWithStatus:@"该手机蓝牙不支持"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEUNAUTHORIZED:
+            [SVProgressHUD showInfoWithStatus:@"该手机未授权"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEPOWEREDOFF:
+            [SVProgressHUD showInfoWithStatus:@"尚未打开蓝牙,请在设置中打开"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEOTHER:
+            [SVProgressHUD showInfoWithStatus:@"该手机蓝牙处于异常状态"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+            
+        default:
+            break;
+    }
 }
 #pragma - UItextdelegate
 

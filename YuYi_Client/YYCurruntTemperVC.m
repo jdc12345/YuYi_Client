@@ -23,7 +23,7 @@ static float transY = 0.f;//滑块移动总值
 
 static float temp = 32.00f;//开始滑动时候温度初始值
 
-@interface YYCurruntTemperVC ()<UITableViewDataSource, UITableViewDelegate,UITextFieldDelegate,HealthMeasureApiDelegate>
+@interface YYCurruntTemperVC ()<UITableViewDelegate,UITextFieldDelegate,HealthMeasureApiDelegate>
 {
     HealthMeasureApi *_healthMeaApi;//api实例
     
@@ -44,6 +44,9 @@ static float temp = 32.00f;//开始滑动时候温度初始值
 @property (nonatomic, strong) UIImageView *curruntMemberImg;//当前用户Img
 @property (nonatomic, strong) UIButton *nameBtn;//显示当前用户名字按钮(三角)
 @property (nonatomic, strong) UIView *bottomView;//底部显示用户列表背景
+@property (nonatomic, assign) NSInteger state;//手机蓝牙状态
+@property (nonatomic, weak) UIImageView *sliderImage;//温度指示滑块
+@property (nonatomic, weak) UIImageView *tempImage;//温度计底图
 @end
 
 @implementation YYCurruntTemperVC
@@ -81,13 +84,13 @@ static float temp = 32.00f;//开始滑动时候温度初始值
     _healthMeaApi = [HealthMeasureApi healthMeasureWithType:_type];
     _healthMeaApi.healthMeasureDelegate = self;
 }
-//设备名称
+//手机蓝牙状态
 -(void)healthMeasureBlueToothState:(BTSTATE)state {
     NSLog(@"MeasureDemostate %d",state);
-    
+    _state = state;
 }
 
-//获取蓝牙设备名称
+//获取测量设备蓝牙名称
 -(void)healthMeasureBlueToothName:(NSString *)name Mac:(NSString *)mac {
     NSLog(@"MeasureDemoBTName: %@",name);
     //    _contentLable.text = name;
@@ -101,6 +104,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
 
 //监听设备断开
 -(void)healthMeasureDisconnect {
+    self.resultLabel.text = @"设备已经断开";
     //    _contentLable.text = @"设备已经断开";
     //    count = 0;
 }
@@ -114,8 +118,18 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         if (NOMAL == state) {//体温计直接获取到数据
             self.displayLabel.text = [NSString stringWithFormat:@"%.1f ℃",tptdata.temperature];
             self.resultLabel.text = [NSString stringWithFormat:@"体温:%.1f ℃",tptdata.temperature];
+            CGFloat distance = (tptdata.temperature-32.0f)/0.2*4.9;
+            if (distance>0 && distance<=245) {//在可能出现的范围
+                [self.sliderImage mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.tempImage.mas_bottom).offset(-103- distance);
+                }];
+            }else if(distance>245){//测量体温超过42度
+                [self.sliderImage mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.centerY.equalTo(self.tempImage.mas_bottom).offset(-103- 250);
+                }];
+            }
         }else if(ERROR == state) {
-            self.displayLabel.text = @"";
+            self.displayLabel.text = @"异常";
             self.resultLabel.text = [NSString stringWithFormat:@"异常:%@",tptdata.err];
         }
     }
@@ -244,6 +258,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.top.equalTo(resultLabel.mas_bottom);
     }];
     tempImage.userInteractionEnabled = true;
+    self.tempImage = tempImage;
     _fw = 42.0f;//最高42度。1刻度代表0.2度。1刻度长4.9
     for(int i=0;i<=50;i++){
         if(i%5==0){
@@ -268,6 +283,7 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.centerY.equalTo(tempImage.mas_bottom).offset(-103);
     }];
     sliderImage.userInteractionEnabled = true;
+    self.sliderImage = sliderImage;
     if ([self.title isEqualToString:@"手动输入"]) {
         UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
         [sliderImage addGestureRecognizer:panGestureRecognizer];
@@ -282,7 +298,6 @@ static float temp = 32.00f;//开始滑动时候温度初始值
                 make.centerY.equalTo(tempImage.mas_bottom).offset(-103- 250);
             }];
         }
-        
     }
     //底部用户列表
     UIView *bottomView = [[UIView alloc]init];
@@ -353,6 +368,29 @@ static float temp = 32.00f;//开始滑动时候温度初始值
         make.height.offset(28*kiphone6H);
     }];
     self.nameBtn = nameBtn;
+    
+    //根据手机蓝牙状态提示用户
+    switch (_state) {
+        case BTSTATEUNSUPPORTED:
+            [SVProgressHUD showInfoWithStatus:@"该手机蓝牙不支持"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEUNAUTHORIZED:
+            [SVProgressHUD showInfoWithStatus:@"该手机未授权"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEPOWEREDOFF:
+            [SVProgressHUD showInfoWithStatus:@"尚未打开蓝牙,请在设置中打开"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+        case BTSTATEOTHER:
+            [SVProgressHUD showInfoWithStatus:@"该手机蓝牙处于异常状态"];
+            [SVProgressHUD dismissWithDelay:2.0f];
+            break;
+            
+        default:
+            break;
+    }
 
 }
 //点击用户头像手势事件
