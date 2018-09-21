@@ -8,11 +8,8 @@
 
 #import "YYTabBar.h"
 #import "YYTabBarItem.h"
-//#import "Pallete.h"
-//#import "Dimension.h"
-//#import "ScreenUtil.h"
-//#import "ImageUtil.h"
-#import "UIColor+Extension.h"
+//查看手机型号引用
+#import <sys/utsname.h>
 /** btn的tag值 */
 static NSUInteger kTag = 1000;
 
@@ -42,6 +39,8 @@ static NSUInteger kTag = 1000;
     /** 获取button的宽度 */
     CGFloat tabBarItemWidth = kScreenW / count ;
     /** 设置背景颜色 */
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithHexString:@"373a41"]];
+    tabBar.translucent = false;
     tabBar.backgroundColor = [UIColor colorWithHexString:@"383a41"];
     
     for (NSUInteger idx = 0; idx < count; idx++) {
@@ -106,8 +105,36 @@ static NSUInteger kTag = 1000;
 
 #pragma mark - view methods
 - (CGSize)sizeThatFits:(CGSize)size {
-    [super sizeThatFits:size];
-    return CGSizeMake(kScreenW, 55);
+    if(kScreenH > 736) {//是iphoneX,模拟器测不出
+        CGSize s = [super sizeThatFits:size];
+        if(@available(iOS 11.0, *))
+        {
+            CGFloat bottomInset = self.safeAreaInsets.bottom;
+            if( bottomInset > 0 && s.height < 50) {
+                s.height += bottomInset;
+            }
+        }
+        return s;
+    }else{//不是iphoneX
+        [super sizeThatFits:size];
+        return CGSizeMake(kScreenW, 55);
+    }
+    //    uname(&systemInfo);//📱机型信息
+    //    NSString*phoneType = [NSString stringWithCString: systemInfo.machine encoding:NSASCIIStringEncoding];
+    //    if([phoneType  isEqualToString:@"iPhone10,3"] ||[phoneType  isEqualToString:@"iPhone10,6"]) {//是iphoneX,模拟器测不出
+    //            CGSize s = [super sizeThatFits:size];
+    //            if(@available(iOS 11.0, *))
+    //            {
+    //                CGFloat bottomInset = self.safeAreaInsets.bottom;
+    //                if( bottomInset > 0 && s.height < 50) {
+    //                    s.height += bottomInset;
+    //                }
+    //            }
+    //            return s;
+    //    }else{//不是iphoneX
+    //        [super sizeThatFits:size];
+    //        return CGSizeMake(kScreenW, 55);
+    //    }
 }
 
 - (void)layoutSubviews {

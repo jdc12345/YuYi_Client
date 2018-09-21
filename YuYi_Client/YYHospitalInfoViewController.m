@@ -16,8 +16,10 @@
 #import <RongCallKit/RongCallKit.h>
 #import <UIImageView+WebCache.h>
 #import "HttpClient.h"
+#import <UIImageView+WebCache.h>
+#import "UILabel+Addition.h"
 
-@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate,RCIMUserInfoDataSource>
+@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate,RCIMUserInfoDataSource,UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UITextView *infoTextV;
@@ -26,6 +28,9 @@
 @property (nonatomic, weak) UIView *backClearView;
 @property (nonatomic, assign) BOOL isPending;  // 审核模式
 @property (nonatomic, strong) RCUserInfo *userInfo;//后台返回的医院医生信息
+@property (nonatomic, strong) UITableView *tableView;//医生信息列表
+@property (nonatomic, strong) NSMutableArray *dataSource;//医生信息列表数据源
+@property (nonatomic, strong) NSDictionary *curruntSelectedDoctorInfo;//当前选中医生信息
 @end
 
 @implementation YYHospitalInfoViewController
@@ -42,6 +47,8 @@
 
     
     [self createSomeViews];
+//加载该医院医生列表
+    [self loadDoctorListData];
     // Do any additional setup after loading the view.
 }
 
@@ -92,7 +99,7 @@
     [sureBtn setTitleColor:[UIColor colorWithHexString:@"ffffff"] forState:UIControlStateNormal];
 //    [sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 //    [sureBtn addTarget:self action:@selector(buttonClick1:) forControlEvents:UIControlEventTouchDown];
-    [sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [sureBtn addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.view addSubview:self.iconV];
@@ -115,8 +122,14 @@
     }];
 
     [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.right.offset(0);
+        make.left.right.offset(0);
         make.height.offset(44*kiphone6H);
+        if (kScreenH >736) {
+            make.bottom.offset(-34);
+        }else{
+            make.bottom.offset(0);
+        }
+        
     }];
 //    [lineL mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.bottom.equalTo(ws.view).with.offset(-49 *kiphone6);
@@ -181,9 +194,36 @@
         hospitalLabel.text = self.yyInfomationModel.hospitalName;
         starLabel.text = self.yyInfomationModel.grade;
     }
-    
 }
--(void)buttonClick:(UIButton *)button{
+//请求医生信息
+-(void)loadDoctorListData{
+//    有咨询权限医生的列表
+//http://59.110.169.148:8080/physician/doctory2.do?cid=1
+    NSString *doctorListUrl = [NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id];
+    [[HttpClient defaultClient]requestWithPath:doctorListUrl method:0 parameters:nil prepareExecute:^{
+        
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSNumber *code = responseObject[@"code"];
+        NSString *codeStr = [NSString stringWithFormat:@"%@",code];
+        if ([codeStr isEqualToString:@"0"]) {
+            NSArray *listArr = responseObject[@"physicianList"];
+            for (NSDictionary *dic in listArr) {
+                [self.dataSource addObject:dic];
+            }
+            [self.tableView reloadData];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"%@",error);
+    }];
+
+}
+#pragma mark -click
+//咨询按钮点击
+-(void)buttonClick{
+    self.tableView.hidden = !self.tableView.hidden;
+}
+//选中医生后选择联系方式
+-(void)didSelectedRow{
     //大蒙布View
     UIView *backClearView = [[UIView alloc]init];
     backClearView.backgroundColor = [UIColor colorWithHexString:@"#333333"];
@@ -339,46 +379,72 @@
 
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     
-    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id] method:0 parameters:nil prepareExecute:^{
-        
-    } success:^(NSURLSessionDataTask *task, id responseObject) {
-//        RCUserModel *userModel_rc = [RCUserModel defaultClient];
-//        userModel_rc.token = responseObject[@"token"];
-//        userModel_rc.Avatar = responseObject[@"Avatar"];
-//        userModel_rc.TrueName = responseObject[@"TrueName"];
-//        userModel_rc.info_id = responseObject[@"id"];
-        
-        //把后台返回的医院医生信息赋值，以便在融云通过用户回调方法(RCIMUserInfoDataSource)去取医生信息，进而显示在接通前的界面
-        self.userInfo = [[RCUserInfo alloc]initWithUserId:responseObject[@"id"] name:@"医生" portrait:@"http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4"];
-        
-        
-        if (!responseObject[@"id"]) {
-            [SVProgressHUD showInfoWithStatus:@"该医院暂未开放该功能"];
+    //把后台返回的医院医生信息赋值，以便在融云通过用户回调方法(RCIMUserInfoDataSource)去取医生信息，进而显示在接通前的界面
+//    NSString *imageUrlStr = [NSString stringWithFormat:@"%@%@",mPrefixUrl,self.curruntSelectedDoctorInfo[@"Avatar"]];
+    self.userInfo = [[RCUserInfo alloc]initWithUserId:self.curruntSelectedDoctorInfo[@"id"] name:self.curruntSelectedDoctorInfo[@"TrueName"] portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,self.curruntSelectedDoctorInfo[@"Avatar"]]];
+    
+        YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+        //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+        wordVC.conversationType = ConversationType_PRIVATE;
+        //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+        wordVC.targetId = self.curruntSelectedDoctorInfo[@"id"];
+        //            NSLog(@"医院id =。%@",responseObject[@"id"]);
+        if (index == 0) {
+            
+            wordVC.modalityVC = @"speech";
+            
+            
+        }else if(index == 1){
+            wordVC.modalityVC = @"av";
+            
         }else{
-            YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
-            //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
-            wordVC.conversationType = ConversationType_PRIVATE;
-            //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
-            wordVC.targetId = responseObject[@"id"];
-            NSLog(@"医院id =。%@",responseObject[@"id"]);
-            if (index == 0) {
-                
-                wordVC.modalityVC = @"speech";
-                
-                
-            }else if(index == 1){
-                wordVC.modalityVC = @"av";
-                                
-            }else{
-                wordVC.modalityVC = @"empty";
-            }
-            [self.navigationController pushViewController:wordVC animated:YES];
+            wordVC.modalityVC = @"empty";
         }
- 
-        
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        NSLog(@"%@",error);
-    }];
+        [self.navigationController pushViewController:wordVC animated:YES];
+    
+    
+    
+    
+    
+//    [[HttpClient defaultClient]requestWithPath:[NSString stringWithFormat:@"%@%@",mRCDoctorTokenUrl,self.yyInfomationModel.info_id] method:0 parameters:nil prepareExecute:^{
+//
+//    } success:^(NSURLSessionDataTask *task, id responseObject) {
+////        RCUserModel *userModel_rc = [RCUserModel defaultClient];
+////        userModel_rc.token = responseObject[@"token"];
+////        userModel_rc.Avatar = responseObject[@"Avatar"];
+////        userModel_rc.TrueName = responseObject[@"TrueName"];
+////        userModel_rc.info_id = responseObject[@"id"];
+//
+//        //把后台返回的医院医生信息赋值，以便在融云通过用户回调方法(RCIMUserInfoDataSource)去取医生信息，进而显示在接通前的界面
+//        self.userInfo = [[RCUserInfo alloc]initWithUserId:responseObject[@"id"] name:@"医生" portrait:@"http://a3.qpic.cn/psb?/V10dl1Mt1s0RoL/qvT5ZwDSegULprXup78nlo3*XNUqCRH8shghIkAnQTs!/b/dLMAAAAAAAAA&bo=ewJ7AgAAAAADByI!&rf=viewer_4"];
+//
+//        if (!responseObject[@"id"]) {
+//            [SVProgressHUD showInfoWithStatus:@"该医院暂未开放该功能"];
+//        }else{
+//            YYWordsViewController *wordVC = [[YYWordsViewController alloc]init];
+//            //设置会话的类型，如单聊、讨论组、群聊、聊天室、客服、公众服务会话等
+//            wordVC.conversationType = ConversationType_PRIVATE;
+//            //设置会话的目标会话ID。（单聊、客服、公众服务会话为对方的ID，讨论组、群聊、聊天室为会话的ID）
+//            wordVC.targetId = responseObject[@"id"];
+////            NSLog(@"医院id =。%@",responseObject[@"id"]);
+//            if (index == 0) {
+//
+//                wordVC.modalityVC = @"speech";
+//
+//
+//            }else if(index == 1){
+//                wordVC.modalityVC = @"av";
+//
+//            }else{
+//                wordVC.modalityVC = @"empty";
+//            }
+//            [self.navigationController pushViewController:wordVC animated:YES];
+//        }
+//
+//
+//    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+//        NSLog(@"%@",error);
+//    }];
 
    }
 //执行手势触发的方法：
@@ -451,8 +517,6 @@
         make.size.mas_equalTo(CGSizeMake(225 *kiphone6 ,40));
     }];
     
-    
-    
     // 取消确定view
     UIView *sureView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(selectView.frame), alertW, 60 *kiphone6)];
     UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -498,6 +562,92 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.backClearView removeFromSuperview];
+}
+
+#pragma - tableViewDelegate+datesource
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataSource.count;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"doctorlistCell" forIndexPath:indexPath];
+    NSDictionary *dic = self.dataSource[indexPath.row];
+    cell.textLabel.text = dic[@"TrueName"];
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",mPrefixUrl,dic[@"Avatar"]]]];
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    self.curruntSelectedDoctorInfo = self.dataSource[indexPath.row];
+    self.tableView.hidden = true;
+    [self didSelectedRow];
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *header = [[UIView alloc]init];
+    header.backgroundColor = [UIColor whiteColor];
+    UILabel *itemLabel = [UILabel labelWithText:@"医生列表" andTextColor:[UIColor blackColor] andFontSize:12];
+    itemLabel.backgroundColor = [UIColor whiteColor];
+    [header addSubview:itemLabel];
+    [itemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(15);
+        make.bottom.top.offset(0);
+        make.width.offset(100);
+    }];
+    UIView *line = [[UIView alloc]init];
+    line.backgroundColor = [UIColor darkTextColor];
+    line.alpha = 0.3;
+    [header addSubview:line];
+    [line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(15);
+        make.bottom.right.offset(0);
+        make.height.offset(0.5);
+    }];
+    return header;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
+#pragma - 懒加载
+- (UITableView *)tableView{
+    if (_tableView == nil) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithHexString:@"eeeeee"];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.indicatorStyle =
+//        _tableView.rowHeight = kScreenW *77/320.0 +10;
+        _tableView.rowHeight = 50;
+        _tableView.estimatedRowHeight = UITableViewAutomaticDimension;
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.scrollEnabled = NO;
+        _tableView.layer.borderColor = [UIColor blackColor].CGColor;
+        _tableView.layer.borderWidth = 0.5;
+        //        _tableView.header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefresh)];
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"doctorlistCell"];
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.offset(0);
+            make.width.offset(kScreenW-100);
+            make.height.offset(50*self.dataSource.count+50);
+        }];
+        [self.view bringSubviewToFront:_tableView];
+        _tableView.hidden = true;
+        
+    }
+    return _tableView;
+}
+- (NSMutableArray *)dataSource{
+    if (_dataSource == nil) {
+        _dataSource = [[NSMutableArray alloc]initWithCapacity:2];
+    }
+    return _dataSource;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

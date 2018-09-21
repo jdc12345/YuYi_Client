@@ -59,7 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"咨询";
-    NSLog(@"sadsadasdasdasdasdasdd--------------------%@",[RCUserModel defaultClient].token);
+//    NSLog(@"sadsadasdasdasdasdasdd--------------------%@",[RCUserModel defaultClient].token);
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self httpRequest];
@@ -119,7 +119,7 @@
     [[HttpClient defaultClient]requestWithPath:mHospitalInfoList method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
 
 
         NSArray *rowArray = responseObject[@"rows"];

@@ -92,10 +92,17 @@
 #pragma mark -
 #pragma mark ------------Tableview Delegate----------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    YYInfomationModel *infoModel = self.dataSource[indexPath.row];
     YYSectionViewController *sectionVC = [[YYSectionViewController alloc]init];
-    sectionVC.info_id = infoModel.info_id;
-    [self.navigationController pushViewController:sectionVC animated:YES];
+    if (self.dataSource.count > 0) {
+        YYInfomationModel *infoModel = self.dataSource[indexPath.row];
+        sectionVC.info_id = infoModel.info_id;
+        [self.navigationController pushViewController:sectionVC animated:YES];
+    }else{
+        [SVProgressHUD showWithStatus:@"加载数据中"];
+        [self.dataSource removeAllObjects];
+        [self httpRequest];
+        
+    }
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 #pragma mark -
@@ -130,18 +137,20 @@
 #pragma mark -
 #pragma mark ------------Http client----------------------
 - (void)httpRequest{
+    [SVProgressHUD show];
     [[HttpClient defaultClient]requestWithPath:mHospitalInfoList method:0 parameters:nil prepareExecute:^{
         
     } success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",responseObject);
         NSArray *rowArray = responseObject[@"rows"];
         for (NSDictionary *dict in rowArray){
             YYInfomationModel *infoModel = [YYInfomationModel mj_objectWithKeyValues:dict];
             [self.dataSource addObject:infoModel];
         }
         [self.tableView reloadData];
+        [SVProgressHUD dismiss];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
-        
+       [SVProgressHUD dismiss];
     }];
 }
 /*

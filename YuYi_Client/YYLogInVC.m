@@ -15,6 +15,8 @@
 #import "YYPInfomartionViewController.h"
 #import "YYNavigationController.h"
 #import <UIImageView+WebCache.h>
+#import <RongIMKit/RongIMKit.h>
+#import "RCUserModel.h"
 
 @interface YYLogInVC ()<UITextFieldDelegate>
 @property(nonatomic,weak)UITextField *telNumberField;
@@ -367,6 +369,50 @@
                 YYTabBarController *firstVC = [[YYTabBarController alloc]init];
                 [UIApplication sharedApplication].keyWindow.rootViewController = firstVC;
             }
+            
+            //r---------- 1 融云初始化 ----------
+            [[RCIM sharedRCIM] initWithAppKey:@"25wehl3u2qo7w"];
+            
+            //r---------- 2 登陆融云 ----------
+            //r---------- 2.1 向服务区请求用户信息 ----------
+            NSString *RCtokenUrl = [NSString stringWithFormat:@"%@%@",mRCtokenUrl,userModel.telephoneNum];
+            [[HttpClient defaultClient]requestWithPath:RCtokenUrl method:0 parameters:nil prepareExecute:^{
+                
+            } success:^(NSURLSessionDataTask *task, id responseObject) {
+                RCUserModel *userModel_rc = [RCUserModel defaultClient];
+                userModel_rc.token = responseObject[@"token"];
+                userModel_rc.Avatar = responseObject[@"Avatar"];
+                userModel_rc.TrueName = responseObject[@"TrueName"];
+                userModel_rc.info_id = responseObject[@"id"];
+                
+                //r---------- 2.2 用服务区请求的用户信息登录融云 ----------
+                [[RCIM sharedRCIM] connectWithToken:userModel_rc.token     success:^(NSString *userId) {
+//                    NSLog(@"登陆成功。当前登录的用户ID：%@", userId);
+                    
+                    [RCIM sharedRCIM].currentUserInfo = [[RCUserInfo alloc] initWithUserId:userId name:userModel_rc.TrueName portrait:[NSString stringWithFormat:@"%@%@",mPrefixUrl,userModel_rc.Avatar]];
+                    //登录融云在此执行，代理在appdelegate页面
+//                    [[RCIM sharedRCIM] setReceiveMessageDelegate:self];
+//                    [[RCIM sharedRCIM] setUserInfoDataSource:self];
+                    //            是否关闭所有的本地通知，默认值是NO
+                    [RCIM sharedRCIM].disableMessageNotificaiton = false;
+                    //            是否将用户信息和群组信息在本地持久化存储，默认值为NO
+                    [[RCIM sharedRCIM]setEnablePersistentUserInfoCache:YES];
+                } error:^(RCConnectErrorCode status) {
+                    NSLog(@"登陆的错误码为:%ld", (long)status);
+                } tokenIncorrect:^{
+                    //token过期或者不正确。
+                    //如果设置了token有效期并且token过期，请重新请求您的服务器获取新的token
+                    //如果没有设置token有效期却提示token错误，请检查您客户端和服务器的appkey是否匹配，还有检查您获取token的流程。
+                    NSLog(@"token错误");
+                }];
+                
+            } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                NSLog(@"%@",error);
+            }];
+            
+            
+            // 融云控制台输出信息种类
+            [RCIMClient sharedRCIMClient].logLevel = RC_Log_Level_Error;
             
         }else{
             if ([dic[@"result"] isEqualToString:@""]) {

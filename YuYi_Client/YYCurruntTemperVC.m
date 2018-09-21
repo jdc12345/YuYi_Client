@@ -466,8 +466,15 @@ static float temp = 32.00f;//开始滑动时候温度初始值
     NSString *usertoken = [CcUserModel defaultClient].userToken;
     // humeuserId
     YYHomeUserModel *homeUser = self.curruntUserModel;
-    NSRange range = [self.displayLabel.text rangeOfString:@"℃"];
-    NSString *temper = [self.displayLabel.text substringToIndex:range.location];
+    NSString *temper;
+    if (![self.displayLabel.text containsString:@"℃"]) {
+        [SVProgressHUD showInfoWithStatus:@"请测量或者滑动输入体温"];
+        return;
+    }else{
+        NSRange range = [self.displayLabel.text rangeOfString:@"℃"];
+        temper = [self.displayLabel.text substringToIndex:range.location];
+    }
+    
     if ([temper isEqualToString:@"0"]) {
         [SVProgressHUD showInfoWithStatus:@"请输入体温"];
         return;

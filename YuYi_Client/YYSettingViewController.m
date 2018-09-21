@@ -64,7 +64,7 @@
     self.view.backgroundColor = [UIColor colorWithHexString:@"f2f2f2"];
     
     
-    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"联系我们",@"意见反馈",@"关于我们",@"绑定手机号"],@[@"退出"]]];
+    self.dataSource = [[NSMutableArray alloc]initWithArray:@[@[@"联系我们",@"意见反馈",@"关于我们"],@[@"退出"]]];
     self.iconList =@[@[@"18511694068",@"男",@"布依族",@"24"],@[@"黑龙江哈尔滨",@"程序员",@"未婚"],@[@"2016-10-23"]];
     
     
@@ -101,8 +101,8 @@
             YYAboutUSViewController *aboutVC = [[YYAboutUSViewController alloc]init];
             [self.navigationController pushViewController:aboutVC animated:YES];
         }else if(indexPath.row == 3){
-            YYBindingTelNumVC *aboutVC = [[YYBindingTelNumVC alloc]init];
-            [self.navigationController pushViewController:aboutVC animated:YES];
+//            YYBindingTelNumVC *aboutVC = [[YYBindingTelNumVC alloc]init];
+//            [self.navigationController pushViewController:aboutVC animated:YES];
         }
     }else{
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:@"你确定退出吗" preferredStyle:UIAlertControllerStyleAlert];

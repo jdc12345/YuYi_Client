@@ -47,7 +47,10 @@
 #define mRCtokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/personal/rongyuToken.do?personalid="]
 //根据融云返回id查询用户信息
 #define mRCUserInfoUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/homeuser/findMyUserInfo.do?token="]
-#define mRCDoctorTokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/doctory.do?cid="]
+//#define mRCDoctorTokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/doctory.do?cid="]
+//请求医院对应医生列表
+#define mRCDoctorTokenUrl [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/physician/doctory2.do?cid="]
+
 // 医院列表接口
 #define mHospitalInfoList [NSString stringWithFormat:@"%@%@",mPrefixUrl,@"/hospital/findList.do?start=0&limit=10"]
 
