@@ -19,7 +19,7 @@
 #import <UIImageView+WebCache.h>
 #import "UILabel+Addition.h"
 
-@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate,RCIMUserInfoDataSource,UITableViewDelegate,UITableViewDataSource>
+@interface YYHospitalInfoViewController ()<RCCallSessionDelegate,UITextViewDelegate,RCIMUserInfoDataSource,UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
 
 @property (nonatomic, strong) UIImageView *iconV;
 @property (nonatomic, strong) UITextView *infoTextV;
@@ -220,7 +220,18 @@
 #pragma mark -click
 //咨询按钮点击
 -(void)buttonClick{
-    self.tableView.hidden = !self.tableView.hidden;
+    NSString *noticeStr = @"敬告各位业主：本服务为普通医学健康咨询，只能对业主的一些常见病提出医学建议。因为中医诊治疾病需要望、闻、问、切，西医需要望、触、叩、听和化验、超声、放射等检查，本服务只能根据您所陈述的和我们视频时看到的进行分析，资料欠缺很多，只能在当时提出一些医学建议，也很可能会告诉您到医院某科就诊，进行专科诊治。我们医务人员会尽自己自己最大能力为您提供咨询服务，但也难免有让各位业主不满意之处，请各位将我们医务人员工作欠缺之处在工作时间反馈到涿州中医医院医务部或打电话到3680284。我们会根据您的陈述和保存的视频资料进行整改，提高我们的服务水平，将保障各位业主身体健康工作做好。";
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"敬告各位业主"message:noticeStr delegate:self cancelButtonTitle:@"取消"otherButtonTitles:@"确定", nil];
+    [alert show];
+    [SVProgressHUD showInfoWithStatus:noticeStr];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{//点击弹窗按钮后
+    if (buttonIndex == 0) {//取消
+      self.tableView.hidden = true;
+    }else if (buttonIndex == 1){//确定
+      self.tableView.hidden = false;
+    }
+    
 }
 //选中医生后选择联系方式
 -(void)didSelectedRow{
